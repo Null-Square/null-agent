@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { generateKeyPairSync, sign } from 'node:crypto';
-import { mkdtemp, mkdir, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, realpath, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -197,7 +197,7 @@ try {
   await button('Open scope: ' + company).click();
   await page.getByText('workspace.example.test', {exact:true}).waitFor();
   await button('Select folder').click();
-  await page.getByText(dataDir, {exact:true}).waitFor();
+  await page.getByText(await realpath(dataDir), {exact:true}).waitFor();
   await button('Profile').click();
   await page.getByRole('heading', {name:'Profile', exact:true}).waitFor();
   await page.getByLabel('Full name').fill('Casey Operator');
