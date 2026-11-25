@@ -1,0 +1,444 @@
+/* =========================================================
+   NULLSQUARE DESIGN SYSTEM
+   Colors, Typography, Spacing, Radii, Shadows.
+
+   Aesthetic direction: serious, minimalist, restrained.
+   Think Linear / Vercel / Wiz — not cyberpunk terminal.
+   Black + white carry the system; yellow is used sparingly
+   as a single accent for primary actions and the brand mark.
+   ========================================================= */
+
+/* ---------- Webfonts (Google Fonts CDN) -------------------
+   Inter             — primary sans for UI, headlines, prose
+   Space Mono        — technical identifiers only (CVEs, IDs, timestamps)
+   ---------------------------------------------------------- */
+/* Host apps load Inter and Space Mono from their HTML entrypoints. */
+
+:root {
+  /* ---------- FONT STACKS ---------- */
+  --ns-font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ns-font-mono: "Space Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* ---------- FOUNDATION COLORS (DARK — DEFAULT) ----------
+     The surface resolves to black. Signal Block allows black and exactly one
+     lift above it; the old #111114 / #16161A / #1C1C21 / #242428 ladder was
+     four grey hexes, which is what made every card and panel read grey.
+     Separators are bone at alpha, not a grey hex, so lines stay in the same
+     colour family as the text they sit next to. */
+  --ns-bg:            #000000; /* primary background — pure black, brand choice */
+  --ns-surface:       #050507; /* inset / muted wash — barely off black */
+  --ns-card:          #08080A; /* cards, panels — the one lift above black */
+  --ns-elevated:      #101013; /* hover / emphasis only, one step above the lift */
+  --ns-border:        rgba(245, 245, 247, 0.11); /* 1px separators — the brand line */
+  --ns-border-strong: rgba(245, 245, 247, 0.20); /* the doc's --line-2: an overlay's own edge */
+  --ns-border-soft:   rgba(245, 245, 247, 0.06);
+  --ns-border-hair:   rgba(245, 245, 247, 0.03);
+
+  --ns-fg:            #F5F5F7;      /* primary text (off-white) */
+  /* Secondary/tertiary text is DIMMED BONE, never a separate grey. Deriving
+     these from --ns-fg (via alpha) keeps the whole ramp one family — the
+     Signal Block rule "dim bone, never grey". Alphas chosen to match the old
+     neutral tones so this is a correctness change, not a visible reflow. */
+  --ns-fg-muted:      rgba(245, 245, 247, 0.62);   /* secondary text */
+  --ns-fg-dim:        rgba(245, 245, 247, 0.36);   /* tertiary / timestamps */
+  --ns-fg-ghost:      rgba(245, 245, 247, 0.55);
+
+  /* ---------- BRAND / ACCENT ----------
+     Single accent. Use sparingly — one yellow moment per screen. */
+  --ns-yellow:         #F5D13A; /* matured electric yellow — slightly warmer, less neon */
+  --ns-yellow-hover:   #FFDE4A;
+  --ns-yellow-fg:      #000000; /* text color on top of yellow */
+  --ns-yellow-glow:    rgba(245, 209, 58, 0.22);
+  --ns-yellow-soft:    rgba(245, 209, 58, 0.08);
+
+  /* ---------- LIGHT-MODE FOUNDATIONS ----------
+     Mirror the dark ladder. Use warm off-white (#FAFAF9), never pure #FFF
+     as the base background — same logic that keeps dark off pure #000. */
+  --ns-paper:          #FAFAF9; /* page background — warm off-white */
+  --ns-paper-surface:  #F2F2F0; /* raised surfaces */
+  --ns-paper-card:     #FFFFFF; /* cards, panels (the only place #FFF is permitted) */
+  --ns-paper-elevated: #EAEAE7; /* hover / emphasis on cards (mirrors --ns-elevated) */
+  --ns-paper-border:   rgba(24, 24, 27, 0.12); /* 1px separators — dimmed ink, not grey */
+  --ns-paper-fg:       #18181B; /* primary text */
+  --ns-paper-muted:    rgba(24, 24, 27, 0.64); /* secondary text — dimmed ink, not grey */
+  --ns-paper-dim:      rgba(24, 24, 27, 0.42); /* tertiary / timestamps */
+  --ns-ink:            #000000; /* deepest ink — text on yellow, inverse pills */
+
+  /* ---------- STATUS / SEVERITY ----------
+     Matured: less neon, tuned for a dark neutral background. */
+  --ns-critical:      #E5484D; /* Critical findings */
+  --ns-high:          #F2711C; /* High severity */
+  --ns-medium:        #E0A82E; /* Medium — warmed off the signal yellow so the two never read alike */
+  --ns-low:           #4F7FE8; /* Low */
+  --ns-info:          #6E6E75; /* Info / metadata — neutral, de-blued off the old slate */
+  --ns-success:       #2FB27A; /* Success / verified */
+  --ns-warning:       #E8B339;
+
+  /* ---------- TRACE KINDS ----------
+     Inside a trajectory frame only, and nowhere else in the system.
+
+     A trace has one column that repeats on every row — what kind of thing this
+     was — and on an alpha ladder alone every row's kind reads the same weight,
+     so a reader has to read the word to know whether they are looking at the
+     agent talking or a container starting. Tinting that one column is what
+     makes the column skimmable.
+
+     Deliberately its own group. It is NOT the severity ramp (which answers
+     "how bad") and NOT the signal (which answers "live, or act here"), and it
+     must never be borrowed for either. Three hues plus two mutes plus dim bone
+     — the mutes say "a quieter member of the same family", which is how a
+     delegated tool reads next to a tool. One new hue enters the system here:
+     the cyan, chosen off both the ramp's blue (#4F7FE8) and its amber so a
+     tool call can never be mistaken for a severity. */
+  --ns-trace-voice:    #F5F5F7;                  /* the agent speaking — bone, the page's own voice */
+  --ns-trace-operator: #2FB27A;                  /* the operator speaking */
+  --ns-trace-context:  rgba(47, 178, 122, 0.58); /* context put in front of it — a quieter operator */
+  --ns-trace-tool:     #46B8D8;                  /* a tool call */
+  --ns-trace-worker:   rgba(70, 184, 216, 0.58); /* a delegated tool — a quieter tool */
+  --ns-trace-machine:  rgba(245, 245, 247, 0.36); /* plumbing — dim bone, never grey */
+
+  /* ---------- TYPOGRAPHY SCALE ----------
+     More restrained ladder — headings don't shout. */
+  --ns-t-display:     clamp(2.75rem, 5.5vw, 4.5rem); /* hero / cover */
+  --ns-t-hero:        clamp(2.25rem, 4vw, 3.5rem);
+  --ns-t-h1:          2.25rem;     /* 36px */
+  --ns-t-h2:          1.75rem;     /* 28px */
+  --ns-t-h3:          1.375rem;    /* 22px */
+  --ns-t-h4:          1.125rem;    /* 18px */
+  --ns-t-body:        1rem;        /* 16px */
+  --ns-t-body-sm:     0.875rem;    /* 14px */
+  --ns-t-caption:     0.8125rem;   /* 13px */
+  --ns-t-label:       0.75rem;     /* 12px */
+  --ns-t-micro:       0.6875rem;   /* 11px — mono IDs only */
+
+  --ns-lh-tight:      1.02;
+  --ns-lh-display:    1.05;
+  --ns-lh-heading:    1.15;
+  --ns-lh-body:       1.55;
+  --ns-lh-loose:      1.7;
+
+  --ns-track-display: -0.025em;  /* slightly tight, not aggressive */
+  --ns-track-h:       -0.015em;
+  --ns-track-label:   0.04em;    /* eyebrows — gentle, readable */
+  --ns-track-mono:    0;         /* mono needs no extra tracking */
+
+  /* ---------- SPACING SCALE (4px base) ---------- */
+  --ns-space-0:       0;
+  --ns-space-1:       4px;
+  --ns-space-2:       8px;
+  --ns-space-3:       12px;
+  --ns-space-4:       16px;
+  --ns-space-5:       24px;
+  --ns-space-6:       32px;
+  --ns-space-7:       48px;
+  --ns-space-8:       64px;
+  --ns-space-9:       96px;
+  --ns-space-10:      128px;
+  --ns-space-11:      160px;
+
+  /* ---------- RADII ----------
+     One consistent rounding language across product and marketing.
+     No more "product 0 / marketing 32" split — that produced the toy feel. */
+  --ns-radius-0:      0px;
+  --ns-radius-xs:     4px;      /* tags, inline chips */
+  --ns-radius-sm:     6px;      /* buttons, inputs, small cards */
+  --ns-radius-md:     8px;      /* default card/panel */
+  --ns-radius-lg:     12px;     /* feature cards, hero units */
+  --ns-radius-xl:     16px;     /* maximum — only on editorial blocks */
+  --ns-radius-pill:   9999px;
+
+  /* ---------- BORDERS ---------- */
+  --ns-border-w-hair: 1px;
+  --ns-border-w-std:  1px;
+  --ns-border-w-bold: 1.5px;
+
+  /* ---------- SHADOWS ----------
+     Soft, narrow, plausible. No neon glow as default. */
+  --ns-shadow-xs:     0 1px 2px rgba(0,0,0,0.3);
+  --ns-shadow-sm:     0 2px 4px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25);
+  --ns-shadow-md:     0 8px 24px rgba(0,0,0,0.35);
+  --ns-shadow-lg:     0 20px 48px rgba(0,0,0,0.45);
+  --ns-shadow-xl:     0 32px 64px rgba(0,0,0,0.55);
+
+  --ns-glow-yellow:   0 0 0 1px rgba(245, 209, 58, 0.35), 0 8px 24px rgba(245, 209, 58, 0.12);
+
+  /* ---------- BLUR / GLASS ---------- */
+  --ns-blur-sm:       blur(8px);
+  --ns-blur-md:       blur(16px);
+
+  /* ---------- GRID TEXTURES (optional, subtle) ---------- */
+  --ns-grid-line:     rgba(255,255,255,0.025);
+  --ns-grid-dot:      rgba(255,255,255,0.06);
+
+  /* ---------- MOTION ---------- */
+  --ns-ease-standard: cubic-bezier(0.32, 0.72, 0, 1); /* Linear-ish ease */
+  --ns-ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+  --ns-dur-fast:      120ms;
+  --ns-dur-std:       220ms;
+  --ns-dur-slow:      400ms;
+}
+
+/* =========================================================
+   LIGHT MODE — explicit re-binding
+   Activates with EITHER: <html data-theme="light"> OR class="light-mode".
+   Light mode is fully monochrome: black on warm off-white. The yellow
+   accent is dark-mode only — in light mode the brand reads as black + white.
+   Severity colors stay identical in both modes (they are data, not chrome).
+   ========================================================= */
+[data-theme="light"],
+.light-mode {
+  --ns-bg:          var(--ns-paper);
+  --ns-surface:     var(--ns-paper-surface);
+  --ns-card:        var(--ns-paper-card);
+  --ns-elevated:    var(--ns-paper-elevated);
+  --ns-border:      var(--ns-paper-border);
+  --ns-border-soft: rgba(24, 24, 27, 0.07);
+  --ns-border-hair: rgba(24, 24, 27, 0.04);
+
+  --ns-fg:          var(--ns-paper-fg);
+  --ns-fg-muted:    var(--ns-paper-muted);
+  --ns-fg-dim:      var(--ns-paper-dim);
+  --ns-fg-ghost:    rgba(24, 24, 27, 0.55);
+
+  /* Yellow → ink. The accent goes monochrome in light mode. Anything that
+     pointed at --ns-yellow now reads as black; text on it is white. The
+     yellow brand mark is handled by swapping to the all-black logo asset
+     (uploads/logoblack.png), not by overriding --ns-yellow. */
+  --ns-yellow:        #000000;
+  --ns-yellow-hover:  #1A1A1A;
+  --ns-yellow-fg:     #FFFFFF;
+  --ns-yellow-soft:   rgba(0, 0, 0, 0.06);
+  --ns-yellow-glow:   rgba(0, 0, 0, 0.10);
+  /* The accent is monochrome in light mode, so the focus/CTA glow has to go
+     monochrome with it — otherwise a yellow halo survives on a black button. */
+  --ns-glow-yellow:   0 0 0 1px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  /* Status colors retuned for contrast on the light (paper) background.
+     The dark-mode amber/green read as washed-out, low-contrast text on white
+     (e.g. golden "warning" verdict tags). Darken to ~AA-readable tones; this
+     cascades to --color-warning/--color-success and every text-/bg-/border-
+     warning|success utility across the app. */
+  --ns-warning:       #B45309; /* readable amber on white (dark mode: #E8B339) */
+  --ns-success:       #15803D; /* readable green on white (dark mode: #2FB27A) */
+
+  /* Trace kinds on paper. The hues darken the same way the status set does;
+     voice and machine invert to ink, since bone on white is nothing. */
+  --ns-trace-voice:    #18181B;
+  --ns-trace-operator: #15803D;
+  --ns-trace-context:  rgba(21, 128, 61, 0.72);
+  --ns-trace-tool:     #0E7490;
+  --ns-trace-worker:   rgba(14, 116, 144, 0.70);
+  --ns-trace-machine:  rgba(24, 24, 27, 0.42);
+
+  /* Grid texture flips polarity — dark lines on light bg. */
+  --ns-grid-line:   rgba(0, 0, 0, 0.04);
+  --ns-grid-dot:    rgba(0, 0, 0, 0.08);
+
+  /* Shadows are noticeably tighter in light mode (no deep blacks). */
+  --ns-shadow-xs:   0 1px 2px rgba(15, 15, 20, 0.05);
+  --ns-shadow-sm:   0 1px 2px rgba(15, 15, 20, 0.06), 0 1px 3px rgba(15, 15, 20, 0.04);
+  --ns-shadow-md:   0 4px 12px rgba(15, 15, 20, 0.07);
+  --ns-shadow-lg:   0 12px 32px rgba(15, 15, 20, 0.10);
+  --ns-shadow-xl:   0 24px 48px rgba(15, 15, 20, 0.14);
+}
+
+/* =========================================================
+   SEMANTIC ALIASES — map brand tokens onto generic roles
+   so product & marketing share one vocabulary.
+   ========================================================= */
+:root {
+  --fg1:           var(--ns-fg);
+  --fg2:           var(--ns-fg-muted);
+  --fg3:           var(--ns-fg-dim);
+  --bg1:           var(--ns-bg);
+  --bg2:           var(--ns-surface);
+  --bg3:           var(--ns-card);
+  --accent:        var(--ns-yellow);
+  --accent-fg:     var(--ns-yellow-fg);
+  --border-std:    var(--ns-border);
+  --border-soft:   var(--ns-border-soft);
+}
+
+/* =========================================================
+   BASE ELEMENT STYLES
+   ========================================================= */
+html { font-family: var(--ns-font-sans); }
+body {
+  background-color: var(--ns-bg);
+  color: var(--ns-fg);
+  font-family: var(--ns-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+::selection { background: var(--ns-yellow); color: var(--ns-yellow-fg); }
+
+/* =========================================================
+   SEMANTIC TYPOGRAPHY CLASSES
+   Sentence case by default. UPPERCASE only on small eyebrows
+   and button labels — never on display or H1.
+   ========================================================= */
+
+/* Eyebrow — small uppercase label above a headline.
+   No "// ", no extreme tracking. Just a quiet category marker. */
+.ns-eyebrow {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-label);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ns-track-label);
+  color: var(--ns-fg-muted);
+}
+.ns-eyebrow--accent { color: var(--ns-yellow); }
+
+/* Display / hero — sentence case, semibold, gentle negative track. */
+.ns-display {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-display);
+  font-weight: 600;
+  line-height: var(--ns-lh-display);
+  letter-spacing: var(--ns-track-display);
+}
+
+.ns-h1 {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-h1);
+  font-weight: 600;
+  line-height: var(--ns-lh-heading);
+  letter-spacing: var(--ns-track-h);
+}
+
+.ns-h2 {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-h2);
+  font-weight: 600;
+  line-height: var(--ns-lh-heading);
+  letter-spacing: var(--ns-track-h);
+}
+
+.ns-h3 {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-h3);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ns-h4 {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-h4);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Body copy — default product prose. */
+.ns-body {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-body);
+  line-height: var(--ns-lh-body);
+  color: var(--ns-fg-muted);
+}
+
+.ns-body-sm {
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-body-sm);
+  line-height: var(--ns-lh-body);
+  color: var(--ns-fg-muted);
+}
+
+/* Mono line — identifiers only (CVE IDs, hosts, timestamps, run IDs).
+   Mixed case OK, no forced uppercase. */
+.ns-mono {
+  font-family: var(--ns-font-mono);
+  font-size: var(--ns-t-caption);
+  line-height: 1.5;
+  color: var(--ns-fg-muted);
+  letter-spacing: 0;
+}
+
+/* Code block. */
+.ns-code {
+  font-family: var(--ns-font-mono);
+  font-size: var(--ns-t-body-sm);
+  color: var(--ns-fg);
+  background: var(--ns-surface);
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-md);
+  padding: var(--ns-space-4) var(--ns-space-5);
+  line-height: 1.65;
+}
+
+/* Primary button — rectangular, tight radius, quiet. */
+.ns-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+  padding: 10px 18px;
+  border-radius: var(--ns-radius-sm);
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-body-sm);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--ns-dur-fast) var(--ns-ease-standard),
+              border-color var(--ns-dur-fast) var(--ns-ease-standard);
+  border: 1px solid transparent;
+}
+.ns-btn--primary   { background: var(--ns-yellow); color: var(--ns-yellow-fg); }
+.ns-btn--primary:hover { background: var(--ns-yellow-hover); }
+.ns-btn--secondary { background: transparent; color: var(--ns-fg); border-color: var(--ns-border); }
+.ns-btn--secondary:hover { background: var(--ns-surface); border-color: var(--ns-border-soft); }
+.ns-btn--ghost     { background: transparent; color: var(--ns-fg-muted); }
+.ns-btn--ghost:hover { color: var(--ns-fg); background: var(--ns-surface); }
+
+/* Severity chip — compact, subtle tint, no forced uppercase shouting. */
+.ns-severity {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-t-label);
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--ns-radius-xs);
+  border: 1px solid transparent;
+}
+.ns-severity__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.ns-severity--critical { color: var(--ns-critical); background: rgba(229, 72, 77, 0.10);  border-color: rgba(229, 72, 77, 0.22); }
+.ns-severity--high     { color: var(--ns-high);     background: rgba(242,113, 28, 0.10);  border-color: rgba(242,113, 28, 0.22); }
+.ns-severity--medium   { color: var(--ns-medium);   background: rgba(232,179, 57, 0.10);  border-color: rgba(232,179, 57, 0.22); }
+.ns-severity--low      { color: var(--ns-low);      background: rgba( 79,127,232, 0.10);  border-color: rgba( 79,127,232, 0.22); }
+.ns-severity--info     { color: var(--ns-info);     background: rgba(107,114,128, 0.12);  border-color: rgba(107,114,128, 0.25); }
+.ns-severity--success  { color: var(--ns-success);  background: rgba( 47,178,122, 0.10);  border-color: rgba( 47,178,122, 0.22); }
+
+/* =========================================================
+   BACKGROUND TEXTURES  — use sparingly, at very low opacity.
+   ========================================================= */
+
+/* Subtle square grid — 0.025 opacity. Purely ambient. */
+.ns-bg-grid {
+  background-image:
+    linear-gradient(var(--ns-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ns-grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Soft radial for hero ambient light — single, warm, very subtle. */
+.ns-bg-ambient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(245, 209, 58, 0.06), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255, 255, 255, 0.02), transparent 60%);
+}
+
+/* =========================================================
+   ANIMATIONS — restrained. Fade + small translate only.
+   ========================================================= */
+@keyframes ns-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ns-pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+.ns-animate-in       { animation: ns-fade-in var(--ns-dur-std) var(--ns-ease-out) both; }
+.ns-animate-pulse    { animation: ns-pulse-dot 2s ease-in-out infinite; }

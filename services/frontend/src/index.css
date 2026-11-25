@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@source "../../../packages/design-tokens/src";
+@import "@null-ai/design-tokens/base.css";
+@import "@null-ai/design-tokens/ui-styles.css";
+
+/* NullSquare Design System — operator app overrides.
+   Foundation tokens (colors, radii, fonts) come from
+   @null-ai/design-tokens/base.css, which @imports the DS source-of-truth
+   colors_and_type.css and aliases --color-* via var(--ns-*) so the
+   dark↔light flip cascades automatically. Do NOT redeclare --color-*
+   tokens with hex here — that breaks the theme flip. See DS README §3.12.
+   Only operator-specific extras belong below. */
+
+@theme {
+  /* Status-foreground tokens not defined by the DS itself (kept here). */
+  --color-success-foreground: hsl(0 0% 100%);
+  --color-warning-foreground: var(--ns-yellow-fg);
+
+  /* Semantic text aliases — convenience names used across operator UI. */
+  --color-text-primary: var(--color-foreground);
+  --color-text-secondary: var(--color-body);
+  --color-text-muted: var(--color-muted-foreground);
+  --color-text-accent: var(--color-heading);
+  --color-text-inverse: var(--color-primary-foreground);
+
+  /* Surface hierarchy aliases — convenience names. */
+  --color-surface-base: var(--color-background);
+  --color-surface-raised: var(--color-card);
+  --color-surface-overlay: var(--color-popover);
+  --color-surface-sunken: var(--color-input);
+
+  /* Theme-aware monochrome accents (used in radial/heatmap effects). */
+  --color-radial-accent: rgba(255, 255, 255, 0.05);
+  /* Second stop of the page wash. Existed only as a hardcoded white literal in
+     19 components until 2026-08-07, so it never flipped on a light page. */
+  --color-radial-accent-soft: rgba(255, 255, 255, 0.04);
+  /* Hairlines drawn inside SVG charts, which cannot reach --color-border. */
+  --color-grid-line: rgba(255, 255, 255, 0.08);
+  --color-button-shadow: rgba(255, 255, 255, 0.1);
+  --color-heatmap-fill: 255, 255, 255;
+}
+
+/* Must mirror the DS selector in base.css. ThemeContext puts `light-mode` on
+   <body>, not <html>, so a `:root.light-mode` selector never matches and these
+   three tokens silently keep their dark (white) values on a light page —
+   which is what happened here until 2026-08-07. */
+.light-mode,
+[data-theme="light"] {
+  --color-radial-accent: rgba(0, 0, 0, 0.02);
+  --color-radial-accent-soft: rgba(0, 0, 0, 0.025);
+  --color-grid-line: rgba(0, 0, 0, 0.07);
+  --color-button-shadow: rgba(0, 0, 0, 0.05);
+  --color-heatmap-fill: 0, 0, 0;
+}
+
+/* Base styles */
+* {
+  border-color: var(--color-border);
+}
+
+@media (min-width: 1024px) and (max-width: 1600px) {
+  html {
+    /* Scale app linearly between 1024px and 1600px without dropping below readable text size */
+    font-size: clamp(12px, calc(100vw * (16 / 1600)), 16px);
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.notice {
+  padding: 12px;
+  margin-block: 12px;
+  background: var(--ns-surface);
+  border-left: 2px solid var(--ns-warning);
+  overflow-wrap: anywhere;
+}
+.local-form {
+  display: grid;
+  max-width: 600px;
+  gap: 16px;
+}
+.local-form label {
+  display: grid;
+  gap: 6px;
+}
+.local-form textarea,
+.local-form select,
+.local-form input:not([type="checkbox"]) {
+  border: 1px solid var(--ns-border);
+  padding: 8px;
+  background: var(--ns-card);
+}
+.local-form label.review-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+.review-text :is(h1, h2, h3, h4, h5, h6) {
+  margin-block: 1em 0.4em;
+  font-weight: 600;
+}
+.review-text blockquote {
+  border-inline-start: 2px solid var(--ns-border);
+  padding-inline-start: 0.75em;
+}

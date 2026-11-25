@@ -1,30 +1,10 @@
 name: Feature request
-description: Suggest an improvement for Null AI CLI
-labels: ["enhancement"]
+description: Describe a change to the local application
+labels: [enhancement]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Contributions should keep the [public boundary](../blob/main/docs/public-boundary.md)
-        intact. The OSS layer stays scoped and safe by design.
   - type: textarea
-    id: problem
+    id: request
     attributes:
-      label: Problem
-      description: What are you trying to do that is hard or impossible today?
+      label: What would you like to do, and what happens today?
     validations:
       required: true
-  - type: textarea
-    id: proposal
-    attributes:
-      label: Proposed solution
-      description: What would you like Null AI CLI to do?
-    validations:
-      required: true
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Alternatives considered
-      description: Other approaches you have thought about.
-    validations:
-      required: false

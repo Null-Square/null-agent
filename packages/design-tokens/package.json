@@ -1,0 +1,39 @@
+{
+  "name": "@null-ai/design-tokens",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "base.css",
+    "colors_and_type.css",
+    "assets",
+    "src",
+    "ui-styles.css"
+  ],
+  "style": "base.css",
+  "exports": {
+    ".": "./base.css",
+    "./base.css": "./base.css",
+    "./colors_and_type.css": "./colors_and_type.css",
+    "./ui": "./src/index.ts",
+    "./assets/*": "./assets/*",
+    "./ui-styles.css": "./ui-styles.css"
+  },
+  "description": "NullSquare brand: design tokens, assets, and the component library built on them.",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "clsx": "2.1.1",
+    "framer-motion": "12.36.0",
+    "lucide-react": "0.562.0",
+    "tailwind-merge": "3.5.0",
+    "@radix-ui/react-slot": "1.2.3",
+    "three": "0.179.1"
+  },
+  "devDependencies": {
+    "@types/three": "0.179.0"
+  },
+  "peerDependencies": {
+    "react": "19.2.9",
+    "react-dom": "19.2.9"
+  }
+}
