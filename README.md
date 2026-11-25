@@ -1,10 +1,12 @@
 # Null Agent
 
-![Animated walkthrough of a payments assessment, from six imported findings to linked compliance evidence and a source review](docs/images/payments-walkthrough.gif)
+Null Agent is a local browser workspace for security assessments. Bring in saved pentest findings, link control evidence, and ask your model to review the source behind a finding. The assessment and its original files stay in SQLite on your machine.
 
-Null Agent brings saved security findings, compliance records, and source changes into one local browser workspace. Open a finding, see which asset it belongs to, and follow the evidence into an assessment report. Connect a model when you want a second look at a file or patch.
+[![Recorded Null Agent session. An operator opens a payments finding, inspects its original analyzer output, runs a code review, checks the saved evidence references, and exports the assessment.](docs/images/payments-walkthrough.gif)](docs/images/payments-review.mp4)
 
-[Install locally](#quick-start) · [Try the payments demo](#first-assessment) · [View stills](#screenshots) · [Connect a model](#connect-a-model) · [Architecture](#architecture)
+**Watch one finding go through review.** The pointer, navigation, evidence import results, saved review, and Markdown export come from the running app. This payments workspace uses synthetic files and a simulated model response. [Play or download the MP4](docs/images/payments-review.mp4) · [View stills](#inside-the-payments-assessment)
+
+[Install](#quick-start) · [Reproduce the demo](#first-assessment) · [Assessment lifecycle](#assessment-lifecycle) · [Connect a model](#connect-a-model)
 
 ## Quick start
 
@@ -21,32 +23,31 @@ Open [http://127.0.0.1:4317](http://127.0.0.1:4317). Create a local owner with a
 
 ## First assessment
 
-Try a review of the **Payments service** using the synthetic files included in this repository. You can complete the evidence and reporting steps as soon as onboarding finishes.
+The recording follows a resource leak in the payments service. The analyzer points to `src/reader.js:3`. The source shows why it matters: the function opens a file, returns its contents, and leaves the handle open.
 
-1. In **Scopes**, create a scope named **Payments service** and open its assessment. In **Compliance → Evidence Library**, upload [payments-findings.jsonl](examples/payments-findings.jsonl). The five saved findings describe four assets.
-2. In **Risks**, open **Refund approval missing from audit log**. Read the evidence and remediation, set its status to **Confirmed**, and open **History** to see the change. In **Assets**, open `payments.example.test` to see the same finding from the asset’s perspective.
-3. In **Compliance**, select **SOC 2**, expand **Access Control**, and open `CC6.2`. Under **Evidence**, upload [access-review.txt](examples/access-review.txt). Reopen the control to see the linked record. The workspace includes 176 controls across six frameworks.
-4. In **Assessments**, open **Payments service** and select **View report**. Download **Markdown** for a reviewer or **SARIF** for a compatible tool.
+1. **Create the scope.** In **Scopes**, create **Payments service** and enter a review objective. Open its assessment.
+2. **Load the evidence.** In **Compliance → Evidence Library**, import [payments-findings.jsonl](examples/payments-findings.jsonl), [review-results.json](examples/payments/review-results.json), and [reader.js](examples/payments/reader.js). These supply six findings across four assets. To reproduce the control evidence, select **NIST CSF**, attach [change-approval.md](examples/payments/change-approval.md) to `GV.OC` and [risk-register.md](examples/payments/risk-register.md) to `GV.RM`.
+3. **Trace the finding.** In **Dashboard → Top risks**, open `example.file-handle-cleanup`. Under **Evidence**, choose **Preview original file**. Compare the recorded location and remediation with the source. Changing **Current status** adds an entry to **History**.
+4. **Run a review.** Connect a provider under **Models**. In the assessment, choose **Open workbench → Code review**, select `reader.js` and `review-results.json`, then **Run review**. Open **History** to see which files the model received and what it returned.
+5. **Take the results with you.** Under **Back to assessment → View report**, download the Markdown report with the latest review, or export the findings as SARIF. Triage, control linking, and exports also work before a model is connected.
 
-For a code review, upload [audit-log.diff](examples/audit-log.diff), connect a model in **Models**, then choose **Open workbench → Code review** in the assessment. Select the patch and run the review. The saved result stays with the assessment.
+## Assessment lifecycle
 
-## Screenshots
+![Assessment lifecycle from scope and external testing through local import, operator triage or model review, and report export](docs/images/assessment-lifecycle.svg)
 
-The animated cover and stills come from a local run using synthetic records. In addition to the five sample findings above, the captured workspace includes a sixth finding linked to `reader.js` and a simulated model response.
+Scope and planning happen in the workspace. Enumeration and vulnerability discovery happen in the external testing tools that produce the imported records. Null Agent's backend parses those records into findings, preserves their source, and groups them by recorded asset. Each status change becomes part of the finding's history.
 
-**The payments assessment at a glance.** Six open findings, four recorded assets, and five evidence files appear on the dashboard.
+For compliance, a reviewer can attach a file to a control and inspect the original. For a model review, the operator selects the inputs in the workbench. Cloud reviews require confirmation before sending those inputs. The saved response references its evidence, so a reviewer can reopen it after a restart.
 
-[![Payments dashboard showing six open risks, one high or critical risk, four assets, and five files](docs/images/dashboard.png)](docs/images/dashboard.png)
+## Inside the payments assessment
 
-| Triage a finding | Trace a control to its evidence |
-| --- | --- |
-| [![Payments risks sorted by severity and linked to assets](docs/images/risks-inbox.png)](docs/images/risks-inbox.png) | [![Evidence Library showing uploaded records and linked controls](docs/images/evidence-library.png)](docs/images/evidence-library.png) |
-| [Finding detail and remediation](docs/images/finding-detail.png) | [Control readiness](docs/images/control-readiness.png) |
+**Which finding needs attention, and where?** This view of the dashboard puts the risk list beside the four affected assets. The severity breakdown below it reflects the six imported findings. The coverage count reflects evidence linked to controls in this scope.
 
-| Inspect an asset | Review a source change |
-| --- | --- |
-| [![Four recorded assets with finding counts and severity](docs/images/assets.png)](docs/images/assets.png) | [![Source review with selected evidence and saved model feedback](docs/images/code-review.png)](docs/images/code-review.png) |
-| [Asset detail](docs/images/asset-detail.png) | [Model settings](docs/images/model-settings.png) |
+[![Payments dashboard with named risks, affected hosts, linked-control coverage and severity breakdown](docs/images/dashboard.png)](docs/images/dashboard.png)
+
+**What supports this control?** The evidence tab on the organizational context control shows the change approval attached to it. Open the record to inspect the original file.
+
+[![Control detail showing the change approval record linked to NIST CSF organizational context](docs/images/control-evidence.png)](docs/images/control-evidence.png)
 
 ## Connect a model
 
@@ -54,36 +55,12 @@ Open **Models** under **Setup**. Connect a provider, choose a model, and select 
 
 | Provider | Setup | Data used by the provider |
 | --- | --- | --- |
-| **Ollama** | Start Ollama on this computer, install a local text model, and choose **Ollama on this computer → Connect provider**. [Ollama CLI reference](https://docs.ollama.com/cli) | The selected review inputs go to Ollama at `127.0.0.1:11434`. |
+| **Ollama** | Start Ollama on this computer, install a local text model, and choose **Ollama on this computer â†’ Connect provider**. [Ollama CLI reference](https://docs.ollama.com/cli) | The selected review inputs go to Ollama at `127.0.0.1:11434`. |
 | **ChatGPT plan** | Choose **Continue with ChatGPT** and authorize NullSquare through OpenAI with an eligible account. Return to **Models** to choose an available model. [OpenAI sign-in guide](https://developers.openai.com/siwc/token-sharing-open-source) | After your confirmation in the workbench, OpenAI receives the scope description and selected review inputs. |
 | **OpenAI API** | Choose **OpenAI API**, paste a project API key, and click **Connect provider**. You can also set `NULLSQUARE_OPENAI_API_KEY` for the server process. [OpenAI API setup](https://developers.openai.com/api/docs/quickstart) | After your confirmation in the workbench, OpenAI receives the scope description and selected review inputs using your API account. |
 | **Claude API** | **Continue with Claude** opens Claude Console for API key setup and selects **Claude API** in NullSquare. Paste the key and click **Connect provider**. [Claude API key setup](https://platform.claude.com/docs/en/get-api-key) | After your confirmation in the workbench, Anthropic receives the scope description and selected review inputs using your API account. |
 
 Provider credentials are held in server memory for the session. Reconnect after a server restart.
-
-## Architecture
-
-The browser and API share one loopback server. SQLite stores imported originals, control mappings, finding history, and saved reviews.
-
-```mermaid
-flowchart LR
-    Browser["Browser workspace"] <-->|Same-origin HTTP| Server["NullSquare server<br/>127.0.0.1:4317"]
-    Server <-->|Read and write| DB[("Local SQLite workspace")]
-    Files["Saved findings, notes, and source excerpts"] -->|Import from browser| Browser
-    Server -->|Download| Reports["Markdown and SARIF"]
-```
-
-A model review starts with an explicit evidence selection. The workbench saves completed reviews with the assessment. Control readiness reflects the available evidence and its limits.
-
-```mermaid
-flowchart TD
-    Select["Select evidence in the workbench"] --> Provider{"Selected provider"}
-    Provider -->|Ollama| Local["Review on this computer"]
-    Provider -->|OpenAI or Claude| Confirm["Confirm sending selected review inputs"]
-    Confirm --> Cloud["Cloud model review"]
-    Local --> Save["Save completed review in SQLite"]
-    Cloud --> Save
-```
 
 ## Local data and troubleshooting
 
@@ -107,10 +84,10 @@ npx playwright install chromium
 npm run verify:local
 ```
 
-`npm run verify:local` builds the app, runs backend tests, and exercises the browser using a temporary SQLite workspace and simulated model responses. On Linux, use `npx playwright install --with-deps chromium` if Chromium’s system libraries are missing.
+`npm run verify:local` builds the app, runs backend tests, and exercises the browser using a temporary SQLite workspace and simulated model responses. On Linux, use `npx playwright install --with-deps chromium` if Chromiumâ€™s system libraries are missing.
 
-After a build, run `node scripts/test-browser.mjs --capture` to regenerate the demo stills. With FFmpeg on your path, run `node scripts/render-readme-cover.mjs` to rebuild the animated cover from the same capture.
+After building, run `node scripts/test-browser.mjs --capture` to refresh the demo screenshots. Add `--record` to capture the browser session and encode its captioned MP4 and looping GIF. Recording requires FFmpeg with libx264 and libass on your path.
 
 The browser UI draws from the October 3 legacy checkpoint `2c8340798e8f776f438e377410ec3998887dacdf`. The local backend adapts the compliance and source review logic from `legacy/v3.2-final` at `981a70c4a3d81dd3885120ef0f1b11306035de49`.
 
-[Contributing](CONTRIBUTING.md) · [Report a security issue](SECURITY.md) · [Apache 2.0 license](LICENSE)
+[Contributing](CONTRIBUTING.md) Â· [Report a security issue](SECURITY.md) Â· [Apache 2.0 license](LICENSE)

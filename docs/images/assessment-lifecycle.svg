@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 592" role="img" aria-labelledby="title desc">
+  <title id="title">How Null Agent builds an assessment</title>
+  <desc id="desc">The operator defines the scope. An external assessment produces observations and findings. Null Agent imports the original evidence into local SQLite. An operator triages findings and links controls, or selects evidence for model review. The workspace retains these decisions and exports Markdown and SARIF.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 7 3.5 0 7z" fill="#f4d333"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#f1f0e9}.tag{font:600 13px monospace;letter-spacing:1.1px;fill:#e1c53d}.title{font-size:23px;font-weight:700}.body{font-size:16px;fill:#cacbc3}.node{fill:#22231f;stroke:#4b4c42}.wire{fill:none;stroke:#f4d333;stroke-width:1.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="960" height="592" rx="16" fill="#141512"/>
+  <rect class="node" x="28" y="24" width="435" height="113" rx="8"/>
+  <text x="49" y="51" class="tag">IN NULL AGENT</text>
+  <text x="49" y="82" class="title">Define the assessment</text>
+  <text x="49" y="111" class="body">Record the target, objective, and framework.</text>
+  <rect class="node" x="497" y="24" width="435" height="113" rx="8"/>
+  <text x="518" y="51" class="tag">DURING AN EXTERNAL PENTEST</text>
+  <text x="518" y="82" class="title">Enumerate and test assets</text>
+  <text x="518" y="111" class="body">Save scanner observations and finding records.</text>
+  <path class="wire" d="M464 80h29"/>
+  <path class="wire" d="M246 137v21h116v20"/><path class="wire" d="M714 137v21H598v20"/>
+  <rect x="159" y="181" width="642" height="91" rx="8" fill="#313022" stroke="#b29e37"/>
+  <text x="181" y="211" class="title">Import evidence into the scope</text>
+  <text x="181" y="239" class="body">SQLite retains the original file and its links to findings and assets.</text>
+  <path class="wire" d="M362 272v20H246v20"/><path class="wire" d="M598 272v20h116v20"/>
+  <rect class="node" x="28" y="315" width="435" height="118" rx="8"/>
+  <text x="49" y="342" class="tag">OPERATOR</text>
+  <text x="49" y="373" class="title">Triage and link controls</text>
+  <text x="49" y="402" class="body">Record status changes and attach supporting files.</text>
+  <rect class="node" x="497" y="315" width="435" height="118" rx="8"/>
+  <text x="518" y="342" class="tag">OPTIONAL MODEL REVIEW</text>
+  <text x="518" y="373" class="title">Review selected evidence</text>
+  <text x="518" y="402" class="body">Save the response with its input file references.</text>
+  <path class="wire" d="M246 433v21h116v19"/><path class="wire" d="M714 433v21H598v19"/>
+  <rect class="node" x="159" y="477" width="642" height="90" rx="8"/>
+  <text x="181" y="507" class="title">Export the assessment</text>
+  <text x="181" y="537" class="body">Markdown summarizes the review. SARIF carries the findings.</text>
+</svg>

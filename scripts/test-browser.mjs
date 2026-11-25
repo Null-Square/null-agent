@@ -9,13 +9,14 @@ import { start } from '../services/backend/server.mjs';
 
 const capture = process.argv.includes('--capture');
 const images = fileURLToPath(new URL('../docs/images/', import.meta.url));
+const readPaymentsSample = name => readFile(new URL('../examples/payments/' + name, import.meta.url), 'utf8');
 const scopeName = 'Payments service';
 const model = 'fixture:review';
 const email = 'operator@example.test';
 const password = 'Local-2026';
 const company = 'Northstar Payments';
 const advice = {
-  'code-review': 'Review the cleanup path in reader.js and confirm the handle closes on every return.',
+  'code-review': 'reader.js:3 returns with the file handle still open. Wrap the read in try/finally and await handle.close() in finally so both successful reads and errors release the handle.',
   compliance: 'The change record names a reviewer and records approval. Verify that the record covers this release.',
 };
 const seen = [];
@@ -94,6 +95,7 @@ function planFixture() {
 }
 
 async function runReviews(page) {
+  const previousCalls = seen.length;
   for (const workflow of ['compliance', 'code-review']) {
     await page.getByLabel('Review type').selectOption(workflow);
     const files = page.getByRole('group', {name:'Evidence to review'});
@@ -109,14 +111,15 @@ async function runReviews(page) {
     assert.deepEqual(request.postDataJSON().artifactIds.sort(), selected.map(name => artifactIds.get(name)).sort());
     await page.getByText(advice[workflow], {exact:true}).waitFor();
   }
-  assert.deepEqual(seen, ['compliance','code-review']);
+  assert.deepEqual(seen.slice(previousCalls), ['compliance','code-review']);
 }
 
 async function verifyRestored(page) {
   await page.getByRole('button', {name:'Open History phase'}).click();
   for (const workflow of ['compliance', 'code-review']) {
-    await page.locator('summary').filter({hasText:workflow}).click();
-    await page.getByText(advice[workflow], {exact:true}).waitFor();
+    const saved = page.locator('details').filter({has:page.locator('summary').filter({hasText:workflow})}).first();
+    await saved.locator('summary').click();
+    await saved.getByText(advice[workflow], {exact:true}).waitFor();
   }
 }
 
@@ -226,12 +229,13 @@ try {
   if (await group.getAttribute('aria-expanded') === 'false') await group.click();
   await page.getByLabel(/^Open control GV\.OC:/).click();
   await page.getByRole('tab', {name:'Evidence',exact:true}).click();
-  await upload('change-approval.md', 'The change record documents the approving reviewer and the release date.');
+  await upload('change-approval.md', await readPaymentsSample('change-approval.md'));
+  await screenshot('control-evidence');
   await nav('Compliance');
   await page.getByRole('tab', {name:'Evidence Library'}).click();
   const demoFindings = await readFile(new URL('../examples/payments-findings.jsonl', import.meta.url), 'utf8');
   await upload('payments-findings.jsonl', demoFindings);
-  await upload('risk-register.md', 'Payments risk review: the service owner will reconcile archive retention and document the follow-up.', 'GV.RM');
+  await upload('risk-register.md', await readPaymentsSample('risk-register.md'), 'GV.RM');
   const attachedBytes = Buffer.from([0, 122, 255, 10]);
   await upload('control-record.bin', attachedBytes, 'GV.OC');
   const attachedId = artifactIds.get('control-record.bin');
@@ -247,11 +251,8 @@ try {
   await page.getByRole('dialog', {name:'Remove evidence'}).getByRole('button', {name:'Remove', exact:true}).click();
   await page.getByRole('dialog', {name:'Remove evidence'}).waitFor({state:'hidden'});
   assert.equal((await context.request.get(downloadURL)).status(), 404);
-  await upload('reader.js', 'export function readDocument(handle) {\n  const result = handle.read();\n  return result;\n}\n');
-  await upload('review-results.json', JSON.stringify({results:[{
-    check_id:'example.file-handle-cleanup',path:'src/reader.js',start:{line:3},end:{line:3},
-    extra:{severity:'WARNING',message:'The early return may leave the file handle open.',metadata:{fix:'Close the handle in a finally block.', assetValue:'payments.example.test', assetKind:'domain'}},
-  }]}));
+  await upload('reader.js', await readPaymentsSample('reader.js'));
+  await upload('review-results.json', await readPaymentsSample('review-results.json'));
   await page.getByLabel('View reader.js', {exact:true}).click();
   const sourceDownload = page.waitForEvent('download');
   await page.getByRole('link', {name:'Download original',exact:true}).click();
@@ -267,7 +268,19 @@ try {
   await coverage.waitFor();
   assert.equal(await coverage.getAttribute('max'), '22');
   assert.ok(Number(await coverage.getAttribute('value')) > 0);
-  await screenshot('dashboard');
+  if (capture) {
+    const viewport = page.viewportSize();
+    await page.setViewportSize({width:1088,height:1180});
+    const topRisks = page.getByRole('heading',{name:'Top risks',exact:true});
+    await topRisks.evaluate(el => el.closest('section').parentElement.scrollIntoView({block:'start'}));
+    const sectionBox = title => page.getByRole('heading',{name:title,exact:true})
+      .evaluate(el => el.closest('section').getBoundingClientRect().toJSON());
+    const top = await sectionBox('Top risks');
+    const bottom = await sectionBox('Severity breakdown');
+    const clip = {x:top.left-12,y:top.top-12,width:bottom.right-top.left+24,height:bottom.bottom-top.top+24};
+    await page.screenshot({path:path.join(images,'dashboard.png'),animations:'disabled',clip});
+    await page.setViewportSize(viewport);
+  }
   await page.getByRole('link', {name:'payments.example.test', exact:true}).click();
   await page.getByRole('heading', {name:'payments.example.test', exact:true}).waitFor();
   await page.getByRole('link', {name:'review-results.json', exact:true}).waitFor();
@@ -389,6 +402,11 @@ try {
   await page.getByRole('link', {name:'Open workbench',exact:true}).click();
   await page.waitForURL('**/workbench');
   const workbenchUrl = page.url();
+  if (process.argv.includes('--record')) {
+    const { recordAssessment } = await import('./record-assessment.mjs');
+    await recordAssessment(page, images, advice['code-review']);
+    await page.goto(workbenchUrl);
+  }
   await runReviews(page);
   await screenshot('code-review');
   await page.getByRole('link', {name:'Back to assessment',exact:true}).click();

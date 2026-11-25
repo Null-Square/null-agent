@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "check_id": "example.file-handle-cleanup",
+      "path": "src/reader.js",
+      "start": {
+        "line": 3
+      },
+      "end": {
+        "line": 3
+      },
+      "extra": {
+        "severity": "WARNING",
+        "message": "The early return may leave the file handle open.",
+        "metadata": {
+          "fix": "Close the handle in a finally block.",
+          "assetValue": "payments.example.test",
+          "assetKind": "domain"
+        }
+      }
+    }
+  ]
+}
