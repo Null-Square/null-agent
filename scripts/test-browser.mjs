@@ -13,7 +13,7 @@ const scopeName = 'Payments service';
 const model = 'fixture:review';
 const email = 'operator@example.test';
 const password = 'Local-2026';
-const company = 'Local fixture workspace';
+const company = 'Northstar Payments';
 const advice = {
   'code-review': 'Review the cleanup path in reader.js and confirm the handle closes on every return.',
   compliance: 'The change record names a reviewer and records approval. Verify that the record covers this release.',
@@ -229,6 +229,9 @@ try {
   await upload('change-approval.md', 'The change record documents the approving reviewer and the release date.');
   await nav('Compliance');
   await page.getByRole('tab', {name:'Evidence Library'}).click();
+  const demoFindings = await readFile(new URL('../examples/payments-findings.jsonl', import.meta.url), 'utf8');
+  await upload('payments-findings.jsonl', demoFindings);
+  await upload('risk-register.md', 'Payments risk review: the service owner will reconcile archive retention and document the follow-up.', 'GV.RM');
   const attachedBytes = Buffer.from([0, 122, 255, 10]);
   await upload('control-record.bin', attachedBytes, 'GV.OC');
   const attachedId = artifactIds.get('control-record.bin');
@@ -288,7 +291,7 @@ try {
   const filter = page.getByPlaceholder('Search risks, assets, rules or files');
   await filter.fill('absent-from-this-scope');
   assert.equal(await page.getByRole('button', {name:/^Open risk:/}).count(), 0);
-  await filter.fill('reader.js');
+  await filter.fill('');
   const riskRow = page.getByRole('button', {name:/Open risk: .*file-handle-cleanup/});
   await riskRow.waitFor();
   await screenshot('risks-inbox');
@@ -401,7 +404,7 @@ try {
   await reportDialog.getByRole('link', {name:'Download SARIF',exact:true}).click();
   const exportedSarif = JSON.parse(await readFile(await (await sarif).path(), 'utf8'));
   assert.equal(exportedSarif.version, '2.1.0');
-  assert.equal(exportedSarif.runs[0].results.length, 1);
+  assert.equal(exportedSarif.runs[0].results.length, 1 + demoFindings.trim().split('\n').length);
 
   await page.goto('about:blank');
   await server.close();

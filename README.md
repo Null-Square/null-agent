@@ -1,10 +1,10 @@
 # Null Agent
 
-Build an assessment from saved security findings, compliance evidence, and source changes. The NullSquare workspace runs in your browser, stores data in SQLite on your computer, and lets you choose when to use a model.
+![Animated walkthrough of a payments assessment, from six imported findings to linked compliance evidence and a source review](docs/images/payments-walkthrough.gif)
 
-[Quick start](#quick-start) · [First assessment](#first-assessment) · [Screenshots](#screenshots) · [Connect a model](#connect-a-model) · [Architecture](#architecture)
+Null Agent brings saved security findings, compliance records, and source changes into one local browser workspace. Open a finding, see which asset it belongs to, and follow the evidence into an assessment report. Connect a model when you want a second look at a file or patch.
 
-![NullSquare Dashboard with scope metrics, finding history, and recorded assets](docs/images/dashboard.png)
+[Install locally](#quick-start) · [Try the payments demo](#first-assessment) · [View stills](#screenshots) · [Connect a model](#connect-a-model) · [Architecture](#architecture)
 
 ## Quick start
 
@@ -19,40 +19,34 @@ npm start
 
 Open [http://127.0.0.1:4317](http://127.0.0.1:4317). Create a local owner with an email and a password of at least eight characters. Add your organization and website in the setup wizard, then choose **Go to Console**. Importing evidence, browsing controls, triaging findings, and exporting reports work before you connect a model.
 
-## What you can do
-
-| Workflow | In NullSquare |
-| --- | --- |
-| Triage saved findings | Import supported analyzer output, filter the Risks inbox, open the evidence and remediation tabs, and record status changes. |
-| Work from recorded assets | Open an asset to see the findings and assessments that refer to it. |
-| Review compliance evidence | Browse 176 controls across SOC 2, ISO 27001, NIST CSF 2.0, GDPR, HIPAA, and PCI DSS v4.0.1. Attach evidence to a control and inspect traceable coverage. |
-| Review a source change | Select a source excerpt or patch, run a text review with your model, and inspect the cited evidence. |
-| Share assessment results | Download the Markdown report for people or a SARIF report for compatible tools. |
-
 ## First assessment
 
-Use the included synthetic files to try the same workflow shown in the screenshots.
+Try a review of the **Payments service** using the synthetic files included in this repository. You can complete the evidence and reporting steps as soon as onboarding finishes.
 
-1. **Choose a scope.** Setup creates the first scope and records the website under **Targets**. To use a separate scope for the sample files, select **New scope**, name it `Inventory service`, and add a short description.
-2. **Attach a control record.** In **Compliance**, select **SOC 2**, expand **Access Control**, and open `CC6.2`. Go to **Evidence → Upload evidence** and choose [access-review.txt](examples/access-review.txt).
-3. **Triage a saved finding.** In **Compliance → Evidence Library**, upload [saved-assessment.jsonl](examples/saved-assessment.jsonl). Open **Risks**, select the finding, and inspect its **Evidence** and **Remediation** tabs. Change **Current status** and check **History**.
-4. **Export the assessment.** Open the scope from **Assessments**, select **View report**, and download the Markdown or SARIF report.
+1. In **Scopes**, create a scope named **Payments service** and open its assessment. In **Compliance → Evidence Library**, upload [payments-findings.jsonl](examples/payments-findings.jsonl). The five saved findings describe four assets.
+2. In **Risks**, open **Refund approval missing from audit log**. Read the evidence and remediation, set its status to **Confirmed**, and open **History** to see the change. In **Assets**, open `payments.example.test` to see the same finding from the asset’s perspective.
+3. In **Compliance**, select **SOC 2**, expand **Access Control**, and open `CC6.2`. Under **Evidence**, upload [access-review.txt](examples/access-review.txt). Reopen the control to see the linked record. The workspace includes 176 controls across six frameworks.
+4. In **Assessments**, open **Payments service** and select **View report**. Download **Markdown** for a reviewer or **SARIF** for a compatible tool.
 
-To try a source review, upload [audit-log.diff](examples/audit-log.diff) through the Evidence Library and [connect a model](#connect-a-model). From the assessment, select **Open workbench**, choose **Code review**, select the patch, and click **Run review**.
+For a code review, upload [audit-log.diff](examples/audit-log.diff), connect a model in **Models**, then choose **Open workbench → Code review** in the assessment. Select the patch and run the review. The saved result stays with the assessment.
 
 ## Screenshots
 
-| Findings and remediation | Compliance control readiness |
-| --- | --- |
-| [![Risks inbox with a searchable finding list](docs/images/risks-inbox.png)](docs/images/risks-inbox.png) | [![Control Readiness with framework tabs and control outcomes](docs/images/control-readiness.png)](docs/images/control-readiness.png) |
-| [Finding detail](docs/images/finding-detail.png) | [Evidence Library](docs/images/evidence-library.png) |
+The animated cover and stills come from a local run using synthetic records. In addition to the five sample findings above, the captured workspace includes a sixth finding linked to `reader.js` and a simulated model response.
 
-| Assessment workspace | Code review workbench |
-| --- | --- |
-| [![A saved assessment with evidence and report actions](docs/images/assessment-overview.png)](docs/images/assessment-overview.png) | [![The review workbench with selected evidence and a sample code review](docs/images/code-review.png)](docs/images/code-review.png) |
-| [Assessment history](docs/images/assessment-history.png) · [Asset inventory](docs/images/assets.png) · [Asset detail](docs/images/asset-detail.png) | [Model settings](docs/images/model-settings.png) |
+**The payments assessment at a glance.** Six open findings, four recorded assets, and five evidence files appear on the dashboard.
 
-The screenshots were captured from the browser test with synthetic files and sample model responses.
+[![Payments dashboard showing six open risks, one high or critical risk, four assets, and five files](docs/images/dashboard.png)](docs/images/dashboard.png)
+
+| Triage a finding | Trace a control to its evidence |
+| --- | --- |
+| [![Payments risks sorted by severity and linked to assets](docs/images/risks-inbox.png)](docs/images/risks-inbox.png) | [![Evidence Library showing uploaded records and linked controls](docs/images/evidence-library.png)](docs/images/evidence-library.png) |
+| [Finding detail and remediation](docs/images/finding-detail.png) | [Control readiness](docs/images/control-readiness.png) |
+
+| Inspect an asset | Review a source change |
+| --- | --- |
+| [![Four recorded assets with finding counts and severity](docs/images/assets.png)](docs/images/assets.png) | [![Source review with selected evidence and saved model feedback](docs/images/code-review.png)](docs/images/code-review.png) |
+| [Asset detail](docs/images/asset-detail.png) | [Model settings](docs/images/model-settings.png) |
 
 ## Connect a model
 
@@ -115,7 +109,7 @@ npm run verify:local
 
 `npm run verify:local` builds the app, runs backend tests, and exercises the browser using a temporary SQLite workspace and simulated model responses. On Linux, use `npx playwright install --with-deps chromium` if Chromium’s system libraries are missing.
 
-To regenerate the screenshots after a build, run `node scripts/test-browser.mjs --capture`.
+After a build, run `node scripts/test-browser.mjs --capture` to regenerate the demo stills. With FFmpeg on your path, run `node scripts/render-readme-cover.mjs` to rebuild the animated cover from the same capture.
 
 The browser UI draws from the October 3 legacy checkpoint `2c8340798e8f776f438e377410ec3998887dacdf`. The local backend adapts the compliance and source review logic from `legacy/v3.2-final` at `981a70c4a3d81dd3885120ef0f1b11306035de49`.
 
