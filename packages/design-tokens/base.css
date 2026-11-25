@@ -1,0 +1,254 @@
+/* =========================================================
+   NULLSQUARE DESIGN TOKENS — Tailwind v4 integration
+   Source of truth: ./colors_and_type.css. There is no mirror — the former
+   packages/Design System copy was deleted because two files that must agree
+   are two files that eventually will not.
+   This file imports the source and aliases --ns-* onto the
+   Tailwind --color-* tokens consumed by shadcn primitives and
+   utility classes (bg-card, text-foreground, etc.).
+   See ./README.md for the canonical mapping rationale.
+   ========================================================= */
+
+@import "./colors_and_type.css";
+
+/* =========================================================
+   TAILWIND v4 @theme — alias --color-* onto NS tokens.
+   Values use var(--ns-*) references so light-mode rebinding
+   in colors_and_type.css cascades automatically. Do not
+   redeclare with hex — that breaks the theme flip.
+   ========================================================= */
+@theme {
+  /* ---------- Brand palette (direct utilities: bg-ns-yellow, etc.) ---------- */
+  --color-ns-yellow:    var(--ns-yellow);
+  --color-ns-bg:        var(--ns-bg);
+  --color-ns-surface:   var(--ns-surface);
+  --color-ns-card:      var(--ns-card);
+  --color-ns-elevated:  var(--ns-elevated);
+  --color-ns-border:    var(--ns-border);
+  --color-ns-fg:        var(--ns-fg);
+  --color-ns-fg-muted:  var(--ns-fg-muted);
+  --color-ns-fg-dim:    var(--ns-fg-dim);
+
+  /* ---------- Paper surface ----------
+     The mirror of --color-ns-inverse: a surface that stays LIGHT in both
+     themes. For rendered-document surfaces — report previews, PDF mocks,
+     print mockups — which read as paper regardless of the app's theme.
+     Without these, such blocks reach for raw zinc/gray and reintroduce the
+     parallel ladder the DS bans. Text on paper must come from the paper
+     ramp, not the semantic one. */
+  --color-ns-paper:          var(--ns-paper);
+  --color-ns-paper-surface:  var(--ns-paper-surface);
+  --color-ns-paper-border:   var(--ns-paper-border);
+  --color-ns-paper-fg:       var(--ns-paper-fg);
+  --color-ns-paper-muted:    var(--ns-paper-muted);
+
+  /* ---------- Inverse surface ----------
+     A surface that stays dark in BOTH themes. Distinct from --color-ns-bg,
+     which follows the theme and goes to paper in light mode. Used where a
+     block is deliberately dark regardless of the page around it: the marketing
+     hero sections, the Ticker's inverse band, and the theme toggle's dark
+     branch. Text on it must come from the dark ramp, not the semantic one. */
+  --color-ns-inverse:   var(--ns-bg);
+
+  /* ---------- Surface hierarchy aliases ---------- */
+  --color-surface-1:      var(--ns-bg);
+  --color-surface-2:      var(--ns-card);
+  --color-surface-3:      var(--ns-elevated);
+  --color-surface-inset:  var(--ns-surface);
+
+  /* ---------- The frame: surfaces that never invert ----------
+     A product screen, an LED board and a generated cover are OBJECTS,
+     photographed onto whichever page you are reading. They do not repaint when
+     the page changes theme — a screenshot of the app does not turn to paper
+     because the marketing page around it did.
+
+     These are deliberately ABSENT from the `.light-mode` block below. Adding
+     them there is precisely the bug they exist to prevent, so if a frame ever
+     needs a light variant, that is a brand decision and not a token edit.
+
+     Every other --color-* here is a page token and inverts. Reach for these
+     only when the thing you are colouring is an object on the page. */
+  --color-frame:              #000000;
+  --color-frame-fg:           #F5F5F7;
+  --color-frame-muted:        rgba(245, 245, 247, 0.62);
+  --color-frame-dim:          rgba(245, 245, 247, 0.30);
+  --color-frame-border:       rgba(245, 245, 247, 0.14);
+
+  /* ---------- Semantic Tailwind / shadcn tokens ---------- */
+  --color-background:         var(--ns-bg);
+  --color-foreground:         var(--ns-fg);
+  --color-heading:            var(--ns-fg);
+  --color-body:               var(--ns-fg);
+  --color-subtle:             var(--ns-fg-muted);
+
+  --color-card:               var(--ns-card);
+  --color-card-foreground:    var(--ns-fg);
+
+  /* One step above the card: dialog panels, hovered rows, disclosure bodies.
+     Declared here as well as in the palette above, because `bg-elevated` is
+     the name four shared components actually use. */
+  --color-elevated:           var(--ns-elevated);
+  --color-elevated-foreground: var(--ns-fg);
+
+  --color-popover:            var(--ns-elevated);
+  --color-popover-foreground: var(--ns-fg);
+
+  --color-primary:            var(--ns-yellow);
+  --color-primary-foreground: var(--ns-yellow-fg);
+
+  --color-secondary:            var(--ns-elevated);
+  --color-secondary-foreground: var(--ns-fg);
+
+  --color-muted:            var(--ns-surface);
+  --color-muted-foreground: var(--ns-fg-muted);
+
+  --color-accent:            var(--ns-yellow);
+  --color-accent-foreground: var(--ns-yellow-fg);
+
+  --color-destructive:            var(--ns-critical);
+  --color-destructive-foreground: var(--ns-fg);
+
+  --color-success: var(--ns-success);
+  --color-warning: var(--ns-warning);
+  --color-info:    var(--ns-info);
+
+  /* Severity ramp as utilities (bg-critical / text-high / border-medium …).
+     Severity is data, identical in both themes, so no light-mode override is
+     needed. Use these instead of raw palette colors (bg-red-500, bg-yellow-400)
+     so the whole app shares one severity vocabulary and the medium tier never
+     collides with the brand yellow. */
+  --color-critical: var(--ns-critical);
+  --color-high:     var(--ns-high);
+  --color-medium:   var(--ns-medium);
+  --color-low:      var(--ns-low);
+
+  /* Chart categorical palette — the ONLY categorical hues in the system, scoped
+     to genuine multi-series data-viz (never UI chrome). Fixed order, never
+     cycled. Deliberately clear of the severity ramp (blue/orange/amber/red) so a
+     chart colour never impersonates severity. Validated colorblind-safe on the
+     black chart surface via the dataviz skill's validator: adjacent-pair CVD ΔE
+     ≥ 8, so valid for bars / lines / stacked segments where only neighbours
+     touch. All-pairs forms (donut/pie) are capped at 3 — prefer flat bars. */
+  --ns-series-1: #8C7AE6; /* violet */
+  --ns-series-2: #D9679E; /* magenta */
+  --ns-series-3: #6FA82C; /* green */
+  --ns-series-4: #1AA0A3; /* teal */
+  --color-series-1: var(--ns-series-1);
+  --color-series-2: var(--ns-series-2);
+  --color-series-3: var(--ns-series-3);
+  --color-series-4: var(--ns-series-4);
+
+  --color-border: var(--ns-border);
+  --color-border-strong: var(--ns-border-strong);
+  --color-input:  var(--ns-surface);
+  --color-ring:   var(--ns-yellow);
+
+  --color-sidebar-background:         var(--ns-bg);
+  --color-sidebar-foreground:         var(--ns-fg);
+  --color-sidebar-primary:            var(--ns-yellow);
+  --color-sidebar-primary-foreground: var(--ns-yellow-fg);
+  --color-sidebar-accent:             var(--ns-card);
+  --color-sidebar-accent-foreground:  var(--ns-fg);
+  --color-sidebar-border:             var(--ns-border);
+  --color-sidebar-ring:               var(--ns-yellow);
+
+  /* ---------- Type ---------- */
+  --font-sans: var(--ns-font-sans);
+  --font-mono: var(--ns-font-mono);
+
+  /* ---------- Radii — DS warm minimal language (6 / 8 / 12 / 16px) ---------- */
+  --radius-sm: var(--ns-radius-sm);
+  --radius-md: var(--ns-radius-md);
+  --radius-lg: var(--ns-radius-lg);
+  --radius-xl: var(--ns-radius-xl);
+}
+
+/* =========================================================
+   LIGHT MODE — explicit --color-* override.
+   Tailwind v4 inlines var() references inside @theme when generating
+   color utilities (so opacity modifiers like bg-card/50 work via
+   color-mix). That inlining freezes --color-* to the dark hex values,
+   so the dark↔light flip needs an explicit override here that bypasses
+   the @theme indirection.
+   Mirrors colors_and_type.css's [data-theme="light"], .light-mode block.
+   ========================================================= */
+[data-theme="light"],
+.light-mode {
+  /* Brand palette (direct utilities)
+     Light mode is fully monochrome — accent becomes ink. The brand reads
+     as black + white in light mode; yellow is a dark-mode-only accent. */
+  --color-ns-yellow:    #000000;
+  --color-ns-bg:        #FAFAF9;
+  --color-ns-surface:   #F2F2F0;
+  --color-ns-card:      #FFFFFF;
+  --color-ns-elevated:  #EAEAE7;
+  --color-ns-border:    rgba(24, 24, 27, 0.12);
+  --color-ns-fg:        #18181B;
+  --color-ns-fg-muted:  rgba(24, 24, 27, 0.64);
+  --color-ns-fg-dim:    rgba(24, 24, 27, 0.42);
+
+  /* Inverse surface stays dark on paper, hence ink rather than the page bg. */
+  --color-ns-inverse:   #18181B;
+
+  /* Surface hierarchy */
+  --color-surface-1:      #FAFAF9;
+  --color-surface-2:      #FFFFFF;
+  --color-surface-3:      #EAEAE7;
+  --color-surface-inset:  #F2F2F0;
+
+  /* Semantic shadcn tokens */
+  --color-background: #FAFAF9;
+  --color-foreground: #18181B;
+  --color-heading:    #18181B;
+  --color-body:       #18181B;
+  --color-subtle:     rgba(24, 24, 27, 0.64);
+
+  --color-card:               #FFFFFF;
+  --color-elevated:           #EAEAE7;
+  --color-card-foreground:    #18181B;
+
+  --color-popover:            #FFFFFF;
+  --color-popover-foreground: #18181B;
+
+  /* Accent goes monochrome — black on white. No yellow in light mode. */
+  --color-primary:            #000000;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary:            #EAEAE7;
+  --color-secondary-foreground: #18181B;
+
+  --color-muted:            #F2F2F0;
+  --color-muted-foreground: rgba(24, 24, 27, 0.64);
+
+  --color-accent:            #000000;
+  --color-accent-foreground: #FFFFFF;
+
+  --color-destructive:            #E5484D;
+  --color-destructive-foreground: #FFFFFF;
+
+  /* Severity, retuned for paper. colors_and_type.css already darkens
+     --ns-success/--ns-warning for light mode and states that it "cascades to
+     --color-warning/--color-success and every text-/bg-/border-warning|success
+     utility across the app" — but that cascade cannot happen on its own: the
+     @theme block above is inlined by Tailwind v4, freezing these at their dark
+     values. Without these two lines the light page renders the dark-tuned
+     amber/green the DS specifically set out to avoid. Keep in step with
+     colors_and_type.css's light block.
+     --color-info is deliberately absent: --ns-info is not retuned for light. */
+  --color-success: #15803D;
+  --color-warning: #B45309;
+
+  --color-border: rgba(24, 24, 27, 0.12);
+  --color-border-strong: rgba(24, 24, 27, 0.22);
+  --color-input:  #FFFFFF;
+  --color-ring:   #000000;
+
+  --color-sidebar-background:         #FAFAF9;
+  --color-sidebar-foreground:         #18181B;
+  --color-sidebar-primary:            #000000;
+  --color-sidebar-primary-foreground: #FFFFFF;
+  --color-sidebar-accent:             #F2F2F0;
+  --color-sidebar-accent-foreground:  #18181B;
+  --color-sidebar-border:             rgba(24, 24, 27, 0.12);
+  --color-sidebar-ring:               #000000;
+}

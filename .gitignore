@@ -1,6 +1,10 @@
 node_modules/
 dist/
 .null/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal
 coverage/
 *.log
 *.tgz

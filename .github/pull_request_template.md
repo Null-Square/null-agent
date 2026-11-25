@@ -1,13 +1,7 @@
-## Summary
+## Change
 
-Describe the change and why it is needed.
+Describe the affected user workflow.
 
 ## Verification
 
-- [ ] `npm run verify`
-- [ ] `npm run test:e2e`
-- [ ] Docs updated, if user-facing behavior changed
-
-## Public Boundary
-
-- [ ] This change does not add managed-platform internals, customer artifacts, private heuristics, or unsafe automation.
+List the checks you ran and any platform or provider you could not test.

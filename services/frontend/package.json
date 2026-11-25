@@ -1,0 +1,27 @@
+{
+  "name": "@nullsquare/local-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && vite build"
+  },
+  "dependencies": {
+    "@null-ai/contracts": "*",
+    "@null-ai/design-tokens": "*",
+    "@tanstack/react-query": "5.90.12",
+    "react-router-dom": "7.18.2",
+    "react": "19.2.9",
+    "react-markdown": "10.1.0",
+    "react-dom": "19.2.9",
+    "lucide-react": "0.562.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@tailwindcss/vite": "4.1.18",
+    "tailwindcss": "4.1.18",
+    "typescript": "5.9.3",
+    "vite": "7.3.8",
+    "@vitejs/plugin-react": "5.1.2"
+  }
+}

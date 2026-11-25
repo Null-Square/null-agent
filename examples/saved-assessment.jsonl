@@ -1,0 +1,1 @@
+{"template-id":"sample-response-metadata","info":{"name":"Response includes build metadata","severity":"low","description":"The sample inventory service returned an internal build label in a response header.","remediation":"Remove the internal label from public responses."},"host":"inventory.example.test"}

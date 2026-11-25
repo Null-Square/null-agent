@@ -1,8 +1,1 @@
-blank_issues_enabled: false
-contact_links:
-  - name: Security vulnerability
-    url: https://github.com/Null-Square/Null-CLi/security/policy
-    about: Please report security issues privately. See SECURITY.md; do not open a public issue.
-  - name: NullSquare managed platform
-    url: https://nullsquare.net
-    about: Questions about hosted assessments, dashboards, and enterprise features.
+blank_issues_enabled: true

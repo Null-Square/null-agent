@@ -1,0 +1,841 @@
+/* =========================================================
+   NullSquare component utilities.
+
+   Replaces the 612-line `packages/ui/src/styles.css`. Of its 35 utilities only
+   7 had a live consumer; the rest were dead weight from the retired
+   "Cyber-Industrial DOC_V6.0" language — `sharp-corners`, `shadow-brutal*`,
+   `cut-corner`, `corner-brackets`, `crt-overlay`, `focus-brutal`,
+   `transition-hard`, `hover-invert`, and nine unused animations.
+
+   Two live utilities were dropped deliberately rather than carried over,
+   because the design system retired the effects themselves (README §3.4:
+   "Removed from the old system: scanlines… the dominant source of 'gamified'
+   feel"):
+
+     .animate-scanline  — its only consumer was ScanlineOverlay
+     .glitch-static     — its only consumer was GlitchText
+
+   Everything below earns its place: it is in use and consistent with the
+   brand. Prefer a token or a Tailwind utility over adding to this file.
+   ========================================================= */
+
+/* Marquee — continuous horizontal scroll for logo/ticker strips.
+   Pauses on hover so a reader can actually read it. */
+@keyframes ns-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  animation: ns-marquee 20s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none; }
+}
+
+/* Hollow outline type. Marketing display only — never for UI text, and never
+   below ~48px, where the stroke closes up and the word stops being legible. */
+.text-stroke-2 {
+  -webkit-text-stroke: 2px var(--ns-yellow);
+  color: transparent;
+}
+
+.text-stroke-0 {
+  -webkit-text-stroke: 0;
+  color: inherit;
+}
+
+/* Below the display breakpoint an outline is unreadable, so fall back to solid
+   rather than shipping a word nobody can make out on a phone. */
+@media (max-width: 767px) {
+  .text-stroke-2 {
+    -webkit-text-stroke: 0;
+    color: var(--ns-yellow);
+  }
+}
+
+/* The one sanctioned accent glow (README: reserved for a primary CTA that
+   needs to breathe — never a default). */
+.glow-yellow {
+  box-shadow: var(--ns-glow-yellow);
+}
+
+/* Account and identity composition ----------------------------------------
+   Palette tokens alone cannot keep separate apps visually aligned. These
+   two recipes provide the restrained page ambient and neutral card treatment
+   shared by sign-in, verification, and application onboarding surfaces. */
+/* The ground is black. It carried a radial wash from the top and a second
+   linear gradient fixed over the viewport — the two effects `ListPageShell`
+   rules out in as many words, on the first screen anyone sees. */
+.ns-auth-page {
+  position: relative;
+  isolation: isolate;
+  background: var(--ns-bg);
+}
+
+/* One hairline, radius 0, no shadow, and an opaque ground: the card used a
+   20px radius, a large drop shadow and a translucent fill, so it read as a
+   pane floating over the page rather than a frame drawn on it. */
+.ns-auth-card {
+  border: 1px solid var(--ns-border);
+  background: var(--ns-bg);
+}
+
+/* Scrollbars. `no-scrollbar` hides the affordance for a custom-scrolled
+   region; `scrollbar-slim` is the visible brand-neutral one. */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ns-border) transparent;
+}
+
+.scrollbar-slim::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-slim::-webkit-scrollbar-track,
+.scrollbar-slim::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.scrollbar-slim::-webkit-scrollbar-thumb {
+  background: var(--ns-border);
+  border-radius: var(--ns-radius-pill);
+}
+
+.scrollbar-slim::-webkit-scrollbar-thumb:hover {
+  background: var(--ns-elevated);
+}
+
+/* Shared agent workbench --------------------------------------------------- */
+
+/* The brand's one "live" animation is a discrete flicker, not a soft breathe —
+   every cell in this system is either on or off, never fading through it.
+   (The old spin + soft-pulse keyframes were removed: nothing spins, and the
+   live mark flickers rather than breathes.) */
+@keyframes ns-blink {
+  50% { opacity: 0; }
+}
+
+/* Reusable live marker: a signal square that flickers on/off. Use on the one
+   live indicator per surface (phase in progress, active stream, agent working).
+
+   It carries its own shape. The rule used to set the animation and nothing
+   else, so a bare <span class="ns-live-mark"> was a 0x0 transparent inline
+   element animating something you could not see: every call site that worked
+   had also hand-written h-[7px] w-[7px] bg-primary, and the fourteen that had
+   not were invisible. Utilities still override all three. */
+.ns-live-mark {
+  display: inline-block;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  background: currentColor;
+  animation: ns-blink 1.1s steps(1) infinite;
+}
+
+/* The flicker on its own, for a mark that already carries its own shape.
+
+   `ns-live-mark` bundles animation AND a 7px square, which is right for a bare
+   indicator and wrong for anything drawn from cells — a disclosure mark, an
+   icon — that would then be overwritten by a square. Same keyframe, no
+   geometry. */
+.ns-blink {
+  animation: ns-blink 1.1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-blink { animation: none; }
+}
+
+/* Attention mark: the same discrete flicker, said a FIXED number of times.
+
+   `ns-live-mark` runs forever because "live" is a condition that persists —
+   the agent is working right now. Attention is not that. It is a fact ("there
+   is work here") that needs to catch the eye once and then stop competing with
+   the page. An infinite flicker on chrome that appears on every screen is how
+   an indicator becomes wallpaper, and the dot's whole value is that people
+   still look at it in six months.
+
+   So: three flickers, then it holds solid. Same keyframe, because the brand has
+   exactly one animation — only the count differs. */
+.ns-attention {
+  animation: ns-blink 1.1s steps(1) 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-attention { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   THE BOOT SCREEN. One in the whole system.
+
+   Every surface used to wait in its own way: the website had a logo and a
+   sweeping bar, the console showed a mono caption that CHANGED as it went
+   ("Preparing the console" → "Reading your account"), and each panel improvised
+   below that. Three different waits in one sign-in reads as three things going
+   wrong, not one thing loading.
+
+   So the animation lives here, once. Change these keyframes and the website,
+   the console and the partner portal all change together — which is the only
+   way a brand animation stays a brand animation.
+
+   `.ns-loader-reveal` is delayed on purpose: a load that finishes inside 150ms
+   never paints the loader at all. The other half of that promise is
+   `useMinimumVisible` — once it HAS painted, it stays long enough to be read.
+   ───────────────────────────────────────────────────────────────────────── */
+@keyframes ns-loader-reveal {
+  0% { opacity: 0; transform: translateY(8px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes ns-loader-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* translateX is relative to the bar's own width (40% of the track), so 250%
+   carries it fully across and out the right edge. A bar that travels, not a
+   ring that spins — nothing in this system spins. */
+@keyframes ns-loader-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+.ns-loader-reveal {
+  opacity: 0;
+  animation: ns-loader-reveal 0.45s ease-out 0.15s forwards;
+}
+
+.ns-loader-breathe {
+  animation: ns-loader-breathe 2.2s ease-in-out infinite;
+}
+
+.ns-loader-sweep {
+  animation: ns-loader-sweep 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* The lockup names the INK, not the ground, so the dark-ground page wants the
+   light-ink file. Both are rendered and CSS picks one: the loader paints before
+   any theme provider has mounted, so it cannot ask React which theme is on. */
+.ns-loader-ink-light { display: block; }
+.ns-loader-ink-dark { display: none; }
+
+.light-mode .ns-loader-ink-light,
+[data-theme="light"] .ns-loader-ink-light { display: none; }
+
+.light-mode .ns-loader-ink-dark,
+[data-theme="light"] .ns-loader-ink-dark { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-loader-reveal { opacity: 1; animation: none; }
+  .ns-loader-breathe { animation: none; }
+  /* The sweep is the only thing still saying "working", so it is slowed rather
+     than stopped — a frozen progress bar reads as a hang. */
+  .ns-loader-sweep { animation-duration: 3s; }
+}
+
+.ns-agent-workbench {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--ns-fg);
+  background: var(--ns-bg);
+}
+
+.ns-agent-workbench__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image:
+    linear-gradient(var(--ns-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ns-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.ns-agent-workbench__toolbar {
+  position: relative;
+  z-index: 2;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ns-space-3);
+  padding: 6px var(--ns-space-4);
+  border-bottom: 1px solid var(--ns-border-soft);
+  background: color-mix(in srgb, var(--ns-bg) 88%, transparent);
+}
+
+.ns-agent-workbench__toolbar-group {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-4);
+}
+
+.ns-agent-workbench__toolbar-group--right {
+  justify-content: flex-end;
+  gap: var(--ns-space-2);
+}
+
+.ns-agent-workbench__meta,
+.ns-agent-workbench__actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+}
+
+.ns-agent-workbench__status,
+.ns-agent-workbench__counter,
+.ns-agent-workbench__context,
+.ns-agent-workbench__readonly {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: var(--ns-fg-muted);
+  font: 600 11px/1 var(--ns-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.ns-agent-workbench__status i {
+  width: 7px;
+  height: 7px;
+  background: var(--ns-fg-dim); /* square status mark — the brand has no status circles */
+}
+
+/* Live = the signal square flickering (the brand's one animation), never a
+   soft breathe. */
+.ns-agent-workbench__status--active i {
+  background: var(--ns-yellow);
+  animation: ns-blink 1.1s steps(1) infinite;
+}
+
+.ns-agent-workbench__status--paused i { background: var(--ns-warning); }
+.ns-agent-workbench__status--error i { background: var(--ns-critical); }
+.ns-agent-workbench__status--stopping i {
+  background: var(--ns-warning);
+  animation: ns-blink 1.1s steps(1) infinite;
+}
+
+/* Read-only is a neutral status, not the primary action — so it stays bone and
+   square, never a yellow pill (yellow is reserved for live / the one action). */
+.ns-agent-workbench__readonly {
+  padding: 5px 10px;
+  border: 1px solid var(--ns-border);
+  border-radius: 0;
+  color: var(--ns-fg-muted);
+  background: transparent;
+  font-size: 10px;
+}
+
+.ns-agent-workbench__context > i {
+  position: relative;
+  width: 40px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--ns-surface);
+}
+
+/* A gauge is data, not action — fill it in bone, not the reserved signal. */
+.ns-agent-workbench__context > i > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--ns-fg-dim);
+}
+
+.ns-agent-workbench__ops-toggle {
+  height: 29px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 9px;
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-xs);
+  color: var(--ns-fg-muted);
+  background: transparent;
+  cursor: pointer;
+  font: 600 10px/1 var(--ns-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.ns-agent-workbench__ops-toggle:hover,
+.ns-agent-workbench__ops-toggle.is-open {
+  border-color: var(--ns-fg-muted);
+  color: var(--ns-fg);
+  background: color-mix(in srgb, var(--ns-fg) 6%, transparent);
+}
+
+.ns-agent-workbench__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--ns-space-4);
+  padding: var(--ns-space-4);
+}
+
+.ns-agent-workbench__grid--with-ops {
+  grid-template-columns: minmax(0, 2fr) minmax(340px, 1fr);
+}
+
+.ns-agent-workbench__transcript-frame,
+.ns-agent-workbench__ops-frame {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--ns-border-soft);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--ns-bg) 91%, var(--ns-card));
+}
+
+.ns-agent-workbench__phase-bar {
+  flex: 0 0 auto;
+  padding: 11px var(--ns-space-4);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--ns-border-soft);
+  scrollbar-width: none;
+}
+
+.ns-agent-workbench__phase-bar::-webkit-scrollbar { display: none; }
+
+.ns-agent-workbench__transcript {
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ns-agent-workbench__ops-heading {
+  min-height: 40px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ns-space-3);
+  padding: 0 var(--ns-space-4);
+  border-bottom: 1px solid var(--ns-border-soft);
+}
+
+.ns-agent-workbench__ops-heading span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ns-fg-muted);
+  font: 600 10px/1 var(--ns-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.ns-agent-workbench__ops-heading small {
+  flex: 0 0 auto;
+  color: var(--ns-fg-dim);
+  font: 400 9px/1 var(--ns-font-mono);
+}
+
+.ns-agent-workbench__ops-console {
+  min-width: 0;
+  min-height: 240px;
+  flex: 1 1 58%;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ns-border-soft);
+}
+
+.ns-agent-workbench__plan {
+  min-width: 0;
+  min-height: 180px;
+  flex: 1 1 42%;
+  overflow: auto;
+}
+
+.ns-agent-phase-rail {
+  min-width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ns-space-4);
+}
+
+.ns-agent-phase-rail__steps {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-space-2);
+}
+
+.ns-agent-phase-rail__separator {
+  color: color-mix(in srgb, var(--ns-fg-dim) 45%, transparent);
+  font: 400 11px/1 var(--ns-font-sans);
+}
+
+.ns-agent-phase-rail__step {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 7px;
+  border: 0;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-fg-dim);
+  background: transparent;
+  cursor: pointer;
+  font: 600 11px/1 var(--ns-font-sans);
+}
+
+/* Text-only phases (no icons, nothing spins): future = dim, done = muted bone,
+   the live phase is full bone carrying the one signal marker. */
+.ns-agent-phase-rail__step.is-completed { color: var(--ns-fg-muted); }
+.ns-agent-phase-rail__step.is-running { color: var(--ns-fg); }
+.ns-agent-phase-rail__step.is-failed { color: var(--ns-critical); }
+.ns-agent-phase-rail__step.is-skipped { color: var(--ns-fg-dim); }
+
+.ns-agent-phase-rail__step.is-selected {
+  color: var(--ns-fg);
+  background: color-mix(in srgb, var(--ns-fg) 9%, transparent);
+}
+
+.ns-agent-phase-rail__step:hover:not(:disabled) {
+  color: var(--ns-fg);
+  background: color-mix(in srgb, var(--ns-fg) 6%, transparent);
+}
+
+.ns-agent-phase-rail__step:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* The live phase's one signal marker: a square block that flickers on/off —
+   the brand's single "live" animation, never a soft breathing glow. */
+.ns-agent-phase-rail__step > i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  background: var(--ns-yellow);
+  animation: ns-blink 1.1s steps(1) infinite;
+}
+
+.ns-agent-phase-rail__trailing {
+  display: flex;
+  align-items: center;
+  color: var(--ns-fg-muted);
+  font: 600 10px/1 var(--ns-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+@media (min-width: 1280px) {
+  .ns-agent-workbench__grid { padding: var(--ns-space-5); gap: var(--ns-space-5); }
+}
+
+@media (max-width: 1023px) {
+  .ns-agent-workbench__grid--with-ops { grid-template-columns: minmax(0, 1fr); }
+  .ns-agent-workbench__ops-frame { display: none; }
+  .ns-agent-workbench__ops-toggle { display: none; }
+}
+
+@media (max-width: 720px) {
+  .ns-agent-workbench__toolbar { align-items: flex-start; padding-inline: var(--ns-space-3); }
+  .ns-agent-workbench__toolbar-group { gap: var(--ns-space-2); }
+  .ns-agent-workbench__counter,
+  .ns-agent-workbench__context,
+  .ns-agent-workbench__meta {
+    display: none;
+  }
+  .ns-agent-workbench__actions { gap: 4px; }
+  .ns-agent-workbench__grid { padding: var(--ns-space-2); }
+  .ns-agent-workbench__transcript-frame { border-radius: 0; }
+}
+
+/* Shared run findings list — used by the platform and Research Lab. */
+/* Findings list = the brand's severity-stripe table: hairline rows, a coloured
+   left stripe per severity, no rounded cards, no shadow, no yellow hover.
+   (Yellow is reserved for the one primary action per view.) */
+.ns-run-finding-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--ns-border-soft, rgba(245, 245, 247, 0.08));
+}
+
+.ns-run-finding-list__row {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 20px 14px 26px;
+  overflow: hidden;
+  border: 0;
+  border-bottom: 1px solid var(--ns-border-soft, rgba(245, 245, 247, 0.08));
+  color: var(--ns-fg, #f4f4f2);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background .16s ease;
+}
+
+/* Left severity stripe — coloured from the severity tokens on the row itself. */
+.ns-run-finding-list__row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--ns-fg-dim, rgba(245, 245, 247, 0.32));
+}
+
+.ns-run-finding-list__row.is-critical::before { background: var(--ns-critical); }
+.ns-run-finding-list__row.is-high::before { background: var(--ns-high); }
+.ns-run-finding-list__row.is-medium::before { background: var(--ns-medium); }
+.ns-run-finding-list__row.is-low::before { background: var(--ns-low); }
+.ns-run-finding-list__row.is-info::before { background: var(--ns-info); }
+
+.ns-run-finding-list__row:hover,
+.ns-run-finding-list__row:focus-visible {
+  outline: 0;
+  background: color-mix(in srgb, var(--ns-fg, #f4f4f2) 4%, transparent);
+}
+
+.ns-run-finding-list__severity {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ns-fg-muted, rgba(245, 245, 247, 0.62));
+  font: 600 11px/1 var(--ns-font-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.ns-run-finding-list__copy {
+  min-width: 0;
+  display: block;
+}
+
+.ns-run-finding-list__copy strong,
+.ns-run-finding-list__copy small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ns-run-finding-list__copy strong {
+  color: var(--ns-fg, #f4f4f2);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  transition: color .18s ease;
+}
+
+.ns-run-finding-list__copy small {
+  margin-top: 4px;
+  color: var(--ns-fg-muted, rgba(245, 245, 247, 0.62));
+  font-family: var(--ns-font-mono, monospace);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.ns-run-finding-list__arrow {
+  color: var(--ns-fg-muted, rgba(245, 245, 247, 0.62));
+  font: 500 17px/1 var(--ns-font-mono, monospace);
+  transition: color .18s ease, transform .18s ease;
+}
+
+.ns-run-finding-list__row:hover .ns-run-finding-list__copy strong,
+.ns-run-finding-list__row:focus-visible .ns-run-finding-list__copy strong,
+.ns-run-finding-list__row:hover .ns-run-finding-list__arrow,
+.ns-run-finding-list__row:focus-visible .ns-run-finding-list__arrow {
+  color: var(--ns-fg, #f4f4f2);
+}
+
+.ns-run-finding-list__row:hover .ns-run-finding-list__arrow,
+.ns-run-finding-list__row:focus-visible .ns-run-finding-list__arrow {
+  transform: translateX(3px);
+}
+
+.ns-run-finding-list__empty {
+  min-height: 148px;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  border: 1px dashed color-mix(in srgb, var(--ns-border, rgba(245, 245, 247, 0.11)) 80%, transparent);
+  border-radius: 0;
+  color: var(--ns-fg-muted, rgba(245, 245, 247, 0.62));
+  background: color-mix(in srgb, var(--ns-bg, #080808) 60%, transparent);
+  text-align: center;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .ns-run-finding-list__row {
+    grid-template-columns: minmax(0, 1fr) 18px;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .ns-run-finding-list__severity {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── The list kit ──────────────────────────────────────────────────────────
+   Grid templates for the shared list components. They live here rather than
+   in Tailwind arbitrary values because both templates are computed per-page
+   (a variable number of facets, a variable column set) and still need a
+   media query to collapse. Everything else about these components is
+   Tailwind, in their .tsx files. */
+
+/* The query bar is ONE line and never wraps, whatever number of facets a page
+   hands it. It is flex rather than an N-column grid on purpose: a grid has to
+   be told how many facets there are, and any count derived from children is a
+   lie the moment a page wraps them in a fragment — which is exactly how a facet
+   ended up on a second row. Here every child just shrinks instead. */
+.ns-query-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (min-width: 768px) {
+  .ns-query-bar {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  /* Facets and anything else a page passes: share the row, shrink together,
+     and never grow so wide they out-measure the search field. */
+  .ns-query-bar > * {
+    flex: 1 1 170px;
+    min-width: 110px;
+    max-width: 230px;
+  }
+
+  .ns-query-bar > .ns-query-bar__search {
+    flex: 2 1 300px;
+    min-width: 180px;
+    max-width: none;
+  }
+
+  .ns-query-bar > .ns-query-bar__trailing {
+    flex: 0 0 auto;
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+.ns-record-table__row,
+.ns-record-table__head {
+  display: grid;
+  align-items: center;
+  column-gap: 24px;
+  grid-template-columns: var(--ns-rt-cols-sm);
+}
+
+@media (min-width: 768px) {
+  .ns-record-table__row,
+  .ns-record-table__head {
+    grid-template-columns: var(--ns-rt-cols);
+  }
+}
+
+/* The travelling cell of an indeterminate CellMeter. Each cell runs the same
+   keyframe on a stagger, so exactly one is lit at a time and the lit one moves
+   — the icon set's motion rule applied to a meter: the structure holds still,
+   the signal cell travels. Steps, never a fade: every cell here is on or off. */
+@keyframes ns-cell-scan {
+  0%, 8%   { background: var(--ns-yellow); }
+  8.01%, 100% { background: var(--ns-border); }
+}
+
+.ns-cell-scan {
+  animation: ns-cell-scan 1.2s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ns-cell-scan { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   THE CELL FIELD — the overlay animations.
+
+   Same law as every other motion in the system: the STRUCTURE HOLDS STILL and
+   the signal cell travels, and a cell is on or off with nothing in between —
+   `steps(1)`, never a fade. That is why this is one keyframe driven by
+   per-cell delay rather than a set of bespoke effects: a shockwave and a
+   sweep are the same cell doing the same thing, ordered differently.
+
+   The scrim under both is dark in either theme (Modal's own `bg-black/55`),
+   so these are deliberately light-on-dark rather than tokenised per theme. */
+/* Two things about this keyframe are load-bearing.
+
+   The lit window is SHORT next to the per-cell stagger: widen it and most of
+   the field is lit at once, so the wave reads as a solid block instead of a
+   travelling edge.
+
+   And the off state is declared again IMMEDIATELY after the lit window, which
+   looks redundant and is not. `steps(1)` holds the START value of every
+   keyframe interval for the whole interval, so a single `100%` stop would
+   hold YELLOW from 22% all the way to the end and every cell would sit lit.
+   `ns-cell-scan` already solves it this way — same trick, same reason. */
+@keyframes ns-cell-pulse {
+  0%, 9.99%    { background-color: rgba(245, 245, 247, 0.09); }
+  10%, 22%     { background-color: var(--ns-yellow); }
+  22.01%, 100% { background-color: rgba(245, 245, 247, 0.09); }
+}
+
+/* One shot, radiating out from the mark — the celebration. */
+.ns-cell-burst {
+  background-color: rgba(245, 245, 247, 0.09);
+  animation: ns-cell-pulse 700ms steps(1) 1 both;
+  animation-delay: var(--ns-cell-delay, 0ms);
+}
+
+/* Looping band, for a wait with no measurable end. */
+.ns-cell-sweep {
+  background-color: rgba(245, 245, 247, 0.09);
+  animation: ns-cell-pulse 1700ms steps(1) infinite;
+  animation-delay: var(--ns-cell-delay, 0ms);
+}
+
+/* The mark the burst radiates from, and what the field resolves back to. */
+.ns-cell-mark {
+  background-color: var(--ns-yellow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The field still reads — it just arrives already resolved. */
+  .ns-cell-burst,
+  .ns-cell-sweep { animation: none; }
+}
