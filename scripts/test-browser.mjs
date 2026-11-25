@@ -198,7 +198,7 @@ try {
   await page.getByText('workspace.example.test', {exact:true}).waitFor();
   await button('Select folder').click();
   await page.getByText(await realpath(dataDir), {exact:true}).waitFor();
-  await button('Profile').click();
+  await nav('Profile');
   await page.getByRole('heading', {name:'Profile', exact:true}).waitFor();
   await page.getByLabel('Full name').fill('Casey Operator');
   await button('Save changes').click();
