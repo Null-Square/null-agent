@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-katana
+cases:
+  - id: tooling-katana-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-katana-positive-1-observation
+              content: Katana crawled one supplied SPA seed at depth two and retained normalized routes and forms within the host allowlist.
+            - id: tooling-katana-positive-1-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-positive-1-observation
+        - tooling-katana-positive-1-floor
+        - tooling-katana-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-katana-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-katana-positive-2-observation
+              content: JavaScript endpoint extraction identified an API template later corroborated by observed network traffic.
+            - id: tooling-katana-positive-2-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-positive-2-observation
+        - tooling-katana-positive-2-floor
+        - tooling-katana-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-katana-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-katana-positive-3-observation
+              content: Duplicate query variants collapsed to one normalized route while preserving parameter names.
+            - id: tooling-katana-positive-3-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-positive-3-observation
+        - tooling-katana-positive-3-floor
+        - tooling-katana-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-katana-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-katana-negative-1-observation
+              content: A logout or state-changing link was queued for invocation.
+            - id: tooling-katana-negative-1-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-negative-1-observation
+        - tooling-katana-negative-1-floor
+        - tooling-katana-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-katana-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-katana-negative-2-observation
+              content: The crawler followed a redirect to an unrelated host.
+            - id: tooling-katana-negative-2-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-negative-2-observation
+        - tooling-katana-negative-2-floor
+        - tooling-katana-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-katana-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-katana-negative-3-observation
+              content: An endpoint existed only in an unloaded test asset.
+            - id: tooling-katana-negative-3-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-negative-3-observation
+        - tooling-katana-negative-3-floor
+        - tooling-katana-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-katana-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-katana-ambiguous-observation
+              content: A URL is extracted, but loaded-asset provenance and same-site confirmation are missing.
+            - id: tooling-katana-ambiguous-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-ambiguous-observation
+        - tooling-katana-ambiguous-floor
+        - tooling-katana-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-katana-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-katana-blocked-observation
+              content: No authorized seed, crawl depth, or request ceiling is supplied.
+            - id: tooling-katana-blocked-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-blocked-observation
+        - tooling-katana-blocked-floor
+        - tooling-katana-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-katana-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-katana with the tooling-katana methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-katana
+      top_n: 3
+  - id: tooling-katana-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-katana
+      top_n: 5
+  - id: tooling-katana-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-katana-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-katana-mutation-observation
+              content: Only crawl depth changed from one to two within the approved cap; same-site filter, request ledger, and no-action policy stayed fixed.
+            - id: tooling-katana-mutation-floor
+              content: The required decision floor is authorized seed, depth/request cap, same-site boundary, request ledger, and inventory-only output.
+            - id: tooling-katana-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-katana-mutation-observation
+        - tooling-katana-mutation-floor
+        - tooling-katana-mutation-control
+      forbidden_evidence_ids: []

@@ -1,0 +1,251 @@
+schema_version: 1
+skill: django
+cases:
+  - id: django-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: django-positive-1-observation
+              content: The active Django detail view omitted object permission and evaluator A read evaluator B’s synthetic model canary.
+            - id: django-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - django-positive-1-observation
+        - django-positive-1-context
+        - django-positive-1-control
+      forbidden_evidence_ids: []
+  - id: django-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: django-positive-2-observation
+              content: An active host setting accepted the owner test host and generated that host in an evaluator reset email.
+            - id: django-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - django-positive-2-observation
+        - django-positive-2-context
+        - django-positive-2-control
+      forbidden_evidence_ids: []
+  - id: django-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: django-positive-3-observation
+              content: The DRF route omitted the queryset tenant scope used by the HTML view and returned the peer synthetic record.
+            - id: django-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - django-positive-3-observation
+        - django-positive-3-context
+        - django-positive-3-control
+      forbidden_evidence_ids: []
+  - id: django-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: django-negative-1-observation
+              content: Debug mode appeared only in the test settings module.
+            - id: django-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-negative-1-control
+              content: The retained control explains the observed signal without meeting active settings/URL/view/query path, evaluator identity/object controls, and runtime response; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - django-negative-1-observation
+        - django-negative-1-context
+        - django-negative-1-control
+      forbidden_evidence_ids: []
+  - id: django-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: django-negative-2-observation
+              content: The admin login route was public but required authentication.
+            - id: django-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-negative-2-control
+              content: The retained control explains the observed signal without meeting active settings/URL/view/query path, evaluator identity/object controls, and runtime response; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - django-negative-2-observation
+        - django-negative-2-context
+        - django-negative-2-control
+      forbidden_evidence_ids: []
+  - id: django-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: django-negative-3-observation
+              content: A historical migration field was not used by the deployed model/view.
+            - id: django-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-negative-3-control
+              content: The retained control explains the observed signal without meeting active settings/URL/view/query path, evaluator identity/object controls, and runtime response; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - django-negative-3-observation
+        - django-negative-3-context
+        - django-negative-3-control
+      forbidden_evidence_ids: []
+  - id: django-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: django-ambiguous-observation
+              content: A view appears unguarded in source, but URL registration and deployed settings revision are not established.
+            - id: django-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-ambiguous-missing
+              content: The packet lacks at least one required element of active settings/URL/view/query path, evaluator identity/object controls, and runtime response, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - django-ambiguous-observation
+        - django-ambiguous-context
+        - django-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: django-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: django-blocked-observation
+              content: Active settings resolution, route mapping, or evaluator model objects are unavailable.
+            - id: django-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - django-blocked-observation
+        - django-blocked-context
+        - django-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: django-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess django with the django methodology and retain deterministic proof.
+    expected:
+      primary_skill: django
+      top_n: 3
+  - id: django-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: django
+      top_n: 5
+  - id: django-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: django-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: django-mutation-observation
+              content: Only route format changed from HTML to the enabled DRF endpoint; the same peer object canary remained exposed.
+            - id: django-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active settings/URL/view/query path, evaluator identity/object controls, and runtime response.
+            - id: django-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - django-mutation-observation
+        - django-mutation-context
+        - django-mutation-control
+      forbidden_evidence_ids: []

@@ -1,0 +1,4 @@
+schema_version: 1
+skill: spa-recon
+files:
+  - cases.yaml

@@ -1,0 +1,10 @@
+{
+  "provider": "tavily",
+  "duckBaseUrl": "https://api.duckduckgo.com/",
+  "duckLiteBaseUrl": "https://duckduckgo.com/html/",
+  "tavilyBaseUrl": "https://api.tavily.com/search",
+  "maxResults": 5,
+  "timeoutMs": 15000,
+  "maxBytes": 1048576,
+  "tavilyApiKey": null
+}

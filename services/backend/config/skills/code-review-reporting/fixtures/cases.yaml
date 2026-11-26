@@ -1,0 +1,7 @@
+schema_version: 1
+skill: code-review-reporting
+cases:
+  - id: canonical-report
+    kind: positive
+    input: { candidate_states: [validated, rejected] }
+    expected: { report_uses: validated }

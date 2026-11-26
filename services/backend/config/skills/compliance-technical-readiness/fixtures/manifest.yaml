@@ -1,0 +1,4 @@
+schema_version: 1
+skill: compliance-technical-readiness
+files:
+  - cases.yaml

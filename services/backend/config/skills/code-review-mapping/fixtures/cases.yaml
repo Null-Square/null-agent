@@ -1,0 +1,7 @@
+schema_version: 1
+skill: code-review-mapping
+cases:
+  - id: manifest-bound-map
+    kind: positive
+    input: { files: [src/app.ts, src/auth.ts] }
+    expected: { output: architecture_map }

@@ -1,0 +1,355 @@
+schema_version: 1
+skill: cloud-azure
+cases:
+  - id: cloud-azure-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cloud-azure-positive-1-observation
+              content: An anonymous Blob request returned the named private evaluator object while the nonexistent blob and owner request supplied controls.
+            - id: cloud-azure-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-azure-positive-1-observation
+        - cloud-azure-positive-1-context
+        - cloud-azure-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cloud-azure-positive-2-observation
+              content: A public Azure Function completed a harmless synthetic action despite active configuration requiring platform authentication.
+            - id: cloud-azure-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-azure-positive-2-observation
+        - cloud-azure-positive-2-context
+        - cloud-azure-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cloud-azure-positive-3-observation
+              content: An App Service route trusted an unverified identity header from the public edge and returned evaluator B’s canary to evaluator A.
+            - id: cloud-azure-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-azure-positive-3-observation
+        - cloud-azure-positive-3-context
+        - cloud-azure-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: cloud-azure-positive-4-observation
+              content: A Static Web Apps API route exposed a named private test record without the role listed in active route configuration.
+            - id: cloud-azure-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-azure-positive-4-observation
+        - cloud-azure-positive-4-context
+        - cloud-azure-positive-4-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: cloud-azure-positive-5-observation
+              content: An API Management public operation bypassed the active subscription/auth policy and returned a synthetic response canary.
+            - id: cloud-azure-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-azure-positive-5-observation
+        - cloud-azure-positive-5-context
+        - cloud-azure-positive-5-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cloud-azure-negative-1-observation
+              content: A storage container hosted intentionally public static assets.
+            - id: cloud-azure-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-negative-1-control
+              content: The retained control explains the observed signal without meeting public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-azure-negative-1-observation
+        - cloud-azure-negative-1-context
+        - cloud-azure-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cloud-azure-negative-2-observation
+              content: An azurewebsites hostname and tenant/client identifiers were public inventory only.
+            - id: cloud-azure-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-negative-2-control
+              content: The retained control explains the observed signal without meeting public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-azure-negative-2-observation
+        - cloud-azure-negative-2-context
+        - cloud-azure-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cloud-azure-negative-3-observation
+              content: A permissive role assignment existed only in an undeployed Bicep example.
+            - id: cloud-azure-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-negative-3-control
+              content: The retained control explains the observed signal without meeting public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-azure-negative-3-observation
+        - cloud-azure-negative-3-context
+        - cloud-azure-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: cloud-azure-negative-4-observation
+              content: A Function key-shaped value was a revoked test placeholder and was not used.
+            - id: cloud-azure-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-negative-4-control
+              content: The retained control explains the observed signal without meeting public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-azure-negative-4-observation
+        - cloud-azure-negative-4-context
+        - cloud-azure-negative-4-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: cloud-azure-negative-5-observation
+              content: A default platform error disclosed service type but no private data or action.
+            - id: cloud-azure-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-negative-5-control
+              content: The retained control explains the observed signal without meeting public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-azure-negative-5-observation
+        - cloud-azure-negative-5-context
+        - cloud-azure-negative-5-control
+      forbidden_evidence_ids: []
+  - id: cloud-azure-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cloud-azure-ambiguous-observation
+              content: A public Azure endpoint returns a custom response, but active slot/configuration and data intent cannot be established.
+            - id: cloud-azure-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-ambiguous-missing
+              content: The packet lacks at least one required element of public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-azure-ambiguous-observation
+        - cloud-azure-ambiguous-context
+        - cloud-azure-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cloud-azure-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cloud-azure-blocked-observation
+              content: Proof would require Azure credentials, control-plane queries, broad container listing, writes, or non-evaluator data.
+            - id: cloud-azure-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-azure-blocked-observation
+        - cloud-azure-blocked-context
+        - cloud-azure-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cloud-azure-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cloud-azure with the cloud-azure methodology and retain deterministic proof.
+    expected:
+      primary_skill: cloud-azure
+      top_n: 3
+  - id: cloud-azure-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cloud-azure
+      top_n: 5
+  - id: cloud-azure-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-azure-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cloud-azure-mutation-observation
+              content: Only the App Service identity-header value changed between two evaluator identities; the wrong synthetic record remained readable.
+            - id: cloud-azure-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public Azure service identity, active configuration provenance, named evaluator artifact, and matched access control.
+            - id: cloud-azure-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-azure-mutation-observation
+        - cloud-azure-mutation-context
+        - cloud-azure-mutation-control
+      forbidden_evidence_ids: []

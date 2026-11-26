@@ -1,0 +1,251 @@
+schema_version: 1
+skill: validation
+cases:
+  - id: validation-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: validation-positive-1-observation
+              content: Fresh evaluator sessions reproduced peer-object access with owner, peer-canary, and nonexistent controls.
+            - id: validation-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - validation-positive-1-observation
+        - validation-positive-1-context
+        - validation-positive-1-control
+      forbidden_evidence_ids: []
+  - id: validation-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: validation-positive-2-observation
+              content: A source-reported missing guard matched the deployed revision and one bounded runtime request.
+            - id: validation-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - validation-positive-2-observation
+        - validation-positive-2-context
+        - validation-positive-2-control
+      forbidden_evidence_ids: []
+  - id: validation-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: validation-positive-3-observation
+              content: An injection candidate minimized to one changed field and disappeared under the supplied patched control.
+            - id: validation-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - validation-positive-3-observation
+        - validation-positive-3-context
+        - validation-positive-3-control
+      forbidden_evidence_ids: []
+  - id: validation-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: validation-negative-1-observation
+              content: A single server error had no matched control or semantic impact.
+            - id: validation-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-negative-1-control
+              content: The retained control explains the observed signal without meeting fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - validation-negative-1-observation
+        - validation-negative-1-context
+        - validation-negative-1-control
+      forbidden_evidence_ids: []
+  - id: validation-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: validation-negative-2-observation
+              content: Evidence targeted a host outside the active allowlist.
+            - id: validation-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-negative-2-control
+              content: The retained control explains the observed signal without meeting fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - validation-negative-2-observation
+        - validation-negative-2-context
+        - validation-negative-2-control
+      forbidden_evidence_ids: []
+  - id: validation-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: validation-negative-3-observation
+              content: A screenshot lacked raw request/response identity and provenance.
+            - id: validation-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-negative-3-control
+              content: The retained control explains the observed signal without meeting fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - validation-negative-3-observation
+        - validation-negative-3-context
+        - validation-negative-3-control
+      forbidden_evidence_ids: []
+  - id: validation-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: validation-ambiguous-observation
+              content: The evidence is plausible but lacks a fresh control, stable identifier, or deployed-source correlation.
+            - id: validation-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-ambiguous-missing
+              content: The packet lacks at least one required element of fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - validation-ambiguous-observation
+        - validation-ambiguous-context
+        - validation-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: validation-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: validation-blocked-observation
+              content: Safe reproduction would require non-evaluator data, privileged credentials, destructive state, or a prohibited chain.
+            - id: validation-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - validation-blocked-observation
+        - validation-blocked-context
+        - validation-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: validation-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess reproduce with the validation methodology and retain deterministic proof.
+    expected:
+      primary_skill: validation
+      top_n: 3
+  - id: validation-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: validation
+      top_n: 5
+  - id: validation-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: validation-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: validation-mutation-observation
+              content: Only one request field remained after minimization; the proof still reproduced and all removed fields were non-causal.
+            - id: validation-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh reproduction, raw provenance, owner/negative controls, minimal causal change, and safety/scope check.
+            - id: validation-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - validation-mutation-observation
+        - validation-mutation-context
+        - validation-mutation-control
+      forbidden_evidence_ids: []

@@ -1,93 +1,110 @@
-# Null Agent
+# Null AI
 
-Null Agent is a local browser workspace for security assessments. Bring in saved pentest findings, link control evidence, and ask your model to review the source behind a finding. The assessment and its original files stay in SQLite on your machine.
+**The open-source AI pentester.** Null AI plans the test, runs real security tools in a sealed sandbox, proves what it finds, and writes the report. It runs on your computer, with your model.
 
-[![Recorded Null Agent session. An operator opens a payments finding, inspects its original analyzer output, runs a code review, checks the saved evidence references, and exports the assessment.](docs/images/payments-walkthrough.gif)](docs/images/payments-review.mp4)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-yellow.svg)](LICENSE)
+![Runs with Docker](https://img.shields.io/badge/runs%20with-docker%20compose-black.svg)
+![Node.js 22](https://img.shields.io/badge/node-22-black.svg)
 
-**Watch one finding go through review.** The pointer, navigation, evidence import results, saved review, and Markdown export come from the running app. This payments workspace uses synthetic files and a simulated model response. [Play or download the MP4](docs/images/payments-review.mp4) · [View stills](#inside-the-payments-assessment)
+![Null AI home: choose Pentest, Compliance or Code Review and start a run on a verified target](docs/images/home.png)
 
-[Install](#quick-start) · [Reproduce the demo](#first-assessment) · [Assessment lifecycle](#assessment-lifecycle) · [Connect a model](#connect-a-model)
+[Quick start](#quick-start) · [Connect a model](#connect-a-model) · [Your first test](#your-first-test) · [How it works](#how-it-works) · [Safety](#safety)
+
+## What it does
+
+- **Pentest.** Maps the attack surface, then tests it the way a person would: recon, enumeration, then the weaknesses that fit what it found. A finding counts only once a separate validation step proves it.
+- **Code review.** Reads your code from a folder on this computer or a public git URL, pinned to one commit. Give a pentest the code too and it tests whitebox.
+- **Compliance.** Readiness reviews for SOC 2, ISO 27001, NIST CSF, PCI DSS, HIPAA and GDPR, from the evidence you give it.
+- **Reports.** Every finding keeps its proof. Reports render to PDF on your computer.
+
+The agent works with 55 tools in its sandbox (nmap, nuclei, sqlmap, ffuf, semgrep, trivy, a real browser and more) and 108 skills: the know-how for JWT attacks, IDOR, request smuggling, GraphQL, OAuth, cloud, Kubernetes and the frameworks it meets.
 
 ## Quick start
 
-Install **Node.js 22.18 or later** with npm, then clone and start the app.
+You need [Docker](https://docs.docker.com/get-docker/) (Engine 28.1 or later, or a current Docker Desktop) and git.
 
 ```sh
 git clone https://github.com/Null-Square/null-agent.git
 cd null-agent
-npm ci
-npm start
+docker compose --profile lab up -d
+docker compose logs backend | grep '#key='
 ```
 
-Open [http://127.0.0.1:4317](http://127.0.0.1:4317). Create a local owner with an email and a password of at least eight characters. Add your organization and website in the setup wizard, then choose **Go to Console**. Importing evidence, browsing controls, triaging findings, and exporting reports work before you connect a model.
+Open the link it prints, `http://localhost:8080/#key=…`. It signs this browser in as you, so keep it to yourself. The first start builds the images; the sandbox image takes the longest.
 
-## First assessment
+Setup asks for four things: your model, your organization, your website, and your authorization to test it.
 
-The recording follows a resource leak in the payments service. The analyzer points to `src/reader.js:3`. The source shows why it matters: the function opens a file, returns its contents, and leaves the handle open.
-
-1. **Create the scope.** In **Scopes**, create **Payments service** and enter a review objective. Open its assessment.
-2. **Load the evidence.** In **Compliance → Evidence Library**, import [payments-findings.jsonl](examples/payments-findings.jsonl), [review-results.json](examples/payments/review-results.json), and [reader.js](examples/payments/reader.js). These supply six findings across four assets. To reproduce the control evidence, select **NIST CSF**, attach [change-approval.md](examples/payments/change-approval.md) to `GV.OC` and [risk-register.md](examples/payments/risk-register.md) to `GV.RM`.
-3. **Trace the finding.** In **Dashboard → Top risks**, open `example.file-handle-cleanup`. Under **Evidence**, choose **Preview original file**. Compare the recorded location and remediation with the source. Changing **Current status** adds an entry to **History**.
-4. **Run a review.** Connect a provider under **Models**. In the assessment, choose **Open workbench → Code review**, select `reader.js` and `review-results.json`, then **Run review**. Open **History** to see which files the model received and what it returned.
-5. **Take the results with you.** Under **Back to assessment → View report**, download the Markdown report with the latest review, or export the findings as SARIF. Triage, control linking, and exports also work before a model is connected.
-
-## Assessment lifecycle
-
-![Assessment lifecycle from scope and external testing through local import, operator triage or model review, and report export](docs/images/assessment-lifecycle.svg)
-
-Scope and planning happen in the workspace. Enumeration and vulnerability discovery happen in the external testing tools that produce the imported records. Null Agent's backend parses those records into findings, preserves their source, and groups them by recorded asset. Each status change becomes part of the finding's history.
-
-For compliance, a reviewer can attach a file to a control and inspect the original. For a model review, the operator selects the inputs in the workbench. Cloud reviews require confirmation before sending those inputs. The saved response references its evidence, so a reviewer can reopen it after a restart.
-
-## Inside the payments assessment
-
-**Which finding needs attention, and where?** This view of the dashboard puts the risk list beside the four affected assets. The severity breakdown below it reflects the six imported findings. The coverage count reflects evidence linked to controls in this scope.
-
-[![Payments dashboard with named risks, affected hosts, linked-control coverage and severity breakdown](docs/images/dashboard.png)](docs/images/dashboard.png)
-
-**What supports this control?** The evidence tab on the organizational context control shows the change approval attached to it. Open the record to inspect the original file.
-
-[![Control detail showing the change approval record linked to NIST CSF organizational context](docs/images/control-evidence.png)](docs/images/control-evidence.png)
+`--profile lab` also starts [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/), a deliberately vulnerable app to practise on. Leave it out once you test your own sites.
 
 ## Connect a model
 
-Open **Models** under **Setup**. Connect a provider, choose a model, and select **Test connection** for a small sample request. That test uses synthetic input. The chosen model is also available for evidence and code reviews from the workbench.
+![Settings, Model: Continue with ChatGPT, Claude with an API key, or another provider](docs/images/model.png)
 
-| Provider | Setup | Data used by the provider |
-| --- | --- | --- |
-| **Ollama** | Start Ollama on this computer, install a local text model, and choose **Ollama on this computer â†’ Connect provider**. [Ollama CLI reference](https://docs.ollama.com/cli) | The selected review inputs go to Ollama at `127.0.0.1:11434`. |
-| **ChatGPT plan** | Choose **Continue with ChatGPT** and authorize NullSquare through OpenAI with an eligible account. Return to **Models** to choose an available model. [OpenAI sign-in guide](https://developers.openai.com/siwc/token-sharing-open-source) | After your confirmation in the workbench, OpenAI receives the scope description and selected review inputs. |
-| **OpenAI API** | Choose **OpenAI API**, paste a project API key, and click **Connect provider**. You can also set `NULLSQUARE_OPENAI_API_KEY` for the server process. [OpenAI API setup](https://developers.openai.com/api/docs/quickstart) | After your confirmation in the workbench, OpenAI receives the scope description and selected review inputs using your API account. |
-| **Claude API** | **Continue with Claude** opens Claude Console for API key setup and selects **Claude API** in NullSquare. Paste the key and click **Connect provider**. [Claude API key setup](https://platform.claude.com/docs/en/get-api-key) | After your confirmation in the workbench, Anthropic receives the scope description and selected review inputs using your API account. |
+Pick one in setup, or later in **Settings → Model**:
 
-Provider credentials are held in server memory for the session. Reconnect after a server restart.
-
-## Local data and troubleshooting
-
-| Setting or symptom | What to do |
+| Option | What you need |
 | --- | --- |
-| Workspace location | The default is `~/.nullsquare-local/workspace.sqlite`. Set `NULLSQUARE_DATA_DIR` to use another directory. |
-| Backups | Stop NullSquare with **Ctrl+C** and copy the workspace directory, including any SQLite sidecar files. Restore it while the server is stopped. |
-| Port already in use | Set `PORT` in the shell before `npm start`, then use the URL printed by the server. |
-| No Ollama models listed | Start Ollama, check that a local model is installed, and connect again in **Models**. |
-| File refused during import | Import supported analyzer JSON or JSONL, UTF-8 notes, or source excerpts and patches up to 8 KiB. To attach a document or other file up to 1 MiB, select a control in the Evidence Library. |
-| Folder picker on Linux | Install Zenity and run the server in your desktop session to use **Select folder**. |
-| Review exceeds the input budget | Select fewer records or smaller excerpts. A review accepts up to 12,000 bytes of prepared input. |
+| **Continue with ChatGPT** | Your ChatGPT plan. You sign in at OpenAI. A workspace admin may have to allow third-party apps first. |
+| **Claude** | A [Claude API key](https://platform.claude.com/docs/en/get-api-key). |
+| **Another provider** | An API key for OpenAI, DeepSeek, Qwen or Moonshot. The model list comes from the provider's own catalog. |
 
-The browser edition is a single-user workspace protected by its local owner account. Review the contents of files and reports before sharing them.
+Anything else, such as Ollama or your own gateway, goes in [`services/backend/config/seeds/models.seed.json`](services/backend/config/seeds/README.md). A key in `.env` (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, and so on, see [`.env.example`](.env.example)) connects on start.
 
-## Development
+Your provider receives what the agent sends it. Nothing else leaves your computer by itself.
+
+## Your first test
+
+![A scope for Juice Shop: verified, with its code connected for a whitebox test](docs/images/scope.png)
+
+1. In setup, enter `juice-shop.lab` as the website and choose **Verify & start discovery**. It passes at once, as a practice target.
+2. Optional: in the scope's **Code**, add `https://github.com/juice-shop/juice-shop.git`. The test becomes whitebox, and **Code review** can read it.
+3. On **Home**, choose **Pentest** and **Start**. Follow the run under **Assessments**, then open what it proved under **Risks**.
+
+For a real site, Null AI first checks that it is yours: a DNS TXT record or a file on the site. Test only what you own or have written permission to test.
+
+## How it works
+
+```
+ you ── objective ──▶ planner ──▶ executors ──▶ validation ──▶ findings ──▶ report
+                          │            │
+                          ▼            ▼
+                       skills    sandbox (tools, browser)
+```
+
+- The **planner** breaks your objective into steps. **Executors** carry them out with the tools in the sandbox and record what they find: assets, services, leads.
+- A lead becomes a **finding** only when a separate validation step proves it. Each finding keeps its evidence.
+- **Rules of engagement** on each scope say what must not be tested and how far a proof may go.
+- Everything is stored in Postgres on your computer. Runs, traces and workspaces go to local S3-compatible storage.
+
+## Safety
+
+- **Only you.** The app answers on `127.0.0.1` only, and only to a browser holding your owner key.
+- **A sealed sandbox.** Each sandbox reaches the internet and the lab, never your database, the app, your computer's own services or your network.
+- **Verified targets only.** The agent tests what you proved is yours, within the scope's rules.
+
+[SECURITY.md](SECURITY.md) has the details and how to report a vulnerability.
+
+## Develop
+
+You need Node.js 22.18 or later and Docker.
 
 ```sh
 npm ci
-npx playwright install chromium
-npm run verify:local
+npm run dev
 ```
 
-`npm run verify:local` builds the app, runs backend tests, and exercises the browser using a temporary SQLite workspace and simulated model responses. On Linux, use `npx playwright install --with-deps chromium` if Chromiumâ€™s system libraries are missing.
+`npm run dev` starts Postgres, storage and the sandbox gateway in Docker, then runs the backend and the app from source. Open the link the backend prints. Before a pull request, run `npm run typecheck` and `npm test`. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-After building, run `node scripts/test-browser.mjs --capture` to refresh the demo screenshots. Add `--record` to capture the browser session and encode its captioned MP4 and looping GIF. Recording requires FFmpeg with libx264 and libass on your path.
+| Path | What it is |
+| --- | --- |
+| `services/backend` | The API, the agent, the sandbox control and the database |
+| `services/frontend` | The app |
+| `services/sandbox` | The image the agent's tools run in |
+| `services/shell-server` | The private runner's bridge, which the sandbox image runs |
+| `packages/contracts`, `packages/design-tokens` | Shared types and UI |
 
-The browser UI draws from the October 3 legacy checkpoint `2c8340798e8f776f438e377410ec3998887dacdf`. The local backend adapts the compliance and source review logic from `legacy/v3.2-final` at `981a70c4a3d81dd3885120ef0f1b11306035de49`.
+## Credits
 
-[Contributing](CONTRIBUTING.md) Â· [Report a security issue](SECURITY.md) Â· [Apache 2.0 license](LICENSE)
+Null AI is the platform [NullSquare](https://nullsquare.net) built, released for one person to run on their own computer. Some skills and prompt lines are adapted from [Strix](https://github.com/usestrix/strix); [NOTICE](NOTICE) lists every credit and licence.
+
+Licensed under [Apache 2.0](LICENSE).

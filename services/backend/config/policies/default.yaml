@@ -1,0 +1,19 @@
+# Default Policy - General interactive sessions
+# Balanced security for interactive sessions
+
+slug: default
+name: Default
+isDefaultSandbox: true
+sandboxImageName: webpentest-core
+
+spec:
+  sandbox:
+    readonlyRootfs: false
+    capDrop:
+      - ALL
+    capAdd:
+      - NET_RAW
+    privileged: false
+  tools:
+    network: true
+    allowlist_hosts: []

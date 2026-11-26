@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.0",
+  "servers": [{ "url": "https://api.example.com" }],
+  "paths": {
+    "/users/{id}": {
+      "get": {
+        "summary": "Get user",
+        "parameters": [
+          { "name": "id", "in": "path" },
+          { "name": "include", "in": "query" }
+        ],
+        "security": []
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+# Sandboxed Policy - Fully isolated offline analysis
+# No network (safe by design)
+
+slug: sandboxed
+name: Sandboxed (Offline)
+isDefaultSandbox: false
+sandboxImageName: webpentest-core
+
+spec:
+  sandbox:
+    network: none
+    readonlyRootfs: false
+    capDrop:
+      - ALL
+    capAdd: []
+    privileged: false
+  tools:
+    network: false
+    allowlist_hosts: []

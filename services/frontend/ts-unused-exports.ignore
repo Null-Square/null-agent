@@ -1,0 +1,9 @@
+**/*.stories.tsx
+**/*.test.tsx
+**/*.spec.tsx
+**/index.ts
+**/index.tsx
+src/routes/**
+src/api/schema.d.ts
+src/api/types.ts
+

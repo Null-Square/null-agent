@@ -1,0 +1,251 @@
+schema_version: 1
+skill: cryptographic-implementation
+cases:
+  - id: cryptographic-implementation-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cryptographic-implementation-positive-1-observation
+              content: Two supplied AES-GCM test ciphertext records repeated the nonce under the same active key identifier.
+            - id: cryptographic-implementation-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cryptographic-implementation-positive-1-observation
+        - cryptographic-implementation-positive-1-context
+        - cryptographic-implementation-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cryptographic-implementation-positive-2-observation
+              content: Sanitized active password records and encoder configuration confirmed unsalted SHA-1 for new evaluator passwords.
+            - id: cryptographic-implementation-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cryptographic-implementation-positive-2-observation
+        - cryptographic-implementation-positive-2-context
+        - cryptographic-implementation-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cryptographic-implementation-positive-3-observation
+              content: A signed evaluator artifact remained accepted after changing a semantic field omitted from the verifier’s canonical input.
+            - id: cryptographic-implementation-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cryptographic-implementation-positive-3-observation
+        - cryptographic-implementation-positive-3-context
+        - cryptographic-implementation-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cryptographic-implementation-negative-1-observation
+              content: A self-signed certificate belonged only to the documented local test environment.
+            - id: cryptographic-implementation-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-negative-1-control
+              content: The retained control explains the observed signal without meeting active primitive/configuration provenance and a bounded offline cryptographic invariant; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cryptographic-implementation-negative-1-observation
+        - cryptographic-implementation-negative-1-context
+        - cryptographic-implementation-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cryptographic-implementation-negative-2-observation
+              content: A base64 field was described as encrypted but no cryptographic primitive or security claim was present.
+            - id: cryptographic-implementation-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-negative-2-control
+              content: The retained control explains the observed signal without meeting active primitive/configuration provenance and a bounded offline cryptographic invariant; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cryptographic-implementation-negative-2-observation
+        - cryptographic-implementation-negative-2-context
+        - cryptographic-implementation-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cryptographic-implementation-negative-3-observation
+              content: A deprecated algorithm existed only in a disabled migration module.
+            - id: cryptographic-implementation-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-negative-3-control
+              content: The retained control explains the observed signal without meeting active primitive/configuration provenance and a bounded offline cryptographic invariant; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cryptographic-implementation-negative-3-observation
+        - cryptographic-implementation-negative-3-context
+        - cryptographic-implementation-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cryptographic-implementation-ambiguous-observation
+              content: Source names a weak primitive, but key/nonce provenance and the active call path are unknown.
+            - id: cryptographic-implementation-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-ambiguous-missing
+              content: The packet lacks at least one required element of active primitive/configuration provenance and a bounded offline cryptographic invariant, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cryptographic-implementation-ambiguous-observation
+        - cryptographic-implementation-ambiguous-context
+        - cryptographic-implementation-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cryptographic-implementation-blocked-observation
+              content: Only production key material or unapproved bulk ciphertext would permit confirmation.
+            - id: cryptographic-implementation-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cryptographic-implementation-blocked-observation
+        - cryptographic-implementation-blocked-context
+        - cryptographic-implementation-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cryptographic-implementation-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cryptographic-implementation with the cryptographic-implementation methodology and retain deterministic proof.
+    expected:
+      primary_skill: cryptographic-implementation
+      top_n: 3
+  - id: cryptographic-implementation-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cryptographic-implementation
+      top_n: 5
+  - id: cryptographic-implementation-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cryptographic-implementation-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cryptographic-implementation-mutation-observation
+              content: Only one signed semantic field changed; the same signature acceptance reproduced while a covered-field control failed verification.
+            - id: cryptographic-implementation-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active primitive/configuration provenance and a bounded offline cryptographic invariant.
+            - id: cryptographic-implementation-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cryptographic-implementation-mutation-observation
+        - cryptographic-implementation-mutation-context
+        - cryptographic-implementation-mutation-control
+      forbidden_evidence_ids: []

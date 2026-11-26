@@ -1,0 +1,56 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  # Scrape Docker container logs
+  - job_name: docker
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+        refresh_interval: 5s
+    relabel_configs:
+      # Only scrape nullai containers
+      - source_labels: ["__meta_docker_container_name"]
+        regex: "/(nullai-.*)"
+        action: keep
+      # Use container name as job label
+      - source_labels: ["__meta_docker_container_name"]
+        regex: "/(.*)"
+        target_label: "container"
+      # Add compose service label
+      - source_labels:
+          ["__meta_docker_container_label_com_docker_compose_service"]
+        target_label: "service"
+    pipeline_stages:
+      # Parse JSON log lines from backend
+      - match:
+          selector: '{container="nullai-backend"}'
+          stages:
+            - json:
+                expressions:
+                  level: level
+                  msg: msg
+                  scope: scope
+                  err: err
+                  # Extract trace context for correlation
+                  traceId: traceId
+                  spanId: spanId
+                  sessionId: sessionId
+                  service: service
+                  appRole: appRole
+            # Add level as label (low cardinality - debug/info/warn/error)
+            - labels:
+                level:
+            # Store high-cardinality fields as structured metadata (Loki 3.x)
+            # This allows querying by sessionId/traceId without label cardinality explosion
+            - structured_metadata:
+                traceId:
+                spanId:
+                sessionId:
+                scope:

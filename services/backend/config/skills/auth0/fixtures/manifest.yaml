@@ -1,0 +1,4 @@
+schema_version: 1
+skill: auth0
+files:
+  - cases.yaml

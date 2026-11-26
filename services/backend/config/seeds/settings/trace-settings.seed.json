@@ -1,0 +1,9 @@
+{
+  "traceInlineLimit": 4096,
+  "stdoutChunkSize": 65536,
+  "traceCompressOverBytes": 1048576,
+  "traceRetentionDays": 14,
+  "traceLogsRoot": "storage/object-store/traces",
+  "artifactDirName": ".artifacts",
+  "artifactMaxChars": 20000
+}

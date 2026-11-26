@@ -1,0 +1,1 @@
+Parameter id appears to be vulnerable. sql injection confirmed.

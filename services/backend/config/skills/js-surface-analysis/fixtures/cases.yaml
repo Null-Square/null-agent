@@ -1,0 +1,251 @@
+schema_version: 1
+skill: js-surface-analysis
+cases:
+  - id: js-surface-analysis-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: js-surface-analysis-positive-1-observation
+              content: A loaded lazy chunk and router table both identified a billing export route confirmed by evaluator navigation.
+            - id: js-surface-analysis-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-positive-1-observation
+        - js-surface-analysis-positive-1-context
+        - js-surface-analysis-positive-1-control
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: js-surface-analysis-positive-2-observation
+              content: A source map tied a minified fetch call to a tenant-member API template observed in runtime traffic.
+            - id: js-surface-analysis-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-positive-2-observation
+        - js-surface-analysis-positive-2-context
+        - js-surface-analysis-positive-2-control
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: js-surface-analysis-positive-3-observation
+              content: Runtime public configuration identified an API base URL absent from the initial bundle and one read-only request corroborated it.
+            - id: js-surface-analysis-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-positive-3-observation
+        - js-surface-analysis-positive-3-context
+        - js-surface-analysis-positive-3-control
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: js-surface-analysis-negative-1-observation
+              content: An endpoint-like string belonged to a test fixture in an unloaded chunk.
+            - id: js-surface-analysis-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-negative-1-control
+              content: The retained control explains the observed signal without meeting loaded asset provenance, original call-site context, and runtime network/route corroboration; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-negative-1-observation
+        - js-surface-analysis-negative-1-context
+        - js-surface-analysis-negative-1-control
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: js-surface-analysis-negative-2-observation
+              content: A feature name appeared without an enabled runtime flag or reachable route.
+            - id: js-surface-analysis-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-negative-2-control
+              content: The retained control explains the observed signal without meeting loaded asset provenance, original call-site context, and runtime network/route corroboration; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-negative-2-observation
+        - js-surface-analysis-negative-2-context
+        - js-surface-analysis-negative-2-control
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: js-surface-analysis-negative-3-observation
+              content: A public analytics identifier was correctly exposed client-side.
+            - id: js-surface-analysis-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-negative-3-control
+              content: The retained control explains the observed signal without meeting loaded asset provenance, original call-site context, and runtime network/route corroboration; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-negative-3-observation
+        - js-surface-analysis-negative-3-context
+        - js-surface-analysis-negative-3-control
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: js-surface-analysis-ambiguous-observation
+              content: A source map names an API call, but the chunk is not loaded and deployment revision does not match.
+            - id: js-surface-analysis-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-ambiguous-missing
+              content: The packet lacks at least one required element of loaded asset provenance, original call-site context, and runtime network/route corroboration, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-ambiguous-observation
+        - js-surface-analysis-ambiguous-context
+        - js-surface-analysis-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: js-surface-analysis-blocked-observation
+              content: No loaded asset, browser traffic, source map, or build provenance is available.
+            - id: js-surface-analysis-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-blocked-observation
+        - js-surface-analysis-blocked-context
+        - js-surface-analysis-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: js-surface-analysis-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess js-surface-analysis with the js-surface-analysis methodology and retain deterministic proof.
+    expected:
+      primary_skill: js-surface-analysis
+      top_n: 3
+  - id: js-surface-analysis-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: js-surface-analysis
+      top_n: 5
+  - id: js-surface-analysis-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: js-surface-analysis-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: js-surface-analysis-mutation-observation
+              content: Only asset provenance advanced from generated bundle to matching source-map call site; the same observed API request remained fixed.
+            - id: js-surface-analysis-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is loaded asset provenance, original call-site context, and runtime network/route corroboration.
+            - id: js-surface-analysis-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - js-surface-analysis-mutation-observation
+        - js-surface-analysis-mutation-context
+        - js-surface-analysis-mutation-control
+      forbidden_evidence_ids: []

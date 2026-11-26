@@ -1,0 +1,256 @@
+{
+  "catalogVersion": "1.0.0",
+  "note": "Observed product strings mapped to canonical component keys. An alias is only useful when its ecosystem+componentKey are the identity an INGESTED advisory feed actually produces: v1 ingests NVD, which emits cpe:<vendor>:<product>. Mapping a product NVD covers into a package ecosystem makes it permanently unmatchable. Package-ecosystem aliases below are inert until OSV lands (PRD Appendix A). An unmapped product produces silence plus a component_unmapped row (PRD R1) - never a guessed match.",
+  "aliases": [
+    {
+      "aliasText": "nginx",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:f5:nginx"
+    },
+    {
+      "aliasText": "nginx reverse proxy",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:f5:nginx"
+    },
+    {
+      "aliasText": "openresty",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:openresty:openresty"
+    },
+    {
+      "aliasText": "apache",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:apache:http_server"
+    },
+    {
+      "aliasText": "apache httpd",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:apache:http_server"
+    },
+    {
+      "aliasText": "httpd",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:apache:http_server"
+    },
+    {
+      "aliasText": "apache http server",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:apache:http_server"
+    },
+    {
+      "aliasText": "tomcat",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:apache:tomcat"
+    },
+    {
+      "aliasText": "apache tomcat",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:apache:tomcat"
+    },
+    {
+      "aliasText": "lighttpd",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:lighttpd:lighttpd"
+    },
+    {
+      "aliasText": "caddy",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:caddyserver:caddy"
+    },
+    {
+      "aliasText": "haproxy",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:haproxy:haproxy"
+    },
+    {
+      "aliasText": "envoy",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:envoyproxy:envoy"
+    },
+    {
+      "aliasText": "jetty",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:eclipse:jetty"
+    },
+    {
+      "aliasText": "openssl",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:openssl:openssl"
+    },
+    {
+      "aliasText": "php",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:php:php"
+    },
+    {
+      "aliasText": "gunicorn",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:gunicorn:gunicorn"
+    },
+    {
+      "aliasText": "werkzeug",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:palletsprojects:werkzeug"
+    },
+    {
+      "aliasText": "microsoft-iis",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:microsoft:internet_information_services"
+    },
+    {
+      "aliasText": "iis",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:microsoft:internet_information_services"
+    },
+    {
+      "aliasText": "wordpress",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:wordpress:wordpress"
+    },
+    {
+      "aliasText": "drupal",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:drupal:drupal"
+    },
+    {
+      "aliasText": "joomla",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:joomla:joomla"
+    },
+    {
+      "aliasText": "magento",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:magento:magento"
+    },
+    {
+      "aliasText": "typo3",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:typo3:typo3"
+    },
+    {
+      "aliasText": "node.js",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:nodejs:node.js"
+    },
+    {
+      "aliasText": "nodejs",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:nodejs:node.js"
+    },
+    {
+      "aliasText": "express",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/express"
+    },
+    {
+      "aliasText": "next.js",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/next"
+    },
+    {
+      "aliasText": "nuxt.js",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/nuxt"
+    },
+    {
+      "aliasText": "jquery",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:jquery:jquery"
+    },
+    {
+      "aliasText": "bootstrap",
+      "ecosystem": "cpe",
+      "componentKey": "cpe:getbootstrap:bootstrap"
+    },
+    {
+      "aliasText": "react",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/react"
+    },
+    {
+      "aliasText": "vue.js",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/vue"
+    },
+    {
+      "aliasText": "angular",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/@angular/core"
+    },
+    {
+      "aliasText": "lodash",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/lodash"
+    },
+    {
+      "aliasText": "moment.js",
+      "ecosystem": "npm",
+      "componentKey": "pkg:npm/moment"
+    },
+    {
+      "aliasText": "django",
+      "ecosystem": "pypi",
+      "componentKey": "pkg:pypi/django"
+    },
+    {
+      "aliasText": "flask",
+      "ecosystem": "pypi",
+      "componentKey": "pkg:pypi/flask"
+    },
+    {
+      "aliasText": "laravel",
+      "ecosystem": "composer",
+      "componentKey": "pkg:composer/laravel/framework"
+    },
+    {
+      "aliasText": "woocommerce",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/woocommerce"
+    },
+    {
+      "aliasText": "elementor",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/elementor"
+    },
+    {
+      "aliasText": "yoast seo",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/wordpress-seo"
+    },
+    {
+      "aliasText": "contact form 7",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/contact-form-7"
+    },
+    {
+      "aliasText": "wpforms",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/wpforms-lite"
+    },
+    {
+      "aliasText": "wordfence",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/wordfence"
+    },
+    {
+      "aliasText": "jetpack",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/jetpack"
+    },
+    {
+      "aliasText": "wp rocket",
+      "ecosystem": "wordpress_plugin",
+      "componentKey": "pkg:wordpress-plugin/wp-rocket"
+    },
+    {
+      "aliasText": "divi",
+      "ecosystem": "wordpress_theme",
+      "componentKey": "pkg:wordpress-theme/divi"
+    },
+    {
+      "aliasText": "astra",
+      "ecosystem": "wordpress_theme",
+      "componentKey": "pkg:wordpress-theme/astra"
+    }
+  ]
+}

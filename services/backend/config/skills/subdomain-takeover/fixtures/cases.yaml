@@ -1,0 +1,251 @@
+schema_version: 1
+skill: subdomain-takeover
+cases:
+  - id: subdomain-takeover-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: subdomain-takeover-positive-1-observation
+              content: The in-scope CNAME targeted the owner-provided deprovisioned service fixture and the provider’s authoritative unclaimed response matched it.
+            - id: subdomain-takeover-positive-1-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - subdomain-takeover-positive-1-observation
+        - subdomain-takeover-positive-1-floor
+        - subdomain-takeover-positive-1-control
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: subdomain-takeover-positive-2-observation
+              content: A delegated test subdomain pointed to an absent bucket/site identifier confirmed unclaimed in a disposable provider fixture.
+            - id: subdomain-takeover-positive-2-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - subdomain-takeover-positive-2-observation
+        - subdomain-takeover-positive-2-floor
+        - subdomain-takeover-positive-2-control
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: subdomain-takeover-positive-3-observation
+              content: An abandoned SaaS custom-domain mapping produced the documented unbound-domain response and source inventory confirmed no active owner resource.
+            - id: subdomain-takeover-positive-3-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - subdomain-takeover-positive-3-observation
+        - subdomain-takeover-positive-3-floor
+        - subdomain-takeover-positive-3-control
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: subdomain-takeover-negative-1-observation
+              content: The provider target was active and served the owner’s current resource.
+            - id: subdomain-takeover-negative-1-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - subdomain-takeover-negative-1-observation
+        - subdomain-takeover-negative-1-floor
+        - subdomain-takeover-negative-1-control
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: subdomain-takeover-negative-2-observation
+              content: A generic not-found response did not prove the identifier was claimable.
+            - id: subdomain-takeover-negative-2-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - subdomain-takeover-negative-2-observation
+        - subdomain-takeover-negative-2-floor
+        - subdomain-takeover-negative-2-control
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: subdomain-takeover-negative-3-observation
+              content: The DNS record was stale in passive history but absent from current authoritative DNS.
+            - id: subdomain-takeover-negative-3-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - subdomain-takeover-negative-3-observation
+        - subdomain-takeover-negative-3-floor
+        - subdomain-takeover-negative-3-control
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: subdomain-takeover-ambiguous-observation
+              content: DNS points to a provider and returns an error, but claimability and current owner resource state are unknown.
+            - id: subdomain-takeover-ambiguous-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - subdomain-takeover-ambiguous-observation
+        - subdomain-takeover-ambiguous-floor
+        - subdomain-takeover-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: subdomain-takeover-blocked-observation
+              content: Authoritative DNS or an owner-supplied provider-state fixture is unavailable; registration is not permitted.
+            - id: subdomain-takeover-blocked-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - subdomain-takeover-blocked-observation
+        - subdomain-takeover-blocked-floor
+        - subdomain-takeover-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: subdomain-takeover-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess subdomain-takeover with the subdomain-takeover methodology and retain deterministic proof.
+    expected:
+      primary_skill: subdomain-takeover
+      top_n: 3
+  - id: subdomain-takeover-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: subdomain-takeover
+      top_n: 5
+  - id: subdomain-takeover-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: subdomain-takeover-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: subdomain-takeover-mutation-observation
+              content: Only DNS record type changed from CNAME to the supplied alias form; the same authoritative unclaimed fixture remained.
+            - id: subdomain-takeover-mutation-floor
+              content: The required decision floor is in-scope DNS record, unclaimed provider state proven by owner-supplied fixture/authoritative response, and no registration attempt.
+            - id: subdomain-takeover-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - subdomain-takeover-mutation-observation
+        - subdomain-takeover-mutation-floor
+        - subdomain-takeover-mutation-control
+      forbidden_evidence_ids: []

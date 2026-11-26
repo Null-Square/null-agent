@@ -1,0 +1,251 @@
+schema_version: 1
+skill: nextjs
+cases:
+  - id: nextjs-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: nextjs-positive-1-observation
+              content: An active App Router handler omitted the tenant check and returned evaluator B’s synthetic server-component data.
+            - id: nextjs-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nextjs-positive-1-observation
+        - nextjs-positive-1-context
+        - nextjs-positive-1-control
+      forbidden_evidence_ids: []
+  - id: nextjs-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: nextjs-positive-2-observation
+              content: A Server Action accepted a harmless server-managed field from evaluator A and the authoritative state read confirmed it.
+            - id: nextjs-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nextjs-positive-2-observation
+        - nextjs-positive-2-context
+        - nextjs-positive-2-control
+      forbidden_evidence_ids: []
+  - id: nextjs-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: nextjs-positive-3-observation
+              content: A unique ISR/cache key served the evaluator private canary to an anonymous request and a fresh-key control did not.
+            - id: nextjs-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nextjs-positive-3-observation
+        - nextjs-positive-3-context
+        - nextjs-positive-3-control
+      forbidden_evidence_ids: []
+  - id: nextjs-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: nextjs-negative-1-observation
+              content: A source map belonged to a previous build id.
+            - id: nextjs-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-negative-1-control
+              content: The retained control explains the observed signal without meeting active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nextjs-negative-1-observation
+        - nextjs-negative-1-context
+        - nextjs-negative-1-control
+      forbidden_evidence_ids: []
+  - id: nextjs-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: nextjs-negative-2-observation
+              content: A public environment variable contained only an intended API base URL.
+            - id: nextjs-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-negative-2-control
+              content: The retained control explains the observed signal without meeting active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nextjs-negative-2-observation
+        - nextjs-negative-2-context
+        - nextjs-negative-2-control
+      forbidden_evidence_ids: []
+  - id: nextjs-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: nextjs-negative-3-observation
+              content: A route existed in source but was excluded from the deployed build.
+            - id: nextjs-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-negative-3-control
+              content: The retained control explains the observed signal without meeting active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nextjs-negative-3-observation
+        - nextjs-negative-3-context
+        - nextjs-negative-3-control
+      forbidden_evidence_ids: []
+  - id: nextjs-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: nextjs-ambiguous-observation
+              content: A route chunk suggests an unsafe handler, but build id, active router, and runtime behavior do not match.
+            - id: nextjs-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-ambiguous-missing
+              content: The packet lacks at least one required element of active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - nextjs-ambiguous-observation
+        - nextjs-ambiguous-context
+        - nextjs-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: nextjs-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: nextjs-blocked-observation
+              content: No active build provenance, evaluator session/object, or safe fresh cache key is available.
+            - id: nextjs-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - nextjs-blocked-observation
+        - nextjs-blocked-context
+        - nextjs-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: nextjs-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess nextjs with the nextjs methodology and retain deterministic proof.
+    expected:
+      primary_skill: nextjs
+      top_n: 3
+  - id: nextjs-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: nextjs
+      top_n: 5
+  - id: nextjs-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nextjs-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: nextjs-mutation-observation
+              content: Only navigation form changed from the normal App Router request to the observed RSC data request; evaluator A still accessed evaluator B's peer canary without authorization while the owner and nonexistent-object controls remained fixed.
+            - id: nextjs-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/revision, router/handler or rendering path, evaluator controls, and runtime outcome.
+            - id: nextjs-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nextjs-mutation-observation
+        - nextjs-mutation-context
+        - nextjs-mutation-control
+      forbidden_evidence_ids: []

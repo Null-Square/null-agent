@@ -1,0 +1,251 @@
+schema_version: 1
+skill: rails
+cases:
+  - id: rails-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: rails-positive-1-observation
+              content: A controller used direct find outside the active policy scope and evaluator A read evaluator B’s synthetic record.
+            - id: rails-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rails-positive-1-observation
+        - rails-positive-1-context
+        - rails-positive-1-control
+      forbidden_evidence_ids: []
+  - id: rails-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: rails-positive-2-observation
+              content: Strong parameters permitted one harmless server-managed field that persisted on the disposable evaluator model.
+            - id: rails-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rails-positive-2-observation
+        - rails-positive-2-context
+        - rails-positive-2-control
+      forbidden_evidence_ids: []
+  - id: rails-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: rails-positive-3-observation
+              content: A signed evaluator identifier remained accepted after changing a controller-consumed duplicate parameter omitted from verification.
+            - id: rails-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rails-positive-3-observation
+        - rails-positive-3-context
+        - rails-positive-3-control
+      forbidden_evidence_ids: []
+  - id: rails-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: rails-negative-1-observation
+              content: A secret placeholder existed only in sample credentials.
+            - id: rails-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-negative-1-control
+              content: The retained control explains the observed signal without meeting active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - rails-negative-1-observation
+        - rails-negative-1-context
+        - rails-negative-1-control
+      forbidden_evidence_ids: []
+  - id: rails-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: rails-negative-2-observation
+              content: Development error pages were disabled by effective production environment.
+            - id: rails-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-negative-2-control
+              content: The retained control explains the observed signal without meeting active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - rails-negative-2-observation
+        - rails-negative-2-context
+        - rails-negative-2-control
+      forbidden_evidence_ids: []
+  - id: rails-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: rails-negative-3-observation
+              content: A route belonged to an engine not mounted in the deployed application.
+            - id: rails-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-negative-3-control
+              content: The retained control explains the observed signal without meeting active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - rails-negative-3-observation
+        - rails-negative-3-context
+        - rails-negative-3-control
+      forbidden_evidence_ids: []
+  - id: rails-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: rails-ambiguous-observation
+              content: A callback skip appears unsafe, but active route, policy scope, and deployment revision are missing.
+            - id: rails-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-ambiguous-missing
+              content: The packet lacks at least one required element of active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - rails-ambiguous-observation
+        - rails-ambiguous-context
+        - rails-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: rails-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: rails-blocked-observation
+              content: No active route/policy provenance, evaluator models, or disposable state exists.
+            - id: rails-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - rails-blocked-observation
+        - rails-blocked-context
+        - rails-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: rails-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess rails with the rails methodology and retain deterministic proof.
+    expected:
+      primary_skill: rails
+      top_n: 3
+  - id: rails-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: rails
+      top_n: 5
+  - id: rails-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rails-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: rails-mutation-observation
+              content: Only response format changed from HTML to active JSON handler; the same direct-find authorization gap reproduced.
+            - id: rails-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/callback/policy/parameter/model path, evaluator controls, and runtime state/read.
+            - id: rails-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rails-mutation-observation
+        - rails-mutation-context
+        - rails-mutation-control
+      forbidden_evidence_ids: []

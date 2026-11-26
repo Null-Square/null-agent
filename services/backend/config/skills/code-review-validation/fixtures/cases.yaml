@@ -1,0 +1,15 @@
+schema_version: 1
+skill: code-review-validation
+cases:
+  - id: validated-fixable
+    kind: positive
+    input: { candidate: reachable, fix_boundary: bounded }
+    expected: { outcome: validated, fixability: fixable }
+  - id: pattern-only
+    kind: negative
+    input: { candidate: pattern_only }
+    expected: { outcome: rejected }
+  - id: unseen-operational-control
+    kind: negative
+    input: { candidate: absence_only, relevant_control: outside_authorized_context }
+    expected: { outcome: rejected, record_limitation: true }

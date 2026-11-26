@@ -1,153 +1,139 @@
-import { createRoot } from "react-dom/client";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {
-  ThemeProvider,
-  ListSkeleton,
-  ListPageShell,
-  Button,
-} from "@null-ai/design-tokens/ui";
-import { LocalProvider, useLocal } from "./local";
-import SidebarLayout from "./modules/layout/SidebarLayout";
-import Compliance from "./routes/Compliance";
-import ComplianceControl from "./routes/ComplianceControl";
-import { Scopes } from "./modules/scopes/ui/ScopesPage";
-import ScopeDetailPage from "./modules/scopes/ui/ScopeDetailPage";
-import ProfilePage from "./modules/settings/ui/ProfilePage";
-import { Settings } from "./pages/Settings";
-import { Review } from "./pages/Review";
-import RunsPage from "./modules/runs/ui/RunsPage";
-import RunDetailPage from "./modules/runs/ui/RunDetailPage";
-import DashboardPage from "./modules/dashboard/ui/DashboardPage";
-import AssetsPage from "./modules/assets/ui/AssetsPage";
-import AssetDetailPage from "./modules/assets/ui/AssetDetailPage";
-import { Reports, Risks } from "./pages/Results";
-import { LocalAuthPage, useLocalAccount } from "./modules/account/localAccount";
-import { Onboarding, Welcome } from "./modules/account/Onboarding";
-import ModelsPage from "./modules/settings/ui/ModelsPage";
-import "./index.css";
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } },
-});
-function RunWorkbench() {
-  const { id: requested } = useParams();
-  const { id, scopes, select } = useLocal();
-  const scope = scopes.find((item) => item.id === requested);
+import { Suspense, useEffect, useRef, type ReactNode } from 'react';
+import { BootScreenProvider, useBootScreen } from '@null-ai/design-tokens/ui';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { createQueryClient } from '@shared/lib/queryClient';
+import { TooltipProvider } from '@null-ai/design-tokens/ui';
+import ErrorBoundary from '@shared/ui/ErrorBoundary';
+import { AppToaster } from '@shared/ui/AppToaster';
+import { NavigationProvider } from '@shared/contexts/NavigationContext';
+import { FeatureFlagsProvider } from '@shared/contexts/FeatureFlagsContext';
+import { ThemeProvider } from '@shared/contexts/ThemeContext';
+import { metrics } from '@shared/lib/metrics';
+import { AuthProvider, ProtectedRoute, useAuth } from '@modules/auth';
+import { SubscriptionProvider, useSubscription } from '@modules/billing';
+import { SessionEventBusProvider } from '@modules/sessions';
+import { SidebarLayout } from '@modules/layout';
+import { ScopeProvider } from '@shared/contexts/ScopeContext';
+import { TargetVerifiedCelebration } from '@modules/scopes/ui/TargetVerifiedCelebration';
+import { PermissionsProvider, RouteGuard } from '@modules/permissions';
+import { getRouteMeta, navGroups, routeRegistry } from '@/routes/routeRegistry';
+import type { RouteConfig } from '@/routes/routeRegistry';
+
+const AppLayout = ({ children }: { children: ReactNode }) => {
+  const location = useLocation();
+  const navStartRef = useRef<number>(performance.now());
+  const meta = getRouteMeta(location.pathname);
+  const routeLayout = meta?.layout ?? (meta?.public ? 'blank' : 'sidebar');
+  const { loading: subscriptionLoading } = useSubscription();
+  const booting = !meta?.public && subscriptionLoading;
+  useBootScreen(booting, 'subscription');
+
   useEffect(() => {
-    if (scope && id !== scope.id) select(scope.id);
-  }, [scope, id, select]);
-  if (!scope) return <Navigate to="/runs" replace />;
-  return id === scope.id ? (
-    <Review key={id} />
-  ) : (
-    <ListSkeleton label="Reading assessment" />
-  );
-}
+    const start = performance.now();
+    navStartRef.current = start;
+    const handle = window.requestAnimationFrame(() => {
+      metrics.trackNavigation(location.pathname, performance.now() - navStartRef.current);
+    });
+    return () => window.cancelAnimationFrame(handle);
+  }, [location.pathname]);
 
-function Body() {
-  const { id, loading, error, refresh } = useLocal();
+  if (booting) return null;
+
   return (
-    <SidebarLayout>
-      {loading ? (
-        <div className="p-8">
-          <ListSkeleton label="Reading workspace" />
-        </div>
-      ) : error ? (
-        <ListPageShell title="Workspace unavailable">
-          <p className="notice" role="alert">
-            {error.message}
-          </p>
-          <Button onClick={() => void refresh()}>Retry</Button>
-        </ListPageShell>
-      ) : (
-        <Routes>
-          <Route path="/agent" element={id ? <Review key={id} /> : <Navigate to="/scopes" replace />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/assets" element={<AssetsPage key={id} />} />
-          <Route path="/assets/detail" element={<AssetDetailPage />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/settings/organization" element={<Settings />} />
-          <Route path="/models" element={<ModelsPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/scopes" element={<Scopes />} />
-          <Route path="/scopes/:id" element={<ScopeDetailPage />} />
-          <Route path="/run" element={<Navigate to="/runs" replace />} />
-          <Route path="/runs" element={<RunsPage />} />
-          <Route path="/runs/:id" element={<RunDetailPage />} />
-          <Route path="/runs/:id/workbench" element={<RunWorkbench />} />
-          {id && (
-            <>
-              <Route path="/compliance" element={<Compliance key={id} />} />
-              <Route
-                path="/compliance/:frameworkKey/:controlId"
-                element={<ComplianceControl key={id} />}
-              />
-              <Route path="/risks" element={<Risks />} />
-              <Route path="/risks/:id" element={<Risks />} />
-              <Route
-                path="/findings"
-                element={<Navigate to="/risks" replace />}
-              />
-              <Route path="/findings/:id" element={<Risks />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route
-                path="/code-review"
-                element={
-                  <Navigate
-                    to={"/runs/" + encodeURIComponent(id) + "/workbench"}
-                    replace
-                  />
-                }
-              />
-            </>
-          )}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      )}
-    </SidebarLayout>
+    <>
+      {routeLayout === 'sidebar' ? <SidebarLayout>{children}</SidebarLayout> : children}
+      {/* Above the router on purpose: verifying a target makes DashboardPage
+          swap render branches, which unmounts whichever modal asked for the
+          verification. Anything holding the celebration below this point is
+          destroyed by the success it is meant to announce. */}
+      {!meta?.public ? <TargetVerifiedCelebration /> : null}
+    </>
   );
-}
-function SavedPreviewLink() {
-  const { pathname, search } = useLocation();
-  const target = pathname.slice("/demo".length);
-  return <Navigate to={(target === "/run" ? "/runs" : target || "/dashboard") + search} replace />;
-}
+};
 
-function Workspace() {
-  const account = useLocalAccount();
-  if (!account.data) {
-    return (
-      <ListPageShell title="Local workspace">
-        {account.isError ? <p role="alert">The local account is unavailable.</p> : <ListSkeleton label="Reading workspace" />}
-      </ListPageShell>
-    );
-  }
-  if (account.data.stage !== "ready") {
-    return <Navigate to={account.data.stage === "onboarding" ? "/onboarding" : "/auth"} replace />;
-  }
-  return <LocalProvider><Body /></LocalProvider>;
-}
+const CapabilityRouteGuard = ({ route, children }: { route: RouteConfig; children: ReactNode }) => {
+  if (!route.requiredCapability) return <>{children}</>;
+  return <RouteGuard capability={route.requiredCapability}>{children}</RouteGuard>;
+};
 
-createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/auth" element={<LocalAuthPage />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/demo/*" element={<SavedPreviewLink />} />
-          <Route path="*" element={<Workspace />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
-  </QueryClientProvider>,
+const queryClient = createQueryClient();
+
+/**
+ * ── ONE BOOT SCREEN, NOT A NARRATED SEQUENCE ──
+ * Opening the app used to cross three different waiting states with three
+ * different captions, so the first thing a person saw was text changing under
+ * them. Both are the same moment to the person watching: the app is not ready
+ * yet. They now render the identical screen, with no caption to change, so the
+ * boot is one still image that simply ends.
+ */
+const LoadingFallback = () => {
+  useBootScreen(true, 'route-chunk');
+  return null;
+};
+
+const UserDataProviders = ({ children }: { children: ReactNode }) => {
+  const { user, loading } = useAuth();
+  const enabled = Boolean(user) && !loading;
+
+  return (
+    <PermissionsProvider>
+      <SubscriptionProvider enabled={enabled}>
+        <SessionEventBusProvider>
+          <ScopeProvider enabled={enabled}>
+            <NavigationProvider navGroups={navGroups}>
+              <FeatureFlagsProvider>
+                <TooltipProvider>{children}</TooltipProvider>
+              </FeatureFlagsProvider>
+            </NavigationProvider>
+          </ScopeProvider>
+        </SessionEventBusProvider>
+      </SubscriptionProvider>
+    </PermissionsProvider>
+  );
+};
+
+const AppProviders = ({ children }: { children: ReactNode }) => (
+  <ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      {/* Above every guard on purpose: the boot screen must outlive the
+          handoff from one guard to the next, or its entrance animation
+          replays at each stage. See `BootScreen`. */}
+      <BootScreenProvider>
+        <AuthProvider>
+          <UserDataProviders>{children}</UserDataProviders>
+        </AuthProvider>
+      </BootScreenProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
+
+const App = () => (
+  <ErrorBoundary>
+    <BrowserRouter>
+      <AppProviders>
+        <AppToaster />
+        <AppLayout>
+          <div className="min-h-screen bg-background">
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                {routeRegistry.map((route) => {
+                  const guarded = <CapabilityRouteGuard route={route}>{route.element}</CapabilityRouteGuard>;
+                  return (
+                    <Route
+                      key={route.id}
+                      path={route.path}
+                      element={route.public ? guarded : <ProtectedRoute>{guarded}</ProtectedRoute>}
+                    />
+                  );
+                })}
+              </Routes>
+            </Suspense>
+          </div>
+        </AppLayout>
+      </AppProviders>
+    </BrowserRouter>
+  </ErrorBoundary>
+);
+
+export default App;

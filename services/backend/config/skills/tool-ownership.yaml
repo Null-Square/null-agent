@@ -1,0 +1,179 @@
+schema_version: 1
+manifest: ../../sandbox/tools-manifest.json
+tools:
+  - name: subfinder
+    primary_owner: tooling-subfinder
+    classification: broad-network-recon
+  - name: httpx
+    primary_owner: tooling-httpx
+    classification: broad-network-recon
+  - name: naabu
+    primary_owner: tooling-naabu
+    classification: broad-network-recon
+  - name: katana
+    primary_owner: tooling-katana
+    classification: broad-network-recon
+  - name: interactsh-client
+    primary_owner: tooling-interactsh
+    classification: vulnerability-scanner
+  - name: dnsx
+    primary_owner: network-recon
+    classification: broad-network-recon
+  - name: cvemap
+    primary_owner: validation
+    classification: cve-context-helper
+  - name: urlfinder
+    primary_owner: broad-surface-scan
+    classification: broad-network-recon
+  - name: assetfinder
+    primary_owner: network-recon
+    classification: broad-network-recon
+  - name: amass
+    primary_owner: network-recon
+    classification: broad-network-recon
+  - name: gau
+    primary_owner: broad-surface-scan
+    classification: broad-network-recon
+  - name: gospider
+    primary_owner: broad-surface-scan
+    classification: broad-network-recon
+  - name: ffuf
+    primary_owner: tooling-ffuf
+    classification: content-api-enumeration
+  - name: gobuster
+    primary_owner: api-enumeration
+    classification: content-api-enumeration
+  - name: puredns
+    primary_owner: network-recon
+    classification: broad-network-recon
+  - name: unfurl
+    primary_owner: api-enumeration
+    classification: content-api-enumeration
+  - name: qsreplace
+    primary_owner: api-enumeration
+    classification: content-api-enumeration
+  - name: anew
+    primary_owner: broad-surface-scan
+    classification: content-api-enumeration
+  - name: kr
+    primary_owner: api-enumeration
+    classification: content-api-enumeration
+  - name: gitleaks
+    primary_owner: tooling-gitleaks
+    classification: source-supply-chain
+  - name: dalfox
+    primary_owner: tooling-dalfox
+    classification: vulnerability-scanner
+  - name: trufflehog
+    primary_owner: tooling-trufflehog
+    classification: source-supply-chain
+  - name: trivy
+    primary_owner: tooling-trivy
+    classification: source-supply-chain
+  - name: nuclei
+    primary_owner: tooling-nuclei
+    classification: vulnerability-scanner
+  - name: tlsx
+    primary_owner: tooling-tls
+    classification: tls-network-proof
+  - name: nmap
+    primary_owner: tooling-nmap
+    classification: broad-network-recon
+  - name: testssl.sh
+    primary_owner: tooling-tls
+    classification: tls-network-proof
+  - name: nikto
+    primary_owner: web-security-misconfiguration
+    classification: vulnerability-scanner
+  - name: python3
+    primary_owner: tooling-python
+    classification: agent-native-execution
+  - name: semgrep
+    primary_owner: tooling-semgrep
+    classification: source-supply-chain
+  - name: bandit
+    primary_owner: source-aware-whitebox
+    classification: source-supply-chain
+  - name: schemathesis
+    primary_owner: tooling-schemathesis
+    classification: content-api-enumeration
+  - name: mitmproxy
+    primary_owner: tooling-browser
+    classification: agent-native-execution
+  - name: ast-grep
+    primary_owner: source-aware-whitebox
+    classification: source-supply-chain
+  - name: arjun
+    primary_owner: api-enumeration
+    classification: content-api-enumeration
+  - name: sqlmap
+    primary_owner: tooling-sqlmap
+    classification: vulnerability-scanner
+  - name: wafw00f
+    primary_owner: web-security-misconfiguration
+    classification: vulnerability-scanner
+  - name: linkfinder
+    primary_owner: js-surface-analysis
+    classification: source-supply-chain
+  - name: secretfinder
+    primary_owner: js-surface-analysis
+    classification: source-supply-chain
+  - name: dirsearch
+    primary_owner: api-enumeration
+    classification: content-api-enumeration
+  - name: retire
+    primary_owner: software-supply-chain
+    classification: source-supply-chain
+  - name: jwt-tool
+    primary_owner: tooling-jwt-tool
+    classification: vulnerability-scanner
+  - name: grpcurl
+    primary_owner: tooling-grpcurl
+    classification: content-api-enumeration
+  - name: chromium
+    primary_owner: tooling-browser
+    classification: agent-native-execution
+  - name: rg
+    primary_owner: invoking-methodology
+    classification: generic-utility
+  - name: fd
+    primary_owner: invoking-methodology
+    classification: generic-utility
+  - name: yq
+    primary_owner: invoking-methodology
+    classification: generic-utility
+  - name: dig
+    primary_owner: network-recon
+    classification: broad-network-recon
+  - name: whois
+    primary_owner: network-recon
+    classification: broad-network-recon
+  - name: openssl
+    primary_owner: tooling-tls
+    classification: tls-network-proof
+  - name: ip
+    primary_owner: invoking-methodology
+    classification: generic-utility
+  - name: socat
+    primary_owner: tooling-tls
+    classification: tls-network-proof
+  - name: jq
+    primary_owner: invoking-methodology
+    classification: generic-utility
+  - name: curl
+    primary_owner: invoking-methodology
+    classification: generic-utility
+  - name: node
+    primary_owner: invoking-methodology
+    classification: generic-utility
+agent_native_capabilities:
+  - name: python_session
+    primary_owner: tooling-python
+  - name: browser_action
+    primary_owner: tooling-browser
+  - name: raw_and_differential_http
+    primary_owner: validation
+  - name: replay_and_authz
+    primary_owner: validation
+  - name: file_tools
+    primary_owner: source-aware-whitebox

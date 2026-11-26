@@ -1,0 +1,251 @@
+schema_version: 1
+skill: broad-surface-scan
+cases:
+  - id: broad-surface-scan-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: broad-surface-scan-positive-1-observation
+              content: A certificate-corroborated hostname resolved inside the allowlist and one HTTPS request produced a distinct application fingerprint.
+            - id: broad-surface-scan-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-positive-1-observation
+        - broad-surface-scan-positive-1-context
+        - broad-surface-scan-positive-1-control
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: broad-surface-scan-positive-2-observation
+              content: An explicitly approved alternate port completed the advertised protocol handshake and was added as one deduplicated service.
+            - id: broad-surface-scan-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-positive-2-observation
+        - broad-surface-scan-positive-2-context
+        - broad-surface-scan-positive-2-control
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: broad-surface-scan-positive-3-observation
+              content: A source deployment manifest named a public listener and the matching host, port, SNI, and response fingerprint confirmed it.
+            - id: broad-surface-scan-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-positive-3-observation
+        - broad-surface-scan-positive-3-context
+        - broad-surface-scan-positive-3-control
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: broad-surface-scan-negative-1-observation
+              content: Several DNS names resolved to the same CDN service and identical fingerprint, so they collapsed to one surface.
+            - id: broad-surface-scan-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-negative-1-control
+              content: The retained control explains the observed signal without meeting authorized seed, resolved service identity, bounded handshake, and deduplicated provenance; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-negative-1-observation
+        - broad-surface-scan-negative-1-context
+        - broad-surface-scan-negative-1-control
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: broad-surface-scan-negative-2-observation
+              content: A port appeared open in one transient probe but two bounded confirmations timed out.
+            - id: broad-surface-scan-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-negative-2-control
+              content: The retained control explains the observed signal without meeting authorized seed, resolved service identity, bounded handshake, and deduplicated provenance; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-negative-2-observation
+        - broad-surface-scan-negative-2-context
+        - broad-surface-scan-negative-2-control
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: broad-surface-scan-negative-3-observation
+              content: An address discovered from unrelated certificate history fell outside the engagement allowlist.
+            - id: broad-surface-scan-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-negative-3-control
+              content: The retained control explains the observed signal without meeting authorized seed, resolved service identity, bounded handshake, and deduplicated provenance; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-negative-3-observation
+        - broad-surface-scan-negative-3-context
+        - broad-surface-scan-negative-3-control
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: broad-surface-scan-ambiguous-observation
+              content: A service accepts TCP but provides no stable protocol or ownership fingerprint within the handshake budget.
+            - id: broad-surface-scan-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-ambiguous-missing
+              content: The packet lacks at least one required element of authorized seed, resolved service identity, bounded handshake, and deduplicated provenance, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-ambiguous-observation
+        - broad-surface-scan-ambiguous-context
+        - broad-surface-scan-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: broad-surface-scan-blocked-observation
+              content: The host/port allowlist or connection-rate ceiling is absent.
+            - id: broad-surface-scan-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-blocked-observation
+        - broad-surface-scan-blocked-context
+        - broad-surface-scan-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: broad-surface-scan-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess broad-surface-scan with the broad-surface-scan methodology and retain deterministic proof.
+    expected:
+      primary_skill: broad-surface-scan
+      top_n: 3
+  - id: broad-surface-scan-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: broad-surface-scan
+      top_n: 5
+  - id: broad-surface-scan-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broad-surface-scan-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: broad-surface-scan-mutation-observation
+              content: Only SNI changed to the second explicitly supplied hostname; the address, port, protocol, and single handshake remained fixed.
+            - id: broad-surface-scan-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is authorized seed, resolved service identity, bounded handshake, and deduplicated provenance.
+            - id: broad-surface-scan-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - broad-surface-scan-mutation-observation
+        - broad-surface-scan-mutation-context
+        - broad-surface-scan-mutation-control
+      forbidden_evidence_ids: []

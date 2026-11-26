@@ -1,0 +1,184 @@
+schema_version: 1
+skill: ssrf
+cases:
+  - id: ssrf-positive-unique-http-callback
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: request-and-oob-correlation
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        operator_context: Callback domain is evaluator-controlled; no internal or metadata address is used.
+        artifact:
+          observations:
+            - { id: oob-input, content: "The image-import URL contained unique token b1-ssrf-a91 on the evaluator-controlled HTTPS callback host." }
+            - { id: oob-http, content: "The callback service received an HTTPS GET for /b1-ssrf-a91 430 ms after submission with the target service's documented egress user agent." }
+            - { id: oob-control, content: "An inert non-URL string and an unreferenced fresh token produced no DNS or HTTP callback during the same observation window." }
+            - { id: oob-attribution, content: "Application job id, callback token, timestamp, and source egress address correlate the event to the submitted import job." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [oob-input, oob-http, oob-control, oob-attribution]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-positive-server-returned-public-canary
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: paired-http-exchanges
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        operator_context: Only an evaluator-controlled public canary URL is requested.
+        artifact:
+          observations:
+            - { id: fetch-canary, content: "The supplied URL points to a public evaluator-controlled endpoint returning unique body marker canary-fetch-42." }
+            - { id: fetch-response, content: "The application response includes canary-fetch-42 even though the client never fetched the canary endpoint directly." }
+            - { id: fetch-log, content: "Canary access log records the target service egress address and the exact job-specific path." }
+            - { id: fetch-control, content: "A nonexistent canary path returns the application's fetch error and no marker." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [fetch-canary, fetch-response, fetch-log, fetch-control]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-positive-authorized-redirect-follow
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: redirect-and-oob-correlation
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        operator_context: Redirect source and destination are both evaluator-controlled public hosts.
+        artifact:
+          observations:
+            - { id: redirect-input, content: "Submitted URL returned one 302 redirect to a fresh evaluator-controlled destination token." }
+            - { id: redirect-source, content: "Redirect source log records a request from the target service, followed by a request to the unique destination 120 ms later." }
+            - { id: redirect-destination, content: "Destination log records the target egress source and exact fresh token; the browser client made neither request." }
+            - { id: redirect-control, content: "A redirect-disabled endpoint and an unsubmitted token generated no destination request." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [redirect-input, redirect-source, redirect-destination, redirect-control]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-negative-client-side-fetch
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: browser-and-oob-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: client-callback, content: "The callback request occurs only when the evaluator's browser opens the preview and carries the browser's public address and user agent." }
+            - { id: client-server, content: "Submitting the URL without opening the preview produces no callback or server-side job." }
+            - { id: client-code, content: "Browser network trace shows frontend JavaScript directly requesting the supplied URL." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [client-callback, client-server, client-code]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-negative-security-validation-dns
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dns-and-application-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: validation-dns, content: "Submission causes one DNS lookup from the documented URL reputation service but no HTTP connection." }
+            - { id: validation-reject, content: "The application rejects every URL after the reputation check and never schedules a fetch job." }
+            - { id: validation-controls, content: "Both allowed and disallowed domains receive the same resolver-only check; unique HTTP canary paths are never requested." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [validation-dns, validation-reject, validation-controls]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-negative-user-agent-proxy
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: proxy-correlation
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: proxy-request, content: "A callback arrives from an enterprise browser proxy immediately after client navigation." }
+            - { id: proxy-identity, content: "The request carries the evaluator browser's cookies and exact browser user agent, not the target service identity." }
+            - { id: proxy-control, content: "Submitting through the API without browser navigation produces no callback." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [proxy-request, proxy-identity, proxy-control]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-ambiguous-dns-only-callback
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dns-oob-record
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: dns-token, content: "A unique submitted hostname receives a DNS query from shared infrastructure." }
+            - { id: dns-no-http, content: "No HTTP callback, fetched content, job correlation id, or stable source attribution is available." }
+            - { id: dns-prefetch, content: "The environment uses an email/security gateway known to pre-resolve user-supplied hostnames." }
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids: [dns-token, dns-no-http, dns-prefetch]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-blocked-oob-unavailable
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: precondition-record
+        authorization: { policy_allowed: true, infrastructure_available: false }
+        artifact:
+          observations:
+            - { id: blocked-blind, content: "The endpoint returns a generic queued response and never includes fetched content." }
+            - { id: blocked-oob, content: "No approved callback service is available and outbound interaction logs cannot be observed." }
+            - { id: blocked-boundary, content: "Internal addresses, metadata endpoints, credentials, and uncontrolled exfiltration are outside the B1 boundary." }
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids: [blocked-blind, blocked-oob, blocked-boundary]
+      forbidden_evidence_ids: []
+
+  - id: ssrf-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Validate suspected SSRF server-side request forgery with a unique evaluator-controlled HTTPS callback and a no-request control.
+    expected: { primary_skill: ssrf, top_n: 3 }
+
+  - id: ssrf-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Confirm that a browser link opens an external public documentation page after a user click.
+    expected: { absent_skill: ssrf, top_n: 5 }
+
+  - id: ssrf-mutation-url-encoding
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: request-and-oob-mutation
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        operator_context: Mutation targets only an evaluator-controlled public callback host.
+        artifact:
+          observations:
+            - { id: ssrf-mutation-invariant, content: "Only one slash in the public canary URL was percent-encoded; host, scheme, job, token family, and controls stayed fixed." }
+            - { id: ssrf-mutation-callback, content: "The target service decoded the URL and requested the exact fresh canary path from its egress address." }
+            - { id: ssrf-mutation-control, content: "A fresh unsubmitted token and an invalid-scheme control received no callback." }
+            - { id: ssrf-mutation-correlation, content: "Job id and timestamps correlate the callback to the encoded input within 300 ms." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [ssrf-mutation-invariant, ssrf-mutation-callback, ssrf-mutation-control, ssrf-mutation-correlation]
+      forbidden_evidence_ids: []

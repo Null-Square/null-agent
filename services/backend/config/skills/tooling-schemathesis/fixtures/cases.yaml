@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-schemathesis
+cases:
+  - id: tooling-schemathesis-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-schemathesis-positive-1-observation
+              content: A supplied operation varied owner, peer synthetic, and nonexistent ids under a fixed seed and retained the minimized authorization differential.
+            - id: tooling-schemathesis-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-positive-1-observation
+        - tooling-schemathesis-positive-1-context
+        - tooling-schemathesis-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-schemathesis-positive-2-observation
+              content: A boundary-value property reproduced a deterministic validation failure without state change in five examples.
+            - id: tooling-schemathesis-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-positive-2-observation
+        - tooling-schemathesis-positive-2-context
+        - tooling-schemathesis-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-schemathesis-positive-3-observation
+              content: A single generated failure replayed from the recorded seed and minimized request.
+            - id: tooling-schemathesis-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-positive-3-observation
+        - tooling-schemathesis-positive-3-context
+        - tooling-schemathesis-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-schemathesis-negative-1-observation
+              content: A server error did not reproduce after minimization.
+            - id: tooling-schemathesis-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-negative-1-control
+              content: The retained control explains the observed signal without meeting supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-negative-1-observation
+        - tooling-schemathesis-negative-1-context
+        - tooling-schemathesis-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-negative-evidence-packet
+        authorization:
+          policy_allowed: false
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-schemathesis-negative-2-observation
+              content: The proposed run covered destructive operations without disposable state.
+            - id: tooling-schemathesis-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-negative-2-control
+              content: The retained control explains the observed signal without meeting supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-negative-2-observation
+        - tooling-schemathesis-negative-2-context
+        - tooling-schemathesis-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-negative-evidence-packet
+        authorization:
+          policy_allowed: false
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-schemathesis-negative-3-observation
+              content: A schema-wide default-concurrency run exceeded the approved scope.
+            - id: tooling-schemathesis-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-negative-3-control
+              content: The retained control explains the observed signal without meeting supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-negative-3-observation
+        - tooling-schemathesis-negative-3-context
+        - tooling-schemathesis-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-schemathesis-ambiguous-observation
+              content: A failing example lacks seed, operation id, minimized request, or authoritative post-state.
+            - id: tooling-schemathesis-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-ambiguous-missing
+              content: The packet lacks at least one required element of supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-ambiguous-observation
+        - tooling-schemathesis-ambiguous-context
+        - tooling-schemathesis-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-schemathesis-blocked-observation
+              content: No supplied schema/operation, evaluator auth context, or safe example budget exists.
+            - id: tooling-schemathesis-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-blocked-observation
+        - tooling-schemathesis-blocked-context
+        - tooling-schemathesis-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-schemathesis-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-schemathesis with the tooling-schemathesis methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-schemathesis
+      top_n: 3
+  - id: tooling-schemathesis-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-schemathesis
+      top_n: 5
+  - id: tooling-schemathesis-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-schemathesis-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-schemathesis-mutation-observation
+              content: Only one schema parameter varied while operation, seed, example cap, auth context, and oracle remained fixed; the variation produced the same minimized reproducible invariant violation and the valid-value control stayed stable.
+            - id: tooling-schemathesis-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied operation/schema, pinned seed/cap, disposable state policy, minimized reproducer, and owner-skill oracle.
+            - id: tooling-schemathesis-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-schemathesis-mutation-observation
+        - tooling-schemathesis-mutation-context
+        - tooling-schemathesis-mutation-control
+      forbidden_evidence_ids: []

@@ -1,48 +1,35 @@
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type DragEvent,
-  type FormEvent,
-} from "react";
-import { FileText, Upload, X } from "lucide-react";
-import {
-  Button,
-  NativeSelect,
-  Modal,
-  ModalContent,
-  ModalFooter,
-} from "@null-ai/design-tokens/ui";
-import { useLocal, projectAPI, projectPath } from "../../../local";
+import { useEffect, useRef, useState, type DragEvent, type FormEvent } from 'react';
+import { FileText, Upload, X } from 'lucide-react';
+import { toastService } from '@shared/services/toastService';
 
-export function EvidenceUploadModal({
-  isOpen,
-  onClose,
-  controlId,
-  framework,
-  controls = [],
-}: {
+import { useCreateComplianceEvidenceMutation } from '@/modules/security-ops/api';
+import type { ComplianceEvidenceItem, ComplianceMissingEvidenceItem } from '@/modules/security-ops/types';
+import { Button, Modal, ModalContent, ModalFooter } from '@null-ai/design-tokens/ui';
+
+interface EvidenceUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  controlId?: string;
-  framework?: string;
-  controls?: { id: string; title: string }[];
-}) {
-  const { id: scopeId, refresh } = useLocal();
-  const [error, setError] = useState("");
+  scopeId: string | null;
+  /** When fulfilling a specific agent request, restricts to a single file and links it on success. */
+  targetItem?: ComplianceMissingEvidenceItem | null;
+  onUploaded?: (evidence: ComplianceEvidenceItem) => void;
+  /** Demo-only: render a single mock file as "ready" (no real picker/upload). */
+  previewFile?: { name: string; sizeKb: number } | null;
+}
+
+export function EvidenceUploadModal({ isOpen, onClose, scopeId, targetItem, onUploaded, previewFile }: EvidenceUploadModalProps) {
   const [files, setFiles] = useState<File[]>([]);
-  const [linkedControl, setLinkedControl] = useState("");
-  const controlSelectId = useId();
   const [dragOver, setDragOver] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const mutation = useCreateComplianceEvidenceMutation();
+
+  // Fulfilling a specific agent request -> exactly one file, linked back to the request.
+  const single = Boolean(targetItem);
 
   useEffect(() => {
     if (!isOpen) return;
     setFiles([]);
-    setLinkedControl("");
-    setError("");
     setDragOver(false);
   }, [isOpen]);
 
@@ -51,11 +38,10 @@ export function EvidenceUploadModal({
   const addFiles = (incoming: FileList | null) => {
     if (!incoming || incoming.length === 0) return;
     const list = Array.from(incoming);
-    setFiles((prev) => [...prev, ...list]);
+    setFiles((prev) => (single ? list.slice(0, 1) : [...prev, ...list]));
   };
 
-  const removeFile = (index: number) =>
-    setFiles((prev) => prev.filter((_, i) => i !== index));
+  const removeFile = (index: number) => setFiles((prev) => prev.filter((_, i) => i !== index));
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -65,91 +51,68 @@ export function EvidenceUploadModal({
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (!files.length || !scopeId) return;
-    setUploading(true);
-    setError("");
-    const failed: File[] = [];
-    const errors: string[] = [];
-    try {
-      for (const file of files) {
-        try {
-          if (file.size > 1024 * 1024)
-            throw new Error("Choose a file up to 1 MiB.");
-          const control = controlId || linkedControl;
-          if (control && framework) {
-            const query = new URLSearchParams({ controlId: control, framework });
-            const response = await fetch("/api" + projectPath(scopeId) + "/artifacts/file?" + query, {
-              method: "POST",
-              headers: { "Content-Type": "application/octet-stream", "X-Evidence-Name": encodeURIComponent(file.name) },
-              body: file,
-            });
-            const body = await response.json().catch(() => null);
-            if (!response.ok || !body) throw new Error(body?.error ?? "Could not save the attachment.");
-          } else {
-            await projectAPI(scopeId, "/artifacts", "POST", {
-              name: file.name,
-              content: await file.text(),
-              framework,
-            });
-          }
-        } catch (e) {
-          failed.push(file);
-          errors.push(
-            file.name +
-              ": " +
-              (e instanceof Error ? e.message : "Upload failed."),
-          );
-        }
-      }
-      await refresh();
-      setFiles(failed);
-      if (failed.length) setError(errors.join("\n"));
-      else onClose();
-    } finally {
-      setUploading(false);
+    if (!scopeId) {
+      toastService.error('Select a scope before uploading evidence.');
+      return;
     }
+    if (files.length === 0) {
+      toastService.error('Attach at least one evidence file.');
+      return;
+    }
+
+    setUploading(true);
+    let lastEvidence: ComplianceEvidenceItem | null = null;
+    let succeeded = 0;
+    const failed: string[] = [];
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append('scopeId', scopeId);
+      formData.append('title', file.name);
+      formData.append('sourceType', 'user_upload');
+      formData.append('file', file);
+      try {
+        const result = await mutation.mutateAsync(formData);
+        lastEvidence = result.evidence;
+        succeeded += 1;
+      } catch {
+        failed.push(file.name);
+      }
+    }
+    setUploading(false);
+
+    if (succeeded > 0) {
+      if (targetItem && onUploaded && lastEvidence) onUploaded(lastEvidence);
+      toastService.success(
+        succeeded === 1
+          ? 'Evidence uploaded. The agent will review, describe, and map it.'
+          : `${succeeded} files uploaded. The agent will review, describe, and map them.`,
+      );
+    }
+    if (failed.length > 0) {
+      toastService.error(`Failed to upload: ${failed.join(', ')}`);
+      return;
+    }
+    onClose();
   };
+
   const canSubmit = Boolean(scopeId && files.length > 0 && !uploading);
 
   return (
     <Modal
       isOpen
-      onClose={() => {
-        if (!uploading) onClose();
-      }}
-      title="Upload evidence"
+      onClose={onClose}
+      title={targetItem ? 'Provide requested evidence' : 'Upload evidence'}
       size="md"
     >
       <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col">
         <ModalContent className="space-y-4 p-6">
-          {error && (
-            <p role="alert" className="notice">
-              {error}
-            </p>
-          )}
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-            {controlId ? "Control " + controlId : "Local evidence library"}
+            {targetItem
+              ? `Control ${targetItem.controlId}`
+              : 'The agent describes, types, dates, and maps each file'}
           </p>
-          {!controlId && controls.length > 0 && (
-            <div className="space-y-2 text-sm">
-              <label htmlFor={controlSelectId}>Link to control</label>
-              <NativeSelect id={controlSelectId} value={linkedControl} onChange={event => setLinkedControl(event.target.value)} disabled={uploading}>
-                <option value="">Import into the evidence library</option>
-                {controls.map(control => <option key={control.id} value={control.id}>{control.id} · {control.title}</option>)}
-              </NativeSelect>
-            </div>
-          )}
           <div className="space-y-4">
             <div
-              role="button"
-              tabIndex={0}
-              aria-label="Choose evidence files"
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  fileInputRef.current?.click();
-                }
-              }}
               onClick={() => fileInputRef.current?.click()}
               onDragOver={(event) => {
                 event.preventDefault();
@@ -158,35 +121,45 @@ export function EvidenceUploadModal({
               onDragLeave={() => setDragOver(false)}
               onDrop={onDrop}
               className={`flex cursor-pointer flex-col items-center justify-center border border-dashed p-8 text-center transition-colors ${
-                dragOver
-                  ? "border-primary bg-primary/10"
-                  : "border-border/70 bg-surface-1/30 hover:bg-surface-1/50"
+                dragOver ? 'border-primary bg-primary/10' : 'border-border/70 bg-surface-1/30 hover:bg-surface-1/50'
               }`}
             >
               <input
                 type="file"
                 name="file"
-                aria-label="Evidence file"
-                multiple
-                disabled={uploading}
+                multiple={!single}
                 ref={fileInputRef}
                 onChange={(event) => addFiles(event.target.files)}
                 className="hidden"
               />
               <Upload className="mb-2 h-8 w-8 text-muted-foreground/50" />
               <p className="text-sm font-medium text-foreground">
-                Drag files here, or click to browse
+                {single ? 'Drag a file here, or click to browse' : 'Drag files here, or click to browse'}
               </p>
               <p className="text-xs text-muted-foreground">
-                Scanner JSON or JSONL, UTF-8 notes, source files, or unified
-                diffs.
+                {single
+                  ? 'PDF, PNG, JPG, DOCX, CSV, MD, or export files'
+                  : 'Drop as many as you like — PDF, PNG, JPG, DOCX, CSV, MD, or export files'}
               </p>
             </div>
 
-            {files.length > 0 ? (
+            {previewFile ? (
+              <div className="space-y-2" data-tour="evidence-upload-preview">
+                <p className="ml-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  1 file ready
+                </p>
+                <div className="flex items-center gap-3 border border-border/70 bg-surface-1/30 px-3 py-2">
+                  <FileText className="h-4 w-4 shrink-0 text-primary" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm text-foreground">{previewFile.name}</p>
+                    <p className="text-[11px] text-muted-foreground">{previewFile.sizeKb.toFixed(1)} KB</p>
+                  </div>
+                </div>
+              </div>
+            ) : files.length > 0 ? (
               <div className="space-y-2">
                 <p className="ml-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                  {files.length} file{files.length === 1 ? "" : "s"} ready
+                  {files.length} file{files.length === 1 ? '' : 's'} ready
                 </p>
                 <div className="max-h-56 space-y-1.5 overflow-y-auto">
                   {files.map((file, index) => (
@@ -196,12 +169,8 @@ export function EvidenceUploadModal({
                     >
                       <FileText className="h-4 w-4 shrink-0 text-primary" />
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm text-foreground">
-                          {file.name}
-                        </p>
-                        <p className="text-[11px] text-muted-foreground">
-                          {(file.size / 1024).toFixed(1)} KB
-                        </p>
+                        <p className="truncate text-sm text-foreground">{file.name}</p>
+                        <p className="text-[11px] text-muted-foreground">{(file.size / 1024).toFixed(1)} KB</p>
                       </div>
                       <button
                         type="button"
@@ -222,24 +191,17 @@ export function EvidenceUploadModal({
 
         <ModalFooter className="flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-end">
           {!scopeId ? (
-            <p className="flex-1 text-sm text-muted-foreground">
-              Select a scope to enable upload.
-            </p>
+            <p className="flex-1 text-sm text-muted-foreground">Select a scope to enable upload.</p>
           ) : null}
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onClose}
-            disabled={uploading}
-          >
+          <Button type="button" variant="outline" onClick={onClose}>
             Cancel
           </Button>
           <Button type="submit" loading={uploading} disabled={!canSubmit}>
             {uploading
-              ? "Uploading"
+              ? 'Uploading'
               : files.length > 1
                 ? `Upload ${files.length} files`
-                : "Upload"}
+                : 'Upload'}
           </Button>
         </ModalFooter>
       </form>

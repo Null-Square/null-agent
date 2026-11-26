@@ -78,40 +78,42 @@ body {
   color: var(--color-accent-foreground);
 }
 
-.notice {
-  padding: 12px;
-  margin-block: 12px;
-  background: var(--ns-surface);
-  border-left: 2px solid var(--ns-warning);
-  overflow-wrap: anywhere;
+/* Text utilities */
+.text-balance {
+  text-wrap: balance;
 }
-.local-form {
-  display: grid;
-  max-width: 600px;
-  gap: 16px;
+
+/* Hiding scrollbar utilities */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
-.local-form label {
-  display: grid;
-  gap: 6px;
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-.local-form textarea,
-.local-form select,
-.local-form input:not([type="checkbox"]) {
-  border: 1px solid var(--ns-border);
-  padding: 8px;
-  background: var(--ns-card);
+
+/* Terminal-style custom scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) var(--color-surface-1);
 }
-.local-form label.review-file {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  overflow-wrap: anywhere;
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
 }
-.review-text :is(h1, h2, h3, h4, h5, h6) {
-  margin-block: 1em 0.4em;
-  font-weight: 600;
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-surface-1);
+  border-left: 1px solid var(--color-border);
 }
-.review-text blockquote {
-  border-inline-start: 2px solid var(--ns-border);
-  padding-inline-start: 0.75em;
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: var(--ns-radius-pill);
+  border: 1px solid var(--color-accent);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
 }

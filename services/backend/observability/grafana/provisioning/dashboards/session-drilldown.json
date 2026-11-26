@@ -1,0 +1,206 @@
+{
+  "annotations": { "list": [] },
+  "description": "Complete session investigation - all logs for a specific session",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [
+    { "asDropdown": false, "icon": "external link", "includeVars": true, "keepTime": true, "tags": [], "targetBlank": true, "title": "Home Dashboard", "type": "link", "url": "/d/nullai-home" }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 1,
+      "panels": [],
+      "title": "🔍 Session: $sessionId",
+      "type": "row"
+    },
+    {
+      "title": "All Session Logs",
+      "description": "Complete log stream for this session",
+      "type": "logs",
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 1 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId`",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 13 },
+      "id": 2,
+      "panels": [],
+      "title": "🐳 Container & Sandbox",
+      "type": "row"
+    },
+    {
+      "title": "Container Lifecycle",
+      "description": "Sandbox provision, destroy events",
+      "type": "logs",
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 14 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId` |~ `(?i)sandbox|container|provision|destroy`",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Policy Events",
+      "description": "Policy resolution, approvals",
+      "type": "logs",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 14 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId` |~ `(?i)policy|approval|guard`",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 20 },
+      "id": 3,
+      "panels": [],
+      "title": "🤖 LLM Calls",
+      "type": "row"
+    },
+    {
+      "title": "LLM Request/Response",
+      "description": "All LLM API calls",
+      "type": "logs",
+      "gridPos": { "h": 8, "w": 16, "x": 0, "y": 21 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId` |~ `ModelStream|TurnStream|provider|LLM`",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Token Usage",
+      "description": "Token counts",
+      "type": "logs",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 21 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId` |~ `(?i)usage|token|credit`",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 29 },
+      "id": 4,
+      "panels": [],
+      "title": "🔧 Tool Executions",
+      "type": "row"
+    },
+    {
+      "title": "All Tool Calls",
+      "description": "Every tool execution",
+      "type": "logs",
+      "gridPos": { "h": 8, "w": 16, "x": 0, "y": 30 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId` |~ `ToolInvoker|TurnToolExecutor|invoke`",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Turn Summary",
+      "description": "Turn outcomes",
+      "type": "logs",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 30 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId` |~ `TurnRunner|turn summary`",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 38 },
+      "id": 5,
+      "panels": [],
+      "title": "❌ Errors & Warnings",
+      "type": "row"
+    },
+    {
+      "title": "All Errors",
+      "description": "Every error and warning",
+      "type": "logs",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 39 },
+      "datasource": { "type": "loki", "uid": "loki" },
+      "options": { "dedupStrategy": "none", "enableLogDetails": true, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": true },
+      "targets": [
+        {
+          "datasource": { "type": "loki", "uid": "loki" },
+          "expr": "{container=\"nullai-backend\"} |= `$sessionId` |~ `(?i)error|warn|fail|exception`",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "tags": ["nullai", "session", "drilldown", "debug"],
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": false, "text": "", "value": "" },
+        "description": "Enter the session ID (e.g., 4c3d1c52-1937-41a7-868a-abfbdad268fb)",
+        "hide": 0,
+        "label": "Session ID",
+        "name": "sessionId",
+        "options": [],
+        "query": "",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": { "from": "now-6h", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Session Investigation",
+  "uid": "session-drilldown",
+  "version": 5,
+  "weekStart": ""
+}

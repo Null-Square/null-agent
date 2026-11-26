@@ -1,0 +1,8 @@
+{
+  "turnTimeoutMs": 180000,
+  "maxToolCallsPerTurn": 64,
+  "shellTimeoutMs": 120000,
+  "webTimeoutMs": 15000,
+  "webMaxBytes": 1048576,
+  "sessionTTLMinutes": 120
+}

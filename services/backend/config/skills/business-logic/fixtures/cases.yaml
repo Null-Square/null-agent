@@ -1,0 +1,184 @@
+schema_version: 1
+skill: business-logic
+cases:
+  - id: business-logic-positive-state-transition-skip
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: workflow-state-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        operator_context: Test tenant and synthetic record; no real fulfillment or payment.
+        artifact:
+          observations:
+            - { id: state-baseline, content: "Normal workflow requires draft -> reviewed -> approved; server audit shows each transition and only approved records become exportable." }
+            - { id: state-skip, content: "A draft record was sent directly to the approved transition endpoint using the ordinary editor persona; server returned approved and audit omits review." }
+            - { id: state-impact, content: "A second authorized persona could export the synthetic record because server state was approved." }
+            - { id: state-control, content: "The documented draft-to-reviewed transition behaved normally, and a nonexistent transition id was rejected." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [state-baseline, state-skip, state-impact, state-control]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-positive-server-price-trust
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: synthetic-cart-state-differential
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        operator_context: Non-billable test SKU; checkout stopped before external payment.
+        artifact:
+          observations:
+            - { id: price-baseline, content: "Server-created test cart prices synthetic SKU at 100 credits and calculates total 100." }
+            - { id: price-mutation, content: "The normal update request was replayed with client unitPrice changed to 1; server persisted total 1 rather than recalculating from the catalog." }
+            - { id: price-impact, content: "The order-review API and server-side receipt preview both use persisted total 1." }
+            - { id: price-control, content: "Changing only display text does not affect total; cleanup removed the synthetic cart before payment." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [price-baseline, price-mutation, price-impact, price-control]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-positive-one-time-action-reuse
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: state-and-audit-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        operator_context: Synthetic coupon affects only an isolated test balance.
+        artifact:
+          observations:
+            - { id: reuse-first, content: "One-time synthetic coupon C-17 increased the test balance once and server audit marked it redeemed." }
+            - { id: reuse-second, content: "Replaying the captured redemption request after success returned another success and increased the balance a second time." }
+            - { id: reuse-state, content: "Balance history contains two distinct credits tied to the same coupon identifier." }
+            - { id: reuse-control, content: "A random coupon is rejected and a new valid coupon produces exactly one credit." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [reuse-first, reuse-second, reuse-state, reuse-control]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-negative-ui-only-state
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: browser-and-server-state-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: ui-label, content: "Client UI briefly labels a draft record approved after local state manipulation." }
+            - { id: ui-server, content: "Server read, audit log, and a clean second browser all keep the record in draft." }
+            - { id: ui-action, content: "Export and downstream action endpoints reject the draft record." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [ui-label, ui-server, ui-action]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-negative-idempotent-retry
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: request-and-state-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: retry-responses, content: "Two identical redemption requests return 200 with the same operation identifier." }
+            - { id: retry-state, content: "Balance history contains one credit and the second response is explicitly marked replayed=true." }
+            - { id: retry-audit, content: "Server idempotency log maps both requests to one committed transaction." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [retry-responses, retry-state, retry-audit]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-negative-intended-discount-composition
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rule-and-calculation-record
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: discount-total, content: "Two discounts combine to a lower total than either discount alone." }
+            - { id: discount-policy, content: "Tenant rule configuration explicitly allows these two discount classes to stack and specifies their order." }
+            - { id: discount-calculation, content: "Independent recomputation using the configured order matches the server total exactly." }
+            - { id: discount-control, content: "A non-stackable discount class is rejected when combined." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [discount-total, discount-policy, discount-calculation, discount-control]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-ambiguous-undocumented-transition
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: workflow-observation
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: undocumented-action, content: "A hidden transition endpoint moves a synthetic record from queued to archived." }
+            - { id: undocumented-access, content: "The action is available only to the documented manager persona." }
+            - { id: undocumented-policy, content: "The retained owner workflow policy authorizes managers to archive queued records; the UI omits the action, and no protected downstream effect is observed." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [undocumented-action, undocumented-access, undocumented-policy]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-blocked-real-world-impact
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: precondition-record
+        authorization: { policy_allowed: false, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: blocked-hypothesis, content: "The suspected flaw can only be observed after a real payment and irreversible external fulfillment." }
+            - { id: blocked-environment, content: "No synthetic SKU, sandbox payment processor, rollback endpoint, or test tenant is available." }
+            - { id: blocked-boundary, content: "Creating financial loss or triggering fulfillment is not authorized." }
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids: [blocked-hypothesis, blocked-environment, blocked-boundary]
+      forbidden_evidence_ids: []
+
+  - id: business-logic-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Perform business logic testing for workflow ordering, one-time action invariants, and server-side price calculation using synthetic state.
+    expected: { primary_skill: business-logic, top_n: 3 }
+
+  - id: business-logic-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Confirm a database-backed search parameter with paired SQL true and false predicates.
+    expected: { absent_skill: business-logic, top_n: 5 }
+
+  - id: business-logic-mutation-sequence-transition
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: workflow-sequence-mutation
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: sequence-invariant, content: "Only the order of two documented workflow actions changed; record, editor persona, request bodies, and test tenant stayed fixed." }
+            - { id: sequence-baseline, content: "The canonical submit-then-approve sequence records both transitions and persists the synthetic record as approved." }
+            - { id: sequence-mutation, content: "Calling approve before submit is accepted and persists approved state even though the required submitted transition never exists." }
+            - { id: sequence-impact, content: "A clean second session can perform the approved-only synthetic export; cleanup restores the record to draft." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [sequence-invariant, sequence-baseline, sequence-mutation, sequence-impact]
+      forbidden_evidence_ids: []

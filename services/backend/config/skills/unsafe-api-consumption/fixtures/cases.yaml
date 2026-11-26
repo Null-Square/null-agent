@@ -1,0 +1,251 @@
+schema_version: 1
+skill: unsafe-api-consumption
+cases:
+  - id: unsafe-api-consumption-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: unsafe-api-consumption-positive-1-observation
+              content: A recorded upstream role field was trusted without evaluator binding and created the wrong disposable local entitlement.
+            - id: unsafe-api-consumption-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - unsafe-api-consumption-positive-1-observation
+        - unsafe-api-consumption-positive-1-context
+        - unsafe-api-consumption-positive-1-control
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: unsafe-api-consumption-positive-2-observation
+              content: An upstream redirect reached a second owner-controlled public endpoint despite active fixed-host policy.
+            - id: unsafe-api-consumption-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - unsafe-api-consumption-positive-2-observation
+        - unsafe-api-consumption-positive-2-context
+        - unsafe-api-consumption-positive-2-control
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: unsafe-api-consumption-positive-3-observation
+              content: An extra server-managed upstream field persisted on the evaluator’s disposable local model.
+            - id: unsafe-api-consumption-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - unsafe-api-consumption-positive-3-observation
+        - unsafe-api-consumption-positive-3-context
+        - unsafe-api-consumption-positive-3-control
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: unsafe-api-consumption-negative-1-observation
+              content: Unexpected upstream fields were ignored.
+            - id: unsafe-api-consumption-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-negative-1-control
+              content: The retained control explains the observed signal without meeting recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - unsafe-api-consumption-negative-1-observation
+        - unsafe-api-consumption-negative-1-context
+        - unsafe-api-consumption-negative-1-control
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: unsafe-api-consumption-negative-2-observation
+              content: An upstream outage produced a handled error and no stale privileged state.
+            - id: unsafe-api-consumption-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-negative-2-control
+              content: The retained control explains the observed signal without meeting recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - unsafe-api-consumption-negative-2-observation
+        - unsafe-api-consumption-negative-2-context
+        - unsafe-api-consumption-negative-2-control
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: unsafe-api-consumption-negative-3-observation
+              content: A dependency advisory targeted an unused response path.
+            - id: unsafe-api-consumption-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-negative-3-control
+              content: The retained control explains the observed signal without meeting recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - unsafe-api-consumption-negative-3-observation
+        - unsafe-api-consumption-negative-3-context
+        - unsafe-api-consumption-negative-3-control
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: unsafe-api-consumption-ambiguous-observation
+              content: The upstream response looks attacker-controlled, but consumer identity binding and authoritative downstream state are missing.
+            - id: unsafe-api-consumption-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-ambiguous-missing
+              content: The packet lacks at least one required element of recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - unsafe-api-consumption-ambiguous-observation
+        - unsafe-api-consumption-ambiguous-context
+        - unsafe-api-consumption-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: unsafe-api-consumption-blocked-observation
+              content: No recorded/owner-hosted upstream fixture or disposable consumer state is available.
+            - id: unsafe-api-consumption-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - unsafe-api-consumption-blocked-observation
+        - unsafe-api-consumption-blocked-context
+        - unsafe-api-consumption-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: unsafe-api-consumption-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess unsafe-api-consumption with the unsafe-api-consumption methodology and retain deterministic proof.
+    expected:
+      primary_skill: unsafe-api-consumption
+      top_n: 3
+  - id: unsafe-api-consumption-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: unsafe-api-consumption
+      top_n: 5
+  - id: unsafe-api-consumption-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: unsafe-api-consumption-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: unsafe-api-consumption-mutation-observation
+              content: Only upstream field duplication changed; the duplicate-field response produced the wrong local entitlement while the canonical single-field response control retained the correct entitlement.
+            - id: unsafe-api-consumption-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/owner-hosted upstream fixture, consumer call path, one trust variable, and disposable downstream state.
+            - id: unsafe-api-consumption-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - unsafe-api-consumption-mutation-observation
+        - unsafe-api-consumption-mutation-context
+        - unsafe-api-consumption-mutation-control
+      forbidden_evidence_ids: []

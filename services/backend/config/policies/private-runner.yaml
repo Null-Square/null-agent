@@ -1,0 +1,18 @@
+# Private Runner Policy
+# Runner-targeted sessions execute on an attached private runner instead of
+# backend-local Docker, but they still allow networked tools.
+
+slug: private-runner
+name: Private Runner
+isDefaultSandbox: false
+sandboxImageName: webpentest-core
+
+spec:
+  sandbox:
+    readonlyRootfs: false
+    capDrop:
+      - ALL
+    capAdd: []
+    privileged: false
+  tools:
+    network: true

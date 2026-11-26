@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-trufflehog
+cases:
+  - id: tooling-trufflehog-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-trufflehog-positive-1-observation
+              content: TruffleHog scanned the supplied commit range and retained a redacted detector match with commit/file provenance.
+            - id: tooling-trufflehog-positive-1-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-positive-1-observation
+        - tooling-trufflehog-positive-1-floor
+        - tooling-trufflehog-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-trufflehog-positive-2-observation
+              content: A known invalid fixture was suppressed while the owner canary secret was detected.
+            - id: tooling-trufflehog-positive-2-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-positive-2-observation
+        - tooling-trufflehog-positive-2-floor
+        - tooling-trufflehog-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-trufflehog-positive-3-observation
+              content: The report recorded verification as not attempted because credential use was prohibited.
+            - id: tooling-trufflehog-positive-3-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-positive-3-observation
+        - tooling-trufflehog-positive-3-floor
+        - tooling-trufflehog-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-trufflehog-negative-1-observation
+              content: A public identifier matched a generic detector.
+            - id: tooling-trufflehog-negative-1-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-negative-1-observation
+        - tooling-trufflehog-negative-1-floor
+        - tooling-trufflehog-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-trufflehog-negative-2-observation
+              content: The candidate existed only in a vendored test fixture marked invalid.
+            - id: tooling-trufflehog-negative-2-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-negative-2-observation
+        - tooling-trufflehog-negative-2-floor
+        - tooling-trufflehog-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-trufflehog-negative-3-observation
+              content: A redacted detector match retained commit and file provenance, but direct provider verification would use the candidate; it remains an actionable lead pending owner rotation or an owner-supplied non-use verification path.
+            - id: tooling-trufflehog-negative-3-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-negative-3-observation
+        - tooling-trufflehog-negative-3-floor
+        - tooling-trufflehog-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-trufflehog-ambiguous-observation
+              content: A detector labels a value secret, but type, active provenance, and safe validity context are absent.
+            - id: tooling-trufflehog-ambiguous-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-ambiguous-observation
+        - tooling-trufflehog-ambiguous-floor
+        - tooling-trufflehog-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-trufflehog-blocked-observation
+              content: No repository/history boundary, detector config, or redaction path is available.
+            - id: tooling-trufflehog-blocked-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-blocked-observation
+        - tooling-trufflehog-blocked-floor
+        - tooling-trufflehog-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-trufflehog-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-trufflehog with the tooling-trufflehog methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-trufflehog
+      top_n: 3
+  - id: tooling-trufflehog-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-trufflehog
+      top_n: 5
+  - id: tooling-trufflehog-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trufflehog-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-trufflehog-mutation-observation
+              content: Only commit-range boundary changed; detector config, invalid-fixture suppression, redaction, and no-use policy stayed fixed.
+            - id: tooling-trufflehog-mutation-floor
+              content: The required decision floor is bounded repository/history scope, detector/version provenance, verified-without-use policy, and redacted evidence.
+            - id: tooling-trufflehog-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trufflehog-mutation-observation
+        - tooling-trufflehog-mutation-floor
+        - tooling-trufflehog-mutation-control
+      forbidden_evidence_ids: []

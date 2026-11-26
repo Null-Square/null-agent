@@ -1,0 +1,251 @@
+schema_version: 1
+skill: clickjacking
+cases:
+  - id: clickjacking-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: clickjacking-positive-1-observation
+              content: An owner-hosted frame visibly aligned a target preference control and one evaluator click changed the synthetic preference.
+            - id: clickjacking-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - clickjacking-positive-1-observation
+        - clickjacking-positive-1-context
+        - clickjacking-positive-1-control
+      forbidden_evidence_ids: []
+  - id: clickjacking-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: clickjacking-positive-2-observation
+              content: A nested owner-controlled frame bypassed the page’s legacy frame restriction and completed the disposable evaluator action.
+            - id: clickjacking-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - clickjacking-positive-2-observation
+        - clickjacking-positive-2-context
+        - clickjacking-positive-2-control
+      forbidden_evidence_ids: []
+  - id: clickjacking-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: clickjacking-positive-3-observation
+              content: The authenticated action remained frameable across the supplied sibling origin while the direct-page control confirmed the same state transition.
+            - id: clickjacking-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - clickjacking-positive-3-observation
+        - clickjacking-positive-3-context
+        - clickjacking-positive-3-control
+      forbidden_evidence_ids: []
+  - id: clickjacking-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: clickjacking-negative-1-observation
+              content: CSP frame-ancestors blocked every owner-controlled test origin.
+            - id: clickjacking-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-negative-1-control
+              content: The retained control explains the observed signal without meeting browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - clickjacking-negative-1-observation
+        - clickjacking-negative-1-context
+        - clickjacking-negative-1-control
+      forbidden_evidence_ids: []
+  - id: clickjacking-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: clickjacking-negative-2-observation
+              content: The page was frameable but contained only public documentation and no authenticated action.
+            - id: clickjacking-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-negative-2-control
+              content: The retained control explains the observed signal without meeting browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - clickjacking-negative-2-observation
+        - clickjacking-negative-2-context
+        - clickjacking-negative-2-control
+      forbidden_evidence_ids: []
+  - id: clickjacking-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: clickjacking-negative-3-observation
+              content: Cookie partitioning removed the evaluator session and the framed action redirected to login.
+            - id: clickjacking-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-negative-3-control
+              content: The retained control explains the observed signal without meeting browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - clickjacking-negative-3-observation
+        - clickjacking-negative-3-context
+        - clickjacking-negative-3-control
+      forbidden_evidence_ids: []
+  - id: clickjacking-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: clickjacking-ambiguous-observation
+              content: The frame rendered blank in one browser without a CSP/XFO console event or network-level explanation.
+            - id: clickjacking-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-ambiguous-missing
+              content: The packet lacks at least one required element of browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - clickjacking-ambiguous-observation
+        - clickjacking-ambiguous-context
+        - clickjacking-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: clickjacking-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: clickjacking-blocked-observation
+              content: No evaluator browser session or harmless resettable action exists.
+            - id: clickjacking-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - clickjacking-blocked-observation
+        - clickjacking-blocked-context
+        - clickjacking-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: clickjacking-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess clickjacking with the clickjacking methodology and retain deterministic proof.
+    expected:
+      primary_skill: clickjacking
+      top_n: 3
+  - id: clickjacking-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: clickjacking
+      top_n: 5
+  - id: clickjacking-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: clickjacking-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: clickjacking-mutation-observation
+              content: Only frame depth changed from direct to one nested frame; the aligned synthetic preference action and direct control stayed fixed.
+            - id: clickjacking-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser-enforced framing, visible alignment, evaluator session, and one harmless sensitive action.
+            - id: clickjacking-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - clickjacking-mutation-observation
+        - clickjacking-mutation-context
+        - clickjacking-mutation-control
+      forbidden_evidence_ids: []

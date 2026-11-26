@@ -1,0 +1,251 @@
+schema_version: 1
+skill: mass-assignment
+cases:
+  - id: mass-assignment-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: mass-assignment-positive-1-observation
+              content: An undocumented isFeatured field persisted on the evaluator’s disposable record after the UI omitted it.
+            - id: mass-assignment-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - mass-assignment-positive-1-observation
+        - mass-assignment-positive-1-context
+        - mass-assignment-positive-1-control
+      forbidden_evidence_ids: []
+  - id: mass-assignment-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: mass-assignment-positive-2-observation
+              content: A nested evaluator-owned relation id bypassed the active DTO allowlist and attached to the disposable object.
+            - id: mass-assignment-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - mass-assignment-positive-2-observation
+        - mass-assignment-positive-2-context
+        - mass-assignment-positive-2-control
+      forbidden_evidence_ids: []
+  - id: mass-assignment-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: mass-assignment-positive-3-observation
+              content: Form binding accepted a server-managed status field that JSON validation rejected and the follow-up read confirmed it.
+            - id: mass-assignment-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - mass-assignment-positive-3-observation
+        - mass-assignment-positive-3-context
+        - mass-assignment-positive-3-control
+      forbidden_evidence_ids: []
+  - id: mass-assignment-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: mass-assignment-negative-1-observation
+              content: An extra field was accepted by the parser but discarded before persistence.
+            - id: mass-assignment-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-negative-1-control
+              content: The retained control explains the observed signal without meeting one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - mass-assignment-negative-1-observation
+        - mass-assignment-negative-1-context
+        - mass-assignment-negative-1-control
+      forbidden_evidence_ids: []
+  - id: mass-assignment-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: mass-assignment-negative-2-observation
+              content: The candidate field was explicitly documented as user-mutable.
+            - id: mass-assignment-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-negative-2-control
+              content: The retained control explains the observed signal without meeting one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - mass-assignment-negative-2-observation
+        - mass-assignment-negative-2-context
+        - mass-assignment-negative-2-control
+      forbidden_evidence_ids: []
+  - id: mass-assignment-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: mass-assignment-negative-3-observation
+              content: A response echoed the field while the authoritative object remained unchanged.
+            - id: mass-assignment-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-negative-3-control
+              content: The retained control explains the observed signal without meeting one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - mass-assignment-negative-3-observation
+        - mass-assignment-negative-3-context
+        - mass-assignment-negative-3-control
+      forbidden_evidence_ids: []
+  - id: mass-assignment-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: mass-assignment-ambiguous-observation
+              content: The update response includes the extra field, but no persistence read or active binder/model policy is available.
+            - id: mass-assignment-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-ambiguous-missing
+              content: The packet lacks at least one required element of one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - mass-assignment-ambiguous-observation
+        - mass-assignment-ambiguous-context
+        - mass-assignment-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: mass-assignment-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: mass-assignment-blocked-observation
+              content: No harmless server-managed field or disposable evaluator object can be used.
+            - id: mass-assignment-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - mass-assignment-blocked-observation
+        - mass-assignment-blocked-context
+        - mass-assignment-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: mass-assignment-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess mass-assignment with the mass-assignment methodology and retain deterministic proof.
+    expected:
+      primary_skill: mass-assignment
+      top_n: 3
+  - id: mass-assignment-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: mass-assignment
+      top_n: 5
+  - id: mass-assignment-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mass-assignment-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: mass-assignment-mutation-observation
+              content: Only field casing changed to an accepted binder alias; the same unauthorized property persisted and unknown-field control did not.
+            - id: mass-assignment-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one server-managed field, active binder/model policy, disposable object, and authoritative follow-up read.
+            - id: mass-assignment-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - mass-assignment-mutation-observation
+        - mass-assignment-mutation-context
+        - mass-assignment-mutation-control
+      forbidden_evidence_ids: []

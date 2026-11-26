@@ -8,11 +8,12 @@
    as a single accent for primary actions and the brand mark.
    ========================================================= */
 
-/* ---------- Webfonts (Google Fonts CDN) -------------------
+/* ---------- Webfonts ---------------------------------------
    Inter             — primary sans for UI, headlines, prose
    Space Mono        — technical identifiers only (CVEs, IDs, timestamps)
    ---------------------------------------------------------- */
-/* Host apps load Inter and Space Mono from their HTML entrypoints. */
+/* The app serves both itself (@fontsource, imported in services/frontend/src/main.tsx), so no page
+   calls a font service. */
 
 :root {
   /* ---------- FONT STACKS ---------- */

@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-python
+cases:
+  - id: tooling-python-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-python-positive-1-observation
+              content: A Python harness normalized two captured responses and asserted only the synthetic object-canary field differed.
+            - id: tooling-python-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-positive-1-observation
+        - tooling-python-positive-1-context
+        - tooling-python-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-python-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-python-positive-2-observation
+              content: A bounded method/content-type matrix emitted exactly six allowlisted requests with connect/read timeouts.
+            - id: tooling-python-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-positive-2-observation
+        - tooling-python-positive-2-context
+        - tooling-python-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-python-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-python-positive-3-observation
+              content: An evidence utility hashed and redacted supplied artifacts while preserving originals and a deterministic manifest.
+            - id: tooling-python-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-positive-3-observation
+        - tooling-python-positive-3-context
+        - tooling-python-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-python-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-python-negative-1-observation
+              content: The proposed script used an unbounded crawl or concurrency loop.
+            - id: tooling-python-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-negative-1-control
+              content: The retained control explains the observed signal without meeting reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-negative-1-observation
+        - tooling-python-negative-1-context
+        - tooling-python-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-python-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-python-negative-2-observation
+              content: Redirects could leave the target allowlist.
+            - id: tooling-python-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-negative-2-control
+              content: The retained control explains the observed signal without meeting reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-negative-2-observation
+        - tooling-python-negative-2-context
+        - tooling-python-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-python-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-python-negative-3-observation
+              content: The script read ambient credentials or user files.
+            - id: tooling-python-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-negative-3-control
+              content: The retained control explains the observed signal without meeting reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-negative-3-observation
+        - tooling-python-negative-3-context
+        - tooling-python-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-python-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-python-ambiguous-observation
+              content: A script appears bounded but has no request ledger, target allowlist, or deterministic assertion.
+            - id: tooling-python-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-ambiguous-missing
+              content: The packet lacks at least one required element of reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-ambiguous-observation
+        - tooling-python-ambiguous-context
+        - tooling-python-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-python-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-python-blocked-observation
+              content: The approved artifact/target set, cap, or owning methodology oracle is missing.
+            - id: tooling-python-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-blocked-observation
+        - tooling-python-blocked-context
+        - tooling-python-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-python-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-python with the tooling-python methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-python
+      top_n: 3
+  - id: tooling-python-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-python
+      top_n: 5
+  - id: tooling-python-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-python-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-python-mutation-observation
+              content: Only one matrix axis changed while global request cap, allowlist, timeouts, and result oracle stayed fixed.
+            - id: tooling-python-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is reviewed bounded harness, explicit allowlist/caps/timeouts, machine-readable ledger, and domain-skill oracle.
+            - id: tooling-python-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-python-mutation-observation
+        - tooling-python-mutation-context
+        - tooling-python-mutation-control
+      forbidden_evidence_ids: []

@@ -1,0 +1,251 @@
+schema_version: 1
+skill: api-enumeration
+cases:
+  - id: api-enumeration-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: api-enumeration-positive-1-observation
+              content: A supplied OpenAPI operation and live evaluator traffic agreed on the method, normalized path, parameters, and authentication state.
+            - id: api-enumeration-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-positive-1-observation
+        - api-enumeration-positive-1-context
+        - api-enumeration-positive-1-control
+      forbidden_evidence_ids: []
+  - id: api-enumeration-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: api-enumeration-positive-2-observation
+              content: A lazy SPA chunk named a versioned API route and one read-only request confirmed the same route and response schema.
+            - id: api-enumeration-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-positive-2-observation
+        - api-enumeration-positive-2-context
+        - api-enumeration-positive-2-control
+      forbidden_evidence_ids: []
+  - id: api-enumeration-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: api-enumeration-positive-3-observation
+              content: An observed deprecation link identified an adjacent API version whose read-only health operation responded within scope.
+            - id: api-enumeration-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-positive-3-observation
+        - api-enumeration-positive-3-context
+        - api-enumeration-positive-3-control
+      forbidden_evidence_ids: []
+  - id: api-enumeration-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: api-enumeration-negative-1-observation
+              content: An endpoint-like string existed only in a unit-test fixture and never appeared in the active build or traffic.
+            - id: api-enumeration-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-negative-1-control
+              content: The retained control explains the observed signal without meeting endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-negative-1-observation
+        - api-enumeration-negative-1-context
+        - api-enumeration-negative-1-control
+      forbidden_evidence_ids: []
+  - id: api-enumeration-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: api-enumeration-negative-2-observation
+              content: A speculative path returned the same edge-generated not-found fingerprint as random controls.
+            - id: api-enumeration-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-negative-2-control
+              content: The retained control explains the observed signal without meeting endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-negative-2-observation
+        - api-enumeration-negative-2-context
+        - api-enumeration-negative-2-control
+      forbidden_evidence_ids: []
+  - id: api-enumeration-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: api-enumeration-negative-3-observation
+              content: A schema operation was marked deprecated and absent from the deployed gateway inventory.
+            - id: api-enumeration-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-negative-3-control
+              content: The retained control explains the observed signal without meeting endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-negative-3-observation
+        - api-enumeration-negative-3-context
+        - api-enumeration-negative-3-control
+      forbidden_evidence_ids: []
+  - id: api-enumeration-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: api-enumeration-ambiguous-observation
+              content: A source map contains a route template, but deployment revision and runtime reachability cannot be correlated.
+            - id: api-enumeration-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-ambiguous-missing
+              content: The packet lacks at least one required element of endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-ambiguous-observation
+        - api-enumeration-ambiguous-context
+        - api-enumeration-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: api-enumeration-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: api-enumeration-blocked-observation
+              content: No target allowlist, specification, source revision, or observed request seed is available for bounded enumeration.
+            - id: api-enumeration-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-blocked-observation
+        - api-enumeration-blocked-context
+        - api-enumeration-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: api-enumeration-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess api-enumeration with the api-enumeration methodology and retain deterministic proof.
+    expected:
+      primary_skill: api-enumeration
+      top_n: 3
+  - id: api-enumeration-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: api-enumeration
+      top_n: 5
+  - id: api-enumeration-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: api-enumeration-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: api-enumeration-mutation-observation
+              content: Only the documented API version segment changed to the adjacent version named by a response link; method and read-only operation stayed fixed.
+            - id: api-enumeration-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is endpoint provenance from specification, source, or observed traffic plus a non-mutating confirmation.
+            - id: api-enumeration-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - api-enumeration-mutation-observation
+        - api-enumeration-mutation-context
+        - api-enumeration-mutation-control
+      forbidden_evidence_ids: []

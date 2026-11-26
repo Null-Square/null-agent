@@ -1,0 +1,448 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "key": "chat",
+      "label": "Chat",
+      "tier": "primary",
+      "icon": "message-square",
+      "agentType": "chat",
+      "promptProfile": "chat",
+      "promptSource": "config/prompts/chat.md",
+      "mode": "interactive",
+      "toolPolicyRef": "policy:security-assistant",
+      "summary": "Scope-aware assistant chat backed by the security-assistant policy, with approval-gated setup changes.",
+      "lifecycle": "Created when an operator starts a scope chat session. Lives until retention cleanup or explicit session removal.",
+      "promptSections": [
+        { "key": "role_prompt", "title": "Default role prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Resolved tool catalog", "kind": "static" },
+        { "key": "soft_context", "title": "User-supplied context", "kind": "soft" },
+        { "key": "workspace_directory", "title": "Workspace directory", "kind": "dynamic" }
+      ],
+      "inputs": ["User messages", "Uploaded files", "Prior conversation turns"],
+      "outputs": ["Assistant responses", "Tool traces", "Workspace artifacts"],
+      "notes": [
+        "Scope chat is locked to config/policies/security-assistant.yaml. Setup writes require approval; active testing remains outside chat mode.",
+        "The exact prompt text is loaded from config/prompts/chat.md."
+      ]
+    },
+    {
+      "key": "planner",
+      "label": "Planner",
+      "tier": "primary",
+      "icon": "brain",
+      "agentType": "planner",
+      "promptProfile": "planner",
+      "promptSource": "config/prompts/planner.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:agent-planner",
+      "summary": "Plans an authorized SecurityOps run by reading context, querying prior state, and submitting the mission graph.",
+      "lifecycle": "Spawned at the start of an automated run. Terminates after submit_plan succeeds or the run fails planning.",
+      "defaultSkills": ["securityops-planning"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Planner prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Planner tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target and prior-run context", "kind": "dynamic" },
+        { "key": "session_memory", "title": "Session memory", "kind": "dynamic" },
+        { "key": "automation_contract", "title": "Automation contract", "kind": "dynamic" }
+      ],
+      "inputs": ["Run goal", "Organization context", "Scope and RoE", "Prior findings, notes, and inventory"],
+      "outputs": ["submit_plan mission graph", "Planner notes and readiness rationale"],
+      "notes": [
+        "submit_plan validates phases, skills, readiness, and duplicate attempts before execution can start."
+      ]
+    },
+    {
+      "key": "exposure-verification",
+      "label": "Exposure Verification",
+      "tier": "primary",
+      "icon": "shield-check",
+      "agentType": "planner",
+      "promptProfile": "exposure-verification",
+      "promptSource": "config/prompts/exposure-verification.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:exposure-verification",
+      "summary": "Runs one evidence-bounded CVE check against the single asset persisted on an exposure match.",
+      "lifecycle": "Spawned by an entitled Verify action. Terminates after submit_exposure_verification records a bound verdict.",
+      "defaultSkills": ["cve-verification"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Exposure verification prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Restricted verification tools", "kind": "static" },
+        { "key": "target_context", "title": "Bound advisory and asset context", "kind": "dynamic" },
+        { "key": "assigned_skills", "title": "CVE verification skill", "kind": "dynamic" },
+        { "key": "mandatory_outputs", "title": "Bound verdict contract", "kind": "dynamic" }
+      ],
+      "inputs": ["Bound exposure match", "Authorized asset", "Advisory vector", "Rules of Engagement"],
+      "outputs": ["submit_exposure_verification verdict", "Workspace evidence artifact", "Validated CVE finding when confirmed"],
+      "notes": [
+        "This is not a pentest planner: it cannot submit a plan, delegate, run a shell, browse global skills, or create an unrelated finding."
+      ]
+    },
+    {
+      "key": "compliance-planner",
+      "label": "Compliance Planner",
+      "tier": "primary",
+      "icon": "clipboard-check",
+      "agentType": "planner",
+      "promptProfile": "compliance-planner",
+      "promptSource": "config/prompts/compliance-planner.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:agent-planner",
+      "summary": "Plans coverage-first compliance assessments with fixed control-assessment and reporting missions.",
+      "lifecycle": "Spawned by compliance assessment runs. Terminates after submit_plan submits the required control-assessment and reporting mission graph.",
+      "defaultSkills": ["compliance-planning"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Planner plus compliance planner prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Compliance planner tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target and compliance assessment context", "kind": "dynamic" },
+        { "key": "assigned_skills", "title": "Compliance planning skill", "kind": "dynamic" }
+      ],
+      "inputs": ["Compliance assessment request", "Scope context", "Existing readiness, inventory, and findings"],
+      "outputs": ["submit_plan mission graph with one control_assessment mission and one compliance reporting mission"],
+      "notes": [
+        "This planner is coverage-first and must not emit vulnerability-hunting phases."
+      ]
+    },
+    {
+      "key": "code-review-planner",
+      "label": "Code Review Planner",
+      "tier": "primary",
+      "icon": "git-pull-request",
+      "agentType": "planner",
+      "promptProfile": "code-review-planner",
+      "promptSource": "config/prompts/code-review-planner.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:agent-planner",
+      "summary": "Plans an immutable repository or pull-request review using the standalone Code Review phase graph.",
+      "lifecycle": "Spawned only for Code Review runs. Terminates after submitting the exact mapping, analysis, validation, and reporting mission graph.",
+      "defaultSkills": ["code-review-planning"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Planner plus Code Review planner prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Code Review planner tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Immutable repository or PR context", "kind": "dynamic" },
+        { "key": "assigned_skills", "title": "Code Review planning skill", "kind": "dynamic" }
+      ],
+      "inputs": ["Code Review operation", "Immutable repository/commit context", "Path and PR manifest policy"],
+      "outputs": ["Exact four-phase Code Review mission graph"],
+      "notes": [
+        "This planner cannot emit Pentest or Compliance phases and cannot authorize repository mutation."
+      ]
+    },
+    {
+      "key": "executor",
+      "label": "Executor",
+      "tier": "primary",
+      "icon": "cpu",
+      "agentType": "executor",
+      "promptProfile": "executor",
+      "promptSource": "config/prompts/executor.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:agent-executor",
+      "summary": "Phase-neutral overview of executor tools used after planning. Exact runtime tools are narrowed by phase.",
+      "lifecycle": "Created after planning or for direct execution flows. Lives until the run completes, blocks, fails, or is aborted.",
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Executor tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Approved plan", "kind": "dynamic" },
+        { "key": "working_todos", "title": "Working todos", "kind": "dynamic" },
+        { "key": "security_workflow", "title": "Security workflow", "kind": "dynamic" },
+        { "key": "mandatory_outputs", "title": "Mandatory outputs", "kind": "dynamic" },
+        { "key": "run_completion", "title": "Run completion contract", "kind": "dynamic" }
+      ],
+      "inputs": ["Approved mission graph", "Assigned skill packages", "Scope context", "Prior run memory"],
+      "outputs": ["Findings", "Inventory", "Notes", "Evidence artifacts", "Reports"],
+      "notes": [
+        "Phase executor sessions never receive submit_plan; plan mutation stays with the planner.",
+        "Use the phase agent entries for exact per-phase runtime policies."
+      ]
+    },
+    {
+      "key": "phase-recon",
+      "label": "Phase: recon",
+      "tier": "primary",
+      "icon": "map",
+      "agentType": "executor",
+      "promptProfile": "phase-recon",
+      "promptSource": "config/prompts/phases/recon.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-recon",
+      "summary": "Maps authorized assets, services, technologies, reachable URLs, exposed panels, and scanner coverage.",
+      "lifecycle": "Runs as a fresh phase session for recon missions and exits through submit_phase_handoff.",
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus recon phase prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Recon phase tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Recon missions", "kind": "dynamic" },
+        { "key": "execution_turn_contract", "title": "Phase execution contract", "kind": "dynamic" }
+      ],
+      "inputs": ["Seed targets", "Scope RoE", "Recon missions"],
+      "outputs": ["Canonical assets", "Services", "Endpoint notes", "Scanner coverage notes"]
+    },
+    {
+      "key": "phase-enumeration",
+      "label": "Phase: enumeration",
+      "tier": "primary",
+      "icon": "layers",
+      "agentType": "executor",
+      "promptProfile": "phase-enumeration",
+      "promptSource": "config/prompts/phases/enumeration.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-enumeration",
+      "summary": "Deepens service, route, API, and technology enumeration on validated assets.",
+      "lifecycle": "Runs after recon when assets need structured enumeration and exits through submit_phase_handoff.",
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus enumeration phase prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Enumeration phase tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Enumeration missions", "kind": "dynamic" }
+      ],
+      "inputs": ["Recon inventory", "Enumeration missions"],
+      "outputs": ["Service rows", "Endpoint notes", "Tech fingerprints", "Validation leads"]
+    },
+    {
+      "key": "phase-validation",
+      "label": "Phase: validation",
+      "tier": "primary",
+      "icon": "shield-check",
+      "agentType": "executor",
+      "promptProfile": "phase-validation",
+      "promptSource": "config/prompts/phases/validation.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-validation",
+      "summary": "Reproduces potential Risks, runs proof-oriented checks, and updates canonical Risk state.",
+      "lifecycle": "Runs for validation missions and exits through submit_phase_handoff.",
+      "defaultSkills": ["validation"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus validation phase prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Validation phase tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Validation missions", "kind": "dynamic" }
+      ],
+      "inputs": ["Potential Risks", "Validation leads", "Required evidence"],
+      "outputs": ["Confirmed Risks", "Dismissal proof", "Evidence artifacts"]
+    },
+    {
+      "key": "phase-exploitation",
+      "label": "Phase: exploitation",
+      "tier": "primary",
+      "icon": "crosshair",
+      "agentType": "executor",
+      "promptProfile": "phase-exploitation",
+      "promptSource": "config/prompts/phases/exploitation.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-exploitation",
+      "summary": "Coordinates bounded impact demonstrations from validated findings under the approved rules of engagement.",
+      "lifecycle": "Runs after validation when controlled exploitation is authorized and exits through submit_phase_handoff.",
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus exploitation phase prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Exploitation phase tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context and rules of engagement", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Authorized exploitation missions", "kind": "dynamic" }
+      ],
+      "inputs": ["Validated findings", "Approved scope and RoE", "Cleanup requirements"],
+      "outputs": ["Bounded impact evidence", "Cleanup evidence", "Phase handoff"]
+    },
+    {
+      "key": "phase-evidence",
+      "label": "Phase: evidence",
+      "tier": "primary",
+      "icon": "scroll-text",
+      "agentType": "executor",
+      "promptProfile": "phase-evidence",
+      "promptSource": "config/prompts/phases/evidence.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-evidence",
+      "summary": "Packages validated observations into durable evidence and supporting notes.",
+      "lifecycle": "Runs when evidence curation is needed before reporting and exits through submit_phase_handoff.",
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus evidence phase prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Evidence phase tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Evidence missions", "kind": "dynamic" }
+      ],
+      "inputs": ["Validated findings", "Artifacts", "Canonical notes"],
+      "outputs": ["Evidence digests", "Report-ready notes", "Artifact references"]
+    },
+    {
+      "key": "phase-control-assessment",
+      "label": "Phase: control assessment",
+      "tier": "primary",
+      "icon": "clipboard-check",
+      "agentType": "executor",
+      "promptProfile": "phase-control-assessment",
+      "promptSource": "config/prompts/phases/control-assessment.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-control_assessment",
+      "summary": "Runs bounded selected-framework control checks or evidence reviews and records explicit control verdicts.",
+      "lifecycle": "Runs for compliance control-assessment missions and exits through submit_phase_handoff after record_control_check.",
+      "defaultSkills": ["compliance-access-control", "compliance-technical-readiness", "compliance-evidence-review", "compliance-governance-review"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus control-assessment phase prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Control-assessment phase tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Control-assessment mission", "kind": "dynamic" }
+      ],
+      "inputs": ["Named framework controls", "Proof obligations", "Scope context", "Relevant findings, scanner evidence, and inventory"],
+      "outputs": ["record_control_check verdict", "Control evidence artifacts", "Phase handoff"]
+    },
+    {
+      "key": "phase-review-mapping",
+      "label": "Code Review: mapping",
+      "tier": "primary",
+      "icon": "folder-tree",
+      "agentType": "executor",
+      "promptProfile": "phase-review-mapping",
+      "promptSource": "config/prompts/phases/review-mapping.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-review_mapping",
+      "summary": "Maps the immutable repository manifest, languages, entry points, trust boundaries, exclusions, and coverage limits.",
+      "lifecycle": "First Code Review execution phase. Reads only the bound revision and exits through a review-mapping handoff.",
+      "defaultSkills": ["code-review-mapping"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Code Review executor plus mapping prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Immutable mapping tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Immutable review context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Mapping mission", "kind": "dynamic" }
+      ],
+      "inputs": ["Immutable repository context", "Manifest and path policy"],
+      "outputs": ["Mapped components", "Review priorities", "Coverage and retrieval limitations"]
+    },
+    {
+      "key": "phase-review-analysis",
+      "label": "Code Review: analysis",
+      "tier": "primary",
+      "icon": "scan-search",
+      "agentType": "executor",
+      "promptProfile": "phase-review-analysis",
+      "promptSource": "config/prompts/phases/review-analysis.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-review_analysis",
+      "summary": "Traces security-relevant source paths and records redacted, exact-revision finding candidates.",
+      "lifecycle": "Runs after mapping and exits after candidate coverage and limitations are handed to validation.",
+      "defaultSkills": ["code-review-analysis"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Code Review executor plus analysis prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Immutable source analysis tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Immutable review context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Analysis mission", "kind": "dynamic" }
+      ],
+      "inputs": ["Mapping handoff", "Immutable bounded source"],
+      "outputs": ["Versioned finding candidates", "Source-path evidence", "Analysis limitations"]
+    },
+    {
+      "key": "phase-review-validation",
+      "label": "Code Review: validation",
+      "tier": "primary",
+      "icon": "badge-check",
+      "agentType": "executor",
+      "promptProfile": "phase-review-validation",
+      "promptSource": "config/prompts/phases/review-validation.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-review_validation",
+      "summary": "Validates or falsifies versioned source findings and records proof, PR attribution, and agent fixability.",
+      "lifecycle": "Runs after analysis and cannot mutate source or publish feedback. Exits after every candidate has an explicit outcome.",
+      "defaultSkills": ["code-review-validation"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Code Review executor plus validation prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Immutable validation tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Immutable review context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Validation mission", "kind": "dynamic" }
+      ],
+      "inputs": ["Versioned candidates", "Source evidence", "PR attribution context"],
+      "outputs": ["Validated or falsified findings", "Proof rationale", "Fixability decision"]
+    },
+    {
+      "key": "phase-review-reporting",
+      "label": "Code Review: reporting",
+      "tier": "primary",
+      "icon": "file-code-2",
+      "agentType": "executor",
+      "promptProfile": "phase-review-reporting",
+      "promptSource": "config/prompts/phases/review-reporting.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-review_reporting",
+      "summary": "Finalizes the dedicated Code Review report with validated findings and explicit complete, partial, or blocked coverage.",
+      "lifecycle": "Final read-only Code Review phase. Persists the report and exits without GitHub publication or repository mutation.",
+      "defaultSkills": ["code-review-reporting"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Code Review executor plus reporting prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Code Review reporting tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Immutable review context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Reporting mission", "kind": "dynamic" },
+        { "key": "run_completion", "title": "Read-only completion contract", "kind": "dynamic" }
+      ],
+      "inputs": ["Validated findings", "Coverage and retrieval state", "Limitations"],
+      "outputs": ["Dedicated Code Review report", "Completeness state", "Finding summary"]
+    },
+    {
+      "key": "phase-reporting",
+      "label": "Phase: reporting",
+      "tier": "primary",
+      "icon": "wand-2",
+      "agentType": "executor",
+      "promptProfile": "phase-reporting",
+      "promptSource": "config/prompts/phases/reporting.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-reporting",
+      "summary": "Authors summary.md and report.md from canonical findings, notes, evidence, and report context.",
+      "lifecycle": "Final phase session. Runs report_finalizer_preflight and prepare_report_context, authors reports, submits handoff, then finalizes artifacts.",
+      "defaultSkills": ["security-reporting"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus reporting phase prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Reporting phase tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Reporting mission", "kind": "dynamic" },
+        { "key": "run_completion", "title": "Run completion contract", "kind": "dynamic" }
+      ],
+      "inputs": ["Findings", "Evidence", "Report context", "Run notes"],
+      "outputs": ["summary.md", "report.md", "Published run artifacts"]
+    },
+    {
+      "key": "compliance-reporting",
+      "label": "Compliance Reporting",
+      "tier": "primary",
+      "icon": "file-check-2",
+      "agentType": "executor",
+      "promptProfile": "compliance-reporting",
+      "promptSource": "config/prompts/phases/compliance-reporting.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:phase-reporting",
+      "summary": "Authors compliance-focused summary.md and report.md from explicit control checks and supporting evidence.",
+      "lifecycle": "Final compliance phase session. Runs report preflight/context, authors compliance reports, submits handoff, then finalizes artifacts.",
+      "defaultSkills": ["compliance-reporting"],
+      "promptSections": [
+        { "key": "role_prompt", "title": "Executor plus compliance reporting prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Compliance reporting tool catalog", "kind": "static" },
+        { "key": "target_context", "title": "Target context", "kind": "dynamic" },
+        { "key": "approved_plan", "title": "Compliance reporting mission", "kind": "dynamic" },
+        { "key": "run_completion", "title": "Run completion contract", "kind": "dynamic" }
+      ],
+      "inputs": ["Control checks", "Compliance readiness snapshot", "Evidence", "Run notes"],
+      "outputs": ["summary.md", "report.md", "Published compliance artifacts"]
+    },
+    {
+      "key": "research",
+      "label": "Repository Research",
+      "tier": "primary",
+      "icon": "flask-conical",
+      "agentType": "executor",
+      "promptProfile": "research",
+      "promptSource": "config/prompts/research.md",
+      "mode": "automated",
+      "toolPolicyRef": "policy:agent-executor",
+      "summary": "Legacy shared-engine repository research profile retained for explicit research-host runs.",
+      "lifecycle": "Created only by the explicit repository-research host profile; it is not a Code Review or Pentest fallback.",
+      "promptSections": [
+        { "key": "role_prompt", "title": "Repository research prompt", "kind": "static" },
+        { "key": "tool_catalog", "title": "Host-resolved tool catalog", "kind": "dynamic" },
+        { "key": "target_context", "title": "Repository project context", "kind": "dynamic" }
+      ],
+      "inputs": ["Explicit repository-research host request", "Repository project context"],
+      "outputs": ["Research observations", "Host-defined artifacts"],
+      "notes": [
+        "This transitional host profile remains separate from the first-class Code Review discipline."
+      ]
+    }
+  ]
+}

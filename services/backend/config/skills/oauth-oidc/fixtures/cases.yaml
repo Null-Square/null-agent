@@ -1,0 +1,251 @@
+schema_version: 1
+skill: oauth-oidc
+cases:
+  - id: oauth-oidc-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: oauth-oidc-positive-1-observation
+              content: The relying party accepted an evaluator authorization response with swapped state and bound it to the wrong evaluator browser session.
+            - id: oauth-oidc-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - oauth-oidc-positive-1-observation
+        - oauth-oidc-positive-1-context
+        - oauth-oidc-positive-1-control
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: oauth-oidc-positive-2-observation
+              content: A public evaluator client exchanged a code without the original PKCE verifier and obtained its normal test session.
+            - id: oauth-oidc-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - oauth-oidc-positive-2-observation
+        - oauth-oidc-positive-2-context
+        - oauth-oidc-positive-2-control
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: oauth-oidc-positive-3-observation
+              content: A code issued for evaluator client A and redirect A was accepted by evaluator client B/redirect B.
+            - id: oauth-oidc-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - oauth-oidc-positive-3-observation
+        - oauth-oidc-positive-3-context
+        - oauth-oidc-positive-3-control
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: oauth-oidc-negative-1-observation
+              content: Public discovery metadata and client ids disclosed no secret.
+            - id: oauth-oidc-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-negative-1-control
+              content: The retained control explains the observed signal without meeting evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - oauth-oidc-negative-1-observation
+        - oauth-oidc-negative-1-context
+        - oauth-oidc-negative-1-control
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: oauth-oidc-negative-2-observation
+              content: A code replay was rejected after its first evaluator use.
+            - id: oauth-oidc-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-negative-2-control
+              content: The retained control explains the observed signal without meeting evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - oauth-oidc-negative-2-observation
+        - oauth-oidc-negative-2-context
+        - oauth-oidc-negative-2-control
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: oauth-oidc-negative-3-observation
+              content: Multiple callback URLs all matched the supplied registered list.
+            - id: oauth-oidc-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-negative-3-control
+              content: The retained control explains the observed signal without meeting evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - oauth-oidc-negative-3-observation
+        - oauth-oidc-negative-3-context
+        - oauth-oidc-negative-3-control
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: oauth-oidc-ambiguous-observation
+              content: An altered state value reaches the callback, but application-session binding and complete transaction trace are absent.
+            - id: oauth-oidc-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-ambiguous-missing
+              content: The packet lacks at least one required element of evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - oauth-oidc-ambiguous-observation
+        - oauth-oidc-ambiguous-context
+        - oauth-oidc-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: oauth-oidc-blocked-observation
+              content: No evaluator client, identity, owner callback, or grant revocation path is available.
+            - id: oauth-oidc-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - oauth-oidc-blocked-observation
+        - oauth-oidc-blocked-context
+        - oauth-oidc-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: oauth-oidc-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess oauth-oidc with the oauth-oidc methodology and retain deterministic proof.
+    expected:
+      primary_skill: oauth-oidc
+      top_n: 3
+  - id: oauth-oidc-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: oauth-oidc
+      top_n: 5
+  - id: oauth-oidc-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: oauth-oidc-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: oauth-oidc-mutation-observation
+              content: Only PKCE binding changed from correct verifier to omitted verifier; client, redirect, code provenance, and application-session control stayed fixed.
+            - id: oauth-oidc-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator client/identity, complete authorization transaction, binding value, callback/token exchange, and application session.
+            - id: oauth-oidc-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - oauth-oidc-mutation-observation
+        - oauth-oidc-mutation-context
+        - oauth-oidc-mutation-control
+      forbidden_evidence_ids: []

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 import { cn } from '../cn';
 import { CellIcon, type CellIconName } from '../CellIcon';
+import { useTheme } from '../theme/ThemeProvider';
 
 /**
  * AppRail — the frame around every page, for every service.
@@ -16,10 +17,8 @@ import { CellIcon, type CellIconName } from '../CellIcon';
  * names a place, which is exactly what the icon set is for, and the lit cell in
  * the current page's mark carries the active state.
  *
- * It is deliberately router-agnostic. The app drives it with link-shaped items
- * through `href`; the partner portal has no router and drives the same rail
- * with `onSelect`. A shell that could only be built on react-router is the
- * reason the second service wrote its own.
+ * It is deliberately router-agnostic: drive it with link-shaped items through
+ * `href`, or with `onSelect` where there is no router.
  */
 
 export const RAIL_COLLAPSED_WIDTH = 72;
@@ -66,8 +65,8 @@ export interface AppRailProps {
   groups: AppRailGroup[];
   account?: AppRailAccount;
   /**
-   * The utility group, after the account. Icon buttons only —
-   * `railUtilityClass` gives them the rail's own treatment.
+   * The utility group, after the account and before the mode toggle. Icon
+   * buttons only — `railUtilityClass` gives them the rail's own treatment.
    */
   utility?: React.ReactNode;
   /** Renders as a static panel instead of a fixed, hover-expanding rail. */
@@ -149,6 +148,7 @@ export const AppRail: React.FC<AppRailProps> = ({
   className,
   'aria-label': ariaLabel = 'Primary',
 }) => {
+  const { theme, toggleTheme } = useTheme();
   const [hovered, setHovered] = useState(false);
   // A panel lives inside a drawer, which has no hover state and no reason to collapse.
   const expanded = variant === 'panel' || hovered;
@@ -210,19 +210,27 @@ export const AppRail: React.FC<AppRailProps> = ({
 
       <div className="mt-auto border-t border-border">
         {/* The utility group leads with the account, then whatever the service
-            adds. There is no mode toggle: the product is dark only (toggle
-            removed on 2026-10-02 at the owner's request; light styles kept),
-            so a rail with no utility has no row to draw. */}
-        {utility ? (
-          <div
-            className={cn(
-              'flex h-10 items-center border-b border-border transition-all duration-200',
-              expanded ? 'justify-start px-2' : 'justify-center px-0',
-            )}
+            adds, then the mode toggle. */}
+        <div
+          className={cn(
+            'flex h-10 items-center border-b border-border transition-all duration-200',
+            expanded ? 'justify-start px-2' : 'justify-center px-0',
+          )}
+        >
+          {utility}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className={cn(railUtilityClass, expanded && 'ml-auto')}
           >
-            {utility}
-          </div>
-        ) : null}
+            {/* icons.html: sun and moon are the one control that carries a
+                CellIcon — they name the two modes rather than an action. Never
+                below 18px, which is why they are not sized to the rail glyphs. */}
+            <CellIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
+          </button>
+        </div>
 
         {account ? (
           <button
@@ -230,7 +238,7 @@ export const AppRail: React.FC<AppRailProps> = ({
             onClick={account.onSelect}
             disabled={!account.onSelect}
             title="Account"
-            aria-label="Profile"
+            aria-label="Account"
             className={cn(
               'group flex h-[64px] w-full items-center bg-background text-foreground transition-colors duration-300',
               account.onSelect ? 'hover:bg-muted/60' : 'cursor-default',

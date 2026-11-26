@@ -1,0 +1,251 @@
+schema_version: 1
+skill: cms-drupal
+cases:
+  - id: cms-drupal-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cms-drupal-positive-1-observation
+              content: Anonymous access read an unpublished evaluator node canary that the active Drupal permission matrix reserved for editors.
+            - id: cms-drupal-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-drupal-positive-1-observation
+        - cms-drupal-positive-1-context
+        - cms-drupal-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cms-drupal-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cms-drupal-positive-2-observation
+              content: An active contributed module route exposed evaluator B’s synthetic entity to evaluator A and the module manifest tied the route to the deployed version.
+            - id: cms-drupal-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-drupal-positive-2-observation
+        - cms-drupal-positive-2-context
+        - cms-drupal-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cms-drupal-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cms-drupal-positive-3-observation
+              content: The JSON:API view returned a private revision canary while the canonical entity route correctly denied it.
+            - id: cms-drupal-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-drupal-positive-3-observation
+        - cms-drupal-positive-3-context
+        - cms-drupal-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cms-drupal-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cms-drupal-negative-1-observation
+              content: The login route and generator header only fingerprinted Drupal.
+            - id: cms-drupal-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-negative-1-control
+              content: The retained control explains the observed signal without meeting active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-drupal-negative-1-observation
+        - cms-drupal-negative-1-context
+        - cms-drupal-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cms-drupal-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cms-drupal-negative-2-observation
+              content: A contributed module directory existed but was absent from core.extension active configuration.
+            - id: cms-drupal-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-negative-2-control
+              content: The retained control explains the observed signal without meeting active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-drupal-negative-2-observation
+        - cms-drupal-negative-2-context
+        - cms-drupal-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cms-drupal-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cms-drupal-negative-3-observation
+              content: A CVE range did not include the installed Drupal patch level.
+            - id: cms-drupal-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-negative-3-control
+              content: The retained control explains the observed signal without meeting active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-drupal-negative-3-observation
+        - cms-drupal-negative-3-context
+        - cms-drupal-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cms-drupal-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cms-drupal-ambiguous-observation
+              content: A public asset suggests an extension version, but active extension status and the corresponding route are unknown.
+            - id: cms-drupal-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-ambiguous-missing
+              content: The packet lacks at least one required element of active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-drupal-ambiguous-observation
+        - cms-drupal-ambiguous-context
+        - cms-drupal-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cms-drupal-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cms-drupal-blocked-observation
+              content: Active configuration, safe evaluator entities, or role identities are unavailable.
+            - id: cms-drupal-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-drupal-blocked-observation
+        - cms-drupal-blocked-context
+        - cms-drupal-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cms-drupal-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cms-drupal with the cms-drupal methodology and retain deterministic proof.
+    expected:
+      primary_skill: cms-drupal
+      top_n: 3
+  - id: cms-drupal-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cms-drupal
+      top_n: 5
+  - id: cms-drupal-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-drupal-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cms-drupal-mutation-observation
+              content: Only the entity route changed from canonical to enabled JSON:API form; the same unpublished evaluator canary was disclosed.
+            - id: cms-drupal-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Drupal extension/configuration, role/entity controls, and a synthetic entity outcome.
+            - id: cms-drupal-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-drupal-mutation-observation
+        - cms-drupal-mutation-context
+        - cms-drupal-mutation-control
+      forbidden_evidence_ids: []

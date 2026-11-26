@@ -1,0 +1,219 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "description": "Agent Operations Dashboard - Production Readiness Metrics",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "title": "Resume Success Rate",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "yellow", "value": 0.9 },
+              { "color": "green", "value": 0.99 }
+            ]
+          }
+        }
+      },
+      "options": { "colorMode": "value", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "sum(session_resume_total{status=\"success\"}) / sum(session_resume_total)",
+          "legendFormat": "Success Rate"
+        }
+      ]
+    },
+    {
+      "title": "Turn Commit Rate",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "yellow", "value": 0.9 },
+              { "color": "green", "value": 0.99 }
+            ]
+          }
+        }
+      },
+      "options": { "colorMode": "value", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "sum(turn_commit_total{status=\"success\"}) / sum(turn_commit_total)",
+          "legendFormat": "Success Rate"
+        }
+      ]
+    },
+    {
+      "title": "Lost Ownership",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 5 }
+            ]
+          }
+        }
+      },
+      "options": { "colorMode": "value", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "lost_ownership_total",
+          "legendFormat": "Total"
+        }
+      ]
+    },
+    {
+      "title": "Completion Blocked",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 1 },
+              { "color": "red", "value": 5 }
+            ]
+          }
+        }
+      },
+      "options": { "colorMode": "value", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "sum(completion_blocked_total)",
+          "legendFormat": "Total"
+        }
+      ]
+    },
+    {
+      "title": "Session Resume by Status",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "session_resume_total{status=\"enqueued\"}", "legendFormat": "Enqueued" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "session_resume_total{status=\"success\"}", "legendFormat": "Success" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "session_resume_total{status=\"fail\"}", "legendFormat": "Fail" }
+      ]
+    },
+    {
+      "title": "Turn Commit Success/Error",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "turn_commit_total{status=\"success\"}", "legendFormat": "Success" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "turn_commit_total{status=\"error\"}", "legendFormat": "Error" }
+      ]
+    },
+    {
+      "title": "Completion Blocked by Reason",
+      "type": "bargauge",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "options": { "displayMode": "gradient", "orientation": "horizontal" },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "prometheus" },
+          "expr": "completion_blocked_total",
+          "legendFormat": "{{reason}}"
+        }
+      ]
+    },
+    {
+      "title": "Next Attempt Scheduled vs Cleared",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "next_attempt_total{action=\"scheduled\"}", "legendFormat": "Scheduled" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "next_attempt_total{action=\"cleared\"}", "legendFormat": "Cleared" }
+      ]
+    },
+    {
+      "title": "Retention Reaper",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "retention_reaper_total{result=\"run\"}", "legendFormat": "Runs" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "retention_reaper_total{result=\"deleted\"}", "legendFormat": "Deleted" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "retention_reaper_total{result=\"error\"}", "legendFormat": "Errors" }
+      ]
+    },
+    {
+      "title": "Storage + DB Health",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 12, "x": 12, "y": 20 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            { "options": { "0": { "color": "red", "index": 0, "text": "DOWN" }, "1": { "color": "green", "index": 1, "text": "UP" } }, "type": "value" }
+          ]
+        }
+      },
+      "options": { "colorMode": "value", "graphMode": "none", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "db_health", "legendFormat": "Database" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "s3_health{bucket=\"artifacts\"}", "legendFormat": "S3 Artifacts" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "s3_health{bucket=\"traces\"}", "legendFormat": "S3 Traces" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "s3_health{bucket=\"workspaces\"}", "legendFormat": "S3 Workspaces" }
+      ]
+    },
+    {
+      "title": "Scheduler Status",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 12, "x": 12, "y": 24 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "options": { "colorMode": "value", "graphMode": "area", "reduceOptions": { "calcs": ["lastNotNull"] } },
+      "targets": [
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "scheduler_status{metric=\"pending_runs\"}", "legendFormat": "Pending Runs" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "scheduler_status{metric=\"running_runs\"}", "legendFormat": "Running" },
+        { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "scheduler_status{metric=\"due_schedules\"}", "legendFormat": "Due" }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["nullai", "production-readiness", "ops"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Agent Ops Overview",
+  "uid": "nullai-agent-ops",
+  "version": 2,
+  "weekStart": ""
+}
