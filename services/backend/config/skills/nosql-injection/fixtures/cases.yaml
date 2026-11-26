@@ -1,0 +1,251 @@
+schema_version: 1
+skill: nosql-injection
+cases:
+  - id: nosql-injection-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: nosql-injection-positive-1-observation
+              content: A JSON operator object changed an evaluator lookup from one named record to two synthetic records while the literal-object control returned none.
+            - id: nosql-injection-positive-1-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nosql-injection-positive-1-observation
+        - nosql-injection-positive-1-floor
+        - nosql-injection-positive-1-control
+      forbidden_evidence_ids: []
+  - id: nosql-injection-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: nosql-injection-positive-2-observation
+              content: A scalar-to-array coercion bypassed the active equality predicate and selected the peer evaluator canary.
+            - id: nosql-injection-positive-2-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nosql-injection-positive-2-observation
+        - nosql-injection-positive-2-floor
+        - nosql-injection-positive-2-control
+      forbidden_evidence_ids: []
+  - id: nosql-injection-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: nosql-injection-positive-3-observation
+              content: A query-string nested key reached the active document filter and changed a disposable evaluator result under matched encoding controls.
+            - id: nosql-injection-positive-3-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nosql-injection-positive-3-observation
+        - nosql-injection-positive-3-floor
+        - nosql-injection-positive-3-control
+      forbidden_evidence_ids: []
+  - id: nosql-injection-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: nosql-injection-negative-1-observation
+              content: Operator-like text remained a literal string and returned no records.
+            - id: nosql-injection-negative-1-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nosql-injection-negative-1-observation
+        - nosql-injection-negative-1-floor
+        - nosql-injection-negative-1-control
+      forbidden_evidence_ids: []
+  - id: nosql-injection-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: nosql-injection-negative-2-observation
+              content: Malformed JSON produced the same parser error as inert controls before query construction.
+            - id: nosql-injection-negative-2-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nosql-injection-negative-2-observation
+        - nosql-injection-negative-2-floor
+        - nosql-injection-negative-2-control
+      forbidden_evidence_ids: []
+  - id: nosql-injection-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: nosql-injection-negative-3-observation
+              content: A NoSQL library existed in source but the active route used a fixed identifier lookup.
+            - id: nosql-injection-negative-3-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nosql-injection-negative-3-observation
+        - nosql-injection-negative-3-floor
+        - nosql-injection-negative-3-control
+      forbidden_evidence_ids: []
+  - id: nosql-injection-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: nosql-injection-ambiguous-observation
+              content: Result count changes, but operator parsing, synthetic records, and literal/type controls are absent.
+            - id: nosql-injection-ambiguous-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - nosql-injection-ambiguous-observation
+        - nosql-injection-ambiguous-floor
+        - nosql-injection-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: nosql-injection-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: nosql-injection-blocked-observation
+              content: No disposable document fixture, query trace, or stable synthetic records are available.
+            - id: nosql-injection-blocked-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - nosql-injection-blocked-observation
+        - nosql-injection-blocked-floor
+        - nosql-injection-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: nosql-injection-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess nosql-injection with the nosql-injection methodology and retain deterministic proof.
+    expected:
+      primary_skill: nosql-injection
+      top_n: 3
+  - id: nosql-injection-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: nosql-injection
+      top_n: 5
+  - id: nosql-injection-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nosql-injection-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: nosql-injection-mutation-observation
+              content: Only input shape changed from nested JSON to the supported query-string form; the same synthetic record differential and literal control remained.
+            - id: nosql-injection-mutation-floor
+              content: The required decision floor is identified NoSQL query operator/coercion boundary, semantic synthetic differential, and literal/type controls.
+            - id: nosql-injection-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nosql-injection-mutation-observation
+        - nosql-injection-mutation-floor
+        - nosql-injection-mutation-control
+      forbidden_evidence_ids: []

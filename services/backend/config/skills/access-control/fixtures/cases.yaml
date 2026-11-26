@@ -1,0 +1,251 @@
+schema_version: 1
+skill: access-control
+cases:
+  - id: access-control-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: access-control-positive-1-observation
+              content: Evaluator member A changed only the invoice id and received member B’s synthetic invoice canary.
+            - id: access-control-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - access-control-positive-1-observation
+        - access-control-positive-1-context
+        - access-control-positive-1-control
+      forbidden_evidence_ids: []
+  - id: access-control-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: access-control-positive-2-observation
+              content: A read-only evaluator invoked the supplied administrative export action and the completed test export matched the administrator control.
+            - id: access-control-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - access-control-positive-2-observation
+        - access-control-positive-2-context
+        - access-control-positive-2-control
+      forbidden_evidence_ids: []
+  - id: access-control-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: access-control-positive-3-observation
+              content: An evaluator from tenant A used the documented alternate content type and read a tenant B synthetic project that the canonical request denied.
+            - id: access-control-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - access-control-positive-3-observation
+        - access-control-positive-3-context
+        - access-control-positive-3-control
+      forbidden_evidence_ids: []
+  - id: access-control-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: access-control-negative-1-observation
+              content: Peer and nonexistent invoice identifiers returned the same generic not-found response with no canary or state change.
+            - id: access-control-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-negative-1-control
+              content: The retained control explains the observed signal without meeting subject, object, action, ownership, and matched deny/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - access-control-negative-1-observation
+        - access-control-negative-1-context
+        - access-control-negative-1-control
+      forbidden_evidence_ids: []
+  - id: access-control-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: access-control-negative-2-observation
+              content: The supplied privileged route denied the member and succeeded only for the administrator control.
+            - id: access-control-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-negative-2-control
+              content: The retained control explains the observed signal without meeting subject, object, action, ownership, and matched deny/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - access-control-negative-2-observation
+        - access-control-negative-2-context
+        - access-control-negative-2-control
+      forbidden_evidence_ids: []
+  - id: access-control-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: access-control-negative-3-observation
+              content: The apparent cross-tenant response followed an expired-session redirect before any object lookup.
+            - id: access-control-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-negative-3-control
+              content: The retained control explains the observed signal without meeting subject, object, action, ownership, and matched deny/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - access-control-negative-3-observation
+        - access-control-negative-3-context
+        - access-control-negative-3-control
+      forbidden_evidence_ids: []
+  - id: access-control-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: access-control-ambiguous-observation
+              content: A peer-object request changed status and body length, but dynamic error identifiers were not normalized and no peer canary appeared.
+            - id: access-control-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-ambiguous-missing
+              content: The packet lacks at least one required element of subject, object, action, ownership, and matched deny/owner controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - access-control-ambiguous-observation
+        - access-control-ambiguous-context
+        - access-control-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: access-control-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: access-control-blocked-observation
+              content: No second evaluator role, tenant identity, or ownership-labelled synthetic object was supplied.
+            - id: access-control-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - access-control-blocked-observation
+        - access-control-blocked-context
+        - access-control-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: access-control-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess access-control with the access-control methodology and retain deterministic proof.
+    expected:
+      primary_skill: access-control
+      top_n: 3
+  - id: access-control-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: access-control
+      top_n: 5
+  - id: access-control-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-control-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: access-control-mutation-observation
+              content: Only the supported JSON content type changed to form encoding; the same unauthorized synthetic export and matched role controls remained reproducible.
+            - id: access-control-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is subject, object, action, ownership, and matched deny/owner controls.
+            - id: access-control-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - access-control-mutation-observation
+        - access-control-mutation-context
+        - access-control-mutation-control
+      forbidden_evidence_ids: []

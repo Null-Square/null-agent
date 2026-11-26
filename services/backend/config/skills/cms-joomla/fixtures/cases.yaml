@@ -1,0 +1,251 @@
+schema_version: 1
+skill: cms-joomla
+cases:
+  - id: cms-joomla-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cms-joomla-positive-1-observation
+              content: A guest read the supplied unpublished evaluator article through the active com_content view.
+            - id: cms-joomla-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-joomla-positive-1-observation
+        - cms-joomla-positive-1-context
+        - cms-joomla-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cms-joomla-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cms-joomla-positive-2-observation
+              content: An active contributed component returned evaluator B’s synthetic record to a registered evaluator lacking its configured ACL.
+            - id: cms-joomla-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-joomla-positive-2-observation
+        - cms-joomla-positive-2-context
+        - cms-joomla-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cms-joomla-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cms-joomla-positive-3-observation
+              content: The SEF route denied a private test item but the canonical component route returned its canary to the same guest.
+            - id: cms-joomla-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-joomla-positive-3-observation
+        - cms-joomla-positive-3-context
+        - cms-joomla-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cms-joomla-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cms-joomla-negative-1-observation
+              content: The administrator login route was publicly reachable but required authentication.
+            - id: cms-joomla-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-negative-1-control
+              content: The retained control explains the observed signal without meeting active Joomla extension/version, role/content state, and a synthetic record differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-joomla-negative-1-observation
+        - cms-joomla-negative-1-context
+        - cms-joomla-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cms-joomla-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cms-joomla-negative-2-observation
+              content: A template asset version conflicted with the authoritative active manifest.
+            - id: cms-joomla-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-negative-2-control
+              content: The retained control explains the observed signal without meeting active Joomla extension/version, role/content state, and a synthetic record differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-joomla-negative-2-observation
+        - cms-joomla-negative-2-context
+        - cms-joomla-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cms-joomla-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cms-joomla-negative-3-observation
+              content: An extension package was present in a backup directory but absent from the active extensions inventory.
+            - id: cms-joomla-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-negative-3-control
+              content: The retained control explains the observed signal without meeting active Joomla extension/version, role/content state, and a synthetic record differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-joomla-negative-3-observation
+        - cms-joomla-negative-3-context
+        - cms-joomla-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cms-joomla-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cms-joomla-ambiguous-observation
+              content: An extension manifest appears in source without evidence that the component is installed and routed.
+            - id: cms-joomla-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-ambiguous-missing
+              content: The packet lacks at least one required element of active Joomla extension/version, role/content state, and a synthetic record differential, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-joomla-ambiguous-observation
+        - cms-joomla-ambiguous-context
+        - cms-joomla-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cms-joomla-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cms-joomla-blocked-observation
+              content: Extension activation, content state, or evaluator roles cannot be established.
+            - id: cms-joomla-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-joomla-blocked-observation
+        - cms-joomla-blocked-context
+        - cms-joomla-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cms-joomla-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cms-joomla with the cms-joomla methodology and retain deterministic proof.
+    expected:
+      primary_skill: cms-joomla
+      top_n: 3
+  - id: cms-joomla-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cms-joomla
+      top_n: 5
+  - id: cms-joomla-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-joomla-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cms-joomla-mutation-observation
+              content: Only route form changed from SEF to the already-observed canonical component URL; the unpublished canary remained accessible.
+            - id: cms-joomla-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active Joomla extension/version, role/content state, and a synthetic record differential.
+            - id: cms-joomla-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-joomla-mutation-observation
+        - cms-joomla-mutation-context
+        - cms-joomla-mutation-control
+      forbidden_evidence_ids: []

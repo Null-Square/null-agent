@@ -1,0 +1,9 @@
+[
+  {
+    "ruleId": "generic-api-key",
+    "title": "Generic API key",
+    "severity": "high",
+    "file": "config.js",
+    "secret": "redacted"
+  }
+]

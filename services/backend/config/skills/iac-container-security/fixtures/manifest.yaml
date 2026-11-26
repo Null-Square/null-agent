@@ -1,0 +1,4 @@
+schema_version: 1
+skill: iac-container-security
+files:
+  - cases.yaml

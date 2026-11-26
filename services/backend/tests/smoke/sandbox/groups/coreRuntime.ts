@@ -1,0 +1,97 @@
+import type { PhaseSmokeGroup } from '../types';
+
+export const coreRuntimeGroup: PhaseSmokeGroup = {
+  phase: 'core-runtime',
+  tools: [
+    'python3',
+    'jq',
+    'curl',
+    'node',
+    'chromium',
+    'mitmproxy',
+    'rg',
+    'fd',
+    'yq',
+    'openssl',
+    'ip',
+    'socat',
+  ],
+  extraChecks: [
+    {
+      name: 'workspace artifact mount',
+      command: [
+        'mkdir -p /workspace/.artifacts/smoke',
+        'printf NULLAI_WORKSPACE_OK > /workspace/.artifacts/smoke/workspace.txt',
+        'cat /workspace/.artifacts/smoke/workspace.txt',
+      ].join(' && '),
+      expect: 'NULLAI_WORKSPACE_OK',
+    },
+    {
+      name: 'canonical scanner artifact layout',
+      command: [
+        'mkdir -p /workspace/.artifacts/scans/httpx',
+        'printf \'{"url":"https://smoke.local"}\\n\' > /workspace/.artifacts/scans/httpx/smoke.jsonl',
+        'test -f /workspace/.artifacts/scans/httpx/smoke.jsonl',
+        'find /workspace/.artifacts/scans -type f | grep -q "/httpx/smoke.jsonl"',
+        'grep -q "smoke.local" /workspace/.artifacts/scans/httpx/smoke.jsonl',
+        'echo NULLAI_SCANNER_LAYOUT_OK',
+      ].join(' && '),
+      expect: 'NULLAI_SCANNER_LAYOUT_OK',
+    },
+    {
+      name: 'wordlists are populated',
+      command: [
+        'test -f /usr/share/wordlists/nullai/raft-medium-directories.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/raft-medium-directories.txt)" -ge 1000',
+        'test -f /usr/share/wordlists/nullai/subdomains-top5000.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/subdomains-top5000.txt)" -ge 1000',
+        'test -f /usr/share/wordlists/nullai/api-endpoints.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/api-endpoints.txt)" -ge 100',
+        'test -f /usr/share/wordlists/nullai/routes-small.kite',
+        'test -f /usr/share/wordlists/nullai/xss-payloads.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/xss-payloads.txt)" -ge 100',
+        'test -f /usr/share/wordlists/nullai/sqli-payloads.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/sqli-payloads.txt)" -ge 20',
+        'test -f /usr/share/wordlists/nullai/lfi-payloads.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/lfi-payloads.txt)" -ge 100',
+        'test -f /usr/share/wordlists/nullai/ssti-payloads.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/ssti-payloads.txt)" -ge 20',
+        'test -f /usr/share/wordlists/nullai/ssrf-payloads.txt',
+        'test "$(wc -l < /usr/share/wordlists/nullai/ssrf-payloads.txt)" -ge 10',
+        'echo NULLAI_WORDLISTS_OK',
+      ].join(' && '),
+      expect: 'NULLAI_WORDLISTS_OK',
+    },
+    {
+      name: 'runtime helpers process workspace artifacts',
+      command: [
+        'mkdir -p /workspace/.artifacts/smoke/runtime',
+        'printf \'{"name":"nullai","nested":{"ok":true}}\\n\' > /workspace/.artifacts/smoke/runtime/data.json',
+        'printf "alpha\\nbeta\\n" > /workspace/.artifacts/smoke/runtime/patterns.txt',
+        'rg -q beta /workspace/.artifacts/smoke/runtime/patterns.txt',
+        'fd data /workspace/.artifacts/smoke/runtime | grep -q data.json',
+        'yq -r .nested.ok /workspace/.artifacts/smoke/runtime/data.json | grep -q true',
+        'echo NULLAI_RUNTIME_HELPERS_OK',
+      ].join(' && '),
+      expect: 'NULLAI_RUNTIME_HELPERS_OK',
+    },
+    {
+      name: 'nuclei templates are populated',
+      command: [
+        'for d in /root/nuclei-templates /root/.local/nuclei-templates "$HOME/nuclei-templates" "$HOME/.local/nuclei-templates" /nuclei-templates; do',
+        '  if [ -d "$d" ] && [ "$(find "$d" -type f | wc -l)" -gt 10 ]; then echo NULLAI_NUCLEI_TEMPLATES_OK; exit 0; fi;',
+        'done;',
+        'exit 1',
+      ].join(' '),
+      expect: 'NULLAI_NUCLEI_TEMPLATES_OK',
+    },
+    {
+      name: 'private runner bridge files are present',
+      command: [
+        'test -f /app/src/index.js',
+        'node -e "require(\'ws\'); console.log(\'NULLAI_RUNNER_BRIDGE_OK\')"',
+      ].join(' && '),
+      expect: 'NULLAI_RUNNER_BRIDGE_OK',
+    },
+  ],
+};

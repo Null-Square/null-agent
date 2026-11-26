@@ -1,0 +1,251 @@
+schema_version: 1
+skill: race-conditions
+cases:
+  - id: race-conditions-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: race-conditions-positive-1-observation
+              content: Two synchronized evaluator requests created two disposable redemptions where the sequential baseline allowed one.
+            - id: race-conditions-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - race-conditions-positive-1-observation
+        - race-conditions-positive-1-context
+        - race-conditions-positive-1-control
+      forbidden_evidence_ids: []
+  - id: race-conditions-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: race-conditions-positive-2-observation
+              content: An approved synchronized two-request pair advanced the same resettable evaluator workflow through a forbidden duplicate transition, and authoritative post-state recorded both events while the sequential baseline recorded one.
+            - id: race-conditions-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - race-conditions-positive-2-observation
+        - race-conditions-positive-2-context
+        - race-conditions-positive-2-control
+      forbidden_evidence_ids: []
+  - id: race-conditions-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: race-conditions-positive-3-observation
+              content: Two evaluator sessions simultaneously updated a synthetic quota and the authoritative count exceeded the documented invariant.
+            - id: race-conditions-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - race-conditions-positive-3-observation
+        - race-conditions-positive-3-context
+        - race-conditions-positive-3-control
+      forbidden_evidence_ids: []
+  - id: race-conditions-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: race-conditions-negative-1-observation
+              content: Concurrent responses duplicated text but authoritative state changed once.
+            - id: race-conditions-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-negative-1-control
+              content: The retained control explains the observed signal without meeting resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - race-conditions-negative-1-observation
+        - race-conditions-negative-1-context
+        - race-conditions-negative-1-control
+      forbidden_evidence_ids: []
+  - id: race-conditions-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: race-conditions-negative-2-observation
+              content: Sequential controls reproduced the same duplicate outcome, showing a non-race logic flaw.
+            - id: race-conditions-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-negative-2-control
+              content: The retained control explains the observed signal without meeting resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - race-conditions-negative-2-observation
+        - race-conditions-negative-2-context
+        - race-conditions-negative-2-control
+      forbidden_evidence_ids: []
+  - id: race-conditions-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: race-conditions-negative-3-observation
+              content: Latency and errors rose under concurrency without invariant violation.
+            - id: race-conditions-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-negative-3-control
+              content: The retained control explains the observed signal without meeting resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - race-conditions-negative-3-observation
+        - race-conditions-negative-3-context
+        - race-conditions-negative-3-control
+      forbidden_evidence_ids: []
+  - id: race-conditions-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: race-conditions-ambiguous-observation
+              content: One synchronized batch produced an unexpected response, but post-state and sequential repeat are missing.
+            - id: race-conditions-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-ambiguous-missing
+              content: The packet lacks at least one required element of resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - race-conditions-ambiguous-observation
+        - race-conditions-ambiguous-context
+        - race-conditions-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: race-conditions-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: race-conditions-blocked-observation
+              content: No resettable disposable action, authoritative invariant read, or approved concurrency ceiling is available.
+            - id: race-conditions-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - race-conditions-blocked-observation
+        - race-conditions-blocked-context
+        - race-conditions-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: race-conditions-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess race-conditions with the race-conditions methodology and retain deterministic proof.
+    expected:
+      primary_skill: race-conditions
+      top_n: 3
+  - id: race-conditions-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: race-conditions
+      top_n: 5
+  - id: race-conditions-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: race-conditions-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: race-conditions-mutation-observation
+              content: Only synchronization changed from ordinary simultaneous dispatch to one barrier; the same duplicate evaluator transition remained.
+            - id: race-conditions-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is resettable evaluator invariant, sequential baseline, bounded synchronized batch, and authoritative post-state.
+            - id: race-conditions-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - race-conditions-mutation-observation
+        - race-conditions-mutation-context
+        - race-conditions-mutation-control
+      forbidden_evidence_ids: []

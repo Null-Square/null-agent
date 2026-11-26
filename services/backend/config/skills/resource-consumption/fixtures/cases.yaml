@@ -1,0 +1,355 @@
+schema_version: 1
+skill: resource-consumption
+cases:
+  - id: resource-consumption-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: resource-consumption-positive-1-observation
+              content: A parser fixture exceeded the approved CPU ceiling on a 32 KiB nested evaluator document while the flat equal-size control stayed below it.
+            - id: resource-consumption-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - resource-consumption-positive-1-observation
+        - resource-consumption-positive-1-context
+        - resource-consumption-positive-1-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: resource-consumption-positive-2-observation
+              content: A supplied regex path crossed the local 250 ms budget on the bounded candidate and the equal-length literal control completed normally.
+            - id: resource-consumption-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - resource-consumption-positive-2-observation
+        - resource-consumption-positive-2-context
+        - resource-consumption-positive-2-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: resource-consumption-positive-3-observation
+              content: A decompression fixture exceeded the approved expansion ratio and the instrumented guard failed to abort before the evaluator ceiling.
+            - id: resource-consumption-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - resource-consumption-positive-3-observation
+        - resource-consumption-positive-3-context
+        - resource-consumption-positive-3-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: resource-consumption-positive-4-observation
+              content: A two-request local queue fixture exhausted its worker slot because the active timeout was absent; the fixed timeout control released it.
+            - id: resource-consumption-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - resource-consumption-positive-4-observation
+        - resource-consumption-positive-4-context
+        - resource-consumption-positive-4-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: resource-consumption-positive-5-observation
+              content: A bounded GraphQL fixture exceeded the documented resolver-count ceiling at depth five while a breadth-matched control did not.
+            - id: resource-consumption-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - resource-consumption-positive-5-observation
+        - resource-consumption-positive-5-context
+        - resource-consumption-positive-5-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: resource-consumption-negative-1-observation
+              content: Candidate and matched control used equivalent CPU and memory below the ceiling.
+            - id: resource-consumption-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-negative-1-control
+              content: The retained control explains the observed signal without meeting local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - resource-consumption-negative-1-observation
+        - resource-consumption-negative-1-context
+        - resource-consumption-negative-1-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: resource-consumption-negative-2-observation
+              content: A one-time latency spike coincided with local fixture startup and did not reproduce.
+            - id: resource-consumption-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-negative-2-control
+              content: The retained control explains the observed signal without meeting local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - resource-consumption-negative-2-observation
+        - resource-consumption-negative-2-context
+        - resource-consumption-negative-2-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: resource-consumption-negative-3-observation
+              content: The active parser rejected the candidate at the configured size/depth limit.
+            - id: resource-consumption-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-negative-3-control
+              content: The retained control explains the observed signal without meeting local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - resource-consumption-negative-3-observation
+        - resource-consumption-negative-3-context
+        - resource-consumption-negative-3-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: resource-consumption-negative-4-observation
+              content: A scanner estimated theoretical complexity without an executed bounded measurement; it remains an actionable lead pending a local instrumented fixture with an explicit resource ceiling and automatic abort.
+            - id: resource-consumption-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-negative-4-control
+              content: The retained control explains the observed signal without meeting local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - resource-consumption-negative-4-observation
+        - resource-consumption-negative-4-context
+        - resource-consumption-negative-4-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: resource-consumption-negative-5-observation
+              content: The candidate needed traffic or size beyond the approved local cap and remains an unresolved lead; any continuation requires an owner-approved isolated fixture with telemetry and a new bounded ceiling, never a cap increase on the assessed target.
+            - id: resource-consumption-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-negative-5-control
+              content: The retained control explains the observed signal without meeting local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - resource-consumption-negative-5-observation
+        - resource-consumption-negative-5-context
+        - resource-consumption-negative-5-control
+      forbidden_evidence_ids: []
+  - id: resource-consumption-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: resource-consumption-ambiguous-observation
+              content: One bounded run approached the resource ceiling, but interleaved controls and repeat measurements are absent.
+            - id: resource-consumption-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-ambiguous-missing
+              content: The packet lacks at least one required element of local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - resource-consumption-ambiguous-observation
+        - resource-consumption-ambiguous-context
+        - resource-consumption-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: resource-consumption-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: resource-consumption-blocked-observation
+              content: No isolated local fixture, instrumentation, abort guard, or approved resource budget is available.
+            - id: resource-consumption-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - resource-consumption-blocked-observation
+        - resource-consumption-blocked-context
+        - resource-consumption-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: resource-consumption-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess resource-consumption with the resource-consumption methodology and retain deterministic proof.
+    expected:
+      primary_skill: resource-consumption
+      top_n: 3
+  - id: resource-consumption-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: resource-consumption
+      top_n: 5
+  - id: resource-consumption-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: resource-consumption-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: resource-consumption-mutation-observation
+              content: Only nesting shape changed at the same 32 KiB size; the resource-ceiling breach and flat control remained deterministic.
+            - id: resource-consumption-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is local/instrumented bounded fixture, explicit resource ceiling, matched control, and automatic abort evidence.
+            - id: resource-consumption-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - resource-consumption-mutation-observation
+        - resource-consumption-mutation-context
+        - resource-consumption-mutation-control
+      forbidden_evidence_ids: []

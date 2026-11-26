@@ -1,5 +1,5 @@
 name: Feature request
-description: Describe a change to the local application
+description: Describe a change to Null AI
 labels: [enhancement]
 body:
   - type: textarea

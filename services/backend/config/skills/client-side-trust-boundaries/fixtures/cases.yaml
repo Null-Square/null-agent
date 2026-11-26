@@ -1,0 +1,251 @@
+schema_version: 1
+skill: client-side-trust-boundaries
+cases:
+  - id: client-side-trust-boundaries-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: client-side-trust-boundaries-positive-1-observation
+              content: Changing the hidden plan field made the server persist a synthetic enterprise entitlement for the disposable evaluator.
+            - id: client-side-trust-boundaries-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - client-side-trust-boundaries-positive-1-observation
+        - client-side-trust-boundaries-positive-1-context
+        - client-side-trust-boundaries-positive-1-control
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: client-side-trust-boundaries-positive-2-observation
+              content: Changing a JavaScript-calculated amount altered the evaluator-only zero-value test receipt instead of being recalculated server-side.
+            - id: client-side-trust-boundaries-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - client-side-trust-boundaries-positive-2-observation
+        - client-side-trust-boundaries-positive-2-context
+        - client-side-trust-boundaries-positive-2-control
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: client-side-trust-boundaries-positive-3-observation
+              content: A locally disabled feature request succeeded when replayed canonically and the server response recorded the hidden feature state.
+            - id: client-side-trust-boundaries-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - client-side-trust-boundaries-positive-3-observation
+        - client-side-trust-boundaries-positive-3-context
+        - client-side-trust-boundaries-positive-3-control
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: client-side-trust-boundaries-negative-1-observation
+              content: Editing React state changed only the display while the server receipt retained the canonical amount.
+            - id: client-side-trust-boundaries-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-negative-1-control
+              content: The retained control explains the observed signal without meeting one client-controlled decision field and an authoritative server-side state/read control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - client-side-trust-boundaries-negative-1-observation
+        - client-side-trust-boundaries-negative-1-context
+        - client-side-trust-boundaries-negative-1-control
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: client-side-trust-boundaries-negative-2-observation
+              content: A transmitted isAdmin field was ignored and the authoritative role read remained member.
+            - id: client-side-trust-boundaries-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-negative-2-control
+              content: The retained control explains the observed signal without meeting one client-controlled decision field and an authoritative server-side state/read control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - client-side-trust-boundaries-negative-2-observation
+        - client-side-trust-boundaries-negative-2-context
+        - client-side-trust-boundaries-negative-2-control
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: client-side-trust-boundaries-negative-3-observation
+              content: A source map disclosed feature names but no server-accepted trust decision.
+            - id: client-side-trust-boundaries-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-negative-3-control
+              content: The retained control explains the observed signal without meeting one client-controlled decision field and an authoritative server-side state/read control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - client-side-trust-boundaries-negative-3-observation
+        - client-side-trust-boundaries-negative-3-context
+        - client-side-trust-boundaries-negative-3-control
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: client-side-trust-boundaries-ambiguous-observation
+              content: The UI displayed the changed entitlement but no authoritative server response or follow-up read was retained.
+            - id: client-side-trust-boundaries-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-ambiguous-missing
+              content: The packet lacks at least one required element of one client-controlled decision field and an authoritative server-side state/read control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - client-side-trust-boundaries-ambiguous-observation
+        - client-side-trust-boundaries-ambiguous-context
+        - client-side-trust-boundaries-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: client-side-trust-boundaries-blocked-observation
+              content: No disposable entitlement, checkout, or server-side state read is available.
+            - id: client-side-trust-boundaries-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - client-side-trust-boundaries-blocked-observation
+        - client-side-trust-boundaries-blocked-context
+        - client-side-trust-boundaries-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: client-side-trust-boundaries-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess client-side-trust-boundaries with the client-side-trust-boundaries methodology and retain deterministic proof.
+    expected:
+      primary_skill: client-side-trust-boundaries
+      top_n: 3
+  - id: client-side-trust-boundaries-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: client-side-trust-boundaries
+      top_n: 5
+  - id: client-side-trust-boundaries-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: client-side-trust-boundaries-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: client-side-trust-boundaries-mutation-observation
+              content: Only the client field location changed from hidden form input to JSON body; the same synthetic entitlement persisted.
+            - id: client-side-trust-boundaries-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one client-controlled decision field and an authoritative server-side state/read control.
+            - id: client-side-trust-boundaries-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - client-side-trust-boundaries-mutation-observation
+        - client-side-trust-boundaries-mutation-context
+        - client-side-trust-boundaries-mutation-control
+      forbidden_evidence_ids: []

@@ -1,0 +1,20 @@
+{
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "javascript.express.security.audit.xss",
+          "message": { "text": "Unsanitized output" },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": { "uri": "src/app.ts" },
+                "region": { "startLine": 12, "endLine": 13 }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

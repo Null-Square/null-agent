@@ -1,0 +1,251 @@
+schema_version: 1
+skill: express
+cases:
+  - id: express-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: express-positive-1-observation
+              content: An active Express route mounted before authentication returned evaluator B’s synthetic record to evaluator A.
+            - id: express-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - express-positive-1-observation
+        - express-positive-1-context
+        - express-positive-1-control
+      forbidden_evidence_ids: []
+  - id: express-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: express-positive-2-observation
+              content: Effective trust-proxy configuration let an untrusted forwarded address change the evaluator-only rate-limit identity.
+            - id: express-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - express-positive-2-observation
+        - express-positive-2-context
+        - express-positive-2-control
+      forbidden_evidence_ids: []
+  - id: express-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: express-positive-3-observation
+              content: The active static root served the named private build canary outside the intended public subtree.
+            - id: express-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - express-positive-3-observation
+        - express-positive-3-context
+        - express-positive-3-control
+      forbidden_evidence_ids: []
+  - id: express-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: express-negative-1-observation
+              content: An Express response header disclosed framework identity without impact.
+            - id: express-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-negative-1-control
+              content: The retained control explains the observed signal without meeting active router/middleware order, effective configuration, and one evaluator runtime outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - express-negative-1-observation
+        - express-negative-1-context
+        - express-negative-1-control
+      forbidden_evidence_ids: []
+  - id: express-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: express-negative-2-observation
+              content: Stack traces were enabled only by test configuration.
+            - id: express-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-negative-2-control
+              content: The retained control explains the observed signal without meeting active router/middleware order, effective configuration, and one evaluator runtime outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - express-negative-2-observation
+        - express-negative-2-context
+        - express-negative-2-control
+      forbidden_evidence_ids: []
+  - id: express-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: express-negative-3-observation
+              content: A dangerous-looking route existed in source but was never mounted.
+            - id: express-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-negative-3-control
+              content: The retained control explains the observed signal without meeting active router/middleware order, effective configuration, and one evaluator runtime outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - express-negative-3-observation
+        - express-negative-3-context
+        - express-negative-3-control
+      forbidden_evidence_ids: []
+  - id: express-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: express-ambiguous-observation
+              content: Middleware ordering looks unsafe in a module, but the application mount graph and deployment revision are absent.
+            - id: express-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-ambiguous-missing
+              content: The packet lacks at least one required element of active router/middleware order, effective configuration, and one evaluator runtime outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - express-ambiguous-observation
+        - express-ambiguous-context
+        - express-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: express-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: express-blocked-observation
+              content: Active router/configuration provenance or evaluator route/object controls are unavailable.
+            - id: express-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - express-blocked-observation
+        - express-blocked-context
+        - express-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: express-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess express with the express methodology and retain deterministic proof.
+    expected:
+      primary_skill: express
+      top_n: 3
+  - id: express-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: express
+      top_n: 5
+  - id: express-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: express-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: express-mutation-observation
+              content: Only the already-supported content type changed from JSON to form data; the same middleware-order authorization gap reproduced.
+            - id: express-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active router/middleware order, effective configuration, and one evaluator runtime outcome.
+            - id: express-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - express-mutation-observation
+        - express-mutation-context
+        - express-mutation-control
+      forbidden_evidence_ids: []

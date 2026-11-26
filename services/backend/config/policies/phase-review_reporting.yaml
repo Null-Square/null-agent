@@ -1,0 +1,15 @@
+# Generated from PhaseProfileRegistry for admin catalog tool-policy surfacing.
+# Do not edit by hand. Run `npm run catalog:policies` from services/backend.
+slug: phase-review_reporting
+name: Agent Catalog Phase review_reporting
+isDefaultSandbox: false
+spec:
+  tools:
+    allow:
+      - file_read
+      - file_write
+      - record_code_review_memory
+      - query_code_review_findings
+      - finalize_code_review_report
+      - submit_phase_handoff
+      - submit_phase_checkpoint

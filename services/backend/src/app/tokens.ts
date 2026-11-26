@@ -1,0 +1,32 @@
+export const TOKENS = {
+  workspaceManager: 'workspaceManager',
+  sessionPersistenceBundle: 'sessionPersistenceBundle',
+  s3Bundle: 's3Bundle',
+  usageStore: 'usageStore',
+  traceIndexRepository: 'traceIndexRepository',
+  traceRetentionService: 'traceRetentionService',
+  traceRecorder: 'traceRecorder',
+  streamBroker: 'streamBroker',
+  usageTracker: 'usageTracker',
+  modelService: 'modelService',
+  sessionRepository: 'sessionRepository',
+  sessionEventJournal: 'sessionEventJournal',
+
+  sandboxProfileRegistry: 'sandboxProfileRegistry',
+  sessionStore: 'sessionStore',
+  sandboxPort: 'sandboxPort',
+  lockPort: 'lockPort',
+  checkpointManager: 'checkpointManager',
+  toolsRegistry: 'toolsRegistry',
+  artifactService: 'artifactService',
+  agentBrainPorts: 'agentBrainPorts',
+  orchestrator: 'orchestrator',
+  agentEngine: 'agentEngine',
+  agentServices: 'agentServices',
+  policyResolver: 'policyResolver',
+  policyEngine: 'policyEngine',
+  tokenGuard: 'tokenGuard',
+  policyTelemetry: 'policyTelemetry',
+} as const;
+
+export type Token = typeof TOKENS[keyof typeof TOKENS];

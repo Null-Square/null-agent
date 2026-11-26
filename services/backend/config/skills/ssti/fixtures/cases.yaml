@@ -1,0 +1,355 @@
+schema_version: 1
+skill: ssti
+cases:
+  - id: ssti-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: ssti-positive-1-observation
+              content: A local fixture rendered a simple arithmetic evaluator expression to the expected numeric canary while literal-text control remained unchanged.
+            - id: ssti-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ssti-positive-1-observation
+        - ssti-positive-1-context
+        - ssti-positive-1-control
+      forbidden_evidence_ids: []
+  - id: ssti-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: ssti-positive-2-observation
+              content: Engine-specific delimiter disambiguation selected the active template engine and a harmless string-concatenation marker evaluated.
+            - id: ssti-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ssti-positive-2-observation
+        - ssti-positive-2-context
+        - ssti-positive-2-control
+      forbidden_evidence_ids: []
+  - id: ssti-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: ssti-positive-3-observation
+              content: A stored evaluator field reached server-side template evaluation on the second render while the escaped-field control stayed literal.
+            - id: ssti-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ssti-positive-3-observation
+        - ssti-positive-3-context
+        - ssti-positive-3-control
+      forbidden_evidence_ids: []
+  - id: ssti-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: ssti-positive-4-observation
+              content: A format variant preserved the same inert arithmetic result under the active engine and canonical context.
+            - id: ssti-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ssti-positive-4-observation
+        - ssti-positive-4-context
+        - ssti-positive-4-control
+      forbidden_evidence_ids: []
+  - id: ssti-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: ssti-positive-5-observation
+              content: An instrumented sandbox fixture allowed an unintended safe mock-property read while the configured sandbox control denied it.
+            - id: ssti-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ssti-positive-5-observation
+        - ssti-positive-5-context
+        - ssti-positive-5-control
+      forbidden_evidence_ids: []
+  - id: ssti-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: ssti-negative-1-observation
+              content: The expression text was reflected literally.
+            - id: ssti-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-negative-1-control
+              content: The retained control explains the observed signal without meeting offline template-engine identification, inert expression result, context/escaping controls, and no object/system access; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ssti-negative-1-observation
+        - ssti-negative-1-context
+        - ssti-negative-1-control
+      forbidden_evidence_ids: []
+  - id: ssti-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: ssti-negative-2-observation
+              content: Client-side rendering produced the marker after the server returned inert text.
+            - id: ssti-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-negative-2-control
+              content: The retained control explains the observed signal without meeting offline template-engine identification, inert expression result, context/escaping controls, and no object/system access; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ssti-negative-2-observation
+        - ssti-negative-2-context
+        - ssti-negative-2-control
+      forbidden_evidence_ids: []
+  - id: ssti-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: ssti-negative-3-observation
+              content: A syntax error occurred for every engine delimiter and malformed control.
+            - id: ssti-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-negative-3-control
+              content: The retained control explains the observed signal without meeting offline template-engine identification, inert expression result, context/escaping controls, and no object/system access; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ssti-negative-3-observation
+        - ssti-negative-3-context
+        - ssti-negative-3-control
+      forbidden_evidence_ids: []
+  - id: ssti-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: ssti-negative-4-observation
+              content: A templating dependency existed only in build tooling.
+            - id: ssti-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-negative-4-control
+              content: The retained control explains the observed signal without meeting offline template-engine identification, inert expression result, context/escaping controls, and no object/system access; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ssti-negative-4-observation
+        - ssti-negative-4-context
+        - ssti-negative-4-control
+      forbidden_evidence_ids: []
+  - id: ssti-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: ssti-negative-5-observation
+              content: Numeric output matched a normal application calculation unrelated to template evaluation.
+            - id: ssti-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-negative-5-control
+              content: The retained control explains the observed signal without meeting offline template-engine identification, inert expression result, context/escaping controls, and no object/system access; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ssti-negative-5-observation
+        - ssti-negative-5-context
+        - ssti-negative-5-control
+      forbidden_evidence_ids: []
+  - id: ssti-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: ssti-ambiguous-observation
+              content: One delimiter changes output, but engine fingerprint, exact context, and literal/malformed controls are absent.
+            - id: ssti-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-ambiguous-missing
+              content: The packet lacks at least one required element of offline template-engine identification, inert expression result, context/escaping controls, and no object/system access, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - ssti-ambiguous-observation
+        - ssti-ambiguous-context
+        - ssti-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: ssti-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: ssti-blocked-observation
+              content: No disposable offline template fixture or safe inert expression context is available.
+            - id: ssti-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - ssti-blocked-observation
+        - ssti-blocked-context
+        - ssti-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: ssti-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess ssti with the ssti methodology and retain deterministic proof.
+    expected:
+      primary_skill: ssti
+      top_n: 3
+  - id: ssti-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: ssti
+      top_n: 5
+  - id: ssti-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ssti-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: ssti-mutation-observation
+              content: Only the engine-specific delimiter form changed; the same inert arithmetic result and literal control remained deterministic.
+            - id: ssti-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline template-engine identification, inert expression result, context/escaping controls, and no object/system access.
+            - id: ssti-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ssti-mutation-observation
+        - ssti-mutation-context
+        - ssti-mutation-control
+      forbidden_evidence_ids: []

@@ -1,0 +1,73 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    jsonData:
+      timeInterval: "15s"
+      # Enable exemplars for trace correlation
+      exemplarTraceIdDestinations:
+        - name: traceId
+          datasourceUid: tempo
+
+  - name: Loki
+    type: loki
+    uid: loki
+    access: proxy
+    url: http://loki:3100
+    editable: false
+    jsonData:
+      # Derived fields for log → trace correlation
+      derivedFields:
+        - name: TraceID
+          matcherRegex: '"traceId":"([a-f0-9]+)"'
+          url: "$${__value.raw}"
+          datasourceUid: tempo
+          urlDisplayLabel: View Trace
+        - name: SpanID
+          matcherRegex: '"spanId":"([a-f0-9]+)"'
+          url: ""
+          urlDisplayLabel: Span
+      maxLines: 1000
+
+  - name: Tempo
+    type: tempo
+    uid: tempo
+    access: proxy
+    url: http://tempo:3200
+    editable: false
+    jsonData:
+      # Trace → Log correlation
+      tracesToLogs:
+        datasourceUid: loki
+        filterByTraceID: true
+        filterBySpanID: true
+        mapTagNamesEnabled: true
+        tags:
+          - key: service
+            value: service
+          - key: sessionId
+            value: sessionId
+      # Trace → Metrics correlation
+      tracesToMetrics:
+        datasourceUid: prometheus
+        tags:
+          - key: service.name
+            value: service
+      # Service map from traces
+      serviceMap:
+        datasourceUid: prometheus
+      # Node graph visualization
+      nodeGraph:
+        enabled: true
+      # Search configuration
+      search:
+        hide: false
+      # Loki search integration
+      lokiSearch:
+        datasourceUid: loki

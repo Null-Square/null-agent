@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-nmap
+cases:
+  - id: tooling-nmap-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-nmap-positive-1-observation
+              content: Nmap performed version detection on the supplied two ports with a conservative timing template and retained raw XML.
+            - id: tooling-nmap-positive-1-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-positive-1-observation
+        - tooling-nmap-positive-1-floor
+        - tooling-nmap-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-nmap-positive-2-observation
+              content: One explicitly approved safe script returned a service configuration fact handed to the owning methodology.
+            - id: tooling-nmap-positive-2-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-positive-2-observation
+        - tooling-nmap-positive-2-floor
+        - tooling-nmap-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-nmap-positive-3-observation
+              content: A repeat scan confirmed the same port/service fingerprint without UDP or OS discovery.
+            - id: tooling-nmap-positive-3-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-positive-3-observation
+        - tooling-nmap-positive-3-floor
+        - tooling-nmap-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-nmap-negative-1-observation
+              content: A banner guess was reported as a vulnerability.
+            - id: tooling-nmap-negative-1-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-negative-1-observation
+        - tooling-nmap-negative-1-floor
+        - tooling-nmap-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-nmap-negative-2-observation
+              content: The proposed script category included intrusive or brute-force scripts.
+            - id: tooling-nmap-negative-2-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-negative-2-observation
+        - tooling-nmap-negative-2-floor
+        - tooling-nmap-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-nmap-negative-3-observation
+              content: OS detection and broad UDP scan exceeded the approved plan.
+            - id: tooling-nmap-negative-3-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-negative-3-observation
+        - tooling-nmap-negative-3-floor
+        - tooling-nmap-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-nmap-ambiguous-observation
+              content: Service fingerprint confidence is low and no second protocol confirmation is retained.
+            - id: tooling-nmap-ambiguous-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-ambiguous-observation
+        - tooling-nmap-ambiguous-floor
+        - tooling-nmap-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-nmap-blocked-observation
+              content: No exact target/port/script authorization or timing ceiling is supplied.
+            - id: tooling-nmap-blocked-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-blocked-observation
+        - tooling-nmap-blocked-floor
+        - tooling-nmap-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-nmap-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-nmap with the tooling-nmap methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-nmap
+      top_n: 3
+  - id: tooling-nmap-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-nmap
+      top_n: 5
+  - id: tooling-nmap-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-nmap-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-nmap-mutation-observation
+              content: Only the approved service probe changed; target, port, timing, raw XML retention, and no-intrusive-script boundary stayed fixed.
+            - id: tooling-nmap-mutation-floor
+              content: The required decision floor is approved target/port/script set, safe timing, raw output provenance, and service-level interpretation.
+            - id: tooling-nmap-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-nmap-mutation-observation
+        - tooling-nmap-mutation-floor
+        - tooling-nmap-mutation-control
+      forbidden_evidence_ids: []

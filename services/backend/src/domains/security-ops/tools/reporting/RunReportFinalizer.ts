@@ -1,0 +1,1020 @@
+import * as fs from 'fs/promises';
+import * as path from 'path';
+
+import { eq } from 'drizzle-orm';
+
+import type { DatabaseClient } from '@/db/client';
+import { complianceControlChecks, complianceControlRequests, runs, type RiskState } from '@/db/schema';
+import {
+  ComplianceReadinessService,
+  type ComplianceControlOutcome,
+  type ComplianceControlVerdict,
+  type ComplianceReadinessResponse,
+  type ComplianceReadinessStatus,
+} from '@/domains/security-ops/compliance/ComplianceReadinessService';
+import { FRAMEWORK_REGISTRY } from '@/domains/security-ops/compliance/frameworks';
+import { resolveDefaultSkillsDir } from '@/domains/security-ops/skills/SkillLoader';
+import {
+  COMPLIANCE_READINESS_BOUNDARY_SENTENCE,
+  GDPR_READINESS_BOUNDARY_SENTENCE,
+} from '@/domains/security-ops/tools/reporting/constants';
+import { logger } from '@/shared/logger';
+import { isReportableRiskState } from '@/domains/security-ops/risks/riskLifecycle';
+
+export type AuthoredArtifactValidation = {
+  summaryPath: string;
+  reportPath: string;
+  summaryBytes: number;
+  reportBytes: number;
+  warnings: string[];
+};
+
+type FinalizeRunArtifactsMode = 'final' | 'interim';
+
+type AuthoredFindingValidationRow = {
+  id: string;
+  title: string;
+  severity?: string;
+  state: RiskState;
+};
+
+type AuthoredCoverageValidationSummary = {
+  runDigest?: unknown;
+  openDebts: string[];
+};
+
+type RunCompletionValidationSnapshot = {
+  state: string;
+  ready: boolean;
+  reasons: string[];
+  incompletePlanSteps: Array<{ id: string; title: string; status: string; reason?: string }>;
+  unresolvedPromotableFindings: Array<{ id: string; title: string; severity: string }>;
+  finalized: boolean;
+};
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const escapeRegExp = (value: string): string =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const normalizeComplianceBoundaryText = (value: string): string =>
+  value.toLowerCase().replace(/\s+/g, ' ').trim();
+
+const AUTHORED_SEVERITY_LABEL_PATTERN =
+  /\bseverity\s*[:=-]\s*(critical|high|medium|low|info)\b|\b(critical|high|medium|low|info)[-\s]+severity\b/giu;
+const CANONICAL_SEVERITIES = new Set(['critical', 'high', 'medium', 'low', 'info']);
+
+const normalizeSeverityLabel = (value: unknown): string | null => {
+  if (typeof value !== 'string') return null;
+  const normalized = value.trim().toLowerCase();
+  return CANONICAL_SEVERITIES.has(normalized) ? normalized : null;
+};
+
+const UUID_PATTERN = /\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b/giu;
+const CONTROL_RANGE_PATTERN = /\b[A-Z]{2,}\d+(?:\.\d+)?\s*[-\u2013]\s*[A-Z]{2,}\d+(?:\.\d+)?\b/iu;
+
+/** Pick the most frequently recorded framework key, breaking ties alphabetically for determinism. */
+const mostCommonFrameworkKey = (values: ReadonlyArray<string | null>): string | null => {
+  const counts = new Map<string, number>();
+  for (const value of values) {
+    if (!value) continue;
+    counts.set(value, (counts.get(value) ?? 0) + 1);
+  }
+  let best: string | null = null;
+  let bestCount = -1;
+  for (const [key, count] of counts) {
+    if (count > bestCount || (count === bestCount && best !== null && key < best)) {
+      best = key;
+      bestCount = count;
+    }
+  }
+  return best;
+};
+
+export class RunReportFinalizer {
+  constructor(
+    private readonly db: DatabaseClient,
+    private readonly options: { now?: () => Date } = {},
+  ) {}
+
+  private now(): Date {
+    return this.options.now?.() ?? new Date();
+  }
+
+  async writeComplianceTemplateIfApplicable(params: {
+    complianceReadiness: ComplianceReadinessResponse;
+    templatePath: string;
+  }): Promise<boolean> {
+    const supportedSelected = params.complianceReadiness.frameworks.filter(
+      (framework) => framework.selected && framework.supported,
+    );
+    if (supportedSelected.length === 0) {
+      return false;
+    }
+    const backendRoot = path.dirname(resolveDefaultSkillsDir());
+    const templatesDir = path.resolve(backendRoot, 'compliance/report-templates');
+    const bodies: string[] = [];
+    for (const framework of supportedSelected) {
+      const filename = FRAMEWORK_REGISTRY[framework.key]?.reportTemplateFile;
+      if (!filename) continue;
+      const filePath = path.resolve(templatesDir, filename);
+      try {
+        const body = await fs.readFile(filePath, 'utf-8');
+        bodies.push(`<!-- framework: ${framework.key} -->\n${body.trim()}`);
+      } catch (error) {
+        logger.warn(
+          { err: error, frameworkKey: framework.key, filePath },
+          '[reporting] Framework template not found; falling back to skill default',
+        );
+      }
+    }
+    if (bodies.length === 0) {
+      return false;
+    }
+    const header = [
+      '# Compliance Readiness Templates',
+      '',
+      'This file is generated by `prepare_report_context`. It contains the framework-specific',
+      'section skeletons and disclaimer language the reporter must follow when authoring',
+      '`report.md` and `summary.md`. Use the body below as the structural source of truth; do',
+      'not invent additional sections, statuses, or compliance claims.',
+      '',
+    ].join('\n');
+    await fs.writeFile(params.templatePath, `${header}${bodies.join('\n\n---\n\n')}\n`, 'utf-8');
+    return true;
+  }
+
+  focusComplianceReadinessForReportContext(
+    readiness: ComplianceReadinessResponse,
+    requestedFramework?: string | null,
+  ): ComplianceReadinessResponse {
+    const frameworkKey = requestedFramework?.trim();
+    if (!frameworkKey) {
+      return readiness;
+    }
+
+    const framework = readiness.frameworks.find((item) => item.key === frameworkKey);
+    if (!framework) {
+      return readiness;
+    }
+
+    return {
+      ...readiness,
+      selectedFrameworks: readiness.selectedFrameworks.filter((item) => item.key === frameworkKey),
+      frameworks: [framework],
+    };
+  }
+
+  /**
+   * Resolve the single compliance framework a report should render. A compliance run targets exactly
+   * one framework, so the report must scope to it instead of every framework configured on the scope
+   * (otherwise an ISO run leaks a SOC 2 control matrix and vice versa). Resolution order:
+   *   1. explicit report-context framework (dashboard report-only runs),
+   *   2. the run's persisted framework (`runs.compliance_framework_key`),
+   *   3. the framework the run actually recorded (legacy runs predating the persisted column).
+   * Returns null when no framework can be resolved, in which case the readiness is left unfiltered.
+   */
+  async resolveReportFramework(params: {
+    runId?: string | null;
+    contextFramework?: string | null;
+  }): Promise<string | null> {
+    const explicit = params.contextFramework?.trim();
+    if (explicit) {
+      return explicit;
+    }
+    const runId = params.runId?.trim();
+    if (!runId) {
+      return null;
+    }
+    const [run] = await this.db
+      .select({ frameworkKey: runs.complianceFrameworkKey })
+      .from(runs)
+      .where(eq(runs.id, runId))
+      .limit(1);
+    if (run?.frameworkKey) {
+      return run.frameworkKey;
+    }
+    return this.deriveRunFramework(runId);
+  }
+
+  private async deriveRunFramework(runId: string): Promise<string | null> {
+    const checkRows = await this.db
+      .select({ frameworkKey: complianceControlChecks.frameworkKey })
+      .from(complianceControlChecks)
+      .where(eq(complianceControlChecks.runId, runId));
+    const fromChecks = mostCommonFrameworkKey(checkRows.map((row) => row.frameworkKey));
+    if (fromChecks) {
+      return fromChecks;
+    }
+    const requestRows = await this.db
+      .select({ frameworkKey: complianceControlRequests.frameworkKey })
+      .from(complianceControlRequests)
+      .where(eq(complianceControlRequests.runId, runId));
+    return mostCommonFrameworkKey(requestRows.map((row) => row.frameworkKey));
+  }
+
+  async buildComplianceReadinessForReportContext(params: {
+    organizationId: string;
+    scopeId: string;
+    runId?: string;
+    source?: string;
+    sourceRunId?: string;
+  }): Promise<ComplianceReadinessResponse> {
+    const service = new ComplianceReadinessService(this.db);
+    if (params.sourceRunId) {
+      return service.getRunReadiness({
+        organizationId: params.organizationId,
+        runId: params.sourceRunId,
+      });
+    }
+    if (params.source === 'dashboard-readiness') {
+      return service.getScopeReadiness({
+        organizationId: params.organizationId,
+        scopeId: params.scopeId,
+      });
+    }
+    if (params.runId) {
+      return service.getRunReadiness({
+        organizationId: params.organizationId,
+        runId: params.runId,
+      });
+    }
+    return service.getScopeReadiness({
+      organizationId: params.organizationId,
+      scopeId: params.scopeId,
+    });
+  }
+
+  async readAuthoredMarkdown(pathname: string, label: string): Promise<string> {
+    try {
+      const content = await fs.readFile(pathname, 'utf-8');
+      if (content.trim().length === 0) {
+        throw new Error(`${label} is empty`);
+      }
+      return content;
+    } catch (error) {
+      if (error instanceof Error && error.message === `${label} is empty`) {
+        throw error;
+      }
+      throw new Error(`Cannot finalize run: authored ${label} is missing at ${pathname}`);
+    }
+  }
+
+  async readAuthoredRunArtifactsWithWarning(params: {
+    workspaceDir: string;
+    warning: string;
+  }): Promise<AuthoredArtifactValidation | null> {
+    const summaryPath = path.join(params.workspaceDir, 'summary.md');
+    const reportPath = path.join(params.workspaceDir, 'report.md');
+    try {
+      const [summary, report] = await Promise.all([
+        this.readAuthoredMarkdown(summaryPath, 'summary.md'),
+        this.readAuthoredMarkdown(reportPath, 'report.md'),
+      ]);
+      return {
+        summaryPath,
+        reportPath,
+        summaryBytes: Buffer.byteLength(summary, 'utf-8'),
+        reportBytes: Buffer.byteLength(report, 'utf-8'),
+        warnings: [params.warning],
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  private async readPreparedComplianceContext(
+    workspaceDir: string,
+  ): Promise<ComplianceReadinessResponse | null> {
+    const contextPath = path.join(workspaceDir, '.artifacts', 'report', 'compliance-context.json');
+    try {
+      const parsed = JSON.parse(await fs.readFile(contextPath, 'utf-8')) as unknown;
+      if (!isRecord(parsed) || !Array.isArray(parsed.frameworks)) {
+        return null;
+      }
+      return parsed as unknown as ComplianceReadinessResponse;
+    } catch (error) {
+      const code = isRecord(error) ? error['code'] : undefined;
+      if (code === 'ENOENT') return null;
+      throw error;
+    }
+  }
+
+  private statusPattern(status: ComplianceReadinessStatus): RegExp {
+    switch (status) {
+      case 'passing':
+        return /\b(?:passing|pass)\b/iu;
+      case 'partial':
+        return /\bpartial\b/iu;
+      case 'failing':
+        return /\b(?:failing|failed|fail)\b/iu;
+      case 'stale':
+        return /\bstale\b/iu;
+      case 'accepted_risk':
+        return /\baccepted[_\s-]?risk\b/iu;
+      case 'not_applicable':
+        return /\b(?:not[_\s-]?applicable|n\/a)\b/iu;
+      case 'not_supported':
+        return /\bnot[_\s-]?supported\b/iu;
+      case 'missing':
+      default:
+        return /\bmissing\b/iu;
+    }
+  }
+
+  private verdictPattern(verdict: ComplianceControlVerdict): RegExp {
+    switch (verdict) {
+      case 'pass':
+        return /\b(?:pass|passed|passing)\b/iu;
+      case 'fail':
+        return /\b(?:fail|failed|failing)\b/iu;
+      case 'needs_evidence':
+        return /\bneeds?[_\s-]?evidence\b/iu;
+      case 'needs_context':
+        return /\bneeds?[_\s-]?context\b/iu;
+      case 'not_attempted':
+        return /\b(?:not[_\s-]?attempted|not[_\s-]?checked)\b/iu;
+      case 'accepted_risk':
+        return /\baccepted[_\s-]?risk\b/iu;
+      case 'not_applicable':
+        return /\b(?:not[_\s-]?applicable|n\/a)\b/iu;
+      case 'not_supported':
+      default:
+        return /\bnot[_\s-]?supported\b/iu;
+    }
+  }
+
+  private outcomePattern(outcome: ComplianceControlOutcome): RegExp {
+    switch (outcome) {
+      case 'passed':
+        return /\b(?:pass|passed|passing)\b/iu;
+      case 'failed':
+        return /\b(?:fail|failed|failing)\b/iu;
+      case 'needs_action':
+        return /\bneeds?[_\s-]?(?:your[_\s-]?)?action\b/iu;
+      case 'not_checked':
+        return /\b(?:not[_\s-]?checked|not[_\s-]?attempted)\b/iu;
+      case 'excluded':
+      default:
+        return /\bexcluded\b/iu;
+    }
+  }
+
+  private detectedComplianceStatuses(text: string): ComplianceReadinessStatus[] {
+    const statuses: ComplianceReadinessStatus[] = [
+      'not_supported',
+      'not_applicable',
+      'passing',
+      'partial',
+      'failing',
+      'stale',
+      'accepted_risk',
+      'missing',
+    ];
+    return statuses.filter((status) => this.statusPattern(status).test(text));
+  }
+
+  private statusCountLabel(status: ComplianceReadinessStatus): string {
+    switch (status) {
+      case 'passing':
+        return 'Passing';
+      case 'partial':
+        return 'Partial';
+      case 'failing':
+        return 'Failing';
+      case 'stale':
+        return 'Stale';
+      case 'accepted_risk':
+        return 'Accepted Risk';
+      case 'not_applicable':
+        return 'Not Applicable';
+      case 'not_supported':
+        return 'Not Supported';
+      case 'missing':
+      default:
+        return 'Missing';
+    }
+  }
+
+  private detectStatusCountLabel(value: string): ComplianceReadinessStatus | null {
+    const normalized = value
+      .replace(/[`*_]/gu, '')
+      .replace(/[^a-z0-9/]+/giu, ' ')
+      .trim()
+      .toLowerCase();
+    switch (normalized) {
+      case 'passing':
+      case 'pass':
+        return 'passing';
+      case 'partial':
+        return 'partial';
+      case 'failing':
+      case 'failed':
+      case 'fail':
+        return 'failing';
+      case 'missing':
+        return 'missing';
+      case 'stale':
+        return 'stale';
+      case 'accepted risk':
+      case 'acceptedrisk':
+        return 'accepted_risk';
+      case 'not applicable':
+      case 'n/a':
+      case 'na':
+        return 'not_applicable';
+      case 'not supported':
+        return 'not_supported';
+      default:
+        return null;
+    }
+  }
+
+  private detectOutcomeCountLabel(value: string): ComplianceControlOutcome | null {
+    const normalized = value
+      .replace(/[*_]/gu, '')
+      .replace(/[^a-z0-9]+/giu, ' ')
+      .trim()
+      .toLowerCase();
+    switch (normalized) {
+      case 'passed':
+      case 'passing':
+      case 'pass':
+        return 'passed';
+      case 'failed':
+      case 'failing':
+      case 'fail':
+        return 'failed';
+      case 'needs action':
+      case 'need action':
+      case 'needs your action':
+        return 'needs_action';
+      case 'not checked':
+      case 'not attempted':
+        return 'not_checked';
+      case 'excluded':
+        return 'excluded';
+      default:
+        return null;
+    }
+  }
+
+  private parseStatusCountNumber(value: string): number | null {
+    const normalized = value.replace(/[, ]/gu, '').trim();
+    if (!/^\d+$/u.test(normalized)) {
+      return null;
+    }
+    return Number(normalized);
+  }
+
+  private detectComplianceStatusCountDeclarations(report: string): Map<ComplianceReadinessStatus, number> {
+    const declarations = new Map<ComplianceReadinessStatus, number>();
+    let inStatusCountTable = false;
+    for (const line of report.split(/\r?\n/u)) {
+      const trimmed = line.trim();
+      if (!trimmed.includes('|')) {
+        inStatusCountTable = false;
+        continue;
+      }
+      const cells = trimmed
+        .split('|')
+        .map((cell) => cell.trim())
+        .filter((cell) => cell.length > 0);
+      if (cells.length < 2) {
+        inStatusCountTable = false;
+        continue;
+      }
+      if (cells.every((cell) => /^:?-{3,}:?$/u.test(cell))) {
+        continue;
+      }
+      const normalizedCells = cells.map((cell) => cell.toLowerCase().replace(/[^a-z0-9]+/gu, ' ').trim());
+      const looksLikeHeader =
+        normalizedCells.some((cell) => cell === 'status' || cell === 'readiness status') &&
+        normalizedCells.some((cell) => cell === 'count' || cell === 'controls' || cell === 'criteria');
+      if (looksLikeHeader) {
+        inStatusCountTable = true;
+        continue;
+      }
+      if (!inStatusCountTable) {
+        continue;
+      }
+      for (let index = 0; index < cells.length; index += 1) {
+        const status = this.detectStatusCountLabel(cells[index] ?? '');
+        if (!status) {
+          continue;
+        }
+        const count =
+          this.parseStatusCountNumber(cells[index + 1] ?? '') ??
+          this.parseStatusCountNumber(cells[index - 1] ?? '');
+        if (count !== null) {
+          declarations.set(status, count);
+        }
+      }
+    }
+    return declarations;
+  }
+
+  private detectComplianceOutcomeCountDeclarations(report: string): Map<ComplianceControlOutcome, number> {
+    const declarations = new Map<ComplianceControlOutcome, number>();
+    let inOutcomeCountTable = false;
+    for (const line of report.split(/\r?\n/u)) {
+      const cells = line.trim().split('|').map((cell) => cell.trim()).filter(Boolean);
+      if (cells.length < 2) {
+        inOutcomeCountTable = false;
+        continue;
+      }
+      if (cells.every((cell) => /^:?-{3,}:?$/u.test(cell))) continue;
+      const normalizedCells = cells.map((cell) => cell.toLowerCase().replace(/[^a-z0-9]+/gu, ' ').trim());
+      if (
+        normalizedCells.some((cell) => cell === 'outcome' || cell === 'control outcome') &&
+        normalizedCells.some((cell) => cell === 'count' || cell === 'controls' || cell === 'criteria')
+      ) {
+        inOutcomeCountTable = true;
+        continue;
+      }
+      if (!inOutcomeCountTable) continue;
+      for (let index = 0; index < cells.length; index += 1) {
+        const outcome = this.detectOutcomeCountLabel(cells[index] ?? '');
+        if (!outcome) continue;
+        const count =
+          this.parseStatusCountNumber(cells[index + 1] ?? '') ??
+          this.parseStatusCountNumber(cells[index - 1] ?? '');
+        if (count !== null) declarations.set(outcome, count);
+      }
+    }
+    return declarations;
+  }
+
+  private validateComplianceReportAgainstContext(params: {
+    report: string;
+    complianceContext: ComplianceReadinessResponse;
+  }): string[] {
+    const lines = params.report.split(/\r?\n/);
+    const missingControls: string[] = [];
+    const missingStatuses: string[] = [];
+    const mismatchedStatuses: string[] = [];
+    const mismatchedCounts: string[] = [];
+    const mismatchedCheckIds: string[] = [];
+    const declaredStatusCounts = this.detectComplianceStatusCountDeclarations(params.report);
+    const declaredOutcomeCounts = this.detectComplianceOutcomeCountDeclarations(params.report);
+    const hasRunAssessedCount =
+      /\bthis\s+run\s+assessed\b/iu.test(params.report) ||
+      /\bdirect\s+agent\s+check\s+records?\b/iu.test(params.report);
+    const hasFrameworkReadinessCount =
+      /\boverall\s+framework\s+readiness\b/iu.test(params.report) ||
+      /\breadiness\s+denominator\b/iu.test(params.report);
+    const matrixRangeRows = lines
+      .filter((line) => line.includes('|') && CONTROL_RANGE_PATTERN.test(line))
+      .map((line) => line.trim());
+
+    const frameworks = params.complianceContext.frameworks.filter(
+      (framework) => framework.selected && framework.supported,
+    );
+
+    const nistTierClaims = lines.filter((line) =>
+      /\b(?:indicative\s+)?implementation\s+tier\b/iu.test(line) &&
+      /\b(?:tier\s*)?(?:[1-4]|partial|risk[- ]informed|repeatable|adaptive)\b/iu.test(line) &&
+      !/\bnot\s+determined\b/iu.test(line),
+    );
+    const nistTierUndetermined = frameworks.some(
+      (framework) => framework.frameworkProfile?.kind === 'nist_csf_2_0' &&
+        framework.frameworkProfile.implementationTier.status === 'not_determined',
+    );
+    if (nistTierUndetermined && nistTierClaims.length > 0) {
+      throw new Error(
+        'Cannot finalize NIST CSF report: report.md assigns an Implementation Tier that compliance-context does not determine. ' +
+          'State "Indicative Implementation Tier: not determined" and preserve the organization-owned Profile evidence limitation.',
+      );
+    }
+
+    const hipaaSelected = frameworks.some((framework) => framework.key === 'hipaa');
+    if (hipaaSelected) {
+      const hipaaOverclaimLines = lines.filter((line) => {
+        const normalized = line.toLowerCase().replace(/\s+/gu, ' ').trim();
+        if (!normalized || /\b(?:not|never|no)\b/u.test(normalized)) {
+          return false;
+        }
+        return (
+          /\bhipaa[-\s]+compliant\b/u.test(normalized) ||
+          /\b(?:hipaa\s+certified|certified\s+hipaa)\b/u.test(normalized) ||
+          /\bhipaa\s+(?:compliance|certification|attestation|audit)\s+(?:achieved|confirmed|validated|passed|approved|complete|completed)\b/u.test(normalized) ||
+          /\bocr\s+(?:approved|approval|certified|certification|attestation|audit)\b/u.test(normalized)
+        );
+      });
+      if (hipaaOverclaimLines.length > 0) {
+        throw new Error(
+          'Cannot finalize HIPAA report: report.md claims HIPAA compliance, certification, attestation, OCR approval, or audit status. ' +
+            'Use Security Rule readiness and supporting-evidence language only.',
+        );
+      }
+    }
+
+    const gdprSelected = frameworks.some((framework) => framework.key === 'gdpr');
+    if (gdprSelected) {
+      const normalizedGdprBoundary = normalizeComplianceBoundaryText(GDPR_READINESS_BOUNDARY_SENTENCE);
+      if (!normalizeComplianceBoundaryText(params.report).includes(normalizedGdprBoundary)) {
+        throw new Error(
+          `Cannot finalize GDPR report: report.md must include this exact GDPR boundary sentence: "${GDPR_READINESS_BOUNDARY_SENTENCE}"`,
+        );
+      }
+
+      const gdprOverclaimLines = lines.filter((line) => {
+        const normalized = line.toLowerCase().replace(/\s+/gu, ' ').trim();
+        if (!normalized || /\b(?:not|never|no|does\s+not|is\s+not)\b/u.test(normalized)) {
+          return false;
+        }
+        return (
+          /\bgdpr[-\s]+compliant\b/u.test(normalized) ||
+          /\b(?:gdpr\s+certified|certified\s+gdpr)\b/u.test(normalized) ||
+          /\bgdpr\s+certification\b/u.test(normalized) ||
+          /\blegal\s+(?:opinion|approval|approved)\b/u.test(normalized) ||
+          /\bdpo\s+(?:approved|approval|opinion|certified|attested)\b/u.test(normalized) ||
+          /\bsupervisory[-\s]+authority\s+(?:approved|approval|opinion|ready)\b/u.test(normalized) ||
+          /\bregulator[-\s]+ready\b/u.test(normalized) ||
+          /\baudit\s+attestation\b/u.test(normalized)
+        );
+      });
+      if (gdprOverclaimLines.length > 0) {
+        throw new Error(
+          'Cannot finalize GDPR report: report.md claims GDPR compliance, certification, legal/DPO/supervisory-authority approval, regulator readiness, or audit attestation. ' +
+            'Use GDPR readiness and supporting-evidence language only.',
+        );
+      }
+    }
+
+    const pciSelected = frameworks.some((framework) => framework.key === 'pci_dss');
+    if (pciSelected) {
+      const pciStatusPhrase = String.raw`(?:is\s+|was\s+|has\s+been\s+)?(?:complete|completed|passed|approved|validated|issued|submitted|ready\s+to\s+submit)`;
+      const pciOverclaimLines = lines.filter((line) => {
+        const normalized = line.toLowerCase().replace(/\s+/gu, ' ').trim();
+        if (!normalized || /\b(?:not|never|no|does\s+not|is\s+not)\b/u.test(normalized)) {
+          return false;
+        }
+        return (
+          /\bpci(?:[-\s]+dss)?[-\s]+compliant\b/u.test(normalized) ||
+          /\bpci(?:[-\s]+dss)?[-\s]+certified\b/u.test(normalized) ||
+          /\b(?:asv|approved\s+scanning\s+vendor)\s+(?:scan|pass|attestation|approved|validated|complete|completed)\b/u.test(normalized) ||
+          /\b(?:qsa|qualified\s+security\s+assessor)\s+(?:approved|validated|attested|signed|complete|completed)\b/u.test(normalized) ||
+          new RegExp(String.raw`\b(?:roc|report\s+on\s+compliance)\s+${pciStatusPhrase}\b`, 'u').test(normalized) ||
+          new RegExp(String.raw`\b(?:aoc|attestation\s+of\s+compliance)\s+${pciStatusPhrase}\b`, 'u').test(normalized) ||
+          new RegExp(String.raw`\b(?:saq|self[-\s]+assessment\s+questionnaire)\s+${pciStatusPhrase}\b`, 'u').test(normalized)
+        );
+      });
+      if (pciOverclaimLines.length > 0) {
+        throw new Error(
+          'Cannot finalize PCI DSS report: report.md claims PCI compliance/certification or ASV/QSA/ROC/AOC/SAQ status. ' +
+            'Use CDE-scoped readiness and supporting-evidence language only.',
+        );
+      }
+    }
+
+    for (const framework of frameworks) {
+      for (const status of Object.keys(framework.statusCounts ?? {}) as ComplianceReadinessStatus[]) {
+        const declaredCount = declaredStatusCounts.get(status);
+        if (declaredCount === undefined) {
+          continue;
+        }
+        const expectedCount = framework.statusCounts[status] ?? 0;
+        if (declaredCount !== expectedCount) {
+          mismatchedCounts.push(
+            `${framework.label} ${this.statusCountLabel(status)} expected ${expectedCount}, report says ${declaredCount}`,
+          );
+        }
+      }
+
+      for (const outcome of Object.keys(framework.outcomeCounts ?? {}) as ComplianceControlOutcome[]) {
+        const declaredCount = declaredOutcomeCounts.get(outcome);
+        if (declaredCount === undefined) continue;
+        const expectedCount = framework.outcomeCounts[outcome] ?? 0;
+        if (declaredCount !== expectedCount) {
+          mismatchedCounts.push(
+            framework.label + ' ' + outcome.replace(/_/gu, ' ') + ' expected ' + expectedCount + ', report says ' + declaredCount,
+          );
+        }
+      }
+
+      for (const control of framework.controls) {
+        const controlPattern = new RegExp(`\\b${escapeRegExp(control.id)}\\b`, 'iu');
+        const contexts = lines
+          .map((line, index) => ({ line, index }))
+          .filter(({ line }) => controlPattern.test(line))
+          .map(({ index }) => lines.slice(index, index + 4).join('\n'));
+
+        if (contexts.length === 0) {
+          missingControls.push(control.id);
+          continue;
+        }
+
+        const expectedCheckIds = new Set((control.controlChecks ?? []).map((check) => check.id.toLowerCase()));
+        if (expectedCheckIds.size > 0) {
+          const declaredCheckIds = Array.from(
+            new Set(contexts.flatMap((context) => context.match(UUID_PATTERN) ?? []).map((id) => id.toLowerCase())),
+          );
+          if (declaredCheckIds.length > 0 && !declaredCheckIds.some((id) => expectedCheckIds.has(id))) {
+            mismatchedCheckIds.push(`${control.id} expected one of ${Array.from(expectedCheckIds).join(', ')}, report cites ${declaredCheckIds.join(', ')}`);
+          }
+        }
+
+        const matchingContext = contexts.find(
+          (context) => this.verdictPattern(control.verdict).test(context) || this.outcomePattern(control.outcome).test(context),
+        );
+        if (matchingContext) {
+          continue;
+        }
+
+        const declared = Array.from(
+          new Set(contexts.flatMap((context) => this.detectedComplianceStatuses(context))),
+        );
+        if (declared.length === 0) {
+          missingStatuses.push(`${control.id}=${control.status}`);
+          continue;
+        }
+        mismatchedStatuses.push(`${control.id} expected ${control.status}, report says ${declared.join('/')}`);
+      }
+    }
+
+    if (mismatchedStatuses.length > 0) {
+      throw new Error(
+        `Cannot finalize compliance report: report.md contradicts compliance-context status for control(s): ${mismatchedStatuses
+          .slice(0, 8)
+          .join('; ')}${mismatchedStatuses.length > 8 ? `; +${mismatchedStatuses.length - 8} more` : ''}. ` +
+          'Use the exact backend verdict or primary outcome from compliance-context.json for each control; do not upgrade a control the engine did not mark as passed.',
+      );
+    }
+    if (mismatchedCounts.length > 0) {
+      throw new Error(
+        `Cannot finalize compliance report: report.md contradicts compliance-context statusCounts: ${mismatchedCounts
+          .slice(0, 8)
+          .join('; ')}${mismatchedCounts.length > 8 ? `; +${mismatchedCounts.length - 8} more` : ''}. ` +
+          'Use the exact aggregate outcome/status counts from compliance-context.json; do not hand-calculate or omit excluded rows.',
+      );
+    }
+    if (mismatchedCheckIds.length > 0) {
+      throw new Error(
+        `Cannot finalize compliance report: report.md cites control-check id(s) that do not belong to the stated control: ${mismatchedCheckIds
+          .slice(0, 5)
+          .join('; ')}${mismatchedCheckIds.length > 5 ? `; +${mismatchedCheckIds.length - 5} more` : ''}. ` +
+          'Use the exact controlChecks[].id value from compliance-context.json for the matching control.',
+      );
+    }
+
+    const warnings: string[] = [];
+    if (missingControls.length > 0) {
+      warnings.push(
+        `compliance report.md omits ${missingControls.length} control(s) from compliance-context (e.g. ${missingControls
+          .slice(0, 8)
+          .join(', ')}); template asks for full-matrix coverage`,
+      );
+    }
+    if (missingStatuses.length > 0) {
+      warnings.push(
+        `compliance report.md mentions control(s) without a backend verdict or outcome keyword: ${missingStatuses
+          .slice(0, 8)
+          .join(', ')}${missingStatuses.length > 8 ? `, +${missingStatuses.length - 8} more` : ''}`,
+      );
+    }
+    if (frameworks.length > 0 && (!hasRunAssessedCount || !hasFrameworkReadinessCount)) {
+      warnings.push(
+        'compliance report.md should separate run coverage from framework readiness: include "This run assessed X/Y controls with direct agent check records" and "Overall framework readiness: denominator Y; N need action; M not checked"',
+      );
+    }
+    if (matrixRangeRows.length > 0) {
+      warnings.push(
+        `compliance report.md uses control-range notation in matrix rows (${matrixRangeRows
+          .slice(0, 3)
+          .join('; ')}); list explicit control IDs in canonical tables and keep ranges only in prose`,
+      );
+    }
+    return warnings;
+  }
+
+  private validateExplicitComplianceReportDates(report: string): void {
+    const expectedDate = this.now().toISOString().slice(0, 10);
+    const labeledDatePattern =
+      /\b(?:assessment|report|generated|prepared|closeout)\s*(?:date|at)?\s*[:|-]\s*(20\d{2}-\d{2}-\d{2})\b/giu;
+    const declaredDates = Array.from(report.matchAll(labeledDatePattern))
+      .map((match) => match[1])
+      .filter((value): value is string => Boolean(value));
+    const mismatched = declaredDates.filter((date) => date !== expectedDate);
+    if (mismatched.length > 0) {
+      throw new Error(
+        `Cannot finalize compliance report: explicit report date(s) ${Array.from(new Set(mismatched)).join(', ')} ` +
+          `do not match the finalization date ${expectedDate}. Use the generated closeout date from report context; do not invent historical report dates.`,
+      );
+    }
+  }
+
+  async validateAuthoredRunArtifacts(params: {
+    workspaceDir: string;
+    mode: FinalizeRunArtifactsMode;
+    findings: AuthoredFindingValidationRow[];
+    coverage: AuthoredCoverageValidationSummary;
+  }): Promise<AuthoredArtifactValidation> {
+    const summaryPath = path.join(params.workspaceDir, 'summary.md');
+    const reportPath = path.join(params.workspaceDir, 'report.md');
+    const summary = await this.readAuthoredMarkdown(summaryPath, 'summary.md');
+    const report = await this.readAuthoredMarkdown(reportPath, 'report.md');
+    const summaryTrimmed = summary.trim();
+    const reportTrimmed = report.trim();
+    const warnings: string[] = [];
+
+    if (!params.coverage.runDigest) {
+      throw new Error('Cannot finalize run: run.digest is required before authored report finalization');
+    }
+    if (summaryTrimmed.length < 80) {
+      throw new Error(`Cannot finalize run: authored summary.md is too short (${summaryTrimmed.length} chars; minimum 80)`);
+    }
+    if (reportTrimmed.length < 300) {
+      throw new Error(`Cannot finalize run: authored report.md is too short (${reportTrimmed.length} chars; minimum 300)`);
+    }
+
+    const normalizedReport = reportTrimmed.toLowerCase();
+    const reportable = params.findings.filter((finding) => isReportableRiskState(finding.state));
+    const omittedFindings = reportable.filter((finding) => {
+      const title = finding.title.trim().toLowerCase();
+      const id = finding.id.trim().toLowerCase();
+      return !normalizedReport.includes(title) && !normalizedReport.includes(id);
+    });
+    if (omittedFindings.length > 0) {
+      throw new Error(
+        `Cannot finalize run: authored report.md omits reportable finding(s): ${omittedFindings
+          .map((finding) => finding.title)
+          .join(', ')}`,
+      );
+    }
+    this.validateAuthoredFindingSeverities({
+      summary: summaryTrimmed,
+      report: reportTrimmed,
+      reportableFindings: reportable,
+    });
+
+    if (/auto-generated report/i.test(reportTrimmed) || /mechanically derived/i.test(reportTrimmed)) {
+      warnings.push('report.md contains auto-generated-report language');
+    }
+    const appendixCount = (reportTrimmed.match(/^##\s+Appendix\b/gim) ?? []).length;
+    if (appendixCount > 2) {
+      warnings.push(`report.md contains ${appendixCount} appendix sections; keep appendices selective`);
+    }
+    const shellJobCount = (reportTrimmed.match(/shelljob-[a-f0-9-]+/gi) ?? []).length;
+    if (shellJobCount > 3) {
+      warnings.push(`report.md includes ${shellJobCount} shell job identifiers; prefer report-context artifact links`);
+    }
+    if (params.mode === 'final' && params.coverage.openDebts.length > 0) {
+      warnings.push('final report has open coverage debts in canonical state');
+    }
+    const complianceAdjacent =
+      /\b(?:compliance readiness|control evidence|audit attestation)\b/iu.test(reportTrimmed) ||
+      Object.values(FRAMEWORK_REGISTRY).some((framework) =>
+        (framework.textMatchPatterns ?? []).some((pattern) => pattern.test(reportTrimmed)),
+      );
+    if (complianceAdjacent) {
+      const complianceContext = await this.readPreparedComplianceContext(params.workspaceDir);
+      if (complianceContext) {
+        this.validateExplicitComplianceReportDates(reportTrimmed);
+        const normalizedBoundary = normalizeComplianceBoundaryText(COMPLIANCE_READINESS_BOUNDARY_SENTENCE);
+        if (!normalizeComplianceBoundaryText(reportTrimmed).includes(normalizedBoundary)) {
+          throw new Error(
+            `Cannot finalize compliance report: report.md must include this exact boundary sentence: "${COMPLIANCE_READINESS_BOUNDARY_SENTENCE}"`,
+          );
+        }
+
+        warnings.push(
+          ...this.validateComplianceReportAgainstContext({
+            report: reportTrimmed,
+            complianceContext,
+          }),
+        );
+      } else {
+        const hasBoundaryLanguage =
+          /readiness|supporting evidence/iu.test(reportTrimmed) &&
+          /(?:does\s+not\s+(?:constitute|replace)|not\s+(?:an?\s+)?(?:soc\s*2\s+)?(?:audit|audit attestation|attestation|certification|auditor opinion)|not[\s\S]{0,80}\b(?:audit attestation|certification|auditor opinion)\b)/iu
+            .test(reportTrimmed);
+        if (!hasBoundaryLanguage) {
+          warnings.push(
+            'compliance-adjacent report.md does not clearly state the readiness/not-an-audit-attestation boundary; confirm the template disclaimer block was included',
+          );
+        }
+      }
+
+      const hasCitations =
+        /\.artifacts\//iu.test(reportTrimmed) ||
+        /\bfinding[:\s][0-9a-f-]{8,}/iu.test(reportTrimmed) ||
+        /\b(?:CC|A)\d+(?:\.\d+)?\b/u.test(reportTrimmed) ||
+        /\bGDPR-[A-Z0-9-]+\b/u.test(reportTrimmed) ||
+        /\bhttp[_-]?exchange\b/iu.test(reportTrimmed);
+      if (!hasCitations) {
+        warnings.push('compliance-adjacent report has no obvious evidence citations');
+      }
+    }
+
+    return {
+      summaryPath,
+      reportPath,
+      summaryBytes: Buffer.byteLength(summary, 'utf-8'),
+      reportBytes: Buffer.byteLength(report, 'utf-8'),
+      warnings,
+    };
+  }
+
+  private validateAuthoredFindingSeverities(params: {
+    summary: string;
+    report: string;
+    reportableFindings: AuthoredFindingValidationRow[];
+  }): void {
+    const documents = [
+      { label: 'summary.md', text: params.summary },
+      { label: 'report.md', text: params.report },
+    ];
+
+    for (const finding of params.reportableFindings) {
+      const canonicalSeverity = normalizeSeverityLabel(finding.severity);
+      if (!canonicalSeverity) continue;
+
+      for (const document of documents) {
+        const lowerText = document.text.toLowerCase();
+        const windows = this.findAuthoredFindingWindows(lowerText, finding);
+        const windowsToCheck =
+          windows.length > 0
+            ? windows
+            : params.reportableFindings.length === 1
+              ? [lowerText]
+              : [];
+
+        for (const windowText of windowsToCheck) {
+          const labels = this.extractAuthoredSeverityLabels(windowText);
+          const mismatched = labels.filter((label) => label !== canonicalSeverity);
+          if (mismatched.length > 0) {
+            throw new Error(
+              `Cannot finalize run: authored ${document.label} contradicts canonical severity for finding ${finding.id} (${finding.title}): expected ${canonicalSeverity}, saw ${Array.from(new Set(mismatched)).join(', ')}`,
+            );
+          }
+        }
+      }
+    }
+  }
+
+  private findAuthoredFindingWindows(text: string, finding: AuthoredFindingValidationRow): string[] {
+    const anchors = [finding.id, finding.title]
+      .map((value) => value.trim().toLowerCase())
+      .filter((value) => value.length > 0);
+    const windows: string[] = [];
+    for (const anchor of anchors) {
+      let offset = 0;
+      while (offset < text.length) {
+        const index = text.indexOf(anchor, offset);
+        if (index === -1) break;
+        const start = Math.max(0, index - 500);
+        const end = Math.min(text.length, index + anchor.length + 500);
+        windows.push(text.slice(start, end));
+        offset = index + anchor.length;
+      }
+    }
+    return windows;
+  }
+
+  private extractAuthoredSeverityLabels(text: string): string[] {
+    const labels: string[] = [];
+    for (const match of text.matchAll(AUTHORED_SEVERITY_LABEL_PATTERN)) {
+      const label = normalizeSeverityLabel(match[1] ?? match[2]);
+      if (label) {
+        labels.push(label);
+      }
+    }
+    return labels;
+  }
+
+  async writeReportValidationArtifact(params: {
+    workspaceDir: string;
+    mode: FinalizeRunArtifactsMode;
+    runCompletion: RunCompletionValidationSnapshot;
+    findingCount: number;
+    reportableFindingCount: number;
+    validation: AuthoredArtifactValidation;
+  }): Promise<void> {
+    const reportDir = path.join(params.workspaceDir, '.artifacts', 'report');
+    await fs.mkdir(reportDir, { recursive: true });
+    await fs.writeFile(
+      path.join(reportDir, 'validation.json'),
+      `${JSON.stringify(
+        {
+          finalizedAt: this.now().toISOString(),
+          mode: params.mode,
+          runCompletion: params.runCompletion,
+          findingCount: params.findingCount,
+          reportableFindingCount: params.reportableFindingCount,
+          authoredArtifacts: {
+            summaryPath: 'summary.md',
+            reportPath: 'report.md',
+            summaryBytes: params.validation.summaryBytes,
+            reportBytes: params.validation.reportBytes,
+          },
+          warnings: params.validation.warnings,
+        },
+        null,
+        2,
+      )}\n`,
+      'utf-8',
+    );
+  }
+}

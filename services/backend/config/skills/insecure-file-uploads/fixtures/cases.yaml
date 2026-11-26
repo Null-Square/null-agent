@@ -1,0 +1,251 @@
+schema_version: 1
+skill: insecure-file-uploads
+cases:
+  - id: insecure-file-uploads-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: insecure-file-uploads-positive-1-observation
+              content: A text canary with a benign mismatched extension was accepted and served with an active content type at the named evaluator URL.
+            - id: insecure-file-uploads-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-file-uploads-positive-1-observation
+        - insecure-file-uploads-positive-1-context
+        - insecure-file-uploads-positive-1-control
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: insecure-file-uploads-positive-2-observation
+              content: An evaluator upload stored under a predictable public name and an anonymous request read the private canary.
+            - id: insecure-file-uploads-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-file-uploads-positive-2-observation
+        - insecure-file-uploads-positive-2-context
+        - insecure-file-uploads-positive-2-control
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: insecure-file-uploads-positive-3-observation
+              content: A supplied filename escaped the intended local fixture directory in an instrumented storage harness and wrote only the inert marker.
+            - id: insecure-file-uploads-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-file-uploads-positive-3-observation
+        - insecure-file-uploads-positive-3-context
+        - insecure-file-uploads-positive-3-control
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: insecure-file-uploads-negative-1-observation
+              content: The server rejected the mismatched extension before storage.
+            - id: insecure-file-uploads-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-negative-1-control
+              content: The retained control explains the observed signal without meeting inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-file-uploads-negative-1-observation
+        - insecure-file-uploads-negative-1-context
+        - insecure-file-uploads-negative-1-control
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: insecure-file-uploads-negative-2-observation
+              content: The upload succeeded but was served as attachment with a safe content type and no active interpretation.
+            - id: insecure-file-uploads-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-negative-2-control
+              content: The retained control explains the observed signal without meeting inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-file-uploads-negative-2-observation
+        - insecure-file-uploads-negative-2-context
+        - insecure-file-uploads-negative-2-control
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: insecure-file-uploads-negative-3-observation
+              content: A filename was replaced with a random server name inside isolated private storage.
+            - id: insecure-file-uploads-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-negative-3-control
+              content: The retained control explains the observed signal without meeting inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-file-uploads-negative-3-observation
+        - insecure-file-uploads-negative-3-context
+        - insecure-file-uploads-negative-3-control
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: insecure-file-uploads-ambiguous-observation
+              content: The upload response succeeded, but storage location, retrieval policy, content type, and cleanup are unknown.
+            - id: insecure-file-uploads-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-ambiguous-missing
+              content: The packet lacks at least one required element of inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-file-uploads-ambiguous-observation
+        - insecure-file-uploads-ambiguous-context
+        - insecure-file-uploads-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: insecure-file-uploads-blocked-observation
+              content: No disposable upload area, inert file type, named retrieval path, or reliable deletion is available.
+            - id: insecure-file-uploads-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-file-uploads-blocked-observation
+        - insecure-file-uploads-blocked-context
+        - insecure-file-uploads-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: insecure-file-uploads-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess insecure-file-uploads with the insecure-file-uploads methodology and retain deterministic proof.
+    expected:
+      primary_skill: insecure-file-uploads
+      top_n: 3
+  - id: insecure-file-uploads-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: insecure-file-uploads
+      top_n: 5
+  - id: insecure-file-uploads-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-file-uploads-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: insecure-file-uploads-mutation-observation
+              content: Only declared MIME type changed for the same inert text canary; the same unsafe inline retrieval behavior persisted while the attachment control remained fixed.
+            - id: insecure-file-uploads-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is inert evaluator file, validation/storage mapping, named retrieval controls, and cleanup.
+            - id: insecure-file-uploads-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-file-uploads-mutation-observation
+        - insecure-file-uploads-mutation-context
+        - insecure-file-uploads-mutation-control
+      forbidden_evidence_ids: []

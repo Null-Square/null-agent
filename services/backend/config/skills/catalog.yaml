@@ -1,0 +1,442 @@
+schema_version: 1
+catalog_version: 3.0.0-b1
+expected_active_count: 108
+skills:
+  - slug: code-review-planning
+    enabled: true
+    owner_category: code-review
+    delivery_scope: new
+    release_track: product-extension
+  - slug: code-review-mapping
+    enabled: true
+    owner_category: code-review
+    delivery_scope: new
+    release_track: product-extension
+  - slug: code-review-analysis
+    enabled: true
+    owner_category: code-review
+    delivery_scope: new
+    release_track: product-extension
+  - slug: code-review-validation
+    enabled: true
+    owner_category: code-review
+    delivery_scope: new
+    release_track: product-extension
+  - slug: code-review-reporting
+    enabled: true
+    owner_category: code-review
+    delivery_scope: new
+    release_track: product-extension
+  - slug: broken-auth
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: business-logic
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: csrf
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: dom-xss
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: graphql
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: idor
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: information-disclosure
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: insecure-file-uploads
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: jwt-attacks
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: mass-assignment
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: nextjs
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: nosql-injection
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: existing
+  - slug: open-redirect
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: existing
+  - slug: path-traversal
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: prototype-pollution
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: existing
+  - slug: race-conditions
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: rce
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: sql-injection
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: existing
+  - slug: ssrf
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: subdomain-takeover
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: existing
+  - slug: xss
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: xxe
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: existing
+  - slug: api-enumeration
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: broad-surface-scan
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: js-surface-analysis
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: network-recon
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: securityops-planning
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: security-reporting
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: existing
+  - slug: spa-recon
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: validation
+    enabled: true
+    owner_category: existing-securityops
+    delivery_scope: deepened
+  - slug: tooling-dalfox
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-ffuf
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-gitleaks
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-httpx
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-interactsh
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-katana
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-naabu
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-nmap
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-nuclei
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-semgrep
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-sqlmap
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-subfinder
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-trivy
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: tooling-trufflehog
+    enabled: true
+    owner_category: tooling
+    delivery_scope: existing
+  - slug: compliance-access-control
+    enabled: true
+    owner_category: compliance
+    delivery_scope: existing
+  - slug: compliance-evidence-review
+    enabled: true
+    owner_category: compliance
+    delivery_scope: existing
+  - slug: compliance-governance-review
+    enabled: true
+    owner_category: compliance
+    delivery_scope: existing
+  - slug: compliance-planning
+    enabled: true
+    owner_category: compliance
+    delivery_scope: existing
+  - slug: compliance-reporting
+    enabled: true
+    owner_category: compliance
+    delivery_scope: existing
+  - slug: compliance-technical-readiness
+    enabled: true
+    owner_category: compliance
+    delivery_scope: existing
+  - slug: access-control
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: session-management
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: oauth-oidc
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: cors
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: clickjacking
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: websockets
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: http-request-smuggling
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: web-cache-security
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: host-header-attacks
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: header-injection
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: command-injection
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: ssti
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: insecure-deserialization
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: secondary-server-injections
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: http-parameter-method-confusion
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: csv-formula-injection
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: client-side-trust-boundaries
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: web-security-misconfiguration
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: cryptographic-implementation
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: resource-consumption
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: unsafe-api-consumption
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: webhook-security
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: grpc-security
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: soap-security
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: cve-verification
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+    release_track: product-extension
+  - slug: software-supply-chain
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: source-aware-whitebox
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: ai-application-security
+    enabled: true
+    owner_category: core-web-api
+    delivery_scope: new
+  - slug: cms-wordpress
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: cms-drupal
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: cms-joomla
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: django
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: fastapi
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: nestjs
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: express
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: spring-boot
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: laravel
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: rails
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: cloud-aws
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: cloud-azure
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: cloud-gcp
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: kubernetes-security
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: iac-container-security
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: supabase
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: firebase-firestore
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: auth0
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: grafana-prometheus
+    enabled: true
+    owner_category: platform-cloud
+    delivery_scope: new
+  - slug: tooling-python
+    enabled: true
+    owner_category: tooling
+    delivery_scope: new
+  - slug: tooling-browser
+    enabled: true
+    owner_category: tooling
+    delivery_scope: new
+  - slug: tooling-schemathesis
+    enabled: true
+    owner_category: tooling
+    delivery_scope: new
+  - slug: tooling-grpcurl
+    enabled: true
+    owner_category: tooling
+    delivery_scope: new
+  - slug: tooling-jwt-tool
+    enabled: true
+    owner_category: tooling
+    delivery_scope: new
+  - slug: tooling-tls
+    enabled: true
+    owner_category: tooling
+    delivery_scope: new

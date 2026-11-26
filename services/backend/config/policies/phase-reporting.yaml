@@ -1,0 +1,22 @@
+# Generated from PhaseProfileRegistry for admin catalog tool-policy surfacing.
+# Do not edit by hand. Run `npm run catalog:policies` from services/backend.
+slug: phase-reporting
+name: Agent Catalog Phase reporting
+isDefaultSandbox: false
+spec:
+  tools:
+    allow:
+      - query_inventory
+      - query_notes
+      - query_findings
+      - list_relevant_skills
+      - load_skill
+      - file_read
+      - file_write
+      - report_finalizer_preflight
+      - prepare_report_context
+      - finalize_run_artifacts
+      - report_finding
+      - report_note
+      - submit_phase_handoff
+      - reporting_handoff_preflight

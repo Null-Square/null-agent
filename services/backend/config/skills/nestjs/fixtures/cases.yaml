@@ -1,0 +1,251 @@
+schema_version: 1
+skill: nestjs
+cases:
+  - id: nestjs-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: nestjs-positive-1-observation
+              content: A custom public metadata marker bypassed the class guard and exposed the synthetic private DTO.
+            - id: nestjs-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nestjs-positive-1-observation
+        - nestjs-positive-1-context
+        - nestjs-positive-1-control
+      forbidden_evidence_ids: []
+  - id: nestjs-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: nestjs-positive-2-observation
+              content: The global validation pipe accepted an extra server-managed field that persisted on a disposable evaluator object.
+            - id: nestjs-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nestjs-positive-2-observation
+        - nestjs-positive-2-context
+        - nestjs-positive-2-control
+      forbidden_evidence_ids: []
+  - id: nestjs-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: nestjs-positive-3-observation
+              content: A GraphQL resolver omitted the tenant guard used by its REST counterpart and returned evaluator B’s canary.
+            - id: nestjs-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nestjs-positive-3-observation
+        - nestjs-positive-3-context
+        - nestjs-positive-3-control
+      forbidden_evidence_ids: []
+  - id: nestjs-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: nestjs-negative-1-observation
+              content: Swagger was public by design while every operation still enforced guards.
+            - id: nestjs-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-negative-1-control
+              content: The retained control explains the observed signal without meeting active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nestjs-negative-1-observation
+        - nestjs-negative-1-context
+        - nestjs-negative-1-control
+      forbidden_evidence_ids: []
+  - id: nestjs-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: nestjs-negative-2-observation
+              content: A controller was absent from the active module graph.
+            - id: nestjs-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-negative-2-control
+              content: The retained control explains the observed signal without meeting active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nestjs-negative-2-observation
+        - nestjs-negative-2-context
+        - nestjs-negative-2-control
+      forbidden_evidence_ids: []
+  - id: nestjs-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: nestjs-negative-3-observation
+              content: An exception filter disclosed class names without private data or state.
+            - id: nestjs-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-negative-3-control
+              content: The retained control explains the observed signal without meeting active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - nestjs-negative-3-observation
+        - nestjs-negative-3-context
+        - nestjs-negative-3-control
+      forbidden_evidence_ids: []
+  - id: nestjs-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: nestjs-ambiguous-observation
+              content: Decorator metadata looks permissive, but reflector order and active module registration are not established.
+            - id: nestjs-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-ambiguous-missing
+              content: The packet lacks at least one required element of active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - nestjs-ambiguous-observation
+        - nestjs-ambiguous-context
+        - nestjs-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: nestjs-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: nestjs-blocked-observation
+              content: No active module graph, evaluator identities, or disposable DTO/object is available.
+            - id: nestjs-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - nestjs-blocked-observation
+        - nestjs-blocked-context
+        - nestjs-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: nestjs-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess nestjs with the nestjs methodology and retain deterministic proof.
+    expected:
+      primary_skill: nestjs
+      top_n: 3
+  - id: nestjs-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: nestjs
+      top_n: 5
+  - id: nestjs-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: nestjs-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: nestjs-mutation-observation
+              content: Only transport changed from guarded REST to the active GraphQL resolver; the resolver omitted the effective guard and evaluator A received evaluator B's peer canary while the same identities and owner/nonexistent controls stayed fixed.
+            - id: nestjs-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active module/controller or resolver, effective guards/pipes, evaluator controls, and runtime result.
+            - id: nestjs-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - nestjs-mutation-observation
+        - nestjs-mutation-context
+        - nestjs-mutation-control
+      forbidden_evidence_ids: []

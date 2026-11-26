@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-browser
+cases:
+  - id: tooling-browser-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-browser-positive-1-observation
+              content: The browser captured an evaluator OAuth redirect, cookie attributes, and correlated network request ids without unrelated profile state.
+            - id: tooling-browser-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-positive-1-observation
+        - tooling-browser-positive-1-context
+        - tooling-browser-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-browser-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-browser-positive-2-observation
+              content: An inert owner-hosted DOM marker established a source-to-sink path while network calls remained disabled.
+            - id: tooling-browser-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-positive-2-observation
+        - tooling-browser-positive-2-context
+        - tooling-browser-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-browser-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-browser-positive-3-observation
+              content: Two controlled origins demonstrated browser-enforced CORS readability of the synthetic response.
+            - id: tooling-browser-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-positive-3-observation
+        - tooling-browser-positive-3-context
+        - tooling-browser-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-browser-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-browser-negative-1-observation
+              content: Rendered text was treated as raw HTTP despite proxy/network evidence disagreeing.
+            - id: tooling-browser-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-negative-1-control
+              content: The retained control explains the observed signal without meeting clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-negative-1-observation
+        - tooling-browser-negative-1-context
+        - tooling-browser-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-browser-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-browser-negative-2-observation
+              content: A password manager populated an unrelated identity, invalidating the session evidence.
+            - id: tooling-browser-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-negative-2-control
+              content: The retained control explains the observed signal without meeting clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-negative-2-observation
+        - tooling-browser-negative-2-context
+        - tooling-browser-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-browser-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-negative-evidence-packet
+        authorization:
+          policy_allowed: false
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-browser-negative-3-observation
+              content: The proposed step required clicking a destructive control.
+            - id: tooling-browser-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-negative-3-control
+              content: The retained control explains the observed signal without meeting clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-negative-3-observation
+        - tooling-browser-negative-3-context
+        - tooling-browser-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-browser-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-browser-ambiguous-observation
+              content: A screenshot shows a result but lacks request ids, origin, session provenance, and raw evidence.
+            - id: tooling-browser-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-ambiguous-missing
+              content: The packet lacks at least one required element of clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-ambiguous-observation
+        - tooling-browser-ambiguous-context
+        - tooling-browser-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-browser-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-browser-blocked-observation
+              content: No clean evaluator profile or safe owner-controlled browser context is available.
+            - id: tooling-browser-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-blocked-observation
+        - tooling-browser-blocked-context
+        - tooling-browser-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-browser-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-browser with the tooling-browser methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-browser
+      top_n: 3
+  - id: tooling-browser-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-browser
+      top_n: 5
+  - id: tooling-browser-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-browser-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-browser-mutation-observation
+              content: Only browser origin changed between canonical and owner-controlled test origin; session, request, and network capture stayed fixed.
+            - id: tooling-browser-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is clean evaluator profile, bounded browser action, raw/network provenance, and domain-skill handoff.
+            - id: tooling-browser-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-browser-mutation-observation
+        - tooling-browser-mutation-context
+        - tooling-browser-mutation-control
+      forbidden_evidence_ids: []

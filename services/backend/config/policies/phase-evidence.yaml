@@ -1,0 +1,27 @@
+# Generated from PhaseProfileRegistry for admin catalog tool-policy surfacing.
+# Do not edit by hand. Run `npm run catalog:policies` from services/backend.
+slug: phase-evidence
+name: Agent Catalog Phase evidence
+isDefaultSandbox: false
+spec:
+  tools:
+    allow:
+      - query_inventory
+      - query_notes
+      - query_findings
+      - list_relevant_skills
+      - load_skill
+      - file_read
+      - file_write
+      - python_session
+      - report_note
+      - submit_phase_handoff
+      - evidence_handoff_preflight
+      - list_connected_repositories
+      - search_connected_repository
+      - read_connected_repository_file
+      - spawn_worker
+      - continue_worker
+      - stop_worker
+      - wait_for_worker
+      - submit_worker_result

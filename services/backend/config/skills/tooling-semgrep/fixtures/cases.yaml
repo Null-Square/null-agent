@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-semgrep
+cases:
+  - id: tooling-semgrep-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-semgrep-positive-1-observation
+              content: Semgrep ran the pinned rule on the supplied revision, retained complete source/sink/metavariable context for an active route, and the bounded specialist runtime handoff confirmed the inert evaluator canary reached the sink.
+            - id: tooling-semgrep-positive-1-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-positive-1-observation
+        - tooling-semgrep-positive-1-floor
+        - tooling-semgrep-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-semgrep-positive-2-observation
+              content: A negative source fixture did not match after the sanitizer pattern was recognized.
+            - id: tooling-semgrep-positive-2-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-positive-2-observation
+        - tooling-semgrep-positive-2-floor
+        - tooling-semgrep-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-semgrep-positive-3-observation
+              content: The result linked one reachable evaluator-controlled source-to-sink path to the specialist methodology, and the bounded specialist replay confirmed the inert runtime canary.
+            - id: tooling-semgrep-positive-3-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-positive-3-observation
+        - tooling-semgrep-positive-3-floor
+        - tooling-semgrep-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-semgrep-negative-1-observation
+              content: The matched function was unreachable dead code with no registration, import path, or deployed runtime caller.
+            - id: tooling-semgrep-negative-1-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-negative-1-observation
+        - tooling-semgrep-negative-1-floor
+        - tooling-semgrep-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-semgrep-negative-2-observation
+              content: The value was compile-time constant despite a sink match.
+            - id: tooling-semgrep-negative-2-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-negative-2-observation
+        - tooling-semgrep-negative-2-floor
+        - tooling-semgrep-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-negative-evidence-packet
+        authorization:
+          policy_allowed: false
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-semgrep-negative-3-observation
+              content: The proposed autofix would modify source without authorization.
+            - id: tooling-semgrep-negative-3-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-negative-3-observation
+        - tooling-semgrep-negative-3-floor
+        - tooling-semgrep-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-semgrep-ambiguous-observation
+              content: A rule matches a sink, but source control, reachability, and deployed revision are missing.
+            - id: tooling-semgrep-ambiguous-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-ambiguous-observation
+        - tooling-semgrep-ambiguous-floor
+        - tooling-semgrep-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-semgrep-blocked-observation
+              content: No repository scope, revision, or pinned ruleset is supplied.
+            - id: tooling-semgrep-blocked-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-blocked-observation
+        - tooling-semgrep-blocked-floor
+        - tooling-semgrep-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-semgrep-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-semgrep with the tooling-semgrep methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-semgrep
+      top_n: 3
+  - id: tooling-semgrep-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-semgrep
+      top_n: 5
+  - id: tooling-semgrep-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-semgrep-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-semgrep-mutation-observation
+              content: Only the rule’s source-pattern variant changed; revision, sink, negative fixture, and no-autofix boundary stayed fixed.
+            - id: tooling-semgrep-mutation-floor
+              content: The required decision floor is pinned ruleset/source revision, complete dataflow context, triage disposition, and runtime handoff where required.
+            - id: tooling-semgrep-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-semgrep-mutation-observation
+        - tooling-semgrep-mutation-floor
+        - tooling-semgrep-mutation-control
+      forbidden_evidence_ids: []

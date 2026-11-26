@@ -1,0 +1,7 @@
+{
+  "devUnsafe": false,
+  "stdoutLimitBytes": 1048576,
+  "cpuQuota": 1,
+  "memoryMb": 1024,
+  "pidsLimit": 256
+}

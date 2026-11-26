@@ -3,12 +3,7 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useR
 import { themeWipe } from '../themeWipe';
 
 /**
- * The theme, for every service.
- *
- * Two services were carrying their own copy of this — the app had
- * `ThemeContext`, the partner portal imported a `BrandThemeProvider` the kit
- * had already deleted, and neither could change without the other drifting.
- * Same job, so it is one component, and it lives beside the wipe it drives.
+ * The theme: one component, beside the wipe it drives.
  *
  * Both selectors are stamped: `base.css` binds the light palette to
  * `[data-theme="light"], .light-mode`, so setting one and not the other leaves
@@ -19,6 +14,12 @@ export type Theme = 'dark' | 'light';
 
 const THEME_STORAGE_KEY = 'ns-theme';
 const DEFAULT_THEME: Theme = 'dark';
+
+const getInitialTheme = (): Theme => {
+  if (typeof window === 'undefined') return DEFAULT_THEME;
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+  return stored === 'light' || stored === 'dark' ? stored : DEFAULT_THEME;
+};
 
 export interface ThemeContextValue {
   theme: Theme;
@@ -33,11 +34,7 @@ const ThemeContext = createContext<ThemeContextValue>({
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  /* DARK ONLY, for now (owner decision, 2026-10-02). The toggles were removed
-     and a stored choice is no longer restored, so someone who once picked light
-     is not stuck in it with no way back. The light palette and this provider's
-     switching stay in place for when it returns. */
-  const [theme, setThemeState] = useState<Theme>(DEFAULT_THEME);
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
   const isWiping = useRef(false);
 
   useEffect(() => {

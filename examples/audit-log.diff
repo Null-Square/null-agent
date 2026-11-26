@@ -1,8 +1,0 @@
-diff --git a/inventory/audit.js b/inventory/audit.js
---- a/inventory/audit.js
-+++ b/inventory/audit.js
-@@ -1,3 +1,4 @@
- export function recordUpdate(log, item, reviewer) {
-   log.info({ itemId: item.id, event: "inventory.updated" });
-+  log.info({ reviewerEmail: reviewer.email, accountNotes: reviewer.privateNotes });
- }

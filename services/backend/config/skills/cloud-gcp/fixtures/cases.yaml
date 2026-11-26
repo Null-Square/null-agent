@@ -1,0 +1,355 @@
+schema_version: 1
+skill: cloud-gcp
+cases:
+  - id: cloud-gcp-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cloud-gcp-positive-1-observation
+              content: An anonymous Cloud Storage request returned the named private evaluator object with nonexistent and owner controls.
+            - id: cloud-gcp-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-gcp-positive-1-observation
+        - cloud-gcp-positive-1-context
+        - cloud-gcp-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cloud-gcp-positive-2-observation
+              content: A public Cloud Run service performed a harmless evaluator action despite active IAM intent requiring authentication.
+            - id: cloud-gcp-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-gcp-positive-2-observation
+        - cloud-gcp-positive-2-context
+        - cloud-gcp-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cloud-gcp-positive-3-observation
+              content: A Firebase-hosted function returned a synthetic private record without the configured authentication context.
+            - id: cloud-gcp-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-gcp-positive-3-observation
+        - cloud-gcp-positive-3-context
+        - cloud-gcp-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: cloud-gcp-positive-4-observation
+              content: An API Gateway route omitted the active JWT requirement and exposed the named evaluator canary.
+            - id: cloud-gcp-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-gcp-positive-4-observation
+        - cloud-gcp-positive-4-context
+        - cloud-gcp-positive-4-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: cloud-gcp-positive-5-observation
+              content: A public App Engine route trusted a client-supplied identity header and selected the wrong evaluator record.
+            - id: cloud-gcp-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-gcp-positive-5-observation
+        - cloud-gcp-positive-5-context
+        - cloud-gcp-positive-5-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cloud-gcp-negative-1-observation
+              content: A bucket served assets explicitly configured as a public website.
+            - id: cloud-gcp-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-negative-1-control
+              content: The retained control explains the observed signal without meeting public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-gcp-negative-1-observation
+        - cloud-gcp-negative-1-context
+        - cloud-gcp-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cloud-gcp-negative-2-observation
+              content: Project id, Firebase API key, and service hostname were public identifiers only.
+            - id: cloud-gcp-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-negative-2-control
+              content: The retained control explains the observed signal without meeting public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-gcp-negative-2-observation
+        - cloud-gcp-negative-2-context
+        - cloud-gcp-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cloud-gcp-negative-3-observation
+              content: A broad IAM binding appeared only in an undeployed Terraform example.
+            - id: cloud-gcp-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-negative-3-control
+              content: The retained control explains the observed signal without meeting public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-gcp-negative-3-observation
+        - cloud-gcp-negative-3-context
+        - cloud-gcp-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: cloud-gcp-negative-4-observation
+              content: A service-account-shaped value was an invalid fixture and was never used.
+            - id: cloud-gcp-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-negative-4-control
+              content: The retained control explains the observed signal without meeting public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-gcp-negative-4-observation
+        - cloud-gcp-negative-4-context
+        - cloud-gcp-negative-4-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: cloud-gcp-negative-5-observation
+              content: A default Google frontend error identified the service but not an application route.
+            - id: cloud-gcp-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-negative-5-control
+              content: The retained control explains the observed signal without meeting public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-gcp-negative-5-observation
+        - cloud-gcp-negative-5-context
+        - cloud-gcp-negative-5-control
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cloud-gcp-ambiguous-observation
+              content: A public GCP hostname responds, but revision, policy, and data intent are not correlated.
+            - id: cloud-gcp-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-ambiguous-missing
+              content: The packet lacks at least one required element of public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-gcp-ambiguous-observation
+        - cloud-gcp-ambiguous-context
+        - cloud-gcp-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cloud-gcp-blocked-observation
+              content: Confirmation requires GCP credentials, metadata, project listing, object enumeration, writes, or non-evaluator data.
+            - id: cloud-gcp-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-gcp-blocked-observation
+        - cloud-gcp-blocked-context
+        - cloud-gcp-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cloud-gcp-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cloud-gcp with the cloud-gcp methodology and retain deterministic proof.
+    expected:
+      primary_skill: cloud-gcp
+      top_n: 3
+  - id: cloud-gcp-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cloud-gcp
+      top_n: 5
+  - id: cloud-gcp-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-gcp-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cloud-gcp-mutation-observation
+              content: Only the Cloud Run identity context changed from evaluator owner to anonymous; the same named private canary remained exposed.
+            - id: cloud-gcp-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public GCP service identity, deployed policy/source provenance, named synthetic resource, and anonymous/owner controls.
+            - id: cloud-gcp-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-gcp-mutation-observation
+        - cloud-gcp-mutation-context
+        - cloud-gcp-mutation-control
+      forbidden_evidence_ids: []

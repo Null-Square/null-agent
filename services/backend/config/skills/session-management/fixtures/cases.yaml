@@ -1,0 +1,251 @@
+schema_version: 1
+skill: session-management
+cases:
+  - id: session-management-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: session-management-positive-1-observation
+              content: The pre-password-change evaluator session still read its private canary beyond the invalidation window.
+            - id: session-management-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - session-management-positive-1-observation
+        - session-management-positive-1-context
+        - session-management-positive-1-control
+      forbidden_evidence_ids: []
+  - id: session-management-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: session-management-positive-2-observation
+              content: Logout removed the browser cookie but the copied evaluator application token still authorized the same profile read.
+            - id: session-management-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - session-management-positive-2-observation
+        - session-management-positive-2-context
+        - session-management-positive-2-control
+      forbidden_evidence_ids: []
+  - id: session-management-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: session-management-positive-3-observation
+              content: The session identifier remained fixed from anonymous state through evaluator login and a second browser had supplied that value.
+            - id: session-management-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - session-management-positive-3-observation
+        - session-management-positive-3-context
+        - session-management-positive-3-control
+      forbidden_evidence_ids: []
+  - id: session-management-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: session-management-negative-1-observation
+              content: A cookie lacked Secure only on a documented HTTP local environment.
+            - id: session-management-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-negative-1-control
+              content: The retained control explains the observed signal without meeting evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - session-management-negative-1-observation
+        - session-management-negative-1-context
+        - session-management-negative-1-control
+      forbidden_evidence_ids: []
+  - id: session-management-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: session-management-negative-2-observation
+              content: A copied token was visible client-side but server-side use was rejected after logout.
+            - id: session-management-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-negative-2-control
+              content: The retained control explains the observed signal without meeting evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - session-management-negative-2-observation
+        - session-management-negative-2-context
+        - session-management-negative-2-control
+      forbidden_evidence_ids: []
+  - id: session-management-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: session-management-negative-3-observation
+              content: A load-balancer cookie stayed constant while application session identifiers rotated.
+            - id: session-management-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-negative-3-control
+              content: The retained control explains the observed signal without meeting evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - session-management-negative-3-observation
+        - session-management-negative-3-context
+        - session-management-negative-3-control
+      forbidden_evidence_ids: []
+  - id: session-management-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: session-management-ambiguous-observation
+              content: A session token appears unchanged, but cookie layer, authentication transition, and server-side identity are not correlated.
+            - id: session-management-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-ambiguous-missing
+              content: The packet lacks at least one required element of evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - session-management-ambiguous-observation
+        - session-management-ambiguous-context
+        - session-management-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: session-management-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: session-management-blocked-observation
+              content: No disposable evaluator accounts, second browser, or session revocation path is available.
+            - id: session-management-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - session-management-blocked-observation
+        - session-management-blocked-context
+        - session-management-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: session-management-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess session-management with the session-management methodology and retain deterministic proof.
+    expected:
+      primary_skill: session-management
+      top_n: 3
+  - id: session-management-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: session-management
+      top_n: 5
+  - id: session-management-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: session-management-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: session-management-mutation-observation
+              content: Only lifecycle transition changed from logout to password change; the same stale evaluator session remained authorized.
+            - id: session-management-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator session identifiers, documented lifecycle transition, before/after authenticated read, and revocation cleanup.
+            - id: session-management-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - session-management-mutation-observation
+        - session-management-mutation-context
+        - session-management-mutation-control
+      forbidden_evidence_ids: []

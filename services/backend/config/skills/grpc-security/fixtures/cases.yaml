@@ -1,0 +1,251 @@
+schema_version: 1
+skill: grpc-security
+cases:
+  - id: grpc-security-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: grpc-security-positive-1-observation
+              content: An unauthenticated unary call returned the supplied private message canary from a method marked authenticated.
+            - id: grpc-security-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - grpc-security-positive-1-observation
+        - grpc-security-positive-1-context
+        - grpc-security-positive-1-control
+      forbidden_evidence_ids: []
+  - id: grpc-security-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: grpc-security-positive-2-observation
+              content: Evaluator A changed one protobuf resource id and received evaluator B’s synthetic record.
+            - id: grpc-security-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - grpc-security-positive-2-observation
+        - grpc-security-positive-2-context
+        - grpc-security-positive-2-control
+      forbidden_evidence_ids: []
+  - id: grpc-security-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: grpc-security-positive-3-observation
+              content: The gRPC-Web route omitted the metadata guard enforced by the native method and completed a harmless evaluator action.
+            - id: grpc-security-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - grpc-security-positive-3-observation
+        - grpc-security-positive-3-context
+        - grpc-security-positive-3-control
+      forbidden_evidence_ids: []
+  - id: grpc-security-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: grpc-security-negative-1-observation
+              content: Authorized reflection listed public service descriptors only.
+            - id: grpc-security-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-negative-1-control
+              content: The retained control explains the observed signal without meeting descriptor/method provenance, evaluator metadata, named message fields, and status/response controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - grpc-security-negative-1-observation
+        - grpc-security-negative-1-context
+        - grpc-security-negative-1-control
+      forbidden_evidence_ids: []
+  - id: grpc-security-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: grpc-security-negative-2-observation
+              content: UNKNOWN and UNIMPLEMENTED statuses revealed no data or action.
+            - id: grpc-security-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-negative-2-control
+              content: The retained control explains the observed signal without meeting descriptor/method provenance, evaluator metadata, named message fields, and status/response controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - grpc-security-negative-2-observation
+        - grpc-security-negative-2-context
+        - grpc-security-negative-2-control
+      forbidden_evidence_ids: []
+  - id: grpc-security-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: grpc-security-negative-3-observation
+              content: A malformed message closed its stream once without repeatable semantic or availability impact.
+            - id: grpc-security-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-negative-3-control
+              content: The retained control explains the observed signal without meeting descriptor/method provenance, evaluator metadata, named message fields, and status/response controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - grpc-security-negative-3-observation
+        - grpc-security-negative-3-context
+        - grpc-security-negative-3-control
+      forbidden_evidence_ids: []
+  - id: grpc-security-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: grpc-security-ambiguous-observation
+              content: A method exists in reflection, but authorization intent and a safe named request message are absent.
+            - id: grpc-security-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-ambiguous-missing
+              content: The packet lacks at least one required element of descriptor/method provenance, evaluator metadata, named message fields, and status/response controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - grpc-security-ambiguous-observation
+        - grpc-security-ambiguous-context
+        - grpc-security-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: grpc-security-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: grpc-security-blocked-observation
+              content: No supplied descriptor/authorized reflection, evaluator metadata, or synthetic message is available.
+            - id: grpc-security-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - grpc-security-blocked-observation
+        - grpc-security-blocked-context
+        - grpc-security-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: grpc-security-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess grpc-security with the grpc-security methodology and retain deterministic proof.
+    expected:
+      primary_skill: grpc-security
+      top_n: 3
+  - id: grpc-security-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: grpc-security
+      top_n: 5
+  - id: grpc-security-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: grpc-security-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: grpc-security-mutation-observation
+              content: Only transport changed from native gRPC to observed gRPC-Web; the same missing guard and synthetic response canary reproduced.
+            - id: grpc-security-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is descriptor/method provenance, evaluator metadata, named message fields, and status/response controls.
+            - id: grpc-security-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - grpc-security-mutation-observation
+        - grpc-security-mutation-context
+        - grpc-security-mutation-control
+      forbidden_evidence_ids: []

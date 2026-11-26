@@ -1,0 +1,20 @@
+# Network-Enabled Policy - For web/network scanning tasks
+# Full network with enhanced capabilities
+
+slug: network-enabled
+name: Network Enabled
+isDefaultSandbox: false
+sandboxImageName: webpentest-core
+
+spec:
+  sandbox:
+    readonlyRootfs: false
+    capDrop:
+      - ALL
+    capAdd:
+      - NET_RAW
+      - NET_ADMIN
+    privileged: false
+  tools:
+    network: true
+    allowlist_hosts: []

@@ -1,0 +1,251 @@
+schema_version: 1
+skill: compliance-planning
+cases:
+  - id: compliance-planning-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: compliance-planning-positive-1-observation
+              content: The plan mapped every in-scope control to owner, evidence source, due date, and review procedure.
+            - id: compliance-planning-positive-1-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-positive-1-observation
+        - compliance-planning-positive-1-floor
+        - compliance-planning-positive-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-planning-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: compliance-planning-positive-2-observation
+              content: A sampling plan defined population, period, selection method, size rationale, and exceptions.
+            - id: compliance-planning-positive-2-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-positive-2-observation
+        - compliance-planning-positive-2-floor
+        - compliance-planning-positive-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-planning-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: compliance-planning-positive-3-observation
+              content: Blocked evidence dependencies became explicit prerequisite tasks rather than assumed access.
+            - id: compliance-planning-positive-3-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-positive-3-observation
+        - compliance-planning-positive-3-floor
+        - compliance-planning-positive-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-planning-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: compliance-planning-negative-1-observation
+              content: The plan promised certification without an independent assessment.
+            - id: compliance-planning-negative-1-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-negative-1-observation
+        - compliance-planning-negative-1-floor
+        - compliance-planning-negative-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-planning-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: compliance-planning-negative-2-observation
+              content: A control test omitted population and evidence owner.
+            - id: compliance-planning-negative-2-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-negative-2-observation
+        - compliance-planning-negative-2-floor
+        - compliance-planning-negative-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-planning-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: compliance-planning-negative-3-observation
+              content: The plan assumed access to systems outside scope.
+            - id: compliance-planning-negative-3-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-negative-3-observation
+        - compliance-planning-negative-3-floor
+        - compliance-planning-negative-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-planning-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: compliance-planning-ambiguous-observation
+              content: The plan names controls but omits evidence source, owner, timing, or test procedure.
+            - id: compliance-planning-ambiguous-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-ambiguous-observation
+        - compliance-planning-ambiguous-floor
+        - compliance-planning-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: compliance-planning-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: compliance-planning-blocked-observation
+              content: Framework, system boundary, review period, or responsible owners are undefined.
+            - id: compliance-planning-blocked-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-blocked-observation
+        - compliance-planning-blocked-floor
+        - compliance-planning-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: compliance-planning-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess compliance-planning with the compliance-planning methodology and retain deterministic proof.
+    expected:
+      primary_skill: compliance-planning
+      top_n: 3
+  - id: compliance-planning-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: compliance-planning
+      top_n: 5
+  - id: compliance-planning-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-planning-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: compliance-planning-mutation-observation
+              content: Only reporting deadline changed; scope, control inventory, evidence owners, sampling, and dependency gates stayed fixed.
+            - id: compliance-planning-mutation-floor
+              content: The required decision floor is defined framework/scope/period, control inventory, evidence owners, sampling, dependencies, and no invented authority.
+            - id: compliance-planning-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-planning-mutation-observation
+        - compliance-planning-mutation-floor
+        - compliance-planning-mutation-control
+      forbidden_evidence_ids: []

@@ -2,6 +2,7 @@
   "name": "@null-ai/design-tokens",
   "private": true,
   "version": "0.0.0",
+  "license": "Apache-2.0",
   "type": "module",
   "files": [
     "base.css",
@@ -22,18 +23,15 @@
   "description": "NullSquare brand: design tokens, assets, and the component library built on them.",
   "types": "./src/index.ts",
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-select": "^2.2.5",
     "clsx": "2.1.1",
     "framer-motion": "12.36.0",
-    "lucide-react": "0.562.0",
-    "tailwind-merge": "3.5.0",
-    "@radix-ui/react-slot": "1.2.3",
-    "three": "0.179.1"
-  },
-  "devDependencies": {
-    "@types/three": "0.179.0"
+    "lucide-react": "^0.562.0",
+    "tailwind-merge": "3.5.0"
   },
   "peerDependencies": {
-    "react": "19.2.9",
-    "react-dom": "19.2.9"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

@@ -1,0 +1,153 @@
+[
+  {
+    "name": "Qwen 3.6 Plus",
+    "provider": "QWEN",
+    "modelName": "qwen3.6-plus",
+    "description": "Default Qwen 3.6 Plus model on DashScope Intl with thinking enabled for planning turns",
+    "isDefault": false,
+    "selectionCategory": "medium",
+    "selectionPriority": 10,
+    "requestProfile": {
+      "thinkingMode": "planning_only"
+    },
+    "rateCards": [
+      {
+        "effectiveFrom": "2026-01-01T00:00:00.000Z",
+        "currency": "usd",
+        "cacheHitInputPer1m": 0.05,
+        "cacheMissInputPer1m": 0.5,
+        "outputPer1m": 3.0,
+        "sourceNote": "Configured provider rate at catalog publication"
+      }
+    ],
+    "contextWindow": 1000000,
+    "maxOutputTokens": 65536,
+    "apiBaseUrl": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+  },
+  {
+    "name": "GPT-5.4",
+    "provider": "OPENAI",
+    "modelName": "gpt-5.4",
+    "description": "OpenAI compact reasoning model with chat-completions support and automatic prompt caching",
+    "isDefault": false,
+    "selectionCategory": "high",
+    "selectionPriority": 10,
+    "requestProfile": {},
+    "rateCards": [
+      {
+        "effectiveFrom": "2026-01-01T00:00:00.000Z",
+        "currency": "usd",
+        "cacheHitInputPer1m": 0.075,
+        "cacheMissInputPer1m": 0.75,
+        "outputPer1m": 4.25,
+        "sourceNote": "Configured provider rate at catalog publication"
+      }
+    ],
+    "contextWindow": 200000,
+    "maxOutputTokens": 16384,
+    "apiBaseUrl": "https://api.openai.com/v1"
+  },
+  {
+    "name": "Kimi K2.6",
+    "provider": "MOONSHOT",
+    "modelName": "kimi-k2.6",
+    "description": "Moonshot Kimi K2.6 with OpenAI-compatible chat completions and prompt-cache-key guided input caching",
+    "isDefault": false,
+    "selectionCategory": "high",
+    "selectionPriority": 20,
+    "requestProfile": {
+      "thinking": "enabled",
+      "keep": "all"
+    },
+    "rateCards": [
+      {
+        "effectiveFrom": "2026-01-01T00:00:00.000Z",
+        "currency": "usd",
+        "cacheHitInputPer1m": 0.16,
+        "cacheMissInputPer1m": 0.95,
+        "outputPer1m": 4.0,
+        "sourceNote": "Configured provider rate at catalog publication"
+      }
+    ],
+    "contextWindow": 256000,
+    "maxOutputTokens": 32768,
+    "apiBaseUrl": "https://api.moonshot.ai/v1"
+  },
+  {
+    "name": "Claude Opus 4.6",
+    "provider": "ANTHROPIC",
+    "modelName": "claude-opus-4-6",
+    "description": "Anthropic's flagship reasoning and coding model with prompt caching",
+    "isDefault": false,
+    "selectionCategory": "extra_high",
+    "selectionPriority": 10,
+    "requestProfile": {},
+    "rateCards": [
+      {
+        "effectiveFrom": "2026-01-01T00:00:00.000Z",
+        "currency": "usd",
+        "cacheHitInputPer1m": 0.5,
+        "cacheMissInputPer1m": 5.0,
+        "outputPer1m": 25.0,
+        "sourceNote": "Configured provider rate at catalog publication"
+      }
+    ],
+    "contextWindow": 200000,
+    "maxOutputTokens": 32768
+  },
+  {
+    "name": "DeepSeek V4 Pro",
+    "provider": "DEEPSEEK",
+    "modelName": "deepseek-v4-pro",
+    "description": "DeepSeek V4 Pro via the OpenAI-compatible API with automatic context caching",
+    "selectionCategory": "low",
+    "selectionPriority": 10,
+    "isDefault": false,
+    "requestProfile": {
+      "thinking": "enabled",
+      "reasoningEffort": "high"
+    },
+    "rateCards": [
+      {
+        "effectiveFrom": "2026-01-01T00:00:00.000Z",
+        "effectiveTo": "2026-08-16T16:00:00.000Z",
+        "currency": "usd",
+        "cacheHitInputPer1m": 0.003625,
+        "cacheMissInputPer1m": 0.435,
+        "outputPer1m": 0.87,
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "sourceNote": "DeepSeek V4 Pro rate before the 2026-08-16 cutover"
+      },
+      {
+        "effectiveFrom": "2026-08-16T16:00:00.000Z",
+        "currency": "usd",
+        "cacheHitInputPer1m": 0.022,
+        "cacheMissInputPer1m": 0.66,
+        "outputPer1m": 1.98,
+        "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "sourceNote": "DeepSeek V4 Pro daily off-peak base with recurring UTC peak overrides",
+        "windows": [
+          {
+            "name": "peak",
+            "startMinuteUtc": 60,
+            "endMinuteUtc": 240,
+            "cacheHitInputPer1m": 0.044,
+            "cacheMissInputPer1m": 1.32,
+            "outputPer1m": 3.96
+          },
+          {
+            "name": "peak",
+            "startMinuteUtc": 360,
+            "endMinuteUtc": 600,
+            "cacheHitInputPer1m": 0.044,
+            "cacheMissInputPer1m": 1.32,
+            "outputPer1m": 3.96
+          }
+        ]
+      }
+    ],
+    "contextWindow": 1000000,
+    "maxOutputTokens": 384000,
+    "apiBaseUrl": "https://api.deepseek.com"
+  }
+]

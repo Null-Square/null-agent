@@ -1,0 +1,251 @@
+schema_version: 1
+skill: auth0
+cases:
+  - id: auth0-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: auth0-positive-1-observation
+              content: The evaluator Auth0 client accepted an owner-controlled callback absent from the supplied registered callback list and delivered the authorization response there.
+            - id: auth0-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - auth0-positive-1-observation
+        - auth0-positive-1-context
+        - auth0-positive-1-control
+      forbidden_evidence_ids: []
+  - id: auth0-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: auth0-positive-2-observation
+              content: An Organization A evaluator received an application session labelled Organization B and the synthetic resource response corroborated that context.
+            - id: auth0-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - auth0-positive-2-observation
+        - auth0-positive-2-context
+        - auth0-positive-2-control
+      forbidden_evidence_ids: []
+  - id: auth0-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: auth0-positive-3-observation
+              content: An evaluator connection selector bypassed the application’s configured connection restriction and completed a session in the wrong test connection.
+            - id: auth0-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - auth0-positive-3-observation
+        - auth0-positive-3-context
+        - auth0-positive-3-control
+      forbidden_evidence_ids: []
+  - id: auth0-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: auth0-negative-1-observation
+              content: The frontend exposed an Auth0 client id and tenant domain, both public identifiers with no secret or boundary effect.
+            - id: auth0-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-negative-1-control
+              content: The retained control explains the observed signal without meeting tenant, client, transaction binding, evaluator identity, and resource-server corroboration; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - auth0-negative-1-observation
+        - auth0-negative-1-context
+        - auth0-negative-1-control
+      forbidden_evidence_ids: []
+  - id: auth0-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: auth0-negative-2-observation
+              content: Two successful callbacks were both present in the supplied tenant configuration.
+            - id: auth0-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-negative-2-control
+              content: The retained control explains the observed signal without meeting tenant, client, transaction binding, evaluator identity, and resource-server corroboration; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - auth0-negative-2-observation
+        - auth0-negative-2-context
+        - auth0-negative-2-control
+      forbidden_evidence_ids: []
+  - id: auth0-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: auth0-negative-3-observation
+              content: A custom claim was absent because the evaluator authorization request omitted the API audience.
+            - id: auth0-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-negative-3-control
+              content: The retained control explains the observed signal without meeting tenant, client, transaction binding, evaluator identity, and resource-server corroboration; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - auth0-negative-3-observation
+        - auth0-negative-3-context
+        - auth0-negative-3-control
+      forbidden_evidence_ids: []
+  - id: auth0-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: auth0-ambiguous-observation
+              content: A callback variant reached Universal Login, but no authorization response, client binding, or application session was captured.
+            - id: auth0-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-ambiguous-missing
+              content: The packet lacks at least one required element of tenant, client, transaction binding, evaluator identity, and resource-server corroboration, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - auth0-ambiguous-observation
+        - auth0-ambiguous-context
+        - auth0-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: auth0-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: auth0-blocked-observation
+              content: Tenant/client provenance, evaluator organizations/connections, or a safe owner callback is missing.
+            - id: auth0-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - auth0-blocked-observation
+        - auth0-blocked-context
+        - auth0-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: auth0-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess auth0 with the auth0 methodology and retain deterministic proof.
+    expected:
+      primary_skill: auth0
+      top_n: 3
+  - id: auth0-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: auth0
+      top_n: 5
+  - id: auth0-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: auth0-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: auth0-mutation-observation
+              content: Only the evaluator organization parameter changed; the wrong organization session and resource canary reproduced under the same client and callback.
+            - id: auth0-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is tenant, client, transaction binding, evaluator identity, and resource-server corroboration.
+            - id: auth0-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - auth0-mutation-observation
+        - auth0-mutation-context
+        - auth0-mutation-control
+      forbidden_evidence_ids: []

@@ -1,1 +1,3 @@
-export { default } from "../modules/compliance/ui/ComplianceControlPage";
+import { ComplianceControlPage } from '@modules/compliance';
+
+export default ComplianceControlPage;

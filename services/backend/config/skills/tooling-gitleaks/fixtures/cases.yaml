@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-gitleaks
+cases:
+  - id: tooling-gitleaks-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-gitleaks-positive-1-observation
+              content: Gitleaks scanned the supplied commit range with the pinned config and retained a redacted high-confidence credential pattern.
+            - id: tooling-gitleaks-positive-1-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-positive-1-observation
+        - tooling-gitleaks-positive-1-floor
+        - tooling-gitleaks-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-gitleaks-positive-2-observation
+              content: A baseline file suppressed a known invalid fixture while a newly introduced owner canary was detected.
+            - id: tooling-gitleaks-positive-2-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-positive-2-observation
+        - tooling-gitleaks-positive-2-floor
+        - tooling-gitleaks-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-gitleaks-positive-3-observation
+              content: The report preserved file/commit/rule ids and a hash without retaining the full candidate value.
+            - id: tooling-gitleaks-positive-3-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-positive-3-observation
+        - tooling-gitleaks-positive-3-floor
+        - tooling-gitleaks-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-gitleaks-negative-1-observation
+              content: The candidate was a documented invalid test fixture.
+            - id: tooling-gitleaks-negative-1-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-negative-1-observation
+        - tooling-gitleaks-negative-1-floor
+        - tooling-gitleaks-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-gitleaks-negative-2-observation
+              content: A high-entropy public identifier matched a generic rule but was not a secret.
+            - id: tooling-gitleaks-negative-2-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-negative-2-observation
+        - tooling-gitleaks-negative-2-floor
+        - tooling-gitleaks-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-gitleaks-negative-3-observation
+              content: The proposed validation required using the discovered credential.
+            - id: tooling-gitleaks-negative-3-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-negative-3-observation
+        - tooling-gitleaks-negative-3-floor
+        - tooling-gitleaks-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-gitleaks-ambiguous-observation
+              content: A candidate has entropy and a rule match, but type, active provenance, and safe validity evidence are absent.
+            - id: tooling-gitleaks-ambiguous-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-ambiguous-observation
+        - tooling-gitleaks-ambiguous-floor
+        - tooling-gitleaks-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-gitleaks-blocked-observation
+              content: No repository/commit scope, pinned rule config, or redaction path is available.
+            - id: tooling-gitleaks-blocked-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-blocked-observation
+        - tooling-gitleaks-blocked-floor
+        - tooling-gitleaks-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-gitleaks-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-gitleaks with the tooling-gitleaks methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-gitleaks
+      top_n: 3
+  - id: tooling-gitleaks-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-gitleaks
+      top_n: 5
+  - id: tooling-gitleaks-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-gitleaks-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-gitleaks-mutation-observation
+              content: Only the selected commit range changed; config, baseline, redaction, and no-use validation boundary stayed fixed.
+            - id: tooling-gitleaks-mutation-floor
+              content: The required decision floor is pinned repository scope/ruleset, secret candidate provenance, validation without use, and redacted retention.
+            - id: tooling-gitleaks-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-gitleaks-mutation-observation
+        - tooling-gitleaks-mutation-floor
+        - tooling-gitleaks-mutation-control
+      forbidden_evidence_ids: []

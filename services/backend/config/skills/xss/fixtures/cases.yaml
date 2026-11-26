@@ -1,0 +1,180 @@
+schema_version: 1
+skill: xss
+cases:
+  - id: xss-positive-reflected-browser-execution
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: browser-and-http-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: reflected-request, content: "A unique inert marker was placed in the search parameter; raw response capture shows it reached an executable HTML script context without encoding." }
+            - { id: reflected-browser, content: "A real browser loaded the response and the marker-only test set a page-local evaluation flag; console and DOM snapshot identify the response script node as the source." }
+            - { id: reflected-control, content: "A delimiter-encoded control appeared as text and did not set the flag under the same browser state." }
+            - { id: reflected-safety, content: "The proof performed no network request, storage change, credential access, or user-visible action." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [reflected-request, reflected-browser, reflected-control, reflected-safety]
+      forbidden_evidence_ids: []
+
+  - id: xss-positive-stored-cross-session-execution
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: two-session-browser-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: stored-write, content: "Test account A saved a harmless marker in its own profile description; the save response did not itself execute the marker." }
+            - { id: stored-render, content: "Test account B opened the authorized review view and the stored marker executed in the HTML body context, setting only a page-local flag." }
+            - { id: stored-persistence, content: "Reloading the review view reproduced execution from the persisted server value; deleting the description removed it." }
+            - { id: stored-control, content: "The same marker stored through a properly encoded field rendered as literal text and did not execute." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [stored-write, stored-render, stored-persistence, stored-control]
+      forbidden_evidence_ids: []
+
+  - id: xss-positive-attribute-context-breakout
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: browser-and-dom-snapshot
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: attribute-source, content: "Response and DOM snapshots show the parameter inserted unquoted into an event-capable HTML attribute." }
+            - { id: attribute-execution, content: "The context-specific harmless marker executed after the documented user interaction and set a page-local flag in two clean browser profiles." }
+            - { id: attribute-control, content: "A matched value with the delimiter entity-encoded remained one attribute value and did not execute." }
+            - { id: attribute-attribution, content: "DevTools initiator and node location attribute execution to the server-rendered attribute, not an extension or console action." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [attribute-source, attribute-execution, attribute-control, attribute-attribution]
+      forbidden_evidence_ids: []
+
+  - id: xss-negative-html-encoded-reflection
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: browser-and-http-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: encoded-response, content: "Raw response encodes every context delimiter and places the marker in a text node." }
+            - { id: encoded-dom, content: "DOM snapshot contains one text node and no new element, attribute, URL, or script node." }
+            - { id: encoded-browser, content: "No page-local execution flag, event handler, navigation, or console evaluation occurred." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [encoded-response, encoded-dom, encoded-browser]
+      forbidden_evidence_ids: []
+
+  - id: xss-negative-json-content-type
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-and-browser-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: json-reflection, content: "The marker is reflected only inside a valid JSON string with Content-Type application/json and nosniff." }
+            - { id: json-navigation, content: "Direct browser navigation renders escaped JSON text; no HTML document nodes or script execution are created." }
+            - { id: json-consumer, content: "The authorized application consumer reads the value with JSON.parse and inserts it through textContent." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [json-reflection, json-navigation, json-consumer]
+      forbidden_evidence_ids: []
+
+  - id: xss-negative-csp-and-nonexecutable-sink
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: browser-security-trace
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: csp-marker, content: "The marker reaches a data attribute but does not create executable markup or an event handler." }
+            - { id: csp-browser, content: "Browser trace shows no execution attempt; the application reads the attribute only as text." }
+            - { id: csp-policy, content: "A restrictive CSP is present, but the rejection is based on the non-executable context and observed absence of execution, not on the header alone." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [csp-marker, csp-browser, csp-policy]
+      forbidden_evidence_ids: []
+
+  - id: xss-ambiguous-scanner-reflection
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: scanner-record
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: xss-scanner, content: "Scanner reports reflected input based on response substring matching." }
+            - { id: xss-context-missing, content: "The record omits raw context boundaries, browser execution, CSP outcome, and DOM attribution." }
+            - { id: xss-replay, content: "A truncated manual replay places the reflected marker next to a server-inserted quote, but the full raw context and approved browser execution evidence are unavailable." }
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids: [xss-scanner, xss-context-missing, xss-replay]
+      forbidden_evidence_ids: []
+
+  - id: xss-blocked-browser-unavailable
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: precondition-record
+        authorization: { policy_allowed: true, infrastructure_available: false }
+        artifact:
+          observations:
+            - { id: xss-blocked-reflection, content: "Response capture shows an unusual client-side context but cannot establish execution." }
+            - { id: xss-blocked-browser, content: "The approved browser runtime is unavailable and script execution cannot be observed." }
+            - { id: xss-blocked-auth, content: "The only rendering route also requires a test account that has not been provisioned." }
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids: [xss-blocked-reflection, xss-blocked-browser, xss-blocked-auth]
+      forbidden_evidence_ids: []
+
+  - id: xss-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Test reflected XSS cross-site scripting by determining whether server-reflected input becomes executable HTML or attribute content in a real browser, with encoded controls.
+    expected: { primary_skill: xss, top_n: 3 }
+
+  - id: xss-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Compare two JSON API schemas for missing required fields without rendering them in a browser.
+    expected: { absent_skill: xss, top_n: 5 }
+
+  - id: xss-mutation-context-encoding
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: browser-mutation-differential
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: xss-mutation-invariant, content: "Only one context delimiter changed to its URL-encoded representation; marker behavior, route, browser profile, and control stayed fixed." }
+            - { id: xss-mutation-response, content: "The application decoded the mutation before embedding it into the same executable HTML attribute context." }
+            - { id: xss-mutation-execution, content: "The harmless page-local marker executed in two clean browser runs." }
+            - { id: xss-mutation-control, content: "A double-encoded control remained literal text and did not execute." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [xss-mutation-invariant, xss-mutation-response, xss-mutation-execution, xss-mutation-control]
+      forbidden_evidence_ids: []

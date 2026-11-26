@@ -1,0 +1,355 @@
+schema_version: 1
+skill: command-injection
+cases:
+  - id: command-injection-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: command-injection-positive-1-observation
+              content: A local instrumented fixture recorded the evaluator marker as a new command argument after unsafe string concatenation; the fixed argv builder kept it literal.
+            - id: command-injection-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - command-injection-positive-1-observation
+        - command-injection-positive-1-context
+        - command-injection-positive-1-control
+      forbidden_evidence_ids: []
+  - id: command-injection-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: command-injection-positive-2-observation
+              content: In the disposable instrumented harness, a source-to-sink trace showed the HTTP field reach the active process-launch wrapper and become an unintended interpreter token; the fixed argument-array builder kept the same inert marker as one literal argument.
+            - id: command-injection-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - command-injection-positive-2-observation
+        - command-injection-positive-2-context
+        - command-injection-positive-2-control
+      forbidden_evidence_ids: []
+  - id: command-injection-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: command-injection-positive-3-observation
+              content: A newline-normalization variant created a second mocked invocation in the evaluator harness while the encoded control did not.
+            - id: command-injection-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - command-injection-positive-3-observation
+        - command-injection-positive-3-context
+        - command-injection-positive-3-control
+      forbidden_evidence_ids: []
+  - id: command-injection-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: command-injection-positive-4-observation
+              content: A platform-specific command builder treated a quoted evaluator marker as syntax in the mock parser and the array API control did not.
+            - id: command-injection-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - command-injection-positive-4-observation
+        - command-injection-positive-4-context
+        - command-injection-positive-4-control
+      forbidden_evidence_ids: []
+  - id: command-injection-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: command-injection-positive-5-observation
+              content: An upstream field reached a shell-enabled library option in the instrumented test path and produced the expected mock-event canary.
+            - id: command-injection-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - command-injection-positive-5-observation
+        - command-injection-positive-5-context
+        - command-injection-positive-5-control
+      forbidden_evidence_ids: []
+  - id: command-injection-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: command-injection-negative-1-observation
+              content: The marker appeared in a log but never reached the mocked process boundary.
+            - id: command-injection-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-negative-1-control
+              content: The retained control explains the observed signal without meeting offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - command-injection-negative-1-observation
+        - command-injection-negative-1-context
+        - command-injection-negative-1-control
+      forbidden_evidence_ids: []
+  - id: command-injection-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: command-injection-negative-2-observation
+              content: The active implementation used an argument array and preserved the marker as one literal argument.
+            - id: command-injection-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-negative-2-control
+              content: The retained control explains the observed signal without meeting offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - command-injection-negative-2-observation
+        - command-injection-negative-2-context
+        - command-injection-negative-2-control
+      forbidden_evidence_ids: []
+  - id: command-injection-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: command-injection-negative-3-observation
+              content: A command API existed only in dead test code.
+            - id: command-injection-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-negative-3-control
+              content: The retained control explains the observed signal without meeting offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - command-injection-negative-3-observation
+        - command-injection-negative-3-context
+        - command-injection-negative-3-control
+      forbidden_evidence_ids: []
+  - id: command-injection-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: command-injection-negative-4-observation
+              content: A generic server error occurred before the input reached the command builder.
+            - id: command-injection-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-negative-4-control
+              content: The retained control explains the observed signal without meeting offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - command-injection-negative-4-observation
+        - command-injection-negative-4-context
+        - command-injection-negative-4-control
+      forbidden_evidence_ids: []
+  - id: command-injection-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: command-injection-negative-5-observation
+              content: A timing difference matched the local harness startup jitter and not the candidate input.
+            - id: command-injection-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-negative-5-control
+              content: The retained control explains the observed signal without meeting offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - command-injection-negative-5-observation
+        - command-injection-negative-5-context
+        - command-injection-negative-5-control
+      forbidden_evidence_ids: []
+  - id: command-injection-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: command-injection-ambiguous-observation
+              content: Static source suggests string construction, but active call-path and instrumented invocation evidence are absent.
+            - id: command-injection-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-ambiguous-missing
+              content: The packet lacks at least one required element of offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - command-injection-ambiguous-observation
+        - command-injection-ambiguous-context
+        - command-injection-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: command-injection-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: command-injection-blocked-observation
+              content: No disposable offline harness, mock process boundary, or active source revision is available.
+            - id: command-injection-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - command-injection-blocked-observation
+        - command-injection-blocked-context
+        - command-injection-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: command-injection-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess command-injection with the command-injection methodology and retain deterministic proof.
+    expected:
+      primary_skill: command-injection
+      top_n: 3
+  - id: command-injection-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: command-injection
+      top_n: 5
+  - id: command-injection-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: command-injection-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: command-injection-mutation-observation
+              content: Only whitespace normalization changed around the same inert argument marker; the instrumented command builder still emitted the marker as an unintended interpreter token while the fixed argument-array control kept it inert.
+            - id: command-injection-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline/instrumented command-builder trace, inert argument marker, and safe fixed-builder control.
+            - id: command-injection-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - command-injection-mutation-observation
+        - command-injection-mutation-context
+        - command-injection-mutation-control
+      forbidden_evidence_ids: []

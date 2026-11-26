@@ -1,0 +1,181 @@
+schema_version: 1
+skill: idor
+cases:
+  - id: idor-positive-horizontal-read
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: two-persona-authz-replay
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: read-owner, content: "Persona A created object A-104 and its owner view returned the unique marker owner-A-104." }
+            - { id: read-cross, content: "Persona B replayed the same request with only object id A-104 changed and received 200 plus owner-A-104." }
+            - { id: read-control, content: "Persona B's own object B-207 returned owner-B-207; a random nonexistent id returned 404." }
+            - { id: read-identity, content: "Captured cookies and account endpoints confirm the cross-object request remained authenticated as persona B." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [read-owner, read-cross, read-control, read-identity]
+      forbidden_evidence_ids: []
+
+  - id: idor-positive-horizontal-write
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: two-persona-state-differential
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: write-before, content: "Persona A's test object A-311 had label before-A-311 and version 4." }
+            - { id: write-cross, content: "Persona B submitted the normal update request with only object id changed to A-311; the response returned 200 and version 5." }
+            - { id: write-owner-after, content: "Persona A re-read A-311 and observed the unique label written by B and version 5." }
+            - { id: write-control, content: "Persona B could update its own object, while a nonexistent id returned 404; cleanup restored A-311." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [write-before, write-cross, write-owner-after, write-control]
+      forbidden_evidence_ids: []
+
+  - id: idor-positive-cross-tenant-nested-id
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tenant-boundary-replay
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: tenant-a, content: "Tenant A created invoice item IA-55 under invoice INV-A and embedded marker tenant-a-only." }
+            - { id: tenant-b-replay, content: "Tenant B kept its own tenant and invoice path but replaced the nested item id with IA-55; response exposed tenant-a-only." }
+            - { id: tenant-controls, content: "Tenant B's own item returned its own marker, and an unknown nested id returned 404." }
+            - { id: tenant-session, content: "Session introspection and response audit fields both identify the requester as tenant B." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [tenant-a, tenant-b-replay, tenant-controls, tenant-session]
+      forbidden_evidence_ids: []
+
+  - id: idor-negative-public-resource
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: access-matrix
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: public-cross, content: "Both personas and an unauthenticated browser received the same published article by numeric id." }
+            - { id: public-policy, content: "Product requirements and the page UI identify published articles as public resources." }
+            - { id: public-private, content: "A draft article id returned 404 to the non-owner and unauthenticated controls." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [public-cross, public-policy, public-private]
+      forbidden_evidence_ids: []
+
+  - id: idor-negative-consistent-owner-enforcement
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: two-persona-authz-replay
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: enforced-owner, content: "Each persona can read its own object and receives its unique marker." }
+            - { id: enforced-cross, content: "Every cross-persona read and update returns the same 404 shape as a random nonexistent id." }
+            - { id: enforced-state, content: "Owner re-reads confirm no cross-persona update changed state." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [enforced-owner, enforced-cross, enforced-state]
+      forbidden_evidence_ids: []
+
+  - id: idor-negative-intended-shared-collaborator
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: role-and-object-matrix
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: collaborator-share, content: "Persona A explicitly shared project P-8 with persona B as an editor before testing." }
+            - { id: collaborator-access, content: "Persona B can read and update P-8 as allowed by the editor role." }
+            - { id: collaborator-control, content: "Persona C, who is not shared on P-8, receives 404 for read and update." }
+            - { id: collaborator-revoke, content: "After A revokes B, persona B also receives 404." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [collaborator-share, collaborator-access, collaborator-control, collaborator-revoke]
+      forbidden_evidence_ids: []
+
+  - id: idor-ambiguous-response-length
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-differential
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: ambiguous-cross, content: "A cross-object request returns 403 with a body 18 bytes longer than the nonexistent-id 403." }
+            - { id: ambiguous-dynamic, content: "The extra bytes are a changing request correlation id; normalized bodies are equal." }
+            - { id: ambiguous-no-data, content: "No other user's marker, protected field, or state change is observed." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [ambiguous-cross, ambiguous-dynamic, ambiguous-no-data]
+      forbidden_evidence_ids: []
+
+  - id: idor-blocked-second-persona-unavailable
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: precondition-record
+        authorization: { policy_allowed: true, infrastructure_available: false }
+        artifact:
+          observations:
+            - { id: blocked-owner, content: "Only one authorized account exists; its own object access works normally." }
+            - { id: blocked-persona, content: "No second same-role or cross-tenant persona can be provisioned in this environment." }
+            - { id: blocked-guess, content: "Object identifiers are visible, but guessing another id without identity-separated replay cannot prove authorization bypass." }
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids: [blocked-owner, blocked-persona, blocked-guess]
+      forbidden_evidence_ids: []
+
+  - id: idor-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Test IDOR object-level authorization by replaying one object request across two same-role personas and proving horizontal read or write behavior.
+    expected: { primary_skill: idor, top_n: 3 }
+
+  - id: idor-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Check whether the administrator-only export function is hidden from ordinary users regardless of object identifier.
+    expected: { absent_skill: idor, top_n: 5 }
+
+  - id: idor-mutation-encoded-uuid
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: authz-mutation-replay
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: uuid-invariant, content: "Only the representation of persona A's UUID changed to percent-encoded lowercase; method, route, body, and persona B session stayed fixed." }
+            - { id: uuid-cross, content: "Persona B received persona A's unique object marker using the encoded UUID in two replays." }
+            - { id: uuid-controls, content: "Persona B's own encoded UUID returned B's marker and a random UUID returned 404." }
+            - { id: uuid-identity, content: "Session evidence confirms all mutation requests were issued as persona B." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [uuid-invariant, uuid-cross, uuid-controls, uuid-identity]
+      forbidden_evidence_ids: []

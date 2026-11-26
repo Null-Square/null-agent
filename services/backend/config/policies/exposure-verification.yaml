@@ -1,0 +1,20 @@
+slug: exposure-verification
+name: Exposure Verification
+isDefaultSandbox: false
+spec:
+  tools:
+    allow:
+      - http_payload
+      - file_read
+      - file_write
+      - submit_exposure_verification
+    deny:
+      - submit_plan
+      - spawn_worker
+      - continue_worker
+      - stop_worker
+      - wait_for_worker
+      - submit_worker_result
+      - shell_run
+      - wait_for_shell_job
+      - ingest_scan_artifact

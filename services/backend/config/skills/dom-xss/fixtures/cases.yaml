@@ -1,0 +1,251 @@
+schema_version: 1
+skill: dom-xss
+cases:
+  - id: dom-xss-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: dom-xss-positive-1-observation
+              content: A fragment marker reached innerHTML and created exactly one inert evaluator element; the textContent control did not parse markup.
+            - id: dom-xss-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - dom-xss-positive-1-observation
+        - dom-xss-positive-1-context
+        - dom-xss-positive-1-control
+      forbidden_evidence_ids: []
+  - id: dom-xss-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: dom-xss-positive-2-observation
+              content: An owner-origin postMessage reached insertAdjacentHTML because the listener omitted origin validation; an unrelated-origin control was also accepted.
+            - id: dom-xss-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - dom-xss-positive-2-observation
+        - dom-xss-positive-2-context
+        - dom-xss-positive-2-control
+      forbidden_evidence_ids: []
+  - id: dom-xss-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: dom-xss-positive-3-observation
+              content: A stored evaluator preference flowed into a script URL sink and changed only an instrumented navigation marker in the local browser fixture.
+            - id: dom-xss-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - dom-xss-positive-3-observation
+        - dom-xss-positive-3-context
+        - dom-xss-positive-3-control
+      forbidden_evidence_ids: []
+  - id: dom-xss-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: dom-xss-negative-1-observation
+              content: The marker reached a text node after HTML encoding.
+            - id: dom-xss-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-negative-1-control
+              content: The retained control explains the observed signal without meeting runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - dom-xss-negative-1-observation
+        - dom-xss-negative-1-context
+        - dom-xss-negative-1-control
+      forbidden_evidence_ids: []
+  - id: dom-xss-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: dom-xss-negative-2-observation
+              content: Static code mentioned eval but the candidate source could not reach it.
+            - id: dom-xss-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-negative-2-control
+              content: The retained control explains the observed signal without meeting runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - dom-xss-negative-2-observation
+        - dom-xss-negative-2-context
+        - dom-xss-negative-2-control
+      forbidden_evidence_ids: []
+  - id: dom-xss-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: dom-xss-negative-3-observation
+              content: A browser extension, not application code, created the observed DOM node.
+            - id: dom-xss-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-negative-3-control
+              content: The retained control explains the observed signal without meeting runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - dom-xss-negative-3-observation
+        - dom-xss-negative-3-context
+        - dom-xss-negative-3-control
+      forbidden_evidence_ids: []
+  - id: dom-xss-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: dom-xss-ambiguous-observation
+              content: Minified code suggests a sink, but runtime taint is lost through an unidentified transform before the DOM write.
+            - id: dom-xss-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-ambiguous-missing
+              content: The packet lacks at least one required element of runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - dom-xss-ambiguous-observation
+        - dom-xss-ambiguous-context
+        - dom-xss-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: dom-xss-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: dom-xss-blocked-observation
+              content: No owner test page/browser instrumentation or safe inert marker context is available.
+            - id: dom-xss-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - dom-xss-blocked-observation
+        - dom-xss-blocked-context
+        - dom-xss-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: dom-xss-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess dom-xss with the dom-xss methodology and retain deterministic proof.
+    expected:
+      primary_skill: dom-xss
+      top_n: 3
+  - id: dom-xss-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: dom-xss
+      top_n: 5
+  - id: dom-xss-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: dom-xss-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: dom-xss-mutation-observation
+              content: Only source changed from query parameter to fragment; transform, innerHTML sink, inert element, and textContent control stayed fixed.
+            - id: dom-xss-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is runtime source-to-transform-to-sink trace and an inert DOM marker with a safe sink control.
+            - id: dom-xss-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - dom-xss-mutation-observation
+        - dom-xss-mutation-context
+        - dom-xss-mutation-control
+      forbidden_evidence_ids: []

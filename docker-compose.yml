@@ -1,0 +1,256 @@
+# Null AI on your machine.
+#
+#   docker compose up                  the app at http://localhost:8080 (NULL_AI_PORT); the first start
+#                                      builds the images, the sandbox image the longest
+#   docker compose --profile lab up    the same, plus OWASP Juice Shop as a practice target at
+#                                      http://juice-shop.lab:3000 for the agent's sandboxes
+#   docker compose up -d dev-ports     only the database and storage, on 127.0.0.1:25432 and :29000,
+#                                      for a backend run from source on this computer
+#
+# Settings: .env next to this file (see .env.example). With no model key, the app opens and the agent
+# waits until a model is added.
+#
+# Networks:
+#   default         db, storage, backend, app. Nothing on it is published but the app, on 127.0.0.1.
+#   sandbox         where the backend starts each sandbox (the agent's commands, and its browser, which runs
+#                   in the sandbox and is driven through docker exec) and Juice Shop. It has
+#                   no address on the host side, so its only way out is sandbox-gateway, which sends
+#                   it to the internet and drops anything for a private or local address, Docker
+#                   Desktop's host.docker.internal included. Requires Docker Engine 28.1 or later.
+#   sandbox-egress  sandbox-gateway's way out, with nothing else on it.
+name: null-ai
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: null_ai
+      POSTGRES_USER: null_ai
+      # Reachable only on the compose network (no host port), so not a secret worth generating.
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-null_ai}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U null_ai -d null_ai"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  storage:
+    # S3-compatible storage for run artifacts, traces and workspaces (SeaweedFS, Apache-2.0). The backend
+    # creates its buckets on first start (S3_AUTO_CREATE_BUCKETS). Compose network only, like db.
+    image: chrislusf/seaweedfs:4.47@sha256:ce9e796f1fe6f06968f4c04bdaf8f678dad9c8acdfef3d244133d71bfa6bf882
+    restart: unless-stopped
+    command: ["mini", "-dir=/data", "-s3.port=9000", "-admin.ui=false", "-webdav=false", "-s3.port.iceberg=0", "-s3.port.lance=0"]
+    environment:
+      AWS_ACCESS_KEY_ID: "${S3_ACCESS_KEY:-null_ai}"
+      AWS_SECRET_ACCESS_KEY: "${S3_SECRET_KEY:-null_ai_storage}"
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 9000"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - storage-data:/data
+
+  sandbox-image:
+    # Build only: builds the image the backend starts every sandbox from, then exits.
+    build:
+      context: .
+      dockerfile: services/sandbox/Dockerfile
+    image: null-ai-sandbox:local
+    command: ["true"]
+    network_mode: none
+    restart: "no"
+
+  sandbox-gateway:
+    # The sandboxes' default gateway. It claims the sandbox network's gateway address (the host side
+    # has none) and forwards to the internet only; private, loopback, link-local, shared and Docker
+    # Desktop addresses are refused, so a sandbox cannot reach this computer's services or your LAN.
+    # Traffic between sandboxes and Juice Shop stays on the sandbox network and never passes here.
+    build:
+      dockerfile_inline: |
+        # syntax=docker/dockerfile:1.7
+        FROM alpine:3.22@sha256:49340b346798875b5592e5d420241f2f9cfba5f47e62ebb1446a1b34734e898f
+        RUN apk add --no-cache iptables iproute2
+        COPY --chmod=755 <<'EOF' /usr/local/bin/sandbox-gateway
+        #!/bin/sh
+        set -eu
+        rm -f /run/sandbox-gateway.ready
+        if ! ip -4 route show default | grep -q 'dev egress0'; then
+          echo "sandbox-gateway: the default route is not on egress0; refusing to forward" >&2
+          exit 1
+        fi
+        cidr=$$(ip -o -4 addr show dev sandbox0 | awk '{print $$4; exit}')
+        net=$$(ipcalc -n "$$cidr" | cut -d= -f2)
+        gateway="$${net%.*}.$$(( $${net##*.} + 1 ))"
+        ip addr replace "$$gateway/$${cidr#*/}" dev sandbox0
+        iptables -P FORWARD DROP
+        iptables -F FORWARD
+        iptables -A FORWARD -i egress0 -o sandbox0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+        for range in 0.0.0.0/8 10.0.0.0/8 100.64.0.0/10 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 \
+          192.0.0.0/24 192.168.0.0/16 198.18.0.0/15 224.0.0.0/4 240.0.0.0/4; do
+          iptables -A FORWARD -i sandbox0 -d "$$range" -j REJECT --reject-with icmp-net-prohibited
+        done
+        iptables -A FORWARD -i sandbox0 -o egress0 -j ACCEPT
+        iptables -F INPUT
+        iptables -A INPUT -i sandbox0 -j DROP
+        iptables -t nat -F POSTROUTING
+        iptables -t nat -A POSTROUTING -o egress0 -j MASQUERADE
+        ip6tables -P FORWARD DROP 2>/dev/null || true
+        ip6tables -P INPUT DROP 2>/dev/null || true
+        echo "sandbox-gateway: $$gateway on sandbox0 forwards to the internet only"
+        touch /run/sandbox-gateway.ready
+        exec sleep infinity
+        EOF
+        ENTRYPOINT ["/usr/local/bin/sandbox-gateway"]
+    image: null-ai-sandbox-gateway:local
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /run
+    cap_drop: [ALL]
+    cap_add: [NET_ADMIN]
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    networks:
+      sandbox:
+        interface_name: sandbox0
+      sandbox-egress:
+        interface_name: egress0
+        gw_priority: 1
+    healthcheck:
+      test: ["CMD", "test", "-f", "/run/sandbox-gateway.ready"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  backend:
+    build:
+      context: .
+      dockerfile: services/backend/Dockerfile
+      target: production
+    image: null-ai-backend:local
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      storage:
+        condition: service_healthy
+      sandbox-image:
+        condition: service_completed_successfully
+      sandbox-gateway:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: "3001"
+      # Listen on the compose network; nothing publishes this port. The app's nginx is the way in.
+      NULL_AI_BIND_HOST: 0.0.0.0
+      # nginx passes the browser's own Host (localhost or 127.0.0.1), which the door already allows.
+      NULL_AI_ALLOWED_HOSTS: ""
+      NULL_AI_APP_URL: "http://localhost:${NULL_AI_PORT:-8080}"
+      # The owner key and the generated encryption keys (docker-entrypoint.sh). Backend only.
+      NULL_AI_HOME: /var/lib/null-ai/secrets
+      ACCESS_MATERIALS_ENCRYPTION_KEY: "${ACCESS_MATERIALS_ENCRYPTION_KEY:-}"
+      MODEL_API_KEY_ENCRYPTION_KEY: "${MODEL_API_KEY_ENCRYPTION_KEY:-}"
+      ENABLE_WORKERS: "true"
+      DATABASE_URL: "postgresql://null_ai:${POSTGRES_PASSWORD:-null_ai}@db:5432/null_ai"
+      S3_ENDPOINT: http://storage:9000
+      S3_REGION: us-east-1
+      S3_ACCESS_KEY: "${S3_ACCESS_KEY:-null_ai}"
+      S3_SECRET_KEY: "${S3_SECRET_KEY:-null_ai_storage}"
+      S3_FORCE_PATH_STYLE: "true"
+      S3_AUTO_CREATE_BUCKETS: "true"
+      SANDBOX_IMAGE: null-ai-sandbox:local
+      SANDBOX_NETWORK: null-ai-sandbox
+      # Sandboxes are sibling containers: the daemon mounts their workspace from this path, so the
+      # backend sees it at the same path.
+      WORKSPACE_ROOT: "${NULL_AI_WORKSPACE_ROOT:-/var/lib/null-ai/workspaces}"
+      # Practice targets that verify as "lab" (the lab profile's Juice Shop). Set it empty to turn off.
+      NULL_AI_LAB_TARGETS: "${NULL_AI_LAB_TARGETS-juice-shop.lab}"
+      LOG_LEVEL: "${LOG_LEVEL:-info}"
+      # Model keys, stored (encrypted) as the seeded models' keys on start.
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
+      MOONSHOT_API_KEY: "${MOONSHOT_API_KEY:-}"
+      QWEN_API_KEY: "${QWEN_API_KEY:-}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - backend-secrets:/var/lib/null-ai/secrets
+      - backend-storage:/app/services/backend/storage
+      - "${NULL_AI_WORKSPACE_ROOT:-/var/lib/null-ai/workspaces}:${NULL_AI_WORKSPACE_ROOT:-/var/lib/null-ai/workspaces}"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 180s
+
+  app:
+    build:
+      context: .
+      dockerfile: services/frontend/Dockerfile
+    image: null-ai-app:local
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${NULL_AI_PORT:-8080}:8080"
+
+  juice-shop:
+    # OWASP Juice Shop, a deliberately vulnerable app to practise on. Only on the sandbox network.
+    profiles: ["lab"]
+    image: bkimminich/juice-shop:v20.4.0@sha256:9bbaecc41791f00b002bc65931cc5ff355fbdb941fa72b06558c18dace43197b
+    restart: unless-stopped
+    networks:
+      sandbox:
+        aliases:
+          - juice-shop.lab
+
+  dev-ports:
+    # For a backend run from source: publishes db and storage on this computer only.
+    profiles: ["dev"]
+    image: nginx:1.28-alpine@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      storage:
+        condition: service_healthy
+    configs:
+      - source: dev-ports
+        target: /etc/nginx/nginx.conf
+    ports:
+      - "127.0.0.1:${NULL_AI_DB_PORT:-25432}:5432"
+      - "127.0.0.1:${NULL_AI_STORAGE_PORT:-29000}:9000"
+
+configs:
+  dev-ports:
+    content: |
+      events {}
+      stream {
+        resolver 127.0.0.11 valid=10s ipv6=off;
+        server { listen 5432; set $$db db:5432; proxy_pass $$db; }
+        server { listen 9000; set $$storage storage:9000; proxy_pass $$storage; }
+      }
+
+networks:
+  sandbox:
+    name: null-ai-sandbox
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.inhibit_ipv4: "true"
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+  sandbox-egress:
+    name: null-ai-sandbox-egress
+    driver: bridge
+
+volumes:
+  db-data:
+  storage-data:
+  backend-secrets:
+  backend-storage:

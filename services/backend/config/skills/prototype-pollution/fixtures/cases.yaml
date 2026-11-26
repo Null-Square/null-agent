@@ -1,0 +1,251 @@
+schema_version: 1
+skill: prototype-pollution
+cases:
+  - id: prototype-pollution-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: prototype-pollution-positive-1-observation
+              content: A supplied nested key changed an inherited evaluator canary on a fresh object in the local harness while the fixed merge kept it absent.
+            - id: prototype-pollution-positive-1-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - prototype-pollution-positive-1-observation
+        - prototype-pollution-positive-1-floor
+        - prototype-pollution-positive-1-control
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: prototype-pollution-positive-2-observation
+              content: A query parser plus deep merge set a harmless default option through the prototype and the own-property control did not.
+            - id: prototype-pollution-positive-2-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - prototype-pollution-positive-2-observation
+        - prototype-pollution-positive-2-floor
+        - prototype-pollution-positive-2-control
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: prototype-pollution-positive-3-observation
+              content: A JSON merge variant polluted only the disposable fixture object graph and altered the mocked policy option.
+            - id: prototype-pollution-positive-3-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - prototype-pollution-positive-3-observation
+        - prototype-pollution-positive-3-floor
+        - prototype-pollution-positive-3-control
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: prototype-pollution-negative-1-observation
+              content: Dangerous keys were dropped before the merge.
+            - id: prototype-pollution-negative-1-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - prototype-pollution-negative-1-observation
+        - prototype-pollution-negative-1-floor
+        - prototype-pollution-negative-1-control
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: prototype-pollution-negative-2-observation
+              content: The marker became an own property of the submitted object and did not affect fresh objects.
+            - id: prototype-pollution-negative-2-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - prototype-pollution-negative-2-observation
+        - prototype-pollution-negative-2-floor
+        - prototype-pollution-negative-2-control
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: prototype-pollution-negative-3-observation
+              content: A vulnerable merge library version was present but the active call path used a patched wrapper.
+            - id: prototype-pollution-negative-3-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - prototype-pollution-negative-3-observation
+        - prototype-pollution-negative-3-floor
+        - prototype-pollution-negative-3-control
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: prototype-pollution-ambiguous-observation
+              content: A suspicious key is accepted, but fresh-object inheritance and an active merge path are not demonstrated.
+            - id: prototype-pollution-ambiguous-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - prototype-pollution-ambiguous-observation
+        - prototype-pollution-ambiguous-floor
+        - prototype-pollution-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: prototype-pollution-blocked-observation
+              content: No isolated JavaScript harness or disposable object graph is available.
+            - id: prototype-pollution-blocked-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - prototype-pollution-blocked-observation
+        - prototype-pollution-blocked-floor
+        - prototype-pollution-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: prototype-pollution-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess prototype-pollution with the prototype-pollution methodology and retain deterministic proof.
+    expected:
+      primary_skill: prototype-pollution
+      top_n: 3
+  - id: prototype-pollution-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: prototype-pollution
+      top_n: 5
+  - id: prototype-pollution-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: prototype-pollution-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: prototype-pollution-mutation-observation
+              content: Only dangerous-key encoding changed; the same inherited canary on a fresh object and fixed-merge control remained.
+            - id: prototype-pollution-mutation-floor
+              content: The required decision floor is instrumented disposable JavaScript object graph, attacker-controlled merge path, own/inherited property controls, and harmless canary effect.
+            - id: prototype-pollution-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - prototype-pollution-mutation-observation
+        - prototype-pollution-mutation-floor
+        - prototype-pollution-mutation-control
+      forbidden_evidence_ids: []

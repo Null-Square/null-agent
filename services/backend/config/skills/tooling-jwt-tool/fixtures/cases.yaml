@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-jwt-tool
+cases:
+  - id: tooling-jwt-tool-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-jwt-tool-positive-1-observation
+              content: The tool decoded a redacted evaluator token and inventoried issuer, audience, algorithm, key id, and time claims offline.
+            - id: tooling-jwt-tool-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-positive-1-observation
+        - tooling-jwt-tool-positive-1-context
+        - tooling-jwt-tool-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-jwt-tool-positive-2-observation
+              content: Offline verification selected the supplied JWKS key and recorded a valid evaluator signature without retaining the token.
+            - id: tooling-jwt-tool-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-positive-2-observation
+        - tooling-jwt-tool-positive-2-context
+        - tooling-jwt-tool-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-jwt-tool-positive-3-observation
+              content: A synthetic local verifier fixture reproduced a claim-validation regression using no production secret.
+            - id: tooling-jwt-tool-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-positive-3-observation
+        - tooling-jwt-tool-positive-3-context
+        - tooling-jwt-tool-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-jwt-tool-negative-1-observation
+              content: A decoded payload was treated as verified identity.
+            - id: tooling-jwt-tool-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-negative-1-control
+              content: The retained control explains the observed signal without meeting offline evaluator token, verification material provenance, redaction, and owning protocol interpretation; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-negative-1-observation
+        - tooling-jwt-tool-negative-1-context
+        - tooling-jwt-tool-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-jwt-tool-negative-2-observation
+              content: The proposed operation attempted signing-secret brute force.
+            - id: tooling-jwt-tool-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-negative-2-control
+              content: The retained control explains the observed signal without meeting offline evaluator token, verification material provenance, redaction, and owning protocol interpretation; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-negative-2-observation
+        - tooling-jwt-tool-negative-2-context
+        - tooling-jwt-tool-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-jwt-tool-negative-3-observation
+              content: A discovered private key would have been used against a service.
+            - id: tooling-jwt-tool-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-negative-3-control
+              content: The retained control explains the observed signal without meeting offline evaluator token, verification material provenance, redaction, and owning protocol interpretation; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-negative-3-observation
+        - tooling-jwt-tool-negative-3-context
+        - tooling-jwt-tool-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-jwt-tool-ambiguous-observation
+              content: The transcript shows decoded claims but not signature verification, key provenance, or application consumption.
+            - id: tooling-jwt-tool-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-ambiguous-missing
+              content: The packet lacks at least one required element of offline evaluator token, verification material provenance, redaction, and owning protocol interpretation, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-ambiguous-observation
+        - tooling-jwt-tool-ambiguous-context
+        - tooling-jwt-tool-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-jwt-tool-blocked-observation
+              content: No redacted evaluator token or approved verification material is available.
+            - id: tooling-jwt-tool-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-blocked-observation
+        - tooling-jwt-tool-blocked-context
+        - tooling-jwt-tool-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-jwt-tool-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-jwt-tool with the tooling-jwt-tool methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-jwt-tool
+      top_n: 3
+  - id: tooling-jwt-tool-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-jwt-tool
+      top_n: 5
+  - id: tooling-jwt-tool-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-jwt-tool-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-jwt-tool-mutation-observation
+              content: Only the offline claim under test changed; verification key, synthetic local verifier, and redaction stayed fixed.
+            - id: tooling-jwt-tool-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is offline evaluator token, verification material provenance, redaction, and owning protocol interpretation.
+            - id: tooling-jwt-tool-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-jwt-tool-mutation-observation
+        - tooling-jwt-tool-mutation-context
+        - tooling-jwt-tool-mutation-control
+      forbidden_evidence_ids: []

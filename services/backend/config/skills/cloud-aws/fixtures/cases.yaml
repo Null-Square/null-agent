@@ -1,0 +1,355 @@
+schema_version: 1
+skill: cloud-aws
+cases:
+  - id: cloud-aws-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cloud-aws-positive-1-observation
+              content: An anonymous request read the named private S3 evaluator object while a nonexistent key and authenticated owner request supplied controls.
+            - id: cloud-aws-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-aws-positive-1-observation
+        - cloud-aws-positive-1-context
+        - cloud-aws-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cloud-aws-positive-2-observation
+              content: A public API Gateway route performed one harmless evaluator action although active configuration required an authorizer.
+            - id: cloud-aws-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-aws-positive-2-observation
+        - cloud-aws-positive-2-context
+        - cloud-aws-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cloud-aws-positive-3-observation
+              content: A Lambda Function URL with active NONE auth returned a synthetic private canary tied to the deployed function configuration.
+            - id: cloud-aws-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-aws-positive-3-observation
+        - cloud-aws-positive-3-context
+        - cloud-aws-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: cloud-aws-positive-4-observation
+              content: CloudFront served the evaluator private canary to an anonymous request while the origin-control path denied it.
+            - id: cloud-aws-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-aws-positive-4-observation
+        - cloud-aws-positive-4-context
+        - cloud-aws-positive-4-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: cloud-aws-positive-5-observation
+              content: Active IaC and runtime headers tied a public AppSync query to an anonymous read of the named synthetic record.
+            - id: cloud-aws-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-aws-positive-5-observation
+        - cloud-aws-positive-5-context
+        - cloud-aws-positive-5-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cloud-aws-negative-1-observation
+              content: An S3 bucket served intentionally public website assets and the supplied policy confirmed public intent.
+            - id: cloud-aws-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-negative-1-control
+              content: The retained control explains the observed signal without meeting public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-aws-negative-1-observation
+        - cloud-aws-negative-1-context
+        - cloud-aws-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cloud-aws-negative-2-observation
+              content: CloudFront returned cached public content while the private origin and named canary remained denied.
+            - id: cloud-aws-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-negative-2-control
+              content: The retained control explains the observed signal without meeting public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-aws-negative-2-observation
+        - cloud-aws-negative-2-context
+        - cloud-aws-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cloud-aws-negative-3-observation
+              content: A wildcard policy appeared only in an unused example stack.
+            - id: cloud-aws-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-negative-3-control
+              content: The retained control explains the observed signal without meeting public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-aws-negative-3-observation
+        - cloud-aws-negative-3-context
+        - cloud-aws-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: cloud-aws-negative-4-observation
+              content: An API Gateway default forbidden banner did not reach an application route.
+            - id: cloud-aws-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-negative-4-control
+              content: The retained control explains the observed signal without meeting public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-aws-negative-4-observation
+        - cloud-aws-negative-4-context
+        - cloud-aws-negative-4-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: cloud-aws-negative-5-observation
+              content: A credential-shaped string was an invalid fixture value and was never used.
+            - id: cloud-aws-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-negative-5-control
+              content: The retained control explains the observed signal without meeting public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-aws-negative-5-observation
+        - cloud-aws-negative-5-context
+        - cloud-aws-negative-5-control
+      forbidden_evidence_ids: []
+  - id: cloud-aws-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cloud-aws-ambiguous-observation
+              content: A public AWS hostname responds, but source/runtime deployment and data-publication intent cannot be tied to it.
+            - id: cloud-aws-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-ambiguous-missing
+              content: The packet lacks at least one required element of public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-aws-ambiguous-observation
+        - cloud-aws-ambiguous-context
+        - cloud-aws-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cloud-aws-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cloud-aws-blocked-observation
+              content: Confirmation would require AWS credentials, metadata access, listing, writes, or an unnamed non-evaluator object.
+            - id: cloud-aws-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cloud-aws-blocked-observation
+        - cloud-aws-blocked-context
+        - cloud-aws-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cloud-aws-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cloud-aws with the cloud-aws methodology and retain deterministic proof.
+    expected:
+      primary_skill: cloud-aws
+      top_n: 3
+  - id: cloud-aws-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cloud-aws
+      top_n: 5
+  - id: cloud-aws-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cloud-aws-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cloud-aws-mutation-observation
+              content: Only the named S3 object changed from evaluator owner to peer synthetic canary; anonymous access and nonexistent controls stayed fixed.
+            - id: cloud-aws-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is public AWS service identification, named synthetic resource, intent/config provenance, and anonymous/control differential.
+            - id: cloud-aws-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cloud-aws-mutation-observation
+        - cloud-aws-mutation-context
+        - cloud-aws-mutation-control
+      forbidden_evidence_ids: []

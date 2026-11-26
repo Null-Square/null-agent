@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-interactsh
+cases:
+  - id: tooling-interactsh-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-interactsh-positive-1-observation
+              content: Interactsh issued one unique evaluator nonce and correlated the expected DNS callback from the local fixture.
+            - id: tooling-interactsh-positive-1-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-positive-1-observation
+        - tooling-interactsh-positive-1-floor
+        - tooling-interactsh-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-interactsh-positive-2-observation
+              content: An HTTP callback record retained time, protocol, nonce, and source category with headers/body minimized.
+            - id: tooling-interactsh-positive-2-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-positive-2-observation
+        - tooling-interactsh-positive-2-floor
+        - tooling-interactsh-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-interactsh-positive-3-observation
+              content: Two candidate requests used separate nonces and the report correctly attributed only one callback.
+            - id: tooling-interactsh-positive-3-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-positive-3-observation
+        - tooling-interactsh-positive-3-floor
+        - tooling-interactsh-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-interactsh-negative-1-observation
+              content: The observed callback lacked a matching evaluator nonce and could not be attributed to the candidate request.
+            - id: tooling-interactsh-negative-1-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-negative-1-observation
+        - tooling-interactsh-negative-1-floor
+        - tooling-interactsh-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-interactsh-negative-2-observation
+              content: The proposed payload would transmit sensitive target data.
+            - id: tooling-interactsh-negative-2-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-negative-2-observation
+        - tooling-interactsh-negative-2-floor
+        - tooling-interactsh-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-interactsh-negative-3-observation
+              content: A public internet scan hit the correlation domain independently of the fixture.
+            - id: tooling-interactsh-negative-3-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-negative-3-observation
+        - tooling-interactsh-negative-3-floor
+        - tooling-interactsh-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-interactsh-ambiguous-observation
+              content: A callback exists but nonce, candidate request, time window, and protocol attribution are incomplete.
+            - id: tooling-interactsh-ambiguous-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-ambiguous-observation
+        - tooling-interactsh-ambiguous-floor
+        - tooling-interactsh-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-interactsh-blocked-observation
+              content: No approved owner correlation service or callback permission is available.
+            - id: tooling-interactsh-blocked-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-blocked-observation
+        - tooling-interactsh-blocked-floor
+        - tooling-interactsh-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-interactsh-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-interactsh with the tooling-interactsh methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-interactsh
+      top_n: 3
+  - id: tooling-interactsh-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-interactsh
+      top_n: 5
+  - id: tooling-interactsh-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-interactsh-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-interactsh-mutation-observation
+              content: Only callback protocol changed from DNS to approved HTTP; unique nonce, candidate mapping, and data-minimization rules stayed fixed.
+            - id: tooling-interactsh-mutation-floor
+              content: The required decision floor is owner-controlled correlation service, unique nonce, bounded approved callback class, and no sensitive exfiltration.
+            - id: tooling-interactsh-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-interactsh-mutation-observation
+        - tooling-interactsh-mutation-floor
+        - tooling-interactsh-mutation-control
+      forbidden_evidence_ids: []

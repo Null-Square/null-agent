@@ -1,0 +1,251 @@
+schema_version: 1
+skill: source-aware-whitebox
+cases:
+  - id: source-aware-whitebox-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: source-aware-whitebox-positive-1-observation
+              content: Route, middleware, controller, and ORM query showed a missing tenant predicate and the evaluator peer-canary runtime control confirmed it.
+            - id: source-aware-whitebox-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - source-aware-whitebox-positive-1-observation
+        - source-aware-whitebox-positive-1-context
+        - source-aware-whitebox-positive-1-control
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: source-aware-whitebox-positive-2-observation
+              content: Source triage proved evaluator input reached the active sink in the deployed revision, a bounded runtime canary confirmed the predicted behavior, and the specialist handoff retained the exact path.
+            - id: source-aware-whitebox-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - source-aware-whitebox-positive-2-observation
+        - source-aware-whitebox-positive-2-context
+        - source-aware-whitebox-positive-2-control
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: source-aware-whitebox-positive-3-observation
+              content: Deployed commit metadata matched reviewed source and one bounded request confirmed the predicted validation gap.
+            - id: source-aware-whitebox-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - source-aware-whitebox-positive-3-observation
+        - source-aware-whitebox-positive-3-context
+        - source-aware-whitebox-positive-3-control
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: source-aware-whitebox-negative-1-observation
+              content: The vulnerable function was unreferenced.
+            - id: source-aware-whitebox-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-negative-1-control
+              content: The retained control explains the observed signal without meeting complete active code path, deployed revision, evaluator runtime control, and specialist handoff; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - source-aware-whitebox-negative-1-observation
+        - source-aware-whitebox-negative-1-context
+        - source-aware-whitebox-negative-1-control
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: source-aware-whitebox-negative-2-observation
+              content: The reviewed route was guarded by a feature that the deployed manifest and runtime diagnostics both confirmed disabled for the evaluated revision, so the route was unreachable.
+            - id: source-aware-whitebox-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-negative-2-control
+              content: The retained control explains the observed signal without meeting complete active code path, deployed revision, evaluator runtime control, and specialist handoff; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - source-aware-whitebox-negative-2-observation
+        - source-aware-whitebox-negative-2-context
+        - source-aware-whitebox-negative-2-control
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: source-aware-whitebox-negative-3-observation
+              content: Source revision differed from runtime build metadata.
+            - id: source-aware-whitebox-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-negative-3-control
+              content: The retained control explains the observed signal without meeting complete active code path, deployed revision, evaluator runtime control, and specialist handoff; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - source-aware-whitebox-negative-3-observation
+        - source-aware-whitebox-negative-3-context
+        - source-aware-whitebox-negative-3-control
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: source-aware-whitebox-ambiguous-observation
+              content: A plausible code path exists, but feature state, deployed commit, or runtime correlation is absent.
+            - id: source-aware-whitebox-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-ambiguous-missing
+              content: The packet lacks at least one required element of complete active code path, deployed revision, evaluator runtime control, and specialist handoff, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - source-aware-whitebox-ambiguous-observation
+        - source-aware-whitebox-ambiguous-context
+        - source-aware-whitebox-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: source-aware-whitebox-blocked-observation
+              content: Repository/deployment provenance or a safe evaluator runtime control is unavailable.
+            - id: source-aware-whitebox-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - source-aware-whitebox-blocked-observation
+        - source-aware-whitebox-blocked-context
+        - source-aware-whitebox-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: source-aware-whitebox-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess source-aware-whitebox with the source-aware-whitebox methodology and retain deterministic proof.
+    expected:
+      primary_skill: source-aware-whitebox
+      top_n: 3
+  - id: source-aware-whitebox-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: source-aware-whitebox
+      top_n: 5
+  - id: source-aware-whitebox-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: source-aware-whitebox-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: source-aware-whitebox-mutation-observation
+              content: Only the evaluator entry adapter changed in the source fixture; the same active source-to-sink path and runtime canary outcome persisted while deployed revision and negative control remained fixed.
+            - id: source-aware-whitebox-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is complete active code path, deployed revision, evaluator runtime control, and specialist handoff.
+            - id: source-aware-whitebox-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - source-aware-whitebox-mutation-observation
+        - source-aware-whitebox-mutation-context
+        - source-aware-whitebox-mutation-control
+      forbidden_evidence_ids: []

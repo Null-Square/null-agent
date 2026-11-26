@@ -1,0 +1,48 @@
+# Generated from PhaseProfileRegistry for admin catalog tool-policy surfacing.
+# Do not edit by hand. Run `npm run catalog:policies` from services/backend.
+slug: phase-control_assessment
+name: Agent Catalog Phase control_assessment
+isDefaultSandbox: false
+spec:
+  tools:
+    allow:
+      - query_inventory
+      - query_notes
+      - query_findings
+      - query_compliance_readiness
+      - query_compliance_evidence
+      - query_compliance_proof_package
+      - list_relevant_skills
+      - load_skill
+      - file_read
+      - file_write
+      - shell_run
+      - wait_for_shell_job
+      - web_search
+      - http_payload
+      - http_raw_send
+      - http_differential
+      - browser_action
+      - http_list
+      - http_view
+      - http_repeat
+      - http_sitemap
+      - python_session
+      - authz_replay
+      - record_control_check
+      - record_control_request
+      - review_control_request
+      - map_compliance_evidence
+      - annotate_compliance_evidence
+      - report_note
+      - submit_phase_handoff
+      - submit_phase_checkpoint
+      - control_assessment_handoff_preflight
+      - list_connected_repositories
+      - search_connected_repository
+      - read_connected_repository_file
+      - spawn_worker
+      - continue_worker
+      - stop_worker
+      - wait_for_worker
+      - submit_worker_result

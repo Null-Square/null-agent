@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-naabu
+cases:
+  - id: tooling-naabu-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-naabu-positive-1-observation
+              content: Naabu scanned the supplied small port set and a second bounded check confirmed the responsive service.
+            - id: tooling-naabu-positive-1-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-positive-1-observation
+        - tooling-naabu-positive-1-floor
+        - tooling-naabu-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-naabu-positive-2-observation
+              content: The result retained address, port, transport, time, and rate configuration for handoff.
+            - id: tooling-naabu-positive-2-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-positive-2-observation
+        - tooling-naabu-positive-2-floor
+        - tooling-naabu-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-naabu-positive-3-observation
+              content: Duplicate resolved hostnames collapsed to one address/port observation with both provenance labels.
+            - id: tooling-naabu-positive-3-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-positive-3-observation
+        - tooling-naabu-positive-3-floor
+        - tooling-naabu-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-naabu-negative-1-observation
+              content: A one-time open result failed confirmation.
+            - id: tooling-naabu-negative-1-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-negative-1-observation
+        - tooling-naabu-negative-1-floor
+        - tooling-naabu-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-naabu-negative-2-observation
+              content: The proposed scan used the full port range without approval.
+            - id: tooling-naabu-negative-2-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-negative-2-observation
+        - tooling-naabu-negative-2-floor
+        - tooling-naabu-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-naabu-negative-3-observation
+              content: An address outside the allowlist entered through DNS expansion.
+            - id: tooling-naabu-negative-3-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-negative-3-observation
+        - tooling-naabu-negative-3-floor
+        - tooling-naabu-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-naabu-ambiguous-observation
+              content: A port appears responsive once, but confirmation, protocol, and ownership provenance are absent.
+            - id: tooling-naabu-ambiguous-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-ambiguous-observation
+        - tooling-naabu-ambiguous-floor
+        - tooling-naabu-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-naabu-blocked-observation
+              content: No host/port allowlist or packet/rate ceiling is available.
+            - id: tooling-naabu-blocked-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-blocked-observation
+        - tooling-naabu-blocked-floor
+        - tooling-naabu-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-naabu-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-naabu with the tooling-naabu methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-naabu
+      top_n: 3
+  - id: tooling-naabu-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-naabu
+      top_n: 5
+  - id: tooling-naabu-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-naabu-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-naabu-mutation-observation
+              content: Only one explicitly approved port was added; host set, packet rate, confirmation, and ownership handoff stayed fixed.
+            - id: tooling-naabu-mutation-floor
+              content: The required decision floor is allowlisted hosts/ports, packet/rate ceiling, bounded confirmation, and network-recon ownership.
+            - id: tooling-naabu-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-naabu-mutation-observation
+        - tooling-naabu-mutation-floor
+        - tooling-naabu-mutation-control
+      forbidden_evidence_ids: []

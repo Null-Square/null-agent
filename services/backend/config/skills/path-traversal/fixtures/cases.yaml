@@ -1,0 +1,251 @@
+schema_version: 1
+skill: path-traversal
+cases:
+  - id: path-traversal-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: path-traversal-positive-1-observation
+              content: A traversal-normalized download route returned the named synthetic file outside the intended evaluator directory while a sibling and nonexistent control were retained.
+            - id: path-traversal-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - path-traversal-positive-1-observation
+        - path-traversal-positive-1-context
+        - path-traversal-positive-1-control
+      forbidden_evidence_ids: []
+  - id: path-traversal-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: path-traversal-positive-2-observation
+              content: An encoded separator variant reached the same out-of-directory evaluator canary after the canonical parent sequence was denied.
+            - id: path-traversal-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - path-traversal-positive-2-observation
+        - path-traversal-positive-2-context
+        - path-traversal-positive-2-control
+      forbidden_evidence_ids: []
+  - id: path-traversal-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: path-traversal-positive-3-observation
+              content: A supplied archive fixture resolved one inert entry outside the disposable extraction root in an offline harness.
+            - id: path-traversal-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - path-traversal-positive-3-observation
+        - path-traversal-positive-3-context
+        - path-traversal-positive-3-control
+      forbidden_evidence_ids: []
+  - id: path-traversal-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: path-traversal-negative-1-observation
+              content: The response echoed path text but resolved only inside the allowed root.
+            - id: path-traversal-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-negative-1-control
+              content: The retained control explains the observed signal without meeting named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - path-traversal-negative-1-observation
+        - path-traversal-negative-1-context
+        - path-traversal-negative-1-control
+      forbidden_evidence_ids: []
+  - id: path-traversal-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: path-traversal-negative-2-observation
+              content: All traversal encodings returned the same generic not-found response as random controls.
+            - id: path-traversal-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-negative-2-control
+              content: The retained control explains the observed signal without meeting named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - path-traversal-negative-2-observation
+        - path-traversal-negative-2-context
+        - path-traversal-negative-2-control
+      forbidden_evidence_ids: []
+  - id: path-traversal-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: path-traversal-negative-3-observation
+              content: A file path existed in a stack trace but no attacker-controlled read or write occurred.
+            - id: path-traversal-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-negative-3-control
+              content: The retained control explains the observed signal without meeting named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - path-traversal-negative-3-observation
+        - path-traversal-negative-3-context
+        - path-traversal-negative-3-control
+      forbidden_evidence_ids: []
+  - id: path-traversal-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: path-traversal-ambiguous-observation
+              content: The candidate returns a different error, but resolved path and named synthetic file content are absent.
+            - id: path-traversal-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-ambiguous-missing
+              content: The packet lacks at least one required element of named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - path-traversal-ambiguous-observation
+        - path-traversal-ambiguous-context
+        - path-traversal-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: path-traversal-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: path-traversal-blocked-observation
+              content: No disposable filesystem fixture, named canary, or resolved-path instrumentation is available.
+            - id: path-traversal-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - path-traversal-blocked-observation
+        - path-traversal-blocked-context
+        - path-traversal-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: path-traversal-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess path-traversal with the path-traversal methodology and retain deterministic proof.
+    expected:
+      primary_skill: path-traversal
+      top_n: 3
+  - id: path-traversal-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: path-traversal
+      top_n: 5
+  - id: path-traversal-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: path-traversal-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: path-traversal-mutation-observation
+              content: Only separator encoding changed; the same named out-of-root evaluator canary and nonexistent control remained stable.
+            - id: path-traversal-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named evaluator file, canonical path control, resolved storage-path evidence, and bounded read/write outcome.
+            - id: path-traversal-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - path-traversal-mutation-observation
+        - path-traversal-mutation-context
+        - path-traversal-mutation-control
+      forbidden_evidence_ids: []

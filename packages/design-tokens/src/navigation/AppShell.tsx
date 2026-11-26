@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 import { cn } from '../cn';
+import { CellIcon } from '../CellIcon';
+import { useTheme } from '../theme/ThemeProvider';
 import { AppRail, type AppRailProps } from './AppRail';
 
 /**
@@ -37,6 +39,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   mainClassName,
   ...rail
 }) => {
+  const { theme, toggleTheme } = useTheme();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -90,10 +93,14 @@ export const AppShell: React.FC<AppShellProps> = ({
             {mobileTitle ?? rail.identity?.name}
           </span>
         </div>
-        {/* Holds the title centred where the mode toggle stood. The product is
-            dark only (toggle removed on 2026-10-02 at the owner's request; light
-            styles kept). w-9 matches the menu button. */}
-        <span aria-hidden className="w-9" />
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="p-2 text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <CellIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
+        </button>
       </header>
 
       {drawerOpen ? (

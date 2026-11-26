@@ -1,0 +1,50 @@
+# Generated from PhaseProfileRegistry for admin catalog tool-policy surfacing.
+# Do not edit by hand. Run `npm run catalog:policies` from services/backend.
+slug: phase-enumeration
+name: Agent Catalog Phase enumeration
+isDefaultSandbox: false
+spec:
+  tools:
+    allow:
+      - query_inventory
+      - query_notes
+      - query_findings
+      - list_relevant_skills
+      - load_skill
+      - file_read
+      - file_write
+      - shell_run
+      - wait_for_shell_job
+      - web_search
+      - http_payload
+      - http_raw_send
+      - http_differential
+      - browser_action
+      - http_list
+      - http_view
+      - http_repeat
+      - http_sitemap
+      - python_session
+      - persona_save
+      - persona_list
+      - persona_load
+      - persona_forget
+      - authz_replay
+      - report_asset
+      - report_service
+      - ingest_scan_artifact
+      - report_note
+      - report_finding
+      - promote_finding
+      - submit_enumeration_disposition
+      - submit_phase_handoff
+      - submit_phase_checkpoint
+      - enumeration_handoff_preflight
+      - list_connected_repositories
+      - search_connected_repository
+      - read_connected_repository_file
+      - spawn_worker
+      - continue_worker
+      - stop_worker
+      - wait_for_worker
+      - submit_worker_result

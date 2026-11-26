@@ -1,0 +1,244 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: Null-AI Critical Alerts
+    folder: Alerting
+    interval: 1m
+    rules:
+      - uid: backend-down
+        title: Backend Down
+        condition: B
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 120
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: up{job="backend"}
+              instant: false
+              refId: A
+          - refId: B
+            relativeTimeRange:
+              from: 120
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 1
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+              refId: B
+              type: classic_conditions
+        noDataState: Alerting
+        execErrState: Alerting
+        for: 2m
+        annotations:
+          summary: Backend service is down
+          description: Prometheus cannot scrape the backend service
+        labels:
+          severity: critical
+
+      - uid: high-error-rate
+        title: Turn Error Rate High
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: |
+                (
+                  rate(turn_error_total[5m]) /
+                  (rate(turn_success_total[5m]) + rate(turn_error_total[5m]) + 0.001)
+                ) > 0.05
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: OK
+        for: 2m
+        annotations:
+          summary: Turn error rate exceeds 5%
+          description: Error rate is high - check backend logs
+        labels:
+          severity: critical
+
+  - orgId: 1
+    name: Null-AI Warning Alerts
+    folder: Alerting
+    interval: 1m
+    rules:
+      - uid: high-latency
+        title: Turn Latency High
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: avg(rate(turn_commit_latency_ms_sum[5m]) / rate(turn_commit_latency_ms_count[5m])) > 60000
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: OK
+        for: 5m
+        annotations:
+          summary: Average turn latency exceeds 60 seconds
+          description: Check model response times and sandbox provisioning
+        labels:
+          severity: warning
+
+      - uid: sandbox-slow
+        title: Sandbox Provisioning Slow
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 180
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: avg(rate(sandbox_lifecycle_latency_ms_sum{operation="provision"}[5m]) / rate(sandbox_lifecycle_latency_ms_count{operation="provision"}[5m])) > 30000
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: OK
+        for: 3m
+        annotations:
+          summary: Sandbox provisioning taking > 30 seconds
+          description: Check Docker daemon health and disk space
+        labels:
+          severity: warning
+
+  - orgId: 1
+    name: Container Alerts
+    folder: Alerting
+    interval: 1m
+    rules:
+      - uid: container-memory-high
+        title: Container Memory High
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: container_memory_working_set_bytes{id=~"/docker/.*|/system.slice/docker-.*"} > 1717986918
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: OK
+        for: 5m
+        annotations:
+          summary: Container working set > 1.6GB memory
+          description: A container is using excessive non-cache memory
+        labels:
+          severity: warning
+
+  - orgId: 1
+    name: Cloud Admission Alerts
+    folder: Alerting
+    interval: 1m
+    rules:
+      - uid: cloud-runner-not-ready
+        title: Cloud Runner Not Ready
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: cloud_run_automatic_admission == 1 and on() cloud_run_ready_runners == 0
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: Alerting
+        for: 2m
+        annotations:
+          summary: No automatic-capacity cloud runner is accepting Runs
+          description: Check Docker-host probe, runner heartbeat, pressure, fingerprint match, and operator hold state
+        labels:
+          severity: critical
+
+      - uid: cloud-queue-starving
+        title: Cloud Queue Wait Exceeds Promotion Threshold
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 1200
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: cloud_run_oldest_wait_seconds > cloud_run_starvation_threshold_seconds
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: Alerting
+        for: 2m
+        annotations:
+          summary: A queued cloud Run has exceeded the age-promotion threshold
+          description: Check plan slots, effective capacity, host pressure, and admission failures
+        labels:
+          severity: warning
+
+      - uid: cloud-capacity-accounting-overrun
+        title: Cloud Capacity Accounting Overrun
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: max by (runner, resource) (cloud_run_capacity{kind="leased",resource=~"memory_mb|container_slots"} - ignoring(kind) cloud_run_capacity{kind="limit",resource=~"memory_mb|container_slots"}) > 0
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: Alerting
+        for: 1m
+        annotations:
+          summary: Leased cloud capacity exceeds the detected admission budget
+          description: Select hold immediately and inspect live capacity leases
+        labels:
+          severity: critical
+
+      - uid: cloud-cleanup-disagreement
+        title: Cloud Cleanup Disagreement
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: cloud_run_cleanup_disagreements > 0
+              instant: true
+              refId: A
+        noDataState: OK
+        execErrState: Alerting
+        for: 2m
+        annotations:
+          summary: Runtime cleanup and capacity leases disagree
+          description: Capacity remains charged until label-based teardown is verified
+        labels:
+          severity: critical

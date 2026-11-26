@@ -1,0 +1,4 @@
+schema_version: 1
+skill: nosql-injection
+files:
+  - cases.yaml

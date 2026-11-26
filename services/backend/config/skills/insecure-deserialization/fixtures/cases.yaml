@@ -1,0 +1,355 @@
+schema_version: 1
+skill: insecure-deserialization
+cases:
+  - id: insecure-deserialization-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: insecure-deserialization-positive-1-observation
+              content: The offline application fixture accepted attacker-selected type metadata and invoked the inert evaluator constructor marker.
+            - id: insecure-deserialization-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-deserialization-positive-1-observation
+        - insecure-deserialization-positive-1-context
+        - insecure-deserialization-positive-1-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: insecure-deserialization-positive-2-observation
+              content: A signed serialized evaluator object remained accepted after changing an unsigned security-relevant field consumed by the application fixture.
+            - id: insecure-deserialization-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-deserialization-positive-2-observation
+        - insecure-deserialization-positive-2-context
+        - insecure-deserialization-positive-2-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: insecure-deserialization-positive-3-observation
+              content: The active polymorphic binder instantiated a disallowed supplied fixture type while the allowlisted control rejected it.
+            - id: insecure-deserialization-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-deserialization-positive-3-observation
+        - insecure-deserialization-positive-3-context
+        - insecure-deserialization-positive-3-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: insecure-deserialization-positive-4-observation
+              content: A queued evaluator message reached a native deserializer before signature verification and emitted the mock callback canary.
+            - id: insecure-deserialization-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-deserialization-positive-4-observation
+        - insecure-deserialization-positive-4-context
+        - insecure-deserialization-positive-4-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: insecure-deserialization-positive-5-observation
+              content: A format-confusion variant selected the unsafe legacy deserializer in the local harness while the canonical format used the safe parser.
+            - id: insecure-deserialization-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-deserialization-positive-5-observation
+        - insecure-deserialization-positive-5-context
+        - insecure-deserialization-positive-5-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: insecure-deserialization-negative-1-observation
+              content: A serialized blob was base64-decoded but parsed as inert JSON with a fixed schema.
+            - id: insecure-deserialization-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-negative-1-control
+              content: The retained control explains the observed signal without meeting active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-deserialization-negative-1-observation
+        - insecure-deserialization-negative-1-context
+        - insecure-deserialization-negative-1-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: insecure-deserialization-negative-2-observation
+              content: A deserialization library existed only in migration code absent from the active call path.
+            - id: insecure-deserialization-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-negative-2-control
+              content: The retained control explains the observed signal without meeting active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-deserialization-negative-2-observation
+        - insecure-deserialization-negative-2-context
+        - insecure-deserialization-negative-2-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: insecure-deserialization-negative-3-observation
+              content: Type metadata was present but the active allowlist rejected the candidate fixture.
+            - id: insecure-deserialization-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-negative-3-control
+              content: The retained control explains the observed signal without meeting active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-deserialization-negative-3-observation
+        - insecure-deserialization-negative-3-context
+        - insecure-deserialization-negative-3-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: insecure-deserialization-negative-4-observation
+              content: A parser error occurred before object construction and matched malformed controls.
+            - id: insecure-deserialization-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-negative-4-control
+              content: The retained control explains the observed signal without meeting active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-deserialization-negative-4-observation
+        - insecure-deserialization-negative-4-context
+        - insecure-deserialization-negative-4-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: insecure-deserialization-negative-5-observation
+              content: A scanner matched a gadget class name without demonstrating reachable construction or callback.
+            - id: insecure-deserialization-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-negative-5-control
+              content: The retained control explains the observed signal without meeting active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-deserialization-negative-5-observation
+        - insecure-deserialization-negative-5-context
+        - insecure-deserialization-negative-5-control
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: insecure-deserialization-ambiguous-observation
+              content: Source reaches a generic deserializer, but active format, type policy, and instrumented construction evidence are missing.
+            - id: insecure-deserialization-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-ambiguous-missing
+              content: The packet lacks at least one required element of active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-deserialization-ambiguous-observation
+        - insecure-deserialization-ambiguous-context
+        - insecure-deserialization-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: insecure-deserialization-blocked-observation
+              content: No offline harness, inert fixture type, or deployed call-path provenance is available.
+            - id: insecure-deserialization-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - insecure-deserialization-blocked-observation
+        - insecure-deserialization-blocked-context
+        - insecure-deserialization-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: insecure-deserialization-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess insecure-deserialization with the insecure-deserialization methodology and retain deterministic proof.
+    expected:
+      primary_skill: insecure-deserialization
+      top_n: 3
+  - id: insecure-deserialization-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: insecure-deserialization
+      top_n: 5
+  - id: insecure-deserialization-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: insecure-deserialization-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: insecure-deserialization-mutation-observation
+              content: Only type-metadata encoding changed; the same inert constructor callback and fixed-type control remained reproducible.
+            - id: insecure-deserialization-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active deserializer/type policy, offline instrumented fixture, inert constructor/callback marker, and safe control.
+            - id: insecure-deserialization-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - insecure-deserialization-mutation-observation
+        - insecure-deserialization-mutation-context
+        - insecure-deserialization-mutation-control
+      forbidden_evidence_ids: []

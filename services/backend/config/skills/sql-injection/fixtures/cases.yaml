@@ -1,0 +1,179 @@
+schema_version: 1
+skill: sql-injection
+cases:
+  - id: sqli-positive-database-error-pair
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: paired-http-exchanges
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: error-baseline, content: "GET /catalog?id=41 returned 200 with the normal product record." }
+            - { id: error-candidate, content: "The same request with a single unmatched quote returned 500 and a PostgreSQL syntax error naming the id expression." }
+            - { id: error-control, content: "An equal-length alphanumeric value returned 200; repeating the quote reproduced the same PostgreSQL error twice." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [error-baseline, error-candidate, error-control]
+      forbidden_evidence_ids: []
+
+  - id: sqli-positive-boolean-differential
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: normalized-http-differential
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: boolean-baseline, content: "Baseline account lookup returned one stable record with dynamic tokens removed before comparison." }
+            - { id: boolean-true, content: "A quote-balanced true predicate returned the same record and normalized body hash as baseline in three interleaved trials." }
+            - { id: boolean-false, content: "The matched false predicate returned zero records and a different stable normalized body hash in all three trials." }
+            - { id: boolean-control, content: "A syntax-neutral text control did not change the result set." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [boolean-baseline, boolean-true, boolean-false, boolean-control]
+      forbidden_evidence_ids: []
+
+  - id: sqli-positive-bounded-time-differential
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: interleaved-latency-series
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: time-series, content: "Five interleaved candidate requests delayed 2.05-2.19 seconds; five matched controls completed in 0.12-0.21 seconds." }
+            - { id: time-predicate, content: "The delay occurred only when the database predicate was true; the matched false predicate completed with controls." }
+            - { id: time-health, content: "Concurrent health latency stayed below 0.24 seconds and no rate limiting or worker saturation was observed." }
+            - { id: time-limit, content: "The test used a two-second delay, one request at a time, and stopped after five pairs." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [time-series, time-predicate, time-health, time-limit]
+      forbidden_evidence_ids: []
+
+  - id: sqli-negative-generic-error-page
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: paired-http-exchanges
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: generic-quote, content: "A quote value returned the application's generic 500 page with no database-specific text." }
+            - { id: generic-controls, content: "Empty, overlong, and non-UTF8 controls returned the identical 500 body and stack identifier." }
+            - { id: generic-trace, content: "Server trace attributes all cases to an input-decoder exception before query construction." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [generic-quote, generic-controls, generic-trace]
+      forbidden_evidence_ids: []
+
+  - id: sqli-negative-search-semantics
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: normalized-http-differential
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: semantics-difference, content: "Inputs containing AND and OR returned different search result counts." }
+            - { id: semantics-encoding, content: "URL-encoded spaces and quoted literal controls produced the same count groups, consistent with documented search-token parsing." }
+            - { id: semantics-no-pair, content: "Quote-balanced true and false SQL predicates produced identical normalized responses." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [semantics-difference, semantics-encoding, semantics-no-pair]
+      forbidden_evidence_ids: []
+
+  - id: sqli-negative-latency-jitter
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: interleaved-latency-series
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: jitter-candidate, content: "Candidate latency ranged from 0.3 to 2.8 seconds without clustering around the requested delay." }
+            - { id: jitter-control, content: "Matched controls ranged from 0.2 to 3.1 seconds in the same interleaved sequence." }
+            - { id: jitter-health, content: "Upstream saturation and two 429 responses occurred during the sample." }
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids: [jitter-candidate, jitter-control, jitter-health]
+      forbidden_evidence_ids: []
+
+  - id: sqli-ambiguous-scanner-indicator
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: scanner-record
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: scanner-label, content: "Scanner labeled parameter q as possible boolean-based SQL injection with confidence medium." }
+            - { id: scanner-missing, content: "The record has no raw true/false requests, normalized response hashes, database error, or timing series." }
+            - { id: scanner-replay, content: "One manual replay returned a repeatable normalized body difference, but the inert true/false control pair could not be completed before the approved rate window closed." }
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids: [scanner-label, scanner-missing, scanner-replay]
+      forbidden_evidence_ids: []
+
+  - id: sqli-blocked-unstable-rate-limit
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: precondition-record
+        authorization: { policy_allowed: true, infrastructure_available: false }
+        artifact:
+          observations:
+            - { id: blocked-rate, content: "Every second request receives 429 and a 60-second retry window." }
+            - { id: blocked-baseline, content: "Baseline bodies change on every request because the backing test dataset is rebuilding." }
+            - { id: blocked-proof, content: "No stable comparison signal can be established within the approved request budget." }
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids: [blocked-rate, blocked-baseline, blocked-proof]
+      forbidden_evidence_ids: []
+
+  - id: sqli-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Validate a suspected SQL injection using paired true and false predicates, normalized bodies, and bounded timing controls.
+    expected: { primary_skill: sql-injection, top_n: 3 }
+
+  - id: sqli-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Verify that the static marketing footer contains the current copyright year.
+    expected: { absent_skill: sql-injection, top_n: 5 }
+
+  - id: sqli-mutation-comment-whitespace
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: mutation-differential
+        authorization: { policy_allowed: true, infrastructure_available: true }
+        artifact:
+          observations:
+            - { id: mutation-invariant, content: "Only SQL whitespace changed from a space to an inline comment; endpoint, parameter, predicate, and comparison process stayed fixed." }
+            - { id: mutation-true, content: "The mutated true predicate matched baseline's normalized result in three trials." }
+            - { id: mutation-false, content: "The correspondingly mutated false predicate returned the stable empty result in three trials." }
+            - { id: mutation-control, content: "An equal-length non-SQL comment string did not create the differential." }
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids: [mutation-invariant, mutation-true, mutation-false, mutation-control]
+      forbidden_evidence_ids: []

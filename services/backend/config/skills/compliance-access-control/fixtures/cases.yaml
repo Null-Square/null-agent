@@ -1,0 +1,251 @@
+schema_version: 1
+skill: compliance-access-control
+cases:
+  - id: compliance-access-control-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: compliance-access-control-positive-1-observation
+              content: The review mapped the supplied role matrix and evaluator access sample to the named access-control requirement.
+            - id: compliance-access-control-positive-1-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-positive-1-observation
+        - compliance-access-control-positive-1-floor
+        - compliance-access-control-positive-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: compliance-access-control-positive-2-observation
+              content: A terminated-user synthetic record demonstrated timely revocation evidence across the selected sample.
+            - id: compliance-access-control-positive-2-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-positive-2-observation
+        - compliance-access-control-positive-2-floor
+        - compliance-access-control-positive-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: compliance-access-control-positive-3-observation
+              content: An approved exception included owner, scope, expiry, and compensating control evidence.
+            - id: compliance-access-control-positive-3-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-positive-3-observation
+        - compliance-access-control-positive-3-floor
+        - compliance-access-control-positive-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: compliance-access-control-negative-1-observation
+              content: A policy document alone was treated as operating-effectiveness evidence.
+            - id: compliance-access-control-negative-1-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-negative-1-observation
+        - compliance-access-control-negative-1-floor
+        - compliance-access-control-negative-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: compliance-access-control-negative-2-observation
+              content: A sample lacked population and selection provenance.
+            - id: compliance-access-control-negative-2-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-negative-2-observation
+        - compliance-access-control-negative-2-floor
+        - compliance-access-control-negative-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: compliance-access-control-negative-3-observation
+              content: An expired exception was presented as current approval.
+            - id: compliance-access-control-negative-3-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-negative-3-observation
+        - compliance-access-control-negative-3-floor
+        - compliance-access-control-negative-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: compliance-access-control-ambiguous-observation
+              content: Evidence suggests a control exists, but system scope, population, sample, and period are incomplete.
+            - id: compliance-access-control-ambiguous-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-ambiguous-observation
+        - compliance-access-control-ambiguous-floor
+        - compliance-access-control-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: compliance-access-control-blocked-observation
+              content: The control owner, evidence population, or review period is unavailable.
+            - id: compliance-access-control-blocked-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-blocked-observation
+        - compliance-access-control-blocked-floor
+        - compliance-access-control-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: compliance-access-control-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess compliance-access-control with the compliance-access-control methodology and retain deterministic proof.
+    expected:
+      primary_skill: compliance-access-control
+      top_n: 3
+  - id: compliance-access-control-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: compliance-access-control
+      top_n: 5
+  - id: compliance-access-control-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-access-control-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: compliance-access-control-mutation-observation
+              content: Only sample period changed; requirement mapping, population provenance, selection method, and exception handling stayed fixed.
+            - id: compliance-access-control-mutation-floor
+              content: The required decision floor is named control requirement, system boundary, evidence sample, owner, exception state, and gap traceability.
+            - id: compliance-access-control-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-access-control-mutation-observation
+        - compliance-access-control-mutation-floor
+        - compliance-access-control-mutation-control
+      forbidden_evidence_ids: []

@@ -1,5 +1,0 @@
-Quarterly access review for the sample inventory service
-
-The service owner reviewed the list of accounts that can change inventory records.
-Two departed contractors were removed. The owner retained the approval record.
-The next review is due next quarter. A second reviewer still needs to verify the export.

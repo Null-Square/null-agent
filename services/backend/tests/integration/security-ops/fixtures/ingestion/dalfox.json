@@ -1,0 +1,8 @@
+[
+  {
+    "target": "https://api.example.com/search?q=x",
+    "title": "Reflected XSS",
+    "severity": "medium",
+    "type": "reflected"
+  }
+]

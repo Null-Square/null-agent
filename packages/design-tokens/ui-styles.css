@@ -184,15 +184,9 @@
 /* ─────────────────────────────────────────────────────────────────────────
    THE BOOT SCREEN. One in the whole system.
 
-   Every surface used to wait in its own way: the website had a logo and a
-   sweeping bar, the console showed a mono caption that CHANGED as it went
-   ("Preparing the console" → "Reading your account"), and each panel improvised
-   below that. Three different waits in one sign-in reads as three things going
-   wrong, not one thing loading.
-
-   So the animation lives here, once. Change these keyframes and the website,
-   the console and the partner portal all change together — which is the only
-   way a brand animation stays a brand animation.
+   Different waits in one start read as several things going wrong, not one
+   thing loading. So the animation lives here, once: change these keyframes and
+   every wait changes together.
 
    `.ns-loader-reveal` is delayed on purpose: a load that finishes inside 150ms
    never paints the loader at all. The other half of that promise is
