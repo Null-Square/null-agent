@@ -36,12 +36,9 @@ export function generateOpenAPIDocument() {
     return generator.generateDocument({
         openapi: '3.0.0',
         info: {
-            title: 'NullSquare AI Agent API',
+            title: 'Null AI API',
             version: '1.0.0',
-            description: 'API for managing AI agent sessions, tasks, and user interactions.',
-            contact: {
-                name: 'NullSquare',
-            },
+            description: 'The API the Null AI app uses: scopes, runs, findings, the agent and its sessions.',
         },
         servers: [
             {
