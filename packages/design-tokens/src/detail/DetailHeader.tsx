@@ -30,8 +30,9 @@ export interface DetailHeaderProps {
    * The page's verbs, beside the title.
    *
    * Normally a detail page's verbs live in the rail, and this stays empty. A
-   * page with no rail puts its verbs here, on the title's line, where the eye
-   * already is, rather than in a second band under the header.
+   * page built on `InspectorSplit` has no rail — the stream owns the screen —
+   * so its verbs have nowhere else that is not a second band under the header.
+   * They sit on the title's line, where the eye already is.
    */
   actions?: React.ReactNode;
   className?: string;

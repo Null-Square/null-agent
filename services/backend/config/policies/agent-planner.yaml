@@ -1,0 +1,17 @@
+# Generated from PhaseProfileRegistry for admin catalog tool-policy surfacing.
+# Do not edit by hand. Run `npm run catalog:policies` from services/backend.
+slug: agent-planner
+name: Agent Catalog Planner
+isDefaultSandbox: false
+spec:
+  tools:
+    allow:
+      - query_inventory
+      - query_notes
+      - query_findings
+      - submit_plan
+      - file_read
+      - list_relevant_skills
+      - list_connected_repositories
+      - search_connected_repository
+      - read_connected_repository_file

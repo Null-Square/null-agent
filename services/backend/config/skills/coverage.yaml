@@ -1,0 +1,338 @@
+schema_version: 1
+research_date: 2026-07-23
+rows:
+  - id: PS-SQLI
+    source: PortSwigger Web Security Academy
+    title: SQL injection
+    primary_owner: sql-injection
+  - id: PS-XSS
+    source: PortSwigger Web Security Academy
+    title: Cross-site scripting
+    primary_owner: xss
+    handoffs:
+      - dom-xss
+  - id: PS-CSRF
+    source: PortSwigger Web Security Academy
+    title: Cross-site request forgery
+    primary_owner: csrf
+  - id: PS-CLICKJACKING
+    source: PortSwigger Web Security Academy
+    title: Clickjacking
+    primary_owner: clickjacking
+  - id: PS-DOM
+    source: PortSwigger Web Security Academy
+    title: DOM-based vulnerabilities
+    primary_owner: dom-xss
+    handoffs:
+      - client-side-trust-boundaries
+  - id: PS-CORS
+    source: PortSwigger Web Security Academy
+    title: Cross-origin resource sharing
+    primary_owner: cors
+  - id: PS-XXE
+    source: PortSwigger Web Security Academy
+    title: XML external entity injection
+    primary_owner: xxe
+  - id: PS-SSRF
+    source: PortSwigger Web Security Academy
+    title: Server-side request forgery
+    primary_owner: ssrf
+  - id: PS-SMUGGLING
+    source: PortSwigger Web Security Academy
+    title: HTTP request smuggling
+    primary_owner: http-request-smuggling
+  - id: PS-CMDI
+    source: PortSwigger Web Security Academy
+    title: OS command injection
+    primary_owner: command-injection
+  - id: PS-SSTI
+    source: PortSwigger Web Security Academy
+    title: Server-side template injection
+    primary_owner: ssti
+  - id: PS-TRAVERSAL
+    source: PortSwigger Web Security Academy
+    title: Path traversal
+    primary_owner: path-traversal
+  - id: PS-ACCESS
+    source: PortSwigger Web Security Academy
+    title: Access control
+    primary_owner: access-control
+    handoffs:
+      - idor
+  - id: PS-AUTH
+    source: PortSwigger Web Security Academy
+    title: Authentication
+    primary_owner: broken-auth
+    handoffs:
+      - session-management
+  - id: PS-WEBSOCKETS
+    source: PortSwigger Web Security Academy
+    title: WebSockets
+    primary_owner: websockets
+  - id: PS-CACHE
+    source: PortSwigger Web Security Academy
+    title: Web cache poisoning and deception
+    primary_owner: web-cache-security
+  - id: PS-DESERIALIZATION
+    source: PortSwigger Web Security Academy
+    title: Insecure deserialization
+    primary_owner: insecure-deserialization
+  - id: PS-DISCLOSURE
+    source: PortSwigger Web Security Academy
+    title: Information disclosure
+    primary_owner: information-disclosure
+  - id: PS-BUSINESS
+    source: PortSwigger Web Security Academy
+    title: Business logic
+    primary_owner: business-logic
+  - id: PS-HOST
+    source: PortSwigger Web Security Academy
+    title: Host header attacks
+    primary_owner: host-header-attacks
+  - id: PS-OAUTH
+    source: PortSwigger Web Security Academy
+    title: OAuth authentication
+    primary_owner: oauth-oidc
+  - id: PS-UPLOAD
+    source: PortSwigger Web Security Academy
+    title: File upload vulnerabilities
+    primary_owner: insecure-file-uploads
+  - id: PS-JWT
+    source: PortSwigger Web Security Academy
+    title: JWT attacks
+    primary_owner: jwt-attacks
+  - id: PS-PROTOTYPE
+    source: PortSwigger Web Security Academy
+    title: Prototype pollution
+    primary_owner: prototype-pollution
+  - id: PS-GRAPHQL
+    source: PortSwigger Web Security Academy
+    title: GraphQL API vulnerabilities
+    primary_owner: graphql
+  - id: PS-RACE
+    source: PortSwigger Web Security Academy
+    title: Race conditions
+    primary_owner: race-conditions
+  - id: PS-NOSQL
+    source: PortSwigger Web Security Academy
+    title: NoSQL injection
+    primary_owner: nosql-injection
+  - id: PS-API
+    source: PortSwigger Web Security Academy
+    title: API testing
+    primary_owner: api-enumeration
+  - id: PS-WEB-LLM
+    source: PortSwigger Web Security Academy
+    title: Web LLM attacks
+    primary_owner: ai-application-security
+  - id: OWASP-API1
+    source: OWASP API Security Top 10 2023
+    title: Broken Object Level Authorization
+    primary_owner: idor
+  - id: OWASP-API2
+    source: OWASP API Security Top 10 2023
+    title: Broken Authentication
+    primary_owner: broken-auth
+    handoffs:
+      - session-management
+      - oauth-oidc
+      - jwt-attacks
+  - id: OWASP-API3
+    source: OWASP API Security Top 10 2023
+    title: Broken Object Property Level Authorization
+    primary_owner: mass-assignment
+  - id: OWASP-API4
+    source: OWASP API Security Top 10 2023
+    title: Unrestricted Resource Consumption
+    primary_owner: resource-consumption
+  - id: OWASP-API5
+    source: OWASP API Security Top 10 2023
+    title: Broken Function Level Authorization
+    primary_owner: access-control
+  - id: OWASP-API6
+    source: OWASP API Security Top 10 2023
+    title: Unrestricted Access to Sensitive Business Flows
+    primary_owner: business-logic
+  - id: OWASP-API7
+    source: OWASP API Security Top 10 2023
+    title: Server Side Request Forgery
+    primary_owner: ssrf
+  - id: OWASP-API8
+    source: OWASP API Security Top 10 2023
+    title: Security Misconfiguration
+    primary_owner: web-security-misconfiguration
+  - id: OWASP-API9
+    source: OWASP API Security Top 10 2023
+    title: Improper Inventory Management
+    primary_owner: api-enumeration
+  - id: OWASP-API10
+    source: OWASP API Security Top 10 2023
+    title: Unsafe Consumption of APIs
+    primary_owner: unsafe-api-consumption
+  - id: WSTG-INFO
+    source: OWASP Web Security Testing Guide
+    title: Information gathering
+    primary_owner: broad-surface-scan
+  - id: WSTG-CONF
+    source: OWASP Web Security Testing Guide
+    title: Configuration and deployment management
+    primary_owner: web-security-misconfiguration
+  - id: WSTG-IDNT
+    source: OWASP Web Security Testing Guide
+    title: Identity management
+    primary_owner: broken-auth
+  - id: WSTG-ATHN
+    source: OWASP Web Security Testing Guide
+    title: Authentication
+    primary_owner: broken-auth
+  - id: WSTG-ATHZ
+    source: OWASP Web Security Testing Guide
+    title: Authorization
+    primary_owner: access-control
+    handoffs:
+      - idor
+      - mass-assignment
+  - id: WSTG-SESS
+    source: OWASP Web Security Testing Guide
+    title: Session management
+    primary_owner: session-management
+  - id: WSTG-INPV
+    source: OWASP Web Security Testing Guide
+    title: Input validation
+    primary_owner: sql-injection
+    handoffs:
+      - xss
+      - secondary-server-injections
+  - id: WSTG-ERRH
+    source: OWASP Web Security Testing Guide
+    title: Error handling
+    primary_owner: information-disclosure
+  - id: WSTG-CRYP
+    source: OWASP Web Security Testing Guide
+    title: Weak cryptography
+    primary_owner: cryptographic-implementation
+  - id: WSTG-BUSL
+    source: OWASP Web Security Testing Guide
+    title: Business logic
+    primary_owner: business-logic
+  - id: WSTG-CLNT
+    source: OWASP Web Security Testing Guide
+    title: Client-side testing
+    primary_owner: client-side-trust-boundaries
+    handoffs:
+      - dom-xss
+  - id: WSTG-APIT
+    source: OWASP Web Security Testing Guide
+    title: API testing
+    primary_owner: api-enumeration
+    handoffs:
+      - graphql
+      - grpc-security
+      - soap-security
+  - id: GENAI-PI
+    source: OWASP GenAI and Agentic Application Risks
+    title: Prompt injection with application impact
+    primary_owner: ai-application-security
+  - id: GENAI-DATA
+    source: OWASP GenAI and Agentic Application Risks
+    title: Sensitive information disclosure
+    primary_owner: ai-application-security
+    handoffs:
+      - information-disclosure
+  - id: GENAI-SUPPLY
+    source: OWASP GenAI and Agentic Application Risks
+    title: Model and component supply chain
+    primary_owner: software-supply-chain
+  - id: GENAI-OUTPUT
+    source: OWASP GenAI and Agentic Application Risks
+    title: Insecure output handling
+    primary_owner: ai-application-security
+  - id: GENAI-AGENCY
+    source: OWASP GenAI and Agentic Application Risks
+    title: Excessive agency and tool misuse
+    primary_owner: ai-application-security
+    handoffs:
+      - access-control
+  - id: GENAI-VECTOR
+    source: OWASP GenAI and Agentic Application Risks
+    title: Vector and embedding tenant isolation
+    primary_owner: ai-application-security
+    handoffs:
+      - idor
+  - id: GENAI-MEMORY
+    source: OWASP GenAI and Agentic Application Risks
+    title: Memory and behavior poisoning
+    primary_owner: ai-application-security
+  - id: GENAI-IDENTITY
+    source: OWASP GenAI and Agentic Application Risks
+    title: Agent identity and privilege abuse
+    primary_owner: ai-application-security
+    handoffs:
+      - access-control
+  - id: GENAI-CONSUMPTION
+    source: OWASP GenAI and Agentic Application Risks
+    title: Unbounded consumption
+    primary_owner: resource-consumption
+    handoffs:
+      - ai-application-security
+  - id: STRIX-VULN
+    source: In-scope Strix category parity
+    title: Vulnerability methodologies
+    primary_owner: validation
+  - id: STRIX-FRAMEWORK
+    source: In-scope Strix category parity
+    title: Framework specializations
+    primary_owner: source-aware-whitebox
+  - id: STRIX-PROTOCOL
+    source: In-scope Strix category parity
+    title: Protocol specializations
+    primary_owner: api-enumeration
+    handoffs:
+      - websockets
+      - grpc-security
+      - soap-security
+  - id: STRIX-CLOUD
+    source: In-scope Strix category parity
+    title: Public cloud and configuration
+    primary_owner: iac-container-security
+    handoffs:
+      - cloud-aws
+      - cloud-azure
+      - cloud-gcp
+  - id: STRIX-CMS
+    source: In-scope Strix category parity
+    title: CMS specializations
+    primary_owner: cms-wordpress
+    handoffs:
+      - cms-drupal
+      - cms-joomla
+  - id: STRIX-TOOLING
+    source: In-scope Strix category parity
+    title: Installed tool operations
+    primary_owner: tooling-python
+  - id: STRIX-RECON
+    source: In-scope Strix category parity
+    title: Reconnaissance methods
+    primary_owner: broad-surface-scan
+    handoffs:
+      - network-recon
+  - id: STRIX-SOURCE
+    source: In-scope Strix category parity
+    title: Source-aware methods
+    primary_owner: source-aware-whitebox
+exclusions:
+  - id: credentialed-cloud-control-plane
+    prd_boundary: Section 4
+    reason: Requires separate provider integration and security authorization.
+  - id: internal-network-and-active-directory
+    prd_boundary: Section 4
+    reason: Outside the web-application-native product boundary.
+  - id: binary-firmware-memory-safety
+    prd_boundary: Section 4
+    reason: Outside B1 tool and product scope.
+  - id: full-impact-exploit-chaining
+    prd_boundary: Section 4
+    reason: Owned by B8 authorization and safety controls.
+  - id: subjective-model-safety
+    prd_boundary: Section 4
+    reason: No security finding without objective application control impact.

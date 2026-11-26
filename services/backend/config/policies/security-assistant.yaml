@@ -1,0 +1,39 @@
+slug: security-assistant
+name: Security Assistant
+isDefaultSandbox: false
+sandboxImageName: webpentest-core
+
+spec:
+  sandbox:
+    network: none
+    readonlyRootfs: false
+    capDrop:
+      - ALL
+    capAdd: []
+    privileged: false
+  tools:
+    network: false
+    allow:
+      - query_inventory
+      - query_findings
+      - query_notes
+      - query_compliance_readiness
+      - query_compliance_evidence
+      - query_compliance_proof_package
+      - query_compliance_missing_evidence
+      - read_setup_state
+      - list_relevant_setup_skills
+      - load_setup_skill
+      - read_scope_document
+      - update_organization_context
+      - update_scope_brief
+      - add_scope_target
+      - create_scope_automation
+      - list_connected_repositories
+      - search_connected_repository
+      - read_connected_repository_file
+    ask:
+      - update_organization_context
+      - update_scope_brief
+      - add_scope_target
+      - create_scope_automation

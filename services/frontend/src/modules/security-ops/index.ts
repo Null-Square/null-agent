@@ -1,0 +1,1 @@
+export { useScopesQuery } from './api';

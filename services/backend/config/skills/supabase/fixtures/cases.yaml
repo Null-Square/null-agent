@@ -1,0 +1,251 @@
+schema_version: 1
+skill: supabase
+cases:
+  - id: supabase-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: supabase-positive-1-observation
+              content: The anon context queried a named private evaluator row because active RLS trusted a mutable column.
+            - id: supabase-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - supabase-positive-1-observation
+        - supabase-positive-1-context
+        - supabase-positive-1-control
+      forbidden_evidence_ids: []
+  - id: supabase-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: supabase-positive-2-observation
+              content: Evaluator A read evaluator B’s private storage canary under the active object policy.
+            - id: supabase-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - supabase-positive-2-observation
+        - supabase-positive-2-context
+        - supabase-positive-2-control
+      forbidden_evidence_ids: []
+  - id: supabase-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: supabase-positive-3-observation
+              content: An exposed RPC performed one harmless evaluator state change without the expected role predicate.
+            - id: supabase-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - supabase-positive-3-observation
+        - supabase-positive-3-context
+        - supabase-positive-3-control
+      forbidden_evidence_ids: []
+  - id: supabase-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: supabase-negative-1-observation
+              content: Project URL and anon key were intended public client configuration.
+            - id: supabase-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-negative-1-control
+              content: The retained control explains the observed signal without meeting project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - supabase-negative-1-observation
+        - supabase-negative-1-context
+        - supabase-negative-1-control
+      forbidden_evidence_ids: []
+  - id: supabase-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: supabase-negative-2-observation
+              content: A permissive migration was superseded by the active RLS policy.
+            - id: supabase-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-negative-2-control
+              content: The retained control explains the observed signal without meeting project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - supabase-negative-2-observation
+        - supabase-negative-2-context
+        - supabase-negative-2-control
+      forbidden_evidence_ids: []
+  - id: supabase-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: supabase-negative-3-observation
+              content: Schema names were visible while row reads remained denied.
+            - id: supabase-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-negative-3-control
+              content: The retained control explains the observed signal without meeting project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - supabase-negative-3-observation
+        - supabase-negative-3-context
+        - supabase-negative-3-control
+      forbidden_evidence_ids: []
+  - id: supabase-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: supabase-ambiguous-observation
+              content: A policy file looks permissive, but deployed migration state and target project are unknown.
+            - id: supabase-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-ambiguous-missing
+              content: The packet lacks at least one required element of project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - supabase-ambiguous-observation
+        - supabase-ambiguous-context
+        - supabase-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: supabase-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: supabase-blocked-observation
+              content: No project provenance, active policies, evaluator roles, or named synthetic rows/objects are available.
+            - id: supabase-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - supabase-blocked-observation
+        - supabase-blocked-context
+        - supabase-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: supabase-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess supabase with the supabase methodology and retain deterministic proof.
+    expected:
+      primary_skill: supabase
+      top_n: 3
+  - id: supabase-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: supabase
+      top_n: 5
+  - id: supabase-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: supabase-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: supabase-mutation-observation
+              content: Only role changed from anon to second evaluator; the same private row canary remained readable under the flawed RLS predicate.
+            - id: supabase-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, anon/evaluator role, active RLS/storage/RPC policy, named synthetic object, and controls.
+            - id: supabase-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - supabase-mutation-observation
+        - supabase-mutation-context
+        - supabase-mutation-control
+      forbidden_evidence_ids: []

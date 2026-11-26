@@ -1,0 +1,251 @@
+schema_version: 1
+skill: laravel
+cases:
+  - id: laravel-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: laravel-positive-1-observation
+              content: Route-model binding loaded evaluator B’s synthetic record before a policy trusted a mutable tenant field from evaluator A.
+            - id: laravel-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - laravel-positive-1-observation
+        - laravel-positive-1-context
+        - laravel-positive-1-control
+      forbidden_evidence_ids: []
+  - id: laravel-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: laravel-positive-2-observation
+              content: An active fillable mismatch persisted one harmless server-managed property on a disposable evaluator model.
+            - id: laravel-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - laravel-positive-2-observation
+        - laravel-positive-2-context
+        - laravel-positive-2-control
+      forbidden_evidence_ids: []
+  - id: laravel-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: laravel-positive-3-observation
+              content: A signed evaluator URL remained accepted after appending a controller-consumed parameter omitted from signature canonicalization.
+            - id: laravel-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - laravel-positive-3-observation
+        - laravel-positive-3-context
+        - laravel-positive-3-control
+      forbidden_evidence_ids: []
+  - id: laravel-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: laravel-negative-1-observation
+              content: An environment example contained placeholder credentials only.
+            - id: laravel-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-negative-1-control
+              content: The retained control explains the observed signal without meeting active route/middleware/policy/model path, evaluator identity/object, and authoritative state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - laravel-negative-1-observation
+        - laravel-negative-1-context
+        - laravel-negative-1-control
+      forbidden_evidence_ids: []
+  - id: laravel-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: laravel-negative-2-observation
+              content: Debug mode appeared in local config while effective production config disabled it.
+            - id: laravel-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-negative-2-control
+              content: The retained control explains the observed signal without meeting active route/middleware/policy/model path, evaluator identity/object, and authoritative state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - laravel-negative-2-observation
+        - laravel-negative-2-context
+        - laravel-negative-2-control
+      forbidden_evidence_ids: []
+  - id: laravel-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: laravel-negative-3-observation
+              content: An unauthenticated route intentionally returned public content.
+            - id: laravel-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-negative-3-control
+              content: The retained control explains the observed signal without meeting active route/middleware/policy/model path, evaluator identity/object, and authoritative state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - laravel-negative-3-observation
+        - laravel-negative-3-context
+        - laravel-negative-3-control
+      forbidden_evidence_ids: []
+  - id: laravel-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: laravel-ambiguous-observation
+              content: A policy appears absent in source, but active route/middleware registration and deployment revision are unknown.
+            - id: laravel-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-ambiguous-missing
+              content: The packet lacks at least one required element of active route/middleware/policy/model path, evaluator identity/object, and authoritative state, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - laravel-ambiguous-observation
+        - laravel-ambiguous-context
+        - laravel-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: laravel-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: laravel-blocked-observation
+              content: No effective route/config provenance, evaluator models, or disposable state is available.
+            - id: laravel-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - laravel-blocked-observation
+        - laravel-blocked-context
+        - laravel-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: laravel-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess laravel with the laravel methodology and retain deterministic proof.
+    expected:
+      primary_skill: laravel
+      top_n: 3
+  - id: laravel-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: laravel
+      top_n: 5
+  - id: laravel-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: laravel-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: laravel-mutation-observation
+              content: Only model binding key changed from numeric id to the supported slug; the same cross-tenant synthetic record remained exposed.
+            - id: laravel-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active route/middleware/policy/model path, evaluator identity/object, and authoritative state.
+            - id: laravel-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - laravel-mutation-observation
+        - laravel-mutation-context
+        - laravel-mutation-control
+      forbidden_evidence_ids: []

@@ -1,0 +1,4 @@
+schema_version: 1
+skill: insecure-file-uploads
+files:
+  - cases.yaml

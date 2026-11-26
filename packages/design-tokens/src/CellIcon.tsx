@@ -13,7 +13,7 @@ import { cn } from './cn';
  *
  * Pure SVG: no canvas, no effects, SSR-safe, crisp at any size.
  *
- * The set is specified in brand/production-reference/icons.html and generated from the same
+ * The set is specified in docs/brand/icons.html and generated from the same
  * matrices, so the two cannot drift. Three of the original icons carry more
  * than one signal cell (runs, workbench, automations) — that is a known
  * exception awaiting a decision, not a licence to add more.

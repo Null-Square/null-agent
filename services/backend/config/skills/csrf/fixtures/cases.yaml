@@ -1,0 +1,251 @@
+schema_version: 1
+skill: csrf
+cases:
+  - id: csrf-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: csrf-positive-1-observation
+              content: An owner-controlled origin submitted the evaluator preference action without a token and the follow-up read confirmed the change.
+            - id: csrf-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - csrf-positive-1-observation
+        - csrf-positive-1-context
+        - csrf-positive-1-control
+      forbidden_evidence_ids: []
+  - id: csrf-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: csrf-positive-2-observation
+              content: A token from evaluator B was accepted in evaluator A’s session for the same disposable action.
+            - id: csrf-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - csrf-positive-2-observation
+        - csrf-positive-2-context
+        - csrf-positive-2-control
+      forbidden_evidence_ids: []
+  - id: csrf-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: csrf-positive-3-observation
+              content: A simple form content type bypassed the anti-CSRF check enforced on the canonical JSON request.
+            - id: csrf-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - csrf-positive-3-observation
+        - csrf-positive-3-context
+        - csrf-positive-3-control
+      forbidden_evidence_ids: []
+  - id: csrf-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: csrf-negative-1-observation
+              content: The cross-site request was sent but SameSite cookies removed the authenticated evaluator session.
+            - id: csrf-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-negative-1-control
+              content: The retained control explains the observed signal without meeting browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - csrf-negative-1-observation
+        - csrf-negative-1-context
+        - csrf-negative-1-control
+      forbidden_evidence_ids: []
+  - id: csrf-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: csrf-negative-2-observation
+              content: A missing-token request returned success text while the authoritative preference remained unchanged.
+            - id: csrf-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-negative-2-control
+              content: The retained control explains the observed signal without meeting browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - csrf-negative-2-observation
+        - csrf-negative-2-context
+        - csrf-negative-2-control
+      forbidden_evidence_ids: []
+  - id: csrf-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: csrf-negative-3-observation
+              content: The action required a custom header that the owner-controlled origin could not send without a denied preflight.
+            - id: csrf-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-negative-3-control
+              content: The retained control explains the observed signal without meeting browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - csrf-negative-3-observation
+        - csrf-negative-3-context
+        - csrf-negative-3-control
+      forbidden_evidence_ids: []
+  - id: csrf-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: csrf-ambiguous-observation
+              content: The browser navigated after submission, but no pre/post state record or session-bearing request was retained.
+            - id: csrf-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-ambiguous-missing
+              content: The packet lacks at least one required element of browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - csrf-ambiguous-observation
+        - csrf-ambiguous-context
+        - csrf-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: csrf-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: csrf-blocked-observation
+              content: No evaluator session, owner-controlled origin, or resettable harmless action is available.
+            - id: csrf-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - csrf-blocked-observation
+        - csrf-blocked-context
+        - csrf-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: csrf-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess csrf with the csrf methodology and retain deterministic proof.
+    expected:
+      primary_skill: csrf
+      top_n: 3
+  - id: csrf-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: csrf
+      top_n: 5
+  - id: csrf-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: csrf-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: csrf-mutation-observation
+              content: Only content type changed from JSON to a simple form while action, evaluator session, and post-state control stayed fixed.
+            - id: csrf-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is browser session, cross-site request, missing/bad anti-CSRF binding, and authoritative harmless state read.
+            - id: csrf-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - csrf-mutation-observation
+        - csrf-mutation-context
+        - csrf-mutation-control
+      forbidden_evidence_ids: []

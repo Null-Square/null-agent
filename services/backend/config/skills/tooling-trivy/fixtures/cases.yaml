@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-trivy
+cases:
+  - id: tooling-trivy-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-trivy-positive-1-observation
+              content: Trivy scanned the supplied image digest and retained package, installed/fixed versions, layer, and database version.
+            - id: tooling-trivy-positive-1-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-positive-1-observation
+        - tooling-trivy-positive-1-floor
+        - tooling-trivy-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-trivy-positive-2-observation
+              content: A config scan tied one risky setting to the rendered production manifest.
+            - id: tooling-trivy-positive-2-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-positive-2-observation
+        - tooling-trivy-positive-2-floor
+        - tooling-trivy-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-trivy-positive-3-observation
+              content: A secret scan detected the owner-provided canary in the final image layer and redacted its value.
+            - id: tooling-trivy-positive-3-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-positive-3-observation
+        - tooling-trivy-positive-3-floor
+        - tooling-trivy-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-trivy-negative-1-observation
+              content: The vulnerable package existed only in an excluded build stage.
+            - id: tooling-trivy-negative-1-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-negative-1-observation
+        - tooling-trivy-negative-1-floor
+        - tooling-trivy-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-trivy-negative-2-observation
+              content: A config issue belonged to a development manifest.
+            - id: tooling-trivy-negative-2-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-negative-2-observation
+        - tooling-trivy-negative-2-floor
+        - tooling-trivy-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-trivy-negative-3-observation
+              content: A secret-shaped value was an invalid test fixture.
+            - id: tooling-trivy-negative-3-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-negative-3-observation
+        - tooling-trivy-negative-3-floor
+        - tooling-trivy-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-trivy-ambiguous-observation
+              content: A scanner record lacks artifact digest, database version, production stage, or active config provenance.
+            - id: tooling-trivy-ambiguous-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-ambiguous-observation
+        - tooling-trivy-ambiguous-floor
+        - tooling-trivy-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-trivy-blocked-observation
+              content: No immutable artifact/manifest or pinned vulnerability database context is supplied.
+            - id: tooling-trivy-blocked-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-blocked-observation
+        - tooling-trivy-blocked-floor
+        - tooling-trivy-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-trivy-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-trivy with the tooling-trivy methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-trivy
+      top_n: 3
+  - id: tooling-trivy-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-trivy
+      top_n: 5
+  - id: tooling-trivy-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-trivy-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-trivy-mutation-observation
+              content: Only image platform variant changed; digest provenance, scan database, production-stage filtering, and redaction stayed fixed.
+            - id: tooling-trivy-mutation-floor
+              content: The required decision floor is pinned artifact/database version, production-stage provenance, exact finding record, and reachability/config interpretation.
+            - id: tooling-trivy-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-trivy-mutation-observation
+        - tooling-trivy-mutation-floor
+        - tooling-trivy-mutation-control
+      forbidden_evidence_ids: []

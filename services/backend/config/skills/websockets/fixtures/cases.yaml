@@ -1,0 +1,251 @@
+schema_version: 1
+skill: websockets
+cases:
+  - id: websockets-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: websockets-positive-1-observation
+              content: An unauthenticated connection joined the supplied private evaluator channel and received its one-time canary event.
+            - id: websockets-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - websockets-positive-1-observation
+        - websockets-positive-1-context
+        - websockets-positive-1-control
+      forbidden_evidence_ids: []
+  - id: websockets-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: websockets-positive-2-observation
+              content: Evaluator A changed one subscription object id and received evaluator B’s synthetic event.
+            - id: websockets-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - websockets-positive-2-observation
+        - websockets-positive-2-context
+        - websockets-positive-2-control
+      forbidden_evidence_ids: []
+  - id: websockets-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: websockets-positive-3-observation
+              content: An owner-controlled cross-site origin opened the credentialed socket and completed one harmless evaluator echo action.
+            - id: websockets-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - websockets-positive-3-observation
+        - websockets-positive-3-context
+        - websockets-positive-3-control
+      forbidden_evidence_ids: []
+  - id: websockets-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: websockets-negative-1-observation
+              content: The upgrade succeeded but every private subscription was denied.
+            - id: websockets-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-negative-1-control
+              content: The retained control explains the observed signal without meeting bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - websockets-negative-1-observation
+        - websockets-negative-1-context
+        - websockets-negative-1-control
+      forbidden_evidence_ids: []
+  - id: websockets-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: websockets-negative-2-observation
+              content: A public broadcast and ping/pong frames contained no private data.
+            - id: websockets-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-negative-2-control
+              content: The retained control explains the observed signal without meeting bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - websockets-negative-2-observation
+        - websockets-negative-2-context
+        - websockets-negative-2-control
+      forbidden_evidence_ids: []
+  - id: websockets-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: websockets-negative-3-observation
+              content: One abnormal close had no repeatable semantic or availability impact.
+            - id: websockets-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-negative-3-control
+              content: The retained control explains the observed signal without meeting bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - websockets-negative-3-observation
+        - websockets-negative-3-context
+        - websockets-negative-3-control
+      forbidden_evidence_ids: []
+  - id: websockets-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: websockets-ambiguous-observation
+              content: A subscription ack succeeds, but no private event, channel ownership, or identity context is captured.
+            - id: websockets-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-ambiguous-missing
+              content: The packet lacks at least one required element of bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - websockets-ambiguous-observation
+        - websockets-ambiguous-context
+        - websockets-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: websockets-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: websockets-blocked-observation
+              content: No evaluator channels/identities or permission for two bounded connections is available.
+            - id: websockets-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - websockets-blocked-observation
+        - websockets-blocked-context
+        - websockets-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: websockets-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess websockets with the websockets methodology and retain deterministic proof.
+    expected:
+      primary_skill: websockets
+      top_n: 3
+  - id: websockets-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: websockets
+      top_n: 5
+  - id: websockets-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: websockets-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: websockets-mutation-observation
+              content: Only origin changed from canonical to an owner-controlled unrelated origin; the handshake still succeeded and that origin received the protected synthetic channel canary while session, identity, and message cap stayed fixed.
+            - id: websockets-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is bounded handshake, origin/identity/channel controls, named synthetic event, and connection/message caps.
+            - id: websockets-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - websockets-mutation-observation
+        - websockets-mutation-context
+        - websockets-mutation-control
+      forbidden_evidence_ids: []

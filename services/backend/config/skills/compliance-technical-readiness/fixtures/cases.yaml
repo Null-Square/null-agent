@@ -1,0 +1,251 @@
+schema_version: 1
+skill: compliance-technical-readiness
+cases:
+  - id: compliance-technical-readiness-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: compliance-technical-readiness-positive-1-observation
+              content: The readiness review linked an in-scope system to control owner, technical configuration, log source, retention, executable test evidence, and the named remediation dependency required before validation.
+            - id: compliance-technical-readiness-positive-1-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-positive-1-observation
+        - compliance-technical-readiness-positive-1-floor
+        - compliance-technical-readiness-positive-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: compliance-technical-readiness-positive-2-observation
+              content: The inventoried system and named control owner produced a synthetic access event in the retained audit source with required identity/time fields; the review also recorded its test procedure and remediation dependency.
+            - id: compliance-technical-readiness-positive-2-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-positive-2-observation
+        - compliance-technical-readiness-positive-2-floor
+        - compliance-technical-readiness-positive-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: compliance-technical-readiness-positive-3-observation
+              content: The inventoried system, implemented control evidence, log source and retention state, validation owner, executable test procedure, and remediation prerequisite were recorded before assessment scheduling.
+            - id: compliance-technical-readiness-positive-3-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-positive-3-observation
+        - compliance-technical-readiness-positive-3-floor
+        - compliance-technical-readiness-positive-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: compliance-technical-readiness-negative-1-observation
+              content: A tool installation alone was treated as implemented control evidence.
+            - id: compliance-technical-readiness-negative-1-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-negative-1-observation
+        - compliance-technical-readiness-negative-1-floor
+        - compliance-technical-readiness-negative-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: compliance-technical-readiness-negative-2-observation
+              content: Logs existed but lacked required retention or identity fields.
+            - id: compliance-technical-readiness-negative-2-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-negative-2-observation
+        - compliance-technical-readiness-negative-2-floor
+        - compliance-technical-readiness-negative-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: compliance-technical-readiness-negative-3-observation
+              content: An out-of-scope environment was used as production readiness proof.
+            - id: compliance-technical-readiness-negative-3-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-negative-3-observation
+        - compliance-technical-readiness-negative-3-floor
+        - compliance-technical-readiness-negative-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: compliance-technical-readiness-ambiguous-observation
+              content: A technical control appears configured, but system scope, effective settings, or test evidence is incomplete.
+            - id: compliance-technical-readiness-ambiguous-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-ambiguous-observation
+        - compliance-technical-readiness-ambiguous-floor
+        - compliance-technical-readiness-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: compliance-technical-readiness-blocked-observation
+              content: Inventory, owner, log/evidence source, or safe test environment is unavailable.
+            - id: compliance-technical-readiness-blocked-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-blocked-observation
+        - compliance-technical-readiness-blocked-floor
+        - compliance-technical-readiness-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: compliance-technical-readiness-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess compliance-technical-readiness with the compliance-technical-readiness methodology and retain deterministic proof.
+    expected:
+      primary_skill: compliance-technical-readiness
+      top_n: 3
+  - id: compliance-technical-readiness-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: compliance-technical-readiness
+      top_n: 5
+  - id: compliance-technical-readiness-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-technical-readiness-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: compliance-technical-readiness-mutation-observation
+              content: Only selected environment changed to the documented production-like fixture; control mapping, owner, log fields, and test procedure stayed fixed.
+            - id: compliance-technical-readiness-mutation-floor
+              content: The required decision floor is system inventory, control implementation evidence, owner, logging/retention state, testability, and remediation dependency.
+            - id: compliance-technical-readiness-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-technical-readiness-mutation-observation
+        - compliance-technical-readiness-mutation-floor
+        - compliance-technical-readiness-mutation-control
+      forbidden_evidence_ids: []

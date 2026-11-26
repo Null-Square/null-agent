@@ -1,0 +1,251 @@
+schema_version: 1
+skill: cors
+cases:
+  - id: cors-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cors-positive-1-observation
+              content: An owner-controlled unrelated origin read the evaluator private canary because the server reflected origin and allowed credentials.
+            - id: cors-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cors-positive-1-observation
+        - cors-positive-1-context
+        - cors-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cors-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cors-positive-2-observation
+              content: A suffix-lookalike owner origin passed the allowlist and read the synthetic private profile.
+            - id: cors-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cors-positive-2-observation
+        - cors-positive-2-context
+        - cors-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cors-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cors-positive-3-observation
+              content: A null-origin sandbox read the evaluator canary where active policy allowed only the application origin.
+            - id: cors-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cors-positive-3-observation
+        - cors-positive-3-context
+        - cors-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cors-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cors-negative-1-observation
+              content: Wildcard allow-origin appeared only on a public unauthenticated health response.
+            - id: cors-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-negative-1-control
+              content: The retained control explains the observed signal without meeting real browser origin, credential state, readable private synthetic data, and preflight/actual controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cors-negative-1-observation
+        - cors-negative-1-context
+        - cors-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cors-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cors-negative-2-observation
+              content: Origin reflection occurred without credentials and the response contained no private data.
+            - id: cors-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-negative-2-control
+              content: The retained control explains the observed signal without meeting real browser origin, credential state, readable private synthetic data, and preflight/actual controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cors-negative-2-observation
+        - cors-negative-2-context
+        - cors-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cors-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cors-negative-3-observation
+              content: Preflight succeeded but the actual response omitted allow-origin and the browser blocked the read.
+            - id: cors-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-negative-3-control
+              content: The retained control explains the observed signal without meeting real browser origin, credential state, readable private synthetic data, and preflight/actual controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cors-negative-3-observation
+        - cors-negative-3-context
+        - cors-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cors-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cors-ambiguous-observation
+              content: Headers suggest credentialed CORS, but evidence was captured outside a browser and readable data was not demonstrated.
+            - id: cors-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-ambiguous-missing
+              content: The packet lacks at least one required element of real browser origin, credential state, readable private synthetic data, and preflight/actual controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cors-ambiguous-observation
+        - cors-ambiguous-context
+        - cors-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cors-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cors-blocked-observation
+              content: No owner-controlled test origin, evaluator session, or synthetic private response is available.
+            - id: cors-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cors-blocked-observation
+        - cors-blocked-context
+        - cors-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cors-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cors with the cors methodology and retain deterministic proof.
+    expected:
+      primary_skill: cors
+      top_n: 3
+  - id: cors-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cors
+      top_n: 5
+  - id: cors-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cors-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cors-mutation-observation
+              content: Only origin changed from unrelated owner origin to suffix-lookalike; browser-readable private canary and canonical-origin control remained fixed.
+            - id: cors-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is real browser origin, credential state, readable private synthetic data, and preflight/actual controls.
+            - id: cors-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cors-mutation-observation
+        - cors-mutation-context
+        - cors-mutation-control
+      forbidden_evidence_ids: []

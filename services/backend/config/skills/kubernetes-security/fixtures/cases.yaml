@@ -1,0 +1,355 @@
+schema_version: 1
+skill: kubernetes-security
+cases:
+  - id: kubernetes-security-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: kubernetes-security-positive-1-observation
+              content: The rendered production workload used the default service account despite active intent specifying a restricted evaluator service account.
+            - id: kubernetes-security-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - kubernetes-security-positive-1-observation
+        - kubernetes-security-positive-1-context
+        - kubernetes-security-positive-1-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: kubernetes-security-positive-2-observation
+              content: A public ingress route exposed the named private test endpoint because the active auth annotation was absent.
+            - id: kubernetes-security-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - kubernetes-security-positive-2-observation
+        - kubernetes-security-positive-2-context
+        - kubernetes-security-positive-2-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: kubernetes-security-positive-3-observation
+              content: A supplied runtime attestation confirmed a privileged container in the production workload identified by image digest.
+            - id: kubernetes-security-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - kubernetes-security-positive-3-observation
+        - kubernetes-security-positive-3-context
+        - kubernetes-security-positive-3-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: kubernetes-security-positive-4-observation
+              content: A namespaced RoleBinding granted the evaluator workload an unintended read verb on the named synthetic ConfigMap in policy simulation.
+            - id: kubernetes-security-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - kubernetes-security-positive-4-observation
+        - kubernetes-security-positive-4-context
+        - kubernetes-security-positive-4-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: kubernetes-security-positive-5-observation
+              content: A production manifest mounted the owner-provided synthetic secret into an unnecessary container and the offline pod spec trace confirmed it.
+            - id: kubernetes-security-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - kubernetes-security-positive-5-observation
+        - kubernetes-security-positive-5-context
+        - kubernetes-security-positive-5-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: kubernetes-security-negative-1-observation
+              content: A privileged pod existed only in a local test manifest.
+            - id: kubernetes-security-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-negative-1-control
+              content: The retained control explains the observed signal without meeting active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - kubernetes-security-negative-1-observation
+        - kubernetes-security-negative-1-context
+        - kubernetes-security-negative-1-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: kubernetes-security-negative-2-observation
+              content: A ClusterRole was broad but no active binding attached it to the workload.
+            - id: kubernetes-security-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-negative-2-control
+              content: The retained control explains the observed signal without meeting active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - kubernetes-security-negative-2-observation
+        - kubernetes-security-negative-2-context
+        - kubernetes-security-negative-2-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: kubernetes-security-negative-3-observation
+              content: An ingress hostname returned only the intended public health endpoint.
+            - id: kubernetes-security-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-negative-3-control
+              content: The retained control explains the observed signal without meeting active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - kubernetes-security-negative-3-observation
+        - kubernetes-security-negative-3-context
+        - kubernetes-security-negative-3-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: kubernetes-security-negative-4-observation
+              content: A scanner flagged the default namespace in an example Helm values file not used by production.
+            - id: kubernetes-security-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-negative-4-control
+              content: The retained control explains the observed signal without meeting active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - kubernetes-security-negative-4-observation
+        - kubernetes-security-negative-4-context
+        - kubernetes-security-negative-4-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: kubernetes-security-negative-5-observation
+              content: A secret name appeared in a manifest while its value and mount were absent.
+            - id: kubernetes-security-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-negative-5-control
+              content: The retained control explains the observed signal without meeting active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - kubernetes-security-negative-5-observation
+        - kubernetes-security-negative-5-context
+        - kubernetes-security-negative-5-control
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: kubernetes-security-ambiguous-observation
+              content: A risky Kubernetes object is present, but rendered environment, active namespace, and workload binding are unknown.
+            - id: kubernetes-security-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-ambiguous-missing
+              content: The packet lacks at least one required element of active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - kubernetes-security-ambiguous-observation
+        - kubernetes-security-ambiguous-context
+        - kubernetes-security-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: kubernetes-security-blocked-observation
+              content: Confirmation would require cluster credentials/control-plane access rather than supplied manifests and attestations.
+            - id: kubernetes-security-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - kubernetes-security-blocked-observation
+        - kubernetes-security-blocked-context
+        - kubernetes-security-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: kubernetes-security-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess kubernetes-security with the kubernetes-security methodology and retain deterministic proof.
+    expected:
+      primary_skill: kubernetes-security
+      top_n: 3
+  - id: kubernetes-security-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: kubernetes-security
+      top_n: 5
+  - id: kubernetes-security-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: kubernetes-security-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: kubernetes-security-mutation-observation
+              content: Only the production Helm values overlay changed; the same unintended service-account binding remained in rendered output.
+            - id: kubernetes-security-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active manifest/runtime attestation, namespace/workload provenance, and bounded public/source consequence.
+            - id: kubernetes-security-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - kubernetes-security-mutation-observation
+        - kubernetes-security-mutation-context
+        - kubernetes-security-mutation-control
+      forbidden_evidence_ids: []

@@ -1,203 +1,178 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
+  Button,
+  FacetSelect,
+  ListEmptyState,
   ListMetrics,
   QueryBar,
-  StatusPill,
   RecordTable,
-  ListEmptyState,
-  Button,
-  Modal,
-  ModalContent,
-  ModalFooter,
-  Input,
-  Textarea,
-} from "@null-ai/design-tokens/ui";
-import SettingsLayout from "../../settings/ui/SettingsLayout";
-import { useLocal, request, type Project } from "../../../local";
-export function Scopes() {
-  const ctx = useLocal();
-  const nav = useNavigate();
-  const [search, setSearch] = useState("");
-  const query = search.trim().toLowerCase();
-  const scopes = ctx.scopes.filter((scope) =>
-    [scope.name, scope.scope].some((text) =>
-      text.toLowerCase().includes(query),
-    ),
-  );
-  const [open, setOpen] = useState(false),
-    [name, setName] = useState(""),
-    [scope, setScope] = useState(""),
-    [error, setError] = useState(""),
-    [saving, setSaving] = useState(false);
-  async function create() {
-    setSaving(true);
-    setError("");
-    try {
-      const p = await request<Project>("/projects", "POST", {
-        name: name.trim(),
-        scope,
-        framework: "nist_csf",
-      });
-      await ctx.refresh();
-      ctx.select(p.id);
-      setOpen(false);
-      nav("/scopes/" + encodeURIComponent(p.id));
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not create scope.");
-    } finally {
-      setSaving(false);
-    }
-  }
+  StatusPill,
+} from '@null-ai/design-tokens/ui';
+import SettingsLayout from '@/modules/settings/ui/SettingsLayout';
+import { useScopesQuery } from '@/modules/security-ops/api';
+import { TimeAgo } from '@shared/ui/TimeAgo';
+import CreateScopeModal from './components/CreateScopeModal';
+import { useAppPaths } from '@shared/contexts/AppPathContext';
+import { useOrgPermissions } from '@modules/permissions';
+
+type TargetState = 'verified' | 'pending' | 'missing';
+type StateFilter = 'all' | TargetState;
+type ModeFilter = 'all' | 'whitebox' | 'blackbox';
+
+const TARGET_STATE: Record<TargetState, { label: string; tone: 'success' | 'warning' | 'neutral' }> = {
+  verified: { label: 'Verified', tone: 'success' },
+  pending: { label: 'Pending', tone: 'warning' },
+  missing: { label: 'Missing', tone: 'warning' },
+};
+
+const targetState = (scope: { targetCount?: number | null; verifiedTargetCount?: number | null }): TargetState => {
+  if ((scope.verifiedTargetCount ?? 0) > 0) return 'verified';
+  return (scope.targetCount ?? 0) > 0 ? 'pending' : 'missing';
+};
+
+/**
+ * ScopesPage — the scopes list: target verification, execution mode, coverage.
+ */
+export default function ScopesPage() {
+  const navigate = useNavigate();
+  const paths = useAppPaths();
+  const { data: scopes } = useScopesQuery();
+  const canCreateScope = useOrgPermissions().has('org.scope.write');
+  const [showCreate, setShowCreate] = useState(false);
+  const [search, setSearch] = useState('');
+  const [stateFilter, setStateFilter] = useState<StateFilter>('all');
+  const [modeFilter, setModeFilter] = useState<ModeFilter>('all');
+
+  const rawScopes = useMemo(() => scopes ?? [], [scopes]);
+  const countState = (state: TargetState) => rawScopes.filter((scope) => targetState(scope) === state).length;
+
+  const filtered = useMemo(() => rawScopes.filter((scope) => {
+    if (stateFilter !== 'all' && targetState(scope) !== stateFilter) return false;
+    if (modeFilter === 'whitebox' && scope.whiteboxEnabled !== true) return false;
+    if (modeFilter === 'blackbox' && scope.whiteboxEnabled === true) return false;
+    if (!search.trim()) return true;
+    return scope.name.toLowerCase().includes(search.trim().toLowerCase());
+  }), [modeFilter, rawScopes, search, stateFilter]);
+
+  const hasQuery = Boolean(search.trim()) || stateFilter !== 'all' || modeFilter !== 'all';
+
   return (
     <SettingsLayout
       title="Scopes"
-      description="Manage the assessment scope, evidence, and compliance framework."
-      backPath={null}
+      description="Review target verification, execution mode, and coverage across your scopes."
       actions={
-        <Button
-          onClick={() => {
-            setName("");
-            setScope("");
-            setError("");
-            setOpen(true);
-          }}
-        >
-          New scope
-        </Button>
+        canCreateScope ? (
+          <Button
+            onClick={() => {
+              setShowCreate(true);
+            }}
+          >
+            New scope
+          </Button>
+        ) : null
       }
     >
       <ListMetrics
         className="mb-8"
         label="Scope coverage"
         items={[
-          { label: "Scopes", value: ctx.scopes.length },
-          {
-            label: "With evidence",
-            value: ctx.scopes.filter((scope) => scope.artifactCount > 0).length,
-          },
-          {
-            label: "Awaiting evidence",
-            value: ctx.scopes.filter((scope) => scope.artifactCount === 0)
-              .length,
-          },
+          { label: 'Scopes', value: rawScopes.length },
+          { label: 'Verified targets', value: countState('verified') },
+          { label: 'Missing targets', value: countState('missing'), severity: 'high' },
         ]}
       />
+
       <QueryBar
         className="mb-8"
         aria-label="Filter scopes"
         search={search}
         onSearchChange={setSearch}
         searchPlaceholder="Search scopes"
+        facets={
+          <>
+            <FacetSelect
+              aria-label="Filter by target state"
+              label="All states"
+              value={stateFilter}
+              onChange={(value) => setStateFilter(value as StateFilter)}
+              options={[
+                { value: 'all', label: 'All states', count: rawScopes.length },
+                { value: 'verified', label: 'Verified', count: countState('verified'), swatchClass: 'bg-success' },
+                { value: 'pending', label: 'Pending', count: countState('pending'), swatchClass: 'bg-warning' },
+                { value: 'missing', label: 'Missing', count: countState('missing'), swatchClass: 'bg-warning' },
+              ]}
+            />
+            <FacetSelect
+              aria-label="Filter by mode"
+              label="All modes"
+              value={modeFilter}
+              onChange={(value) => setModeFilter(value as ModeFilter)}
+              options={[
+                { value: 'all', label: 'All modes', count: rawScopes.length },
+                { value: 'whitebox', label: 'Whitebox', count: rawScopes.filter((s) => s.whiteboxEnabled === true).length },
+                { value: 'blackbox', label: 'Blackbox', count: rawScopes.filter((s) => s.whiteboxEnabled !== true).length },
+              ]}
+            />
+          </>
+        }
       />
-      {scopes.length ? (
+
+      {filtered.length === 0 ? (
+        hasQuery ? (
+          <ListEmptyState
+            variant="filtered"
+            icon="search"
+            title="No scopes match this query"
+            description={`Your filters narrow ${rawScopes.length} scopes down to none.`}
+            onClear={() => {
+              setSearch('');
+              setStateFilter('all');
+              setModeFilter('all');
+            }}
+          />
+        ) : (
+          <ListEmptyState icon="scope" title="No scopes yet" description="A scope is the authorisation boundary an assessment runs inside." />
+        )
+      ) : (
         <RecordTable
-          rows={scopes}
+          rows={filtered}
           getRowKey={(scope) => scope.id}
           titleHeader="Scope"
           title={(scope) => scope.name}
-          subtitle={(scope) => scope.scope}
+          subtitle={(scope) => (scope.whiteboxEnabled === true ? 'Whitebox' : 'Blackbox')}
           rowActionLabel={(scope) => `Open scope: ${scope.name}`}
-          onRowClick={(scope) => nav("/scopes/" + encodeURIComponent(scope.id))}
+          onRowClick={(scope) => navigate(paths.scopeDetail(scope.id))}
           columns={[
             {
-              key: "state",
-              header: "Evidence",
+              key: 'execution',
+              header: 'Execution',
+              render: (scope) => (scope.attachedRunner ? `this computer + ${scope.attachedRunner.name}` : 'this computer'),
               showOnMobile: true,
-              render: (scope) => (
-                <StatusPill tone={scope.artifactCount ? "success" : "neutral"}>
-                  {scope.artifactCount
-                    ? scope.artifactCount + " files"
-                    : "Awaiting evidence"}
-                </StatusPill>
-              ),
             },
             {
-              key: "risks",
-              header: "Risks",
-              mono: true,
-              render: (scope) => scope.findingCount,
+              key: 'state',
+              header: 'Targets',
+              width: '150px',
+              render: (scope) => {
+                const state = TARGET_STATE[targetState(scope)];
+                return <StatusPill tone={state.tone}>{state.label}</StatusPill>;
+              },
+              showOnMobile: true,
             },
             {
-              key: "updated",
-              header: "Updated",
+              key: 'last-run',
+              header: 'Last run',
+              width: '140px',
               mono: true,
-              align: "end",
-              render: (scope) => new Date(scope.updatedAt).toLocaleDateString(),
+              align: 'end',
+              render: (scope) => <TimeAgo date={scope.lastRunAt ?? null} />,
             },
           ]}
         />
-      ) : query ? (
-        <ListEmptyState
-          variant="filtered"
-          icon="search"
-          title="No scopes match this query"
-          onClear={() => setSearch("")}
-        />
-      ) : (
-        <ListEmptyState
-          icon="scope"
-          title="No scopes yet"
-          description="Create a scope to record the system or process your assessment covers."
-        />
       )}
-      <Modal
-        isOpen={open}
-        onClose={() => {
-          if (!saving) setOpen(false);
-        }}
-        title="Create new scope"
-      >
-        <ModalContent>
-          <form
-            id="scope-form"
-            className="local-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              void create();
-            }}
-          >
-            <label>
-              Scope name
-              <Input
-                required
-                maxLength={120}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </label>
-            <label>
-              Description
-              <Textarea
-                maxLength={2000}
-                value={scope}
-                onChange={(e) => setScope(e.target.value)}
-              />
-            </label>
-            {error && (
-              <p role="alert" className="notice">
-                {error}
-              </p>
-            )}
-          </form>
-        </ModalContent>
-        <ModalFooter>
-          <Button
-            variant="outline"
-            disabled={saving}
-            onClick={() => setOpen(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            form="scope-form"
-            type="submit"
-            disabled={!name.trim() || saving}
-          >
-            Create scope
-          </Button>
-        </ModalFooter>
-      </Modal>
+
+      <CreateScopeModal open={showCreate} onClose={() => setShowCreate(false)} />
     </SettingsLayout>
   );
 }

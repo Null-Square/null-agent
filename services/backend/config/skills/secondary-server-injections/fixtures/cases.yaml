@@ -1,0 +1,251 @@
+schema_version: 1
+skill: secondary-server-injections
+cases:
+  - id: secondary-server-injections-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: secondary-server-injections-positive-1-observation
+              content: An LDAP filter metacharacter returned a second synthetic directory entry while the escaped value returned only the exact evaluator entry.
+            - id: secondary-server-injections-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - secondary-server-injections-positive-1-observation
+        - secondary-server-injections-positive-1-context
+        - secondary-server-injections-positive-1-control
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: secondary-server-injections-positive-2-observation
+              content: An XPath predicate variant returned a second synthetic XML record and the literalized control did not.
+            - id: secondary-server-injections-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - secondary-server-injections-positive-2-observation
+        - secondary-server-injections-positive-2-context
+        - secondary-server-injections-positive-2-control
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: secondary-server-injections-positive-3-observation
+              content: An evaluator mail field created a second inert X-B1 header visible only in the test mailbox while the encoded control stayed in one field.
+            - id: secondary-server-injections-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - secondary-server-injections-positive-3-observation
+        - secondary-server-injections-positive-3-context
+        - secondary-server-injections-positive-3-control
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: secondary-server-injections-negative-1-observation
+              content: A generic backend error occurred for candidate and malformed controls before the interpreter.
+            - id: secondary-server-injections-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-negative-1-control
+              content: The retained control explains the observed signal without meeting identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - secondary-server-injections-negative-1-observation
+        - secondary-server-injections-negative-1-context
+        - secondary-server-injections-negative-1-control
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: secondary-server-injections-negative-2-observation
+              content: The active sink API escaped every metacharacter and returned only the exact synthetic record.
+            - id: secondary-server-injections-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-negative-2-control
+              content: The retained control explains the observed signal without meeting identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - secondary-server-injections-negative-2-observation
+        - secondary-server-injections-negative-2-context
+        - secondary-server-injections-negative-2-control
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: secondary-server-injections-negative-3-observation
+              content: A dangerous-looking interpreter call existed only in dead source.
+            - id: secondary-server-injections-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-negative-3-control
+              content: The retained control explains the observed signal without meeting identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - secondary-server-injections-negative-3-observation
+        - secondary-server-injections-negative-3-context
+        - secondary-server-injections-negative-3-control
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: secondary-server-injections-ambiguous-observation
+              content: Input changes result count, but interpreter type, synthetic records, and escaped control are absent.
+            - id: secondary-server-injections-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-ambiguous-missing
+              content: The packet lacks at least one required element of identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - secondary-server-injections-ambiguous-observation
+        - secondary-server-injections-ambiguous-context
+        - secondary-server-injections-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: secondary-server-injections-blocked-observation
+              content: No disposable LDAP/XML/mail fixture or active sink provenance is available.
+            - id: secondary-server-injections-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - secondary-server-injections-blocked-observation
+        - secondary-server-injections-blocked-context
+        - secondary-server-injections-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: secondary-server-injections-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess secondary-server-injections with the secondary-server-injections methodology and retain deterministic proof.
+    expected:
+      primary_skill: secondary-server-injections
+      top_n: 3
+  - id: secondary-server-injections-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: secondary-server-injections
+      top_n: 5
+  - id: secondary-server-injections-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: secondary-server-injections-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: secondary-server-injections-mutation-observation
+              content: Only the LDAP grouping form changed; the same second synthetic entry and escaped exact-match control remained.
+            - id: secondary-server-injections-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is identified non-SQL interpreter, inert synthetic data differential, escaped/literal control, and active sink path.
+            - id: secondary-server-injections-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - secondary-server-injections-mutation-observation
+        - secondary-server-injections-mutation-context
+        - secondary-server-injections-mutation-control
+      forbidden_evidence_ids: []

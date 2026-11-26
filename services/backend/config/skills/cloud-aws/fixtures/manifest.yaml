@@ -1,0 +1,4 @@
+schema_version: 1
+skill: cloud-aws
+files:
+  - cases.yaml

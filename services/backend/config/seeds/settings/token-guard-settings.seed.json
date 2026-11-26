@@ -1,0 +1,5 @@
+{
+  "perSessionLimit": 10000000,
+  "perUserDailyLimit": 0,
+  "warningThresholdPct": 80
+}

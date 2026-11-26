@@ -1,0 +1,251 @@
+schema_version: 1
+skill: fastapi
+cases:
+  - id: fastapi-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: fastapi-positive-1-observation
+              content: The object route omitted the tenant dependency and evaluator A read evaluator B’s synthetic item.
+            - id: fastapi-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - fastapi-positive-1-observation
+        - fastapi-positive-1-context
+        - fastapi-positive-1-control
+      forbidden_evidence_ids: []
+  - id: fastapi-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: fastapi-positive-2-observation
+              content: An extra server-managed field passed the active Pydantic model and persisted on a disposable evaluator object.
+            - id: fastapi-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - fastapi-positive-2-observation
+        - fastapi-positive-2-context
+        - fastapi-positive-2-control
+      forbidden_evidence_ids: []
+  - id: fastapi-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: fastapi-positive-3-observation
+              content: The active OpenAPI route declared authentication but runtime dependency resolution allowed an anonymous private canary read.
+            - id: fastapi-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - fastapi-positive-3-observation
+        - fastapi-positive-3-context
+        - fastapi-positive-3-control
+      forbidden_evidence_ids: []
+  - id: fastapi-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: fastapi-negative-1-observation
+              content: Public API docs exposed only intended schema.
+            - id: fastapi-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-negative-1-control
+              content: The retained control explains the observed signal without meeting included router/dependency/model path, evaluator identity/object controls, and authoritative response/state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - fastapi-negative-1-observation
+        - fastapi-negative-1-context
+        - fastapi-negative-1-control
+      forbidden_evidence_ids: []
+  - id: fastapi-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: fastapi-negative-2-observation
+              content: A dependency override existed only in tests.
+            - id: fastapi-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-negative-2-control
+              content: The retained control explains the observed signal without meeting included router/dependency/model path, evaluator identity/object controls, and authoritative response/state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - fastapi-negative-2-observation
+        - fastapi-negative-2-context
+        - fastapi-negative-2-control
+      forbidden_evidence_ids: []
+  - id: fastapi-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: fastapi-negative-3-observation
+              content: Validation errors named fields but revealed no secret or internal state.
+            - id: fastapi-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-negative-3-control
+              content: The retained control explains the observed signal without meeting included router/dependency/model path, evaluator identity/object controls, and authoritative response/state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - fastapi-negative-3-observation
+        - fastapi-negative-3-context
+        - fastapi-negative-3-control
+      forbidden_evidence_ids: []
+  - id: fastapi-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: fastapi-ambiguous-observation
+              content: OpenAPI and source disagree on dependencies, but the deployed router version is unknown.
+            - id: fastapi-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-ambiguous-missing
+              content: The packet lacks at least one required element of included router/dependency/model path, evaluator identity/object controls, and authoritative response/state, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - fastapi-ambiguous-observation
+        - fastapi-ambiguous-context
+        - fastapi-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: fastapi-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: fastapi-blocked-observation
+              content: No active route/dependency provenance or synthetic evaluator objects are supplied.
+            - id: fastapi-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - fastapi-blocked-observation
+        - fastapi-blocked-context
+        - fastapi-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: fastapi-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess fastapi with the fastapi methodology and retain deterministic proof.
+    expected:
+      primary_skill: fastapi
+      top_n: 3
+  - id: fastapi-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: fastapi
+      top_n: 5
+  - id: fastapi-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: fastapi-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: fastapi-mutation-observation
+              content: Only media type changed from JSON to supported form binding; the same server-managed field persisted.
+            - id: fastapi-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is included router/dependency/model path, evaluator identity/object controls, and authoritative response/state.
+            - id: fastapi-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - fastapi-mutation-observation
+        - fastapi-mutation-context
+        - fastapi-mutation-control
+      forbidden_evidence_ids: []

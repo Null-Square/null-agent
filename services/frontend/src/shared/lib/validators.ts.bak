@@ -1,0 +1,174 @@
+import { z } from 'zod';
+import type { ChatSessionMeta, SessionArtifact, AIChatMessage, TaskSummary, TaskInputDefinition } from '@/types/chat';
+
+const num = () => z.union([z.number(), z.string().transform((v) => Number(v))]).optional();
+
+const UsageSchema = z.object({
+  promptTokens: num(),
+  completionTokens: num(),
+  totalTokens: num(),
+  cost: num(),
+  currency: z.string().optional(),
+  model: z.string().optional(),
+  cachedPromptTokens: num().nullable(),
+  platformCost: num().nullable(),
+  platformPrice: num().nullable(),
+  credits: num().nullable(),
+  contextWindow: num().nullable(),
+  contextRemaining: num().nullable(),
+});
+
+export const SessionSchema = z.object({
+  id: z.string(),
+  title: z.string().optional(),
+  status: z.string().optional(),
+  blocked_reason: z.string().nullable().optional(),
+  isProcessing: z.boolean().optional(),
+  mode: z.enum(['interactive', 'automated']).optional(),
+  createdAt: z
+    .union([z.number(), z.string().transform((val) => Number(val))])
+    .optional()
+    .transform((val) => (Number.isFinite(val) ? Number(val) : Date.now())),
+  updatedAt: z
+    .union([z.number(), z.string().transform((val) => Number(val))])
+    .optional()
+    .transform((val) => (Number.isFinite(val) ? Number(val) : Date.now())),
+  messageCount: z.number().optional(),
+  summary: z.string().nullable().optional(),
+  report: z.string().nullable().optional(),
+  artifacts: z.array(z.any()).optional(), // keep lenient to avoid breaking on new artifact fields
+  usage: UsageSchema.nullable().optional(),
+});
+
+export const SessionArraySchema = z.array(SessionSchema);
+
+const ArtifactSchema = z.object({
+  id: z.string(),
+  filePath: z.string(),
+  originalName: z.string(),
+  fileType: z.string().optional(),
+  sizeBytes: z.number(),
+  createdAt: z.number(),
+  downloadUrl: z.string().optional(),
+  storage: z.enum(['local', 's3']).optional(),
+  bucket: z.string().optional(),
+});
+
+export const validateSession = (data: unknown): ChatSessionMeta => {
+  const parsed = SessionSchema.safeParse(data);
+  if (parsed.success) {
+    return parsed.data as ChatSessionMeta;
+  }
+  if (data && typeof data === 'object') {
+    console.warn('[validateSession] Using fallback for session', parsed.error.message);
+    return {
+      ...(data as Record<string, unknown>),
+      id: (data as Record<string, unknown>).id as string,
+    } as ChatSessionMeta;
+  }
+  throw new Error(`Invalid session payload: ${parsed.error.message}`);
+};
+
+export const validateSessions = (data: unknown): ChatSessionMeta[] => {
+  const parsed = SessionArraySchema.safeParse(data);
+  if (parsed.success) {
+    return parsed.data as ChatSessionMeta[];
+  }
+
+  if (Array.isArray(data)) {
+    const valid: ChatSessionMeta[] = [];
+    data.forEach((item) => {
+      const single = SessionSchema.safeParse(item);
+      if (single.success) {
+        valid.push(single.data as ChatSessionMeta);
+      } else {
+        console.warn('[validateSessions] Dropped invalid session', single.error.message);
+      }
+    });
+    return valid;
+  }
+
+  console.warn('[validateSessions] Invalid sessions payload, returning empty list', parsed.error.message);
+  return [];
+};
+
+export const validateArtifacts = (data: unknown): SessionArtifact[] => {
+  const parsed = z.array(ArtifactSchema).safeParse(data);
+  if (!parsed.success) {
+    throw new Error(`Invalid artifacts payload: ${parsed.error.message}`);
+  }
+  return parsed.data as SessionArtifact[];
+};
+
+const MessageSchema = z.object({
+  id: z.string(),
+  role: z.enum(['user', 'assistant', 'tool', 'system']),
+  content: z.string().optional().default(''),
+  timestamp: z.union([z.date(), z.number(), z.string()]),
+  status: z.enum(['sending', 'sent', 'error']).optional(),
+});
+
+export const validateMessages = (data: unknown): AIChatMessage[] => {
+  const parsed = z.array(MessageSchema).safeParse(data);
+  if (parsed.success) {
+    return parsed.data.map((msg) => ({
+      ...msg,
+      role: msg.role === 'system' ? 'assistant' : msg.role,
+      timestamp: msg.timestamp instanceof Date ? msg.timestamp : new Date(msg.timestamp),
+    })) as AIChatMessage[];
+  }
+
+  if (Array.isArray(data)) {
+    const valid: AIChatMessage[] = [];
+    data.forEach((raw) => {
+      const single = MessageSchema.safeParse(raw);
+      if (single.success) {
+        const msg = single.data;
+        valid.push({
+          ...msg,
+          role: msg.role === 'system' ? 'assistant' : msg.role,
+          timestamp: msg.timestamp instanceof Date ? msg.timestamp : new Date(msg.timestamp),
+        } as AIChatMessage);
+      } else {
+        console.warn('[validateMessages] Dropped invalid message', single.error.message);
+      }
+    });
+    return valid;
+  }
+
+  console.warn('[validateMessages] Invalid messages payload, returning empty list', parsed.error.message);
+  return [];
+};
+
+const TaskInputDefinitionSchema: z.ZodType<TaskInputDefinition> = z.object({
+  name: z.string(),
+  type: z.enum(['text', 'domain', 'ip', 'cidr', 'url', 'select', 'boolean', 'password', 'file']),
+  label: z.string(),
+  required: z.boolean().optional(),
+  placeholder: z.string().optional(),
+  options: z.array(z.string()).optional(),
+  pattern: z.string().optional(),
+  help: z.string().optional(),
+  secret: z.boolean().optional(),
+  accept: z.array(z.string()).optional(),
+  maxSizeBytes: z.number().optional(),
+  multiple: z.boolean().optional(),
+});
+
+const TaskSummarySchema: z.ZodType<TaskSummary> = z.object({
+  id: z.string(),
+  title: z.string(),
+  category: z.string().optional(),
+  summary: z.string().optional(),
+  versionHash: z.string().optional(),
+  vars: z.record(z.unknown()).optional(),
+  inputs: z.array(TaskInputDefinitionSchema).optional(),
+});
+
+export const validateTaskSummaries = (data: unknown): TaskSummary[] => {
+  const parsed = z.array(TaskSummarySchema).safeParse(data);
+  if (!parsed.success) {
+    throw new Error(`Invalid task summaries payload: ${parsed.error.message}`);
+  }
+  return parsed.data;
+};

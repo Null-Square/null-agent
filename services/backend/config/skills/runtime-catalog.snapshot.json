@@ -1,0 +1,546 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "3.0.0-b1",
+  "skills": [
+    {
+      "slug": "access-control",
+      "versionHash": "a53298d7bea28013b85b8d5388d66ea45271b69d0c54f2c5f6a56de7b6962399",
+      "runtimeHash": "502f256107e18be0075a575fbc014084b6a41183265c8385683c8696d38226f9"
+    },
+    {
+      "slug": "ai-application-security",
+      "versionHash": "c042a74e911ec184766730f2c262c6bfc838316018fe0f1bb071233f31ebe833",
+      "runtimeHash": "909daedd8bd173772b009248ba30561aef8e4ff795059f61f3917fdf230f1adb"
+    },
+    {
+      "slug": "api-enumeration",
+      "versionHash": "c4c66238b38e46e761ac8fe47462613990035597fe8f6fa930c5619a1c3ceffc",
+      "runtimeHash": "7d45c68775ffbb7761be02de8e447120a0fe387f36188369d8b2ed565bfcb6af"
+    },
+    {
+      "slug": "auth0",
+      "versionHash": "8735727524f141abca6e4595b19c2d42ee77f180b115d6ff98b7a8498d88df29",
+      "runtimeHash": "e49c4afcf15759e88a9efab943d7e3b5ccf95369f9a081958ac54359c6db811b"
+    },
+    {
+      "slug": "broad-surface-scan",
+      "versionHash": "6d340e2befb17215cd7b36d6d3a936caa0a7943745255b7d59af76420c5347c8",
+      "runtimeHash": "2270bd6682e25144eb7ec842b9aca6b92dc73a21c66725f05320aef468200d35"
+    },
+    {
+      "slug": "broken-auth",
+      "versionHash": "2681fdf7d1d0ad0c5452ff348fb5601136488cec974f2adf4876663305921c2b",
+      "runtimeHash": "8d6ba66e50c7e37a87c251852cbb175e32792735d1ea82de510b38993d88a29c"
+    },
+    {
+      "slug": "business-logic",
+      "versionHash": "2ee2f39488d53fad7fb8e240c782e89bfb5b8c060110a8da7642c41888e9b3c7",
+      "runtimeHash": "ec1ccb867cc061acec66cefa2413ce0f957b4679832b75e4ba2ddca79e98b11b"
+    },
+    {
+      "slug": "clickjacking",
+      "versionHash": "a1df9d9f78d4304560bb4b6ae0fe34bd6412840980a617870dab3d9bf30c5618",
+      "runtimeHash": "9f2139c25fdec9c654b3dbea2cdba15ab44b06c5b2d2f43921186a5ca7cbdb21"
+    },
+    {
+      "slug": "client-side-trust-boundaries",
+      "versionHash": "0806c91d3894bd7b0dba9f5fabfb16fa165ba5983d25da9ff312389e21d83764",
+      "runtimeHash": "1a6330fdc46bf59bd3edde7c123b0a334086675f697cabdfa3f5d742b1914d4d"
+    },
+    {
+      "slug": "cloud-aws",
+      "versionHash": "f57ac30b4e96cd9e28f9b9cb9d1d4379943ddaf6d9971f91d201e15ea119dace",
+      "runtimeHash": "bcc5c425cf7809e7248ef19db18fd482944c96cf55317d0e90f75b76bbd1ba28"
+    },
+    {
+      "slug": "cloud-azure",
+      "versionHash": "3affbae05934649987c071d816a0745eca5bad5ab89cad1a451caac254e42f17",
+      "runtimeHash": "2a6c7e1312e4dafb3e4bb256fdc13fbece54808640ce89de002795619e9ba88d"
+    },
+    {
+      "slug": "cloud-gcp",
+      "versionHash": "3733c6b8938adbd4f6e52462d488c9e381ad72932ebfd63fc5a35241f58a25b1",
+      "runtimeHash": "376f4fc401bcf1dd08fc7bf3d6deaa33974466d5d7a201f28bbc5db001005368"
+    },
+    {
+      "slug": "cms-drupal",
+      "versionHash": "b0bb7a552fd11c0c90fde71c681c09b09e246bf725be6b29fb03941bff621fef",
+      "runtimeHash": "c112768eb422f4fb06293bfd2fee83af51b9f08f1b7ec9d12525985b66263208"
+    },
+    {
+      "slug": "cms-joomla",
+      "versionHash": "183e1dee0af6b83784ef44e1c5d2b3124fa5fca02dda564f4e4e4a07c658019c",
+      "runtimeHash": "69ce2b331a5b1a061281a63befbde4e0bc455b91cd5b88f4282ae90a0458f1d6"
+    },
+    {
+      "slug": "cms-wordpress",
+      "versionHash": "046dfc1bd5d1984e4c3ef5dfb5b1989f2b3ccb4fafaef0ab417313f84f538130",
+      "runtimeHash": "f2e26a2a448478b71b3ddd2f690bf128b04d418e85107e8f611cd05bbb0586b5"
+    },
+    {
+      "slug": "code-review-analysis",
+      "versionHash": "d39e9f3c9277c982f79088fb542411563795d2286ce0114cbf379fed84792713",
+      "runtimeHash": "2163f0dcdd8bec0cd542124953ad79ecd27684dfda93e0b2ce31e6347c366760"
+    },
+    {
+      "slug": "code-review-mapping",
+      "versionHash": "78c74b851fec9ae0ea6df6897dbcb8dd0e1cb8fafbfec1e8e15c9a2987c48997",
+      "runtimeHash": "59c0b721737ba2c75a41cdbfa64593856af8abe63e7fa7ebababb73f3fe1468c"
+    },
+    {
+      "slug": "code-review-planning",
+      "versionHash": "6012dd9b62b0827360abf1a4817f6a00d99125c8fd7071bfb138427ccf675240",
+      "runtimeHash": "ee6d4888bbfb975964f92c095ef4fee16fea2b2e21ed9676bcc8633187676b10"
+    },
+    {
+      "slug": "code-review-reporting",
+      "versionHash": "b7586c1eb0f19de02c4b5b3357af8be7c508d9ae4a263684cdc2d927d0f4e83c",
+      "runtimeHash": "92d6f6d7aa58d3e71ab126fbd743c342c875b8b9206bfe4ff7ef4f63ca0ede05"
+    },
+    {
+      "slug": "code-review-validation",
+      "versionHash": "c171e1bdf0e3b8b73cbb4882ef6f7e73e46ec2af4d4f4a003e827d877c97b808",
+      "runtimeHash": "0887785c823d10b7eda3550653317b9f98d916ea04b6cf1fd9a03d1f8ac7d88a"
+    },
+    {
+      "slug": "command-injection",
+      "versionHash": "8d6d6f3c7fe8275e338e994903387ba1d3671128e0dcfd7ecd9df28a28d8dbf8",
+      "runtimeHash": "0d9a9fc91210d2b0fef0ad947594726d777da7f2db97ba77b08807e42704518e"
+    },
+    {
+      "slug": "compliance-access-control",
+      "versionHash": "472c48f7854a0fab8dc477f3fcb228b88fabb022d79748fe8594134816c5c39d",
+      "runtimeHash": "7cc91bfa1b2ea741707f357ebbd0c0f2f32c1bf810e37762546e6e2534afa1ac"
+    },
+    {
+      "slug": "compliance-evidence-review",
+      "versionHash": "0b2f3cad570e0813561868e34c9c77ff3baa8c92aab0143a1e24a6f18329d254",
+      "runtimeHash": "cb2fced5bb52fac399f79ae5ffc4a3fe5914bf3de53baf0a7b9a760919641730"
+    },
+    {
+      "slug": "compliance-governance-review",
+      "versionHash": "e2d033faf5f3f1878a1c24a3518b41aa0779053e092d4232ce996e29cf4c7564",
+      "runtimeHash": "c8b254fd41baff3b4fe792d04ded0da25de37ef36aa4cf4fbd4925bd657833af"
+    },
+    {
+      "slug": "compliance-planning",
+      "versionHash": "65e70af87596344b0cf1e0844a91796f4288f0f3698b355a15bf1a4f446bf750",
+      "runtimeHash": "98813953d77c3a8b25312a56abef03c1c56c36e6657f242d97b327a8b2622a41"
+    },
+    {
+      "slug": "compliance-reporting",
+      "versionHash": "e95c0b1d2f78c19b07eaaadf460f7c61e223e7700989141e8d1932022fc20705",
+      "runtimeHash": "7cb029df7b7a581c8eca7346fb57769f77d50f78fd157a3d745c133498ce8b41"
+    },
+    {
+      "slug": "compliance-technical-readiness",
+      "versionHash": "5270f7163c1e3e8eafb6b9940735e13f442dc51cd1702649f34bdf081c261b67",
+      "runtimeHash": "807db9408ed50c0c42355e62d5f98d2535fc25b349d637dcc8565dc967ec107e"
+    },
+    {
+      "slug": "cors",
+      "versionHash": "501b744f44b905ebf5b0cf09a2f9ec8da799e21db153b2a811482638b7a32b85",
+      "runtimeHash": "5b41205b215e5d8a72380fbc7172b674bbe26cab9163697567ca666db554b8ac"
+    },
+    {
+      "slug": "cryptographic-implementation",
+      "versionHash": "b27eeef15c41718fcd85ff66fca93427321c695a59e1e6927351e8b85e536409",
+      "runtimeHash": "9bad338f8ac24093de4f4cbb2ba14736844db8b1f8d36b5ff8dc2a5d6c56d589"
+    },
+    {
+      "slug": "csrf",
+      "versionHash": "6a6c6175a00f4b6a64835118820d45dad7cf0a7278733640fb61a55b347b52c0",
+      "runtimeHash": "fc17550314058997513f4b4274c46c93ac53ba3da9e8a9680def073b332017dd"
+    },
+    {
+      "slug": "csv-formula-injection",
+      "versionHash": "c66f5e899ee1ba1dc704312930c8b63d1eb38e409b371eb8ee22cd4641176ad3",
+      "runtimeHash": "17e2881aaa433689d80b7dacf7af156fe83d2f0f7fa666c255a15d75d3f85595"
+    },
+    {
+      "slug": "cve-verification",
+      "versionHash": "0078dac3a28b9e62dca103496ec956f80befc97b05bd51cf5f8d61b5a62c4d92",
+      "runtimeHash": "7572e9348458069ceb6e90479af408d259e524b821e7ab08f30dedb1b440d389"
+    },
+    {
+      "slug": "django",
+      "versionHash": "2522b6d1b0edfc49200cdb662a80fcb8ee9b0a33528b9bd7ede6c20bd1bc3b9e",
+      "runtimeHash": "f840d0da6037d38992a6704af59874c75f61f7fb8d4c5af065e9e6efe1f44c04"
+    },
+    {
+      "slug": "dom-xss",
+      "versionHash": "c6bf08db4e169b0b8010e14aa11616850bfc7855eb4c67895b23dbd4120c587b",
+      "runtimeHash": "4decb59c5491cb483eef3cff884d9d96af4eb01794a6f0dbf1968999dd67200f"
+    },
+    {
+      "slug": "express",
+      "versionHash": "3dfcffe3a64ef998e38a2a681edb7f2267160a03c8364bad9b4536a8dd574a76",
+      "runtimeHash": "1192640060e207db4d6cfcd44b79591ea6478c6bdcf8e0378e2a3516b0ad3bec"
+    },
+    {
+      "slug": "fastapi",
+      "versionHash": "23a209b7e8b00879ed0206bf6ac3a27f505b70a1f9a4874eb1605ef1457e55e7",
+      "runtimeHash": "98eaff1f2a9bac0950ecb211c2f31978f1cde225cc22dd2a80325fbaf98c0251"
+    },
+    {
+      "slug": "firebase-firestore",
+      "versionHash": "5f4991909e860540bba2b566575b74c6c44228e9251bc384ec6ab13d1b9bf849",
+      "runtimeHash": "b09eb929af5e38da5f860b1ddf007883a90bbd85235d53f46145624a9beed3f8"
+    },
+    {
+      "slug": "grafana-prometheus",
+      "versionHash": "455d1bba1f7eb40e1e621f22f5e2912b03b2234e1a9f85cff5e934de8ffd50d8",
+      "runtimeHash": "060755923bc6b11b5e9be4ff44318263f29f75b2f6ce0bd1490ae6f83bb39662"
+    },
+    {
+      "slug": "graphql",
+      "versionHash": "7ace1b1eb6e1e0eea5a10bfa6989fa542959f4aec5022e427396cfc2d11e303e",
+      "runtimeHash": "8a90c471186cf5d45d52c2b28d98ca715b47322861ef40273e8139eca64abb81"
+    },
+    {
+      "slug": "grpc-security",
+      "versionHash": "4132ccb1519eb17a5fd644b28d1fdb6df9c6bdfbb65d4729afacfca343bfb3c1",
+      "runtimeHash": "78f04d39420c22f0b0ef6a2582a7cd8eef580ac9bb590863cc8b3c0fa57e7c72"
+    },
+    {
+      "slug": "header-injection",
+      "versionHash": "bdf5f986a9c8fa40333f9fc1431f877c7637f81ceee76033cbee36ab0efa5977",
+      "runtimeHash": "fef2e5ef15d4706422e246a834a90711fd1df9c40f4e2782714eacb28eb2a6b0"
+    },
+    {
+      "slug": "host-header-attacks",
+      "versionHash": "1b6833f8c7e840ee60608b74897dabc0ec55df14aabc40d41640f519df30d6ed",
+      "runtimeHash": "2d95accd60d63a69335dc15252b984f71ef936f1b4ae1443aa51f63e43cd48b1"
+    },
+    {
+      "slug": "http-parameter-method-confusion",
+      "versionHash": "8f72e75a8793453ff2cd0f66e98c966ec53a3397d444574976cf36a820236549",
+      "runtimeHash": "a8c906fd93dbea7399f3d434262854c6989d039d82a14ded116ca0add488b12c"
+    },
+    {
+      "slug": "http-request-smuggling",
+      "versionHash": "dee5066cbcf02749dfeed6e8ce21f0a90c5cfa398c5b64f8c97acf8246698486",
+      "runtimeHash": "44ab199a82c86c9f49d621b174a9735ed71386a35436b08efc75504df238bfd8"
+    },
+    {
+      "slug": "iac-container-security",
+      "versionHash": "13610be219deb946656850c94d79afd6de824a44fc20fce67b3f0710a94d4c42",
+      "runtimeHash": "8a0ea8384e9dd6b72a085b4d6cb6d46fddd4fb5539d04c16810c6c8119a67cf9"
+    },
+    {
+      "slug": "idor",
+      "versionHash": "5263e13aa184c45ddfb602af3c9823ac4b587d641239b9d97c2624ad89645900",
+      "runtimeHash": "4159937583a1a0b21fd54fddc9404c41ad3544e66daea962aae7e2a2d393a2d3"
+    },
+    {
+      "slug": "information-disclosure",
+      "versionHash": "884fb24829cc454fabae77bad317657b0b42d800c12ce3c06b9dde24b9af025f",
+      "runtimeHash": "ed2f5db86d2a8ad7fa22c27a337c3154466d8c89f93e98b887e2abf24778793a"
+    },
+    {
+      "slug": "insecure-deserialization",
+      "versionHash": "47726dc2955519619b7126f25101a035e91349e20a6cedeeaefac48c799357cd",
+      "runtimeHash": "c3033ed87737c2ff154ee16560836e0e8e8b9d7aba83b9c0cd6b6b3fdef656c0"
+    },
+    {
+      "slug": "insecure-file-uploads",
+      "versionHash": "71a59ddab23ab4295edd29e69df8bcae8f701142276f0d912c9e9e700a14baf9",
+      "runtimeHash": "6cc71bb8fda2b78ea9f4cbcf14f46110980bc4cfd43c2e10ba20d8bf25b16649"
+    },
+    {
+      "slug": "js-surface-analysis",
+      "versionHash": "797a2ca97292e571d56026dd628e838b1abbe1f30eab7626a004dfc199216c34",
+      "runtimeHash": "60d7c90dd636c7f73c18500acfe1b8d40a7a184e5e5297bc9a3c5ab8a42beb48"
+    },
+    {
+      "slug": "jwt-attacks",
+      "versionHash": "619050178f24ac305d209b9e1aff082650ad0f5875b5655adc1bb60e05280363",
+      "runtimeHash": "0da3d4c7a047a9b4b42783e42448d5771e6693b914ecde80ab7305db8bbb5bda"
+    },
+    {
+      "slug": "kubernetes-security",
+      "versionHash": "47123ea76c947049f2bfea267ee13523ab9afd2c53493094d050c232c11e530e",
+      "runtimeHash": "763d433c90fb0703903519de4db4ecb01825aa7fcd158c6ffbdccaefeeedda7f"
+    },
+    {
+      "slug": "laravel",
+      "versionHash": "b30c698114bc014b98ed9c497af702be4a055145a333b06bc9f0be839eadd291",
+      "runtimeHash": "8c8a0b5773053c7a04c4301259481590cd477f310d4ca3f66e723f1fc351dacc"
+    },
+    {
+      "slug": "mass-assignment",
+      "versionHash": "b81d8928021c7aa7265f7dd66218ec25e40700245419b8369ef07fefc277a0fa",
+      "runtimeHash": "50f8ddfb4c164ad22c7b8efdabd6675d0bb51d8dd868ddd5100f0c69870b7f54"
+    },
+    {
+      "slug": "nestjs",
+      "versionHash": "8ac23b27c033373ab877ae3ccab4eafa2373a3ece4fb0c0f546ab7546459c737",
+      "runtimeHash": "2514d4be141490a7a05bfb3cf1017a7de4553d3aa6a12a4ad8c94de19d28f097"
+    },
+    {
+      "slug": "network-recon",
+      "versionHash": "c77795c63c3307a716033f82512521b703151cfc54fa32718bc977d12d2cf2c2",
+      "runtimeHash": "3358414e20b965537e34486686ff8f2562357b57b1aa32278e642853bbb988cf"
+    },
+    {
+      "slug": "nextjs",
+      "versionHash": "409aca784557719ba788e17ed404e6387501bb67d2977f596bfc6c3971e3799b",
+      "runtimeHash": "bf55bea616e27a7a0b68e2431d872adbb6724e314038e09846d1b56234aa532b"
+    },
+    {
+      "slug": "nosql-injection",
+      "versionHash": "d7ee00afb90e9a83774b6a3fed26e785934a42a9cc88b23ab5a64611b8d60645",
+      "runtimeHash": "6ec3413e2154cb08ad1ab7d3de067f3e8224e65bdc3b17227061695a3e8747a5"
+    },
+    {
+      "slug": "oauth-oidc",
+      "versionHash": "b3948fd0c9703614e40dd381df6b39b271ad52159c3ea421ca79686ac74fd70e",
+      "runtimeHash": "577f49ea32b00d3dfbf242fbc2bb656d8a1fd537d0feef4195f218d4a55b7df0"
+    },
+    {
+      "slug": "open-redirect",
+      "versionHash": "3519854741e59ef47e74329e7d031667d556db8a961ddf1141500a1c4cca7313",
+      "runtimeHash": "2295a333bae05f00a02edd99167628ff7e51c899724f639d05b40a524407e22a"
+    },
+    {
+      "slug": "path-traversal",
+      "versionHash": "ad1bbafe149ddc5963092a745776a7d80e7824d9ef886fd6e4ac1d92a72da012",
+      "runtimeHash": "89c7d21b288a0eb32e24c396824828072258b0fa7538a86a60b53ad5ed6a78bf"
+    },
+    {
+      "slug": "prototype-pollution",
+      "versionHash": "60cccc60ff289b2e5291b3f205d30cfeb7a61bb1e5a6a3ad934a4b8f69637f0c",
+      "runtimeHash": "8b3313cda097127d345e3b0c348323cfced3edf3651558b158275e91a96d791d"
+    },
+    {
+      "slug": "race-conditions",
+      "versionHash": "80eb91af0baac87959b87c5a31d3c706b0aeefcaee0566c8190f1e7c45be3675",
+      "runtimeHash": "c48040d594b8d4ca210566e050f07bea8a7e8c15783115733f305fb77c7d398f"
+    },
+    {
+      "slug": "rails",
+      "versionHash": "be75d42c81a139d5ea8f77e119373369b162c1d545051e1b2fa2edd0fffe209d",
+      "runtimeHash": "36c20551754a70ffe49f0bcdae89537d4595272e4fce7a40f33c9aa3da994108"
+    },
+    {
+      "slug": "rce",
+      "versionHash": "9b2590690dd847ea2fac25213adb392728bee1f67885dd73c7c1cc0a4a766a12",
+      "runtimeHash": "f4cf16e7c69648b47cd266e0fbbb6935d2e3edac3af85b2ce4a5a07359166f8a"
+    },
+    {
+      "slug": "resource-consumption",
+      "versionHash": "a0924303216bbe6ed21fdbc809e359ca9beace8c964bbe6130f7181d522cb24e",
+      "runtimeHash": "4c5f5d4f9db355c2be826d9bc4a820bbcedf0c312eb178ecfbe385c17cd803ba"
+    },
+    {
+      "slug": "secondary-server-injections",
+      "versionHash": "b1445f4cbf554e0665cbc46e3e14b8b34596f542b19e16d3527cfd1a94f28359",
+      "runtimeHash": "3bd5e7eb558c15ba6968b27c623b1d548dd1fa50935441278f13f317a33244a9"
+    },
+    {
+      "slug": "security-reporting",
+      "versionHash": "ba4850cd1b24f159ddb1173ac5cf559e7a2e220a3a86cfd0c944663e94481b9c",
+      "runtimeHash": "4898dea18976464643def6dffe52eecba8aca0240d4be176a0235639468211be"
+    },
+    {
+      "slug": "securityops-planning",
+      "versionHash": "11eb7d8b8a8914564ad56cceefd1e49a851fc1649b5d697c4b29bb74e242eef4",
+      "runtimeHash": "21e7eef01c99aa01f5194304a178a5d8c332e7c080f18b81d73cdeb2d75afcda"
+    },
+    {
+      "slug": "session-management",
+      "versionHash": "08ecc8c63b049da480aaf59c4884dd29698bf87fbd88edba8c42c7fb5453bae8",
+      "runtimeHash": "af4367d949d32df8adb4d530c0e3ebb596a55b9875993789b40a88f22c648f4b"
+    },
+    {
+      "slug": "soap-security",
+      "versionHash": "f6764bef5bd35d3c7bb5386ad8d2f37cbbab782414a9110be449ba33b89b55a6",
+      "runtimeHash": "03621a1e47be38a98deeef76eed0fd2dbfe227969e2ae9cddb517f3421a3d3fd"
+    },
+    {
+      "slug": "software-supply-chain",
+      "versionHash": "7a40c70ae20416ba5bf685b763c7bcedeb66d3a7d3d32dccda4a2b84762dbc86",
+      "runtimeHash": "31c2bf8ea0cdf9044098dd3337ee22092c086547a8ecc428ab00e0abeb32a33f"
+    },
+    {
+      "slug": "source-aware-whitebox",
+      "versionHash": "aa7641b57083b6bef5eed24be887dd00c0666797e1dd67aa9c22d2041c3204e6",
+      "runtimeHash": "bb31e7a2ec1c30badccfebdc6a471601c54aa4d6e41fde5daa01b48d66cf3933"
+    },
+    {
+      "slug": "spa-recon",
+      "versionHash": "a3d9cca922a83c2287eac0f0c4eeeec4289500fbb2234c84bfdc1841e4cb7c53",
+      "runtimeHash": "d95bb3027b250d8009d29b7e9ef96ff04541cf7136e97d84f0b2866a9bb3b5db"
+    },
+    {
+      "slug": "spring-boot",
+      "versionHash": "eae5f2209876bae03df303e29ceefd6c74096ccf6a3ca697068dc9192da3ce38",
+      "runtimeHash": "e3bf19eeb1d491e7bbc5fe3f87eef653d4854537b719403403ffd3d8f41de344"
+    },
+    {
+      "slug": "sql-injection",
+      "versionHash": "bbd8941dd42a55d2e22ef4d5ff7b5b3a4049e22ffa768e0df925ce87e63b4b68",
+      "runtimeHash": "54068f6fd87f078c0d651d5d039cff03a3c5c6df46eee9ad32b1b35874105d79"
+    },
+    {
+      "slug": "ssrf",
+      "versionHash": "74605c5b5a59a3321498d037686ea39b88ccb7da53bd17640b20cdd1a4a89bae",
+      "runtimeHash": "eb3d7de6546bd462fe1653a0c1f5e26b396c0ad37593fd28a216b750bd44defa"
+    },
+    {
+      "slug": "ssti",
+      "versionHash": "14df5dbc12a8fc36b9a42e963c5546d88a987bce70036d7fe921e81f9ad2e3c1",
+      "runtimeHash": "c2bb0cb8fcaf339457e0261469cfd67bfb8d369710cb2406c1ee6968256ffb3e"
+    },
+    {
+      "slug": "subdomain-takeover",
+      "versionHash": "912c378e480e4b945bcc0031fab334f672c2b390b9ed1124ca630f5b45ccd2a6",
+      "runtimeHash": "71ff60e6538226fe096cdbdb0a4d6bd4a0db48def77cd3fce3a1113a50f8d419"
+    },
+    {
+      "slug": "supabase",
+      "versionHash": "017e45a017f4e515477e54406f9eb8bceca8eecc92f193837765061a98875aff",
+      "runtimeHash": "a44f8484fb94e7338e12feb289be495ec3fa444a2580f4eed2159fe74b24e771"
+    },
+    {
+      "slug": "tooling-browser",
+      "versionHash": "f30007fd62d50ba4128bff3ca290a762d89ec813fa8f8ce4991aac31f2bf2517",
+      "runtimeHash": "614c4334406dd295782ee167b2d9d6bbcf798292cf6d8dc41c4cd79d87795249"
+    },
+    {
+      "slug": "tooling-dalfox",
+      "versionHash": "a079db84168a4dbe9f25677a5903ea413d2843982104e4f9d3fd2339026e194f",
+      "runtimeHash": "8c0bed065f2ab6f2322b1626bdb984ffb47b260b0601ff2790555e478144f8ce"
+    },
+    {
+      "slug": "tooling-ffuf",
+      "versionHash": "5200a7d54b3c600a952e0931eb3e344b948346e4ce3bb5eb7df826a57d49b732",
+      "runtimeHash": "203759f56b21e42583762e6c7bd26520f3dae0e72116cbe78cf1f1feed88e2cc"
+    },
+    {
+      "slug": "tooling-gitleaks",
+      "versionHash": "64017137482564befd3a380b4e13aa4ebd7701f3a92838762098ba0b8ab64f5c",
+      "runtimeHash": "47e4c60052482d13dd0275f327fa73819814f41387ea20e055c923ec43d740b4"
+    },
+    {
+      "slug": "tooling-grpcurl",
+      "versionHash": "eb7c9117b6fe52318cc46e9d4537acc05df3b1e5e1c7bcb0178ed4fc47865397",
+      "runtimeHash": "02a08a453bff0df61ac7effe0ce81d6bc241db84dbf0ca9712731b81bc797758"
+    },
+    {
+      "slug": "tooling-httpx",
+      "versionHash": "9875da14456dbb208362868962bdae96a41d507c8b1e77b91c9decd21d8d4706",
+      "runtimeHash": "7b38e4f7c4ceb8c461639afa34cc2128467d82bf2ab26c01ee9e1a1cf3a2d017"
+    },
+    {
+      "slug": "tooling-interactsh",
+      "versionHash": "2fbe23e817a3ab2f62d5ab0f2df63c6e0a2fb77e191fe0210a07706facf84aaa",
+      "runtimeHash": "d11942462e926cf2b7e042de02dc9fe6a885fedaab038ec27bd2ab048e502fad"
+    },
+    {
+      "slug": "tooling-jwt-tool",
+      "versionHash": "7cc57979c775d0eb76957354e841dcbf821ec810f39ff9a0e9a4c0eaf8400009",
+      "runtimeHash": "78344cd8359cdb2f26302910e5105f569479bc829cc1632ccbe5cbdba4ef385b"
+    },
+    {
+      "slug": "tooling-katana",
+      "versionHash": "8d48d2c3825c4fa9c71a2392f083f69b0d18f4020890404fde52ff1170dada28",
+      "runtimeHash": "3509b38362baedc6d9918ef63d60aef109c3ca1e7818b4e0bfd29cb53dc30094"
+    },
+    {
+      "slug": "tooling-naabu",
+      "versionHash": "a782c15021897f1ec21df54e87d94f4e8fb9069ff1f47431d4a17d755b4de4d2",
+      "runtimeHash": "a928a1c2a24fea9822f790cd84ede36280e7c0a5f1096be222b7c2fb78cee824"
+    },
+    {
+      "slug": "tooling-nmap",
+      "versionHash": "9070483d9bbec0e8af1a6934b44a87535d6557523be644b4175cd7383180a7a8",
+      "runtimeHash": "43c80dcee79abdf1a746b40d239da84b76132d6775dbb78d9134c36b27b876a9"
+    },
+    {
+      "slug": "tooling-nuclei",
+      "versionHash": "7f6d3307a8d2c6518a5e25a6c3806c6d4c87301bdf1961057ccb33ae17d864f8",
+      "runtimeHash": "a435518ec3ebbdde170e62bf3d26edc5c0585d1ede5b8ffcbaccd6298c615c4a"
+    },
+    {
+      "slug": "tooling-python",
+      "versionHash": "b1597558ae9bcbd6ec74c39bcbba04c961dd92090010424e2735f4e024564457",
+      "runtimeHash": "a266d5df4aec9a9fc8bd86d7b640c69b6cfb92b20058635b7ca3cf8bcaf8a83a"
+    },
+    {
+      "slug": "tooling-schemathesis",
+      "versionHash": "f0e891f2cd0d24a9584743fdc9e974e84082125ab012adda2254b1eaef2b303b",
+      "runtimeHash": "d1fd5950eaa362e9f94af23930a457c90a87dd2300fd8446e2a87ce95275cfaa"
+    },
+    {
+      "slug": "tooling-semgrep",
+      "versionHash": "a7274d9705500936d6905ed2437fa1fe5a23972243b67927eeba5d803f158fa5",
+      "runtimeHash": "256488fb8916b52eab6e0f41a4951eb0e2339bfb9248eaf9cd3d7ae3d6a03f25"
+    },
+    {
+      "slug": "tooling-sqlmap",
+      "versionHash": "ae6f3d5330a37cea41185de24297adc606615770f892b1a22cd69b8571862dd5",
+      "runtimeHash": "ae42eca23af7dfab8a39792a18315940772a24d09cd3a60a873c03c2b1e858f0"
+    },
+    {
+      "slug": "tooling-subfinder",
+      "versionHash": "b8352f3f7587d8b9042676ce24c0cbee5c8c6d3d653afc47369736e5ea741242",
+      "runtimeHash": "9de01e5448564a58b5f772718afece5a8a7bb9648e8a5a2f44e86e8bc45a0911"
+    },
+    {
+      "slug": "tooling-tls",
+      "versionHash": "cb0db6b81bccef8fc23efc922dfab215d5b6aade8f6bbcb9a02865c70d462022",
+      "runtimeHash": "dc70ca0ea928215a9f724df1d725b74e6ae2524de1642b1fb5165d356c09cefa"
+    },
+    {
+      "slug": "tooling-trivy",
+      "versionHash": "458c2d97e3b0986560c5b78799feb8bd8e0157a1a04645dca7dc1304f323955f",
+      "runtimeHash": "bf126ffa6b9294b8d44088a18b076628360396a354d86541d35b2a877f7f58d1"
+    },
+    {
+      "slug": "tooling-trufflehog",
+      "versionHash": "4d2b9b1b6c381b101373369dd1e39f2bdc2188bcbaa678598fb1da747a1b190d",
+      "runtimeHash": "de10887fa00ba1e845d18b52d4944648addf0e25f4f759df888482825bac3ac0"
+    },
+    {
+      "slug": "unsafe-api-consumption",
+      "versionHash": "fdf6264b99357f4a98741b426bd461e4b3f4bc80452b46ae9cf17691a1125747",
+      "runtimeHash": "80069e3f11c7fd45e3906400917e539604d7a54aef20e991abd62d83342b2f9e"
+    },
+    {
+      "slug": "validation",
+      "versionHash": "9182e00f84515c4bb695a5ce791410568b350596533c88c2d9782854ad5e9349",
+      "runtimeHash": "186491a02c1be5e4d5714be3553d160b12cc95436f3ed125bc28510685013be1"
+    },
+    {
+      "slug": "web-cache-security",
+      "versionHash": "efeb0a46970e85ef49b8f255531ca7fce191b10d27d5c73fad9999bbc296d756",
+      "runtimeHash": "bc504db9193691c9a446fc14320e65c308f342559eeec1ab321aedf30642f7a8"
+    },
+    {
+      "slug": "web-security-misconfiguration",
+      "versionHash": "ef7cf76fe238c8b7c64201da227a300283b49e02378a3e30a8ce4a7f2907ecd3",
+      "runtimeHash": "71ca8787e4b3f9fc8894ec9b37eeb55142e059bca77ea79ed1f95c135ad6079b"
+    },
+    {
+      "slug": "webhook-security",
+      "versionHash": "388f077927757fe43197c10882744d337cccf8a4b1cc836894d8450d5eb31321",
+      "runtimeHash": "1b95a8754ba8acb13262345b95a77f30a8ecb344e334fc6fe0dca7912f6d5072"
+    },
+    {
+      "slug": "websockets",
+      "versionHash": "4bf500aca149719e5f9d83a648189db628843d8e5201e3ae607e71e158f89491",
+      "runtimeHash": "52d12e4a89af6f5b8af3277fb91a600d8da69c18516174bd589aedf8ae16c3e4"
+    },
+    {
+      "slug": "xss",
+      "versionHash": "d0c4cd9fb3ed45925694d94a03aab5526e49d374ef61e97a0ce1ab0d6cf96981",
+      "runtimeHash": "4eef34c8903d1945e026a7d8230e3a3896ab054638f95a94d274496fbbb113c4"
+    },
+    {
+      "slug": "xxe",
+      "versionHash": "066da561f9f78bd90f3732c7b47e3232877305ae81e8c23ce2ff9eb7c04d5a7e",
+      "runtimeHash": "ddcea3811d2cb3497a2ea06ac2eefec0dae322ba11731d0e130eb04b43abd6bd"
+    }
+  ]
+}

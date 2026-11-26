@@ -1,0 +1,10 @@
+{
+  "defaultProfile": "webpentest-core",
+  "profiles": {
+    "webpentest-core": "null-ai-sandbox:local",
+    "network-enabled": "null-ai-sandbox:local",
+    "private-runner": "null-ai-sandbox:local",
+    "sandboxed": "null-ai-sandbox:local",
+    "security-assistant": "null-ai-sandbox:local"
+  }
+}

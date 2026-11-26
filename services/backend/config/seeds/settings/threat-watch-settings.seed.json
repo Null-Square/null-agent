@@ -1,0 +1,11 @@
+{
+  "syncEnabled": true,
+  "syncIntervalMinutes": 120,
+  "maxPagesPerRun": 10,
+  "notificationsEnabled": false,
+  "notificationActivationAt": null,
+  "notificationEvidenceMaxAgeDays": 14,
+  "immediateNotifyMinPriority": 70,
+  "immediateNotifyOnKev": true,
+  "maxImmediateNotificationsPerDay": 5
+}

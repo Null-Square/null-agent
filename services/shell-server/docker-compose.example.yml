@@ -1,0 +1,14 @@
+# A private runner: the sandbox image started in its default mode, which runs this bridge
+# (src/index.js). It connects to your Null AI backend over a WebSocket and runs the agent's
+# commands from the machine it is on, so a test can reach targets that only that network sees.
+# Runners > Deploy runner in the app makes the TOKEN and prints the exact `docker run` command.
+services:
+  null-ai-runner:
+    # The image `docker compose up` builds (the sandbox-image service).
+    image: null-ai-sandbox:local
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      TOKEN: ns_live_replace_me
+      # The backend on this computer (`npm run dev` listens on 127.0.0.1:3001).
+      API_URL: http://localhost:3001

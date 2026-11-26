@@ -1,0 +1,251 @@
+schema_version: 1
+skill: http-parameter-method-confusion
+cases:
+  - id: http-parameter-method-confusion-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: http-parameter-method-confusion-positive-1-observation
+              content: The edge authorized the first role parameter while the application consumed the last and completed the disposable privileged test action.
+            - id: http-parameter-method-confusion-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - http-parameter-method-confusion-positive-1-observation
+        - http-parameter-method-confusion-positive-1-context
+        - http-parameter-method-confusion-positive-1-control
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: http-parameter-method-confusion-positive-2-observation
+              content: A documented method-override header reached the state handler without the guard applied to the canonical method.
+            - id: http-parameter-method-confusion-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - http-parameter-method-confusion-positive-2-observation
+        - http-parameter-method-confusion-positive-2-context
+        - http-parameter-method-confusion-positive-2-control
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: http-parameter-method-confusion-positive-3-observation
+              content: Form-array binding bypassed validation enforced on the JSON scalar and persisted one harmless evaluator field.
+            - id: http-parameter-method-confusion-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - http-parameter-method-confusion-positive-3-observation
+        - http-parameter-method-confusion-positive-3-context
+        - http-parameter-method-confusion-positive-3-control
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: http-parameter-method-confusion-negative-1-observation
+              content: Duplicate parameters changed error wording but no state or authorization decision.
+            - id: http-parameter-method-confusion-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-negative-1-control
+              content: The retained control explains the observed signal without meeting one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - http-parameter-method-confusion-negative-1-observation
+        - http-parameter-method-confusion-negative-1-context
+        - http-parameter-method-confusion-negative-1-control
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: http-parameter-method-confusion-negative-2-observation
+              content: HEAD returned authorized GET headers without body or action.
+            - id: http-parameter-method-confusion-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-negative-2-control
+              content: The retained control explains the observed signal without meeting one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - http-parameter-method-confusion-negative-2-observation
+        - http-parameter-method-confusion-negative-2-context
+        - http-parameter-method-confusion-negative-2-control
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: http-parameter-method-confusion-negative-3-observation
+              content: An unsupported method produced the framework’s normal method-not-allowed response.
+            - id: http-parameter-method-confusion-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-negative-3-control
+              content: The retained control explains the observed signal without meeting one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - http-parameter-method-confusion-negative-3-observation
+        - http-parameter-method-confusion-negative-3-context
+        - http-parameter-method-confusion-negative-3-control
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: http-parameter-method-confusion-ambiguous-observation
+              content: Duplicate order changes status but parser selection and authoritative state are not captured.
+            - id: http-parameter-method-confusion-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-ambiguous-missing
+              content: The packet lacks at least one required element of one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - http-parameter-method-confusion-ambiguous-observation
+        - http-parameter-method-confusion-ambiguous-context
+        - http-parameter-method-confusion-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: http-parameter-method-confusion-blocked-observation
+              content: No disposable action or evidence of multiple supported parsers/method override is available.
+            - id: http-parameter-method-confusion-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - http-parameter-method-confusion-blocked-observation
+        - http-parameter-method-confusion-blocked-context
+        - http-parameter-method-confusion-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: http-parameter-method-confusion-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess http-parameter-method-confusion with the http-parameter-method-confusion methodology and retain deterministic proof.
+    expected:
+      primary_skill: http-parameter-method-confusion
+      top_n: 3
+  - id: http-parameter-method-confusion-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: http-parameter-method-confusion
+      top_n: 5
+  - id: http-parameter-method-confusion-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: http-parameter-method-confusion-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: http-parameter-method-confusion-mutation-observation
+              content: Only duplicate parameter order reversed; the same first-parser/last-parser authorization split and single-value controls remained.
+            - id: http-parameter-method-confusion-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one parser/method dimension, single-value controls, and a synthetic authorization/validation outcome.
+            - id: http-parameter-method-confusion-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - http-parameter-method-confusion-mutation-observation
+        - http-parameter-method-confusion-mutation-context
+        - http-parameter-method-confusion-mutation-control
+      forbidden_evidence_ids: []

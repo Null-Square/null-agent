@@ -1,0 +1,251 @@
+schema_version: 1
+skill: host-header-attacks
+cases:
+  - id: host-header-attacks-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: host-header-attacks-positive-1-observation
+              content: An evaluator password-reset email embedded the owner test host while the canonical request embedded the application host.
+            - id: host-header-attacks-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - host-header-attacks-positive-1-observation
+        - host-header-attacks-positive-1-context
+        - host-header-attacks-positive-1-control
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: host-header-attacks-positive-2-observation
+              content: An untrusted forwarded-host value changed an authenticated evaluator administrative link consumed by the supplied workflow.
+            - id: host-header-attacks-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - host-header-attacks-positive-2-observation
+        - host-header-attacks-positive-2-context
+        - host-header-attacks-positive-2-control
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: host-header-attacks-positive-3-observation
+              content: A unique cache-key test caused the canonical host response to contain the owner-host marker after one altered-host prime.
+            - id: host-header-attacks-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - host-header-attacks-positive-3-observation
+        - host-header-attacks-positive-3-context
+        - host-header-attacks-positive-3-control
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: host-header-attacks-negative-1-observation
+              content: An unknown host returned a generic bad-request response.
+            - id: host-header-attacks-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-negative-1-control
+              content: The retained control explains the observed signal without meeting owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - host-header-attacks-negative-1-observation
+        - host-header-attacks-negative-1-context
+        - host-header-attacks-negative-1-control
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: host-header-attacks-negative-2-observation
+              content: The host changed only a reflected diagnostic page with no consumer.
+            - id: host-header-attacks-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-negative-2-control
+              content: The retained control explains the observed signal without meeting owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - host-header-attacks-negative-2-observation
+        - host-header-attacks-negative-2-context
+        - host-header-attacks-negative-2-control
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: host-header-attacks-negative-3-observation
+              content: The alternate host was explicitly configured as a valid custom domain.
+            - id: host-header-attacks-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-negative-3-control
+              content: The retained control explains the observed signal without meeting owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - host-header-attacks-negative-3-observation
+        - host-header-attacks-negative-3-context
+        - host-header-attacks-negative-3-control
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: host-header-attacks-ambiguous-observation
+              content: The response contains the altered host, but no reset message, link consumer, cache persistence, or security decision is shown.
+            - id: host-header-attacks-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-ambiguous-missing
+              content: The packet lacks at least one required element of owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - host-header-attacks-ambiguous-observation
+        - host-header-attacks-ambiguous-context
+        - host-header-attacks-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: host-header-attacks-blocked-observation
+              content: No owner-controlled host, evaluator mailbox, or low-traffic fresh-cache key is available.
+            - id: host-header-attacks-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - host-header-attacks-blocked-observation
+        - host-header-attacks-blocked-context
+        - host-header-attacks-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: host-header-attacks-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess host-header-attacks with the host-header-attacks methodology and retain deterministic proof.
+    expected:
+      primary_skill: host-header-attacks
+      top_n: 3
+  - id: host-header-attacks-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: host-header-attacks
+      top_n: 5
+  - id: host-header-attacks-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: host-header-attacks-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: host-header-attacks-mutation-observation
+              content: Only input source changed from Host to trusted-edge forwarded host; the same evaluator reset link differential reproduced.
+            - id: host-header-attacks-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is owner-controlled host, a real downstream consumer, canonical-host control, and synthetic impact.
+            - id: host-header-attacks-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - host-header-attacks-mutation-observation
+        - host-header-attacks-mutation-context
+        - host-header-attacks-mutation-control
+      forbidden_evidence_ids: []

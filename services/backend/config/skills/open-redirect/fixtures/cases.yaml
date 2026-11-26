@@ -1,0 +1,251 @@
+schema_version: 1
+skill: open-redirect
+cases:
+  - id: open-redirect-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: open-redirect-positive-1-observation
+              content: The evaluator login continuation navigated to the exact owner-controlled HTTPS destination after authentication.
+            - id: open-redirect-positive-1-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - open-redirect-positive-1-observation
+        - open-redirect-positive-1-floor
+        - open-redirect-positive-1-control
+      forbidden_evidence_ids: []
+  - id: open-redirect-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: open-redirect-positive-2-observation
+              content: A protocol-relative owner destination bypassed the local-path validator and produced an external browser navigation.
+            - id: open-redirect-positive-2-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - open-redirect-positive-2-observation
+        - open-redirect-positive-2-floor
+        - open-redirect-positive-2-control
+      forbidden_evidence_ids: []
+  - id: open-redirect-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: open-redirect-positive-3-observation
+              content: A trusted-prefix lookalike owner hostname was accepted and consumed by the evaluator email-link workflow.
+            - id: open-redirect-positive-3-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - open-redirect-positive-3-observation
+        - open-redirect-positive-3-floor
+        - open-redirect-positive-3-control
+      forbidden_evidence_ids: []
+  - id: open-redirect-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: open-redirect-negative-1-observation
+              content: The destination was reflected in text but browser navigation stayed on the application.
+            - id: open-redirect-negative-1-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - open-redirect-negative-1-observation
+        - open-redirect-negative-1-floor
+        - open-redirect-negative-1-control
+      forbidden_evidence_ids: []
+  - id: open-redirect-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: open-redirect-negative-2-observation
+              content: The owner URL was rejected while registered local paths succeeded.
+            - id: open-redirect-negative-2-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - open-redirect-negative-2-observation
+        - open-redirect-negative-2-floor
+        - open-redirect-negative-2-control
+      forbidden_evidence_ids: []
+  - id: open-redirect-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: open-redirect-negative-3-observation
+              content: A client-side warning required an explicit second confirmation before any external navigation, matching policy.
+            - id: open-redirect-negative-3-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - open-redirect-negative-3-observation
+        - open-redirect-negative-3-floor
+        - open-redirect-negative-3-control
+      forbidden_evidence_ids: []
+  - id: open-redirect-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: open-redirect-ambiguous-observation
+              content: A 3xx response appears, but the Location value, final browser destination, and owner-host provenance are missing.
+            - id: open-redirect-ambiguous-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - open-redirect-ambiguous-observation
+        - open-redirect-ambiguous-floor
+        - open-redirect-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: open-redirect-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: open-redirect-blocked-observation
+              content: No owner-controlled public destination or safe evaluator navigation flow is available.
+            - id: open-redirect-blocked-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - open-redirect-blocked-observation
+        - open-redirect-blocked-floor
+        - open-redirect-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: open-redirect-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess open-redirect with the open-redirect methodology and retain deterministic proof.
+    expected:
+      primary_skill: open-redirect
+      top_n: 3
+  - id: open-redirect-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: open-redirect
+      top_n: 5
+  - id: open-redirect-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: open-redirect-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: open-redirect-mutation-observation
+              content: Only URL form changed from absolute to protocol-relative; the same owner destination and local-path control stayed fixed.
+            - id: open-redirect-mutation-floor
+              content: The required decision floor is application-issued navigation to an owner-controlled public destination plus canonical/local rejection controls.
+            - id: open-redirect-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - open-redirect-mutation-observation
+        - open-redirect-mutation-floor
+        - open-redirect-mutation-control
+      forbidden_evidence_ids: []

@@ -1,0 +1,251 @@
+schema_version: 1
+skill: tooling-httpx
+cases:
+  - id: tooling-httpx-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: tooling-httpx-positive-1-observation
+              content: httpx probed the supplied hostname list once and retained status, title, technology hints, and response hash.
+            - id: tooling-httpx-positive-1-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-positive-1-observation
+        - tooling-httpx-positive-1-floor
+        - tooling-httpx-positive-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: tooling-httpx-positive-2-observation
+              content: Redirect following stopped at the allowlist boundary and recorded the external destination without visiting it.
+            - id: tooling-httpx-positive-2-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-positive-2-observation
+        - tooling-httpx-positive-2-floor
+        - tooling-httpx-positive-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: tooling-httpx-positive-3-observation
+              content: Two aliases with identical address/SNI/response hashes were deduplicated into one service.
+            - id: tooling-httpx-positive-3-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-positive-3-observation
+        - tooling-httpx-positive-3-floor
+        - tooling-httpx-positive-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: tooling-httpx-negative-1-observation
+              content: A technology hint was treated as a confirmed vulnerability.
+            - id: tooling-httpx-negative-1-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-negative-1-observation
+        - tooling-httpx-negative-1-floor
+        - tooling-httpx-negative-1-control
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: tooling-httpx-negative-2-observation
+              content: The proposed run accepted arbitrary discovered redirects.
+            - id: tooling-httpx-negative-2-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-negative-2-observation
+        - tooling-httpx-negative-2-floor
+        - tooling-httpx-negative-2-control
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: tooling-httpx-negative-3-observation
+              content: A transient timeout was labeled a closed service without confirmation.
+            - id: tooling-httpx-negative-3-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-negative-3-observation
+        - tooling-httpx-negative-3-floor
+        - tooling-httpx-negative-3-control
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: tooling-httpx-ambiguous-observation
+              content: A host responds once, but ownership, allowlist, and stable fingerprint are absent.
+            - id: tooling-httpx-ambiguous-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-ambiguous-observation
+        - tooling-httpx-ambiguous-floor
+        - tooling-httpx-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: tooling-httpx-blocked-observation
+              content: No authorized hostname list or request/rate ceiling exists.
+            - id: tooling-httpx-blocked-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-blocked-observation
+        - tooling-httpx-blocked-floor
+        - tooling-httpx-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: tooling-httpx-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess tooling-httpx with the tooling-httpx methodology and retain deterministic proof.
+    expected:
+      primary_skill: tooling-httpx
+      top_n: 3
+  - id: tooling-httpx-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: tooling-httpx
+      top_n: 5
+  - id: tooling-httpx-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: tooling-httpx-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: tooling-httpx-mutation-observation
+              content: Only supplied SNI changed; address, port, redirect boundary, probe cap, and fingerprint fields stayed fixed.
+            - id: tooling-httpx-mutation-floor
+              content: The required decision floor is allowlisted host input, bounded probes, stable response fingerprint, and deduplicated inventory output.
+            - id: tooling-httpx-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - tooling-httpx-mutation-observation
+        - tooling-httpx-mutation-floor
+        - tooling-httpx-mutation-control
+      forbidden_evidence_ids: []

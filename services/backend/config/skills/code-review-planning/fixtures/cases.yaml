@@ -1,0 +1,7 @@
+schema_version: 1
+skill: code-review-planning
+cases:
+  - id: immutable-four-phase-plan
+    kind: positive
+    input: { context: immutable_manifest }
+    expected: { phases: [review_mapping, review_analysis, review_validation, review_reporting] }

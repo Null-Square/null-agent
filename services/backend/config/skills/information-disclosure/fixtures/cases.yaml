@@ -1,0 +1,251 @@
+schema_version: 1
+skill: information-disclosure
+cases:
+  - id: information-disclosure-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: information-disclosure-positive-1-observation
+              content: A malformed evaluator request returned the owner-provided configuration canary and a valid-request control did not.
+            - id: information-disclosure-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - information-disclosure-positive-1-observation
+        - information-disclosure-positive-1-context
+        - information-disclosure-positive-1-control
+      forbidden_evidence_ids: []
+  - id: information-disclosure-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: information-disclosure-positive-2-observation
+              content: An anonymous request read a named private diagnostic artifact while the authenticated owner and nonexistent controls established intent.
+            - id: information-disclosure-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - information-disclosure-positive-2-observation
+        - information-disclosure-positive-2-context
+        - information-disclosure-positive-2-control
+      forbidden_evidence_ids: []
+  - id: information-disclosure-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: information-disclosure-positive-3-observation
+              content: A production response exposed the synthetic secret marker from active configuration and a second bounded replay reproduced it.
+            - id: information-disclosure-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - information-disclosure-positive-3-observation
+        - information-disclosure-positive-3-context
+        - information-disclosure-positive-3-control
+      forbidden_evidence_ids: []
+  - id: information-disclosure-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: information-disclosure-negative-1-observation
+              content: A version banner and framework class name contained no sensitive data.
+            - id: information-disclosure-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-negative-1-control
+              content: The retained control explains the observed signal without meeting named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - information-disclosure-negative-1-observation
+        - information-disclosure-negative-1-context
+        - information-disclosure-negative-1-control
+      forbidden_evidence_ids: []
+  - id: information-disclosure-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: information-disclosure-negative-2-observation
+              content: A public document intentionally contained the observed email address.
+            - id: information-disclosure-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-negative-2-control
+              content: The retained control explains the observed signal without meeting named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - information-disclosure-negative-2-observation
+        - information-disclosure-negative-2-context
+        - information-disclosure-negative-2-control
+      forbidden_evidence_ids: []
+  - id: information-disclosure-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: information-disclosure-negative-3-observation
+              content: A secret-shaped string was a known invalid test fixture and not active configuration.
+            - id: information-disclosure-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-negative-3-control
+              content: The retained control explains the observed signal without meeting named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - information-disclosure-negative-3-observation
+        - information-disclosure-negative-3-context
+        - information-disclosure-negative-3-control
+      forbidden_evidence_ids: []
+  - id: information-disclosure-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: information-disclosure-ambiguous-observation
+              content: A response resembles a stack trace, but sensitive fields are redacted and environment/provenance is unknown.
+            - id: information-disclosure-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-ambiguous-missing
+              content: The packet lacks at least one required element of named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - information-disclosure-ambiguous-observation
+        - information-disclosure-ambiguous-context
+        - information-disclosure-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: information-disclosure-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: information-disclosure-blocked-observation
+              content: Data sensitivity, publication intent, or a safe named trigger cannot be established.
+            - id: information-disclosure-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - information-disclosure-blocked-observation
+        - information-disclosure-blocked-context
+        - information-disclosure-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: information-disclosure-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess information-disclosure with the information-disclosure methodology and retain deterministic proof.
+    expected:
+      primary_skill: information-disclosure
+      top_n: 3
+  - id: information-disclosure-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: information-disclosure
+      top_n: 5
+  - id: information-disclosure-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: information-disclosure-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: information-disclosure-mutation-observation
+              content: Only one malformed field changed while the same synthetic configuration canary and valid-request control remained deterministic.
+            - id: information-disclosure-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is named non-public synthetic datum, repeatable bounded trigger, provenance, and public/authorized controls.
+            - id: information-disclosure-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - information-disclosure-mutation-observation
+        - information-disclosure-mutation-context
+        - information-disclosure-mutation-control
+      forbidden_evidence_ids: []

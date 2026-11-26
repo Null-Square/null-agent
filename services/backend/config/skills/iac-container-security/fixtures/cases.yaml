@@ -1,0 +1,355 @@
+schema_version: 1
+skill: iac-container-security
+cases:
+  - id: iac-container-security-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: iac-container-security-positive-1-observation
+              content: The production image manifest ran as root with a writable sensitive application path and the supplied runtime attestation matched the image digest.
+            - id: iac-container-security-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - iac-container-security-positive-1-observation
+        - iac-container-security-positive-1-context
+        - iac-container-security-positive-1-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: iac-container-security-positive-2-observation
+              content: Active Terraform configured a public security-group rule for the named application listener and runtime reachability corroborated it.
+            - id: iac-container-security-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - iac-container-security-positive-2-observation
+        - iac-container-security-positive-2-context
+        - iac-container-security-positive-2-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: iac-container-security-positive-3-observation
+              content: A production Docker build copied an owner-provided secret canary into a shipped layer confirmed by the supplied image fixture.
+            - id: iac-container-security-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - iac-container-security-positive-3-observation
+        - iac-container-security-positive-3-context
+        - iac-container-security-positive-3-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: iac-container-security-positive-4-observation
+              content: A deployed Kubernetes manifest omitted the intended read-only root filesystem and the runtime security context attestation confirmed it.
+            - id: iac-container-security-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - iac-container-security-positive-4-observation
+        - iac-container-security-positive-4-context
+        - iac-container-security-positive-4-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: iac-container-security-positive-5-observation
+              content: An active pipeline used an unpinned base image and the produced SBOM identified an unexpected digest for the current release.
+            - id: iac-container-security-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - iac-container-security-positive-5-observation
+        - iac-container-security-positive-5-context
+        - iac-container-security-positive-5-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: iac-container-security-negative-1-observation
+              content: A privileged container setting existed only in a local development compose file.
+            - id: iac-container-security-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-negative-1-control
+              content: The retained control explains the observed signal without meeting active build/deploy provenance, exact IaC/container setting, and bounded public/source impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - iac-container-security-negative-1-observation
+        - iac-container-security-negative-1-context
+        - iac-container-security-negative-1-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: iac-container-security-negative-2-observation
+              content: A broad network rule belonged to an unused Terraform example module.
+            - id: iac-container-security-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-negative-2-control
+              content: The retained control explains the observed signal without meeting active build/deploy provenance, exact IaC/container setting, and bounded public/source impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - iac-container-security-negative-2-observation
+        - iac-container-security-negative-2-context
+        - iac-container-security-negative-2-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: iac-container-security-negative-3-observation
+              content: A secret-shaped build argument was a redacted placeholder absent from image layers.
+            - id: iac-container-security-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-negative-3-control
+              content: The retained control explains the observed signal without meeting active build/deploy provenance, exact IaC/container setting, and bounded public/source impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - iac-container-security-negative-3-observation
+        - iac-container-security-negative-3-context
+        - iac-container-security-negative-3-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: iac-container-security-negative-4-observation
+              content: A scanner warning targeted an intermediate stage excluded from the final image.
+            - id: iac-container-security-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-negative-4-control
+              content: The retained control explains the observed signal without meeting active build/deploy provenance, exact IaC/container setting, and bounded public/source impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - iac-container-security-negative-4-observation
+        - iac-container-security-negative-4-context
+        - iac-container-security-negative-4-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: iac-container-security-negative-5-observation
+              content: A mutable image tag resolved to the pinned approved digest in the retained release attestation.
+            - id: iac-container-security-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-negative-5-control
+              content: The retained control explains the observed signal without meeting active build/deploy provenance, exact IaC/container setting, and bounded public/source impact; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - iac-container-security-negative-5-observation
+        - iac-container-security-negative-5-context
+        - iac-container-security-negative-5-control
+      forbidden_evidence_ids: []
+  - id: iac-container-security-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: iac-container-security-ambiguous-observation
+              content: A risky manifest exists, but active workspace, release digest, and runtime deployment cannot be correlated.
+            - id: iac-container-security-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-ambiguous-missing
+              content: The packet lacks at least one required element of active build/deploy provenance, exact IaC/container setting, and bounded public/source impact, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - iac-container-security-ambiguous-observation
+        - iac-container-security-ambiguous-context
+        - iac-container-security-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: iac-container-security-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: iac-container-security-blocked-observation
+              content: Production build/deploy provenance or a safe offline image/IaC artifact is unavailable.
+            - id: iac-container-security-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - iac-container-security-blocked-observation
+        - iac-container-security-blocked-context
+        - iac-container-security-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: iac-container-security-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess iac-container-security with the iac-container-security methodology and retain deterministic proof.
+    expected:
+      primary_skill: iac-container-security
+      top_n: 3
+  - id: iac-container-security-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: iac-container-security
+      top_n: 5
+  - id: iac-container-security-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: iac-container-security-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: iac-container-security-mutation-observation
+              content: Only the active environment overlay changed; the same public listener configuration remained in the rendered production manifest.
+            - id: iac-container-security-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active build/deploy provenance, exact IaC/container setting, and bounded public/source impact.
+            - id: iac-container-security-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - iac-container-security-mutation-observation
+        - iac-container-security-mutation-context
+        - iac-container-security-mutation-control
+      forbidden_evidence_ids: []

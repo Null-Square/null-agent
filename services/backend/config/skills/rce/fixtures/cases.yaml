@@ -1,0 +1,251 @@
+schema_version: 1
+skill: rce
+cases:
+  - id: rce-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: rce-positive-1-observation
+              content: An instrumented local handler passed the inert B1 marker to the mocked interpreter boundary while the fixed implementation kept it data-only.
+            - id: rce-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rce-positive-1-observation
+        - rce-positive-1-context
+        - rce-positive-1-control
+      forbidden_evidence_ids: []
+  - id: rce-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: rce-positive-2-observation
+              content: The active source path selected an unsafe dynamic evaluator callback in the offline harness and emitted only the mock-event canary.
+            - id: rce-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rce-positive-2-observation
+        - rce-positive-2-context
+        - rce-positive-2-control
+      forbidden_evidence_ids: []
+  - id: rce-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: rce-positive-3-observation
+              content: A serialization-to-interpreter bridge reached the instrumented sink with the inert token while the allowlisted type control stopped before it.
+            - id: rce-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rce-positive-3-observation
+        - rce-positive-3-context
+        - rce-positive-3-control
+      forbidden_evidence_ids: []
+  - id: rce-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: rce-negative-1-observation
+              content: A dangerous API existed only in dead source.
+            - id: rce-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-negative-1-control
+              content: The retained control explains the observed signal without meeting active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - rce-negative-1-observation
+        - rce-negative-1-context
+        - rce-negative-1-control
+      forbidden_evidence_ids: []
+  - id: rce-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: rce-negative-2-observation
+              content: The evaluator marker reached a log but not the mocked interpreter boundary.
+            - id: rce-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-negative-2-control
+              content: The retained control explains the observed signal without meeting active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - rce-negative-2-observation
+        - rce-negative-2-context
+        - rce-negative-2-control
+      forbidden_evidence_ids: []
+  - id: rce-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: rce-negative-3-observation
+              content: A generic error and timing change matched benign malformed controls.
+            - id: rce-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-negative-3-control
+              content: The retained control explains the observed signal without meeting active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - rce-negative-3-observation
+        - rce-negative-3-context
+        - rce-negative-3-control
+      forbidden_evidence_ids: []
+  - id: rce-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: rce-ambiguous-observation
+              content: Source suggests interpreter reachability, but active call path and safe instrumented sink evidence are absent.
+            - id: rce-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-ambiguous-missing
+              content: The packet lacks at least one required element of active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - rce-ambiguous-observation
+        - rce-ambiguous-context
+        - rce-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: rce-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: rce-blocked-observation
+              content: No disposable offline harness, inert instrumented boundary, or deployed-source provenance exists.
+            - id: rce-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - rce-blocked-observation
+        - rce-blocked-context
+        - rce-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: rce-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess rce with the rce methodology and retain deterministic proof.
+    expected:
+      primary_skill: rce
+      top_n: 3
+  - id: rce-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: rce
+      top_n: 5
+  - id: rce-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: rce-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: rce-mutation-observation
+              content: Only input encoding changed; the same inert marker reached the mocked boundary and the fixed implementation remained negative.
+            - id: rce-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active source-to-interpreter path in a disposable harness, inert evaluator marker, and fixed/escaped control.
+            - id: rce-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - rce-mutation-observation
+        - rce-mutation-context
+        - rce-mutation-control
+      forbidden_evidence_ids: []

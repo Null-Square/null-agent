@@ -1,0 +1,9 @@
+{
+  "logSlowMs": 750,
+  "logDebugSampleRate": 0,
+  "logQuietPaths": [
+    "/api/profile/subscription",
+    "/api/ai-agent/tasks"
+  ],
+  "uploadsMaxBytes": 26214400
+}

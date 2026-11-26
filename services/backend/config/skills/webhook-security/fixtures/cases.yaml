@@ -1,0 +1,251 @@
+schema_version: 1
+skill: webhook-security
+cases:
+  - id: webhook-security-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: webhook-security-positive-1-observation
+              content: A changed evaluator event body was accepted because verification covered different bytes; the original signed body was the control.
+            - id: webhook-security-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - webhook-security-positive-1-observation
+        - webhook-security-positive-1-context
+        - webhook-security-positive-1-control
+      forbidden_evidence_ids: []
+  - id: webhook-security-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: webhook-security-positive-2-observation
+              content: The same evaluator event id was accepted twice outside the replay window and created two disposable records.
+            - id: webhook-security-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - webhook-security-positive-2-observation
+        - webhook-security-positive-2-context
+        - webhook-security-positive-2-control
+      forbidden_evidence_ids: []
+  - id: webhook-security-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: webhook-security-positive-3-observation
+              content: A tenant A event stored a synthetic record under tenant B because the consumer trusted the body tenant field.
+            - id: webhook-security-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - webhook-security-positive-3-observation
+        - webhook-security-positive-3-context
+        - webhook-security-positive-3-control
+      forbidden_evidence_ids: []
+  - id: webhook-security-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: webhook-security-negative-1-observation
+              content: The endpoint returned success early but asynchronous verification rejected the event.
+            - id: webhook-security-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-negative-1-control
+              content: The retained control explains the observed signal without meeting recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - webhook-security-negative-1-observation
+        - webhook-security-negative-1-context
+        - webhook-security-negative-1-control
+      forbidden_evidence_ids: []
+  - id: webhook-security-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: webhook-security-negative-2-observation
+              content: Duplicate delivery was idempotently recorded once.
+            - id: webhook-security-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-negative-2-control
+              content: The retained control explains the observed signal without meeting recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - webhook-security-negative-2-observation
+        - webhook-security-negative-2-context
+        - webhook-security-negative-2-control
+      forbidden_evidence_ids: []
+  - id: webhook-security-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: webhook-security-negative-3-observation
+              content: Unsigned events were allowed only on the disabled local-development route.
+            - id: webhook-security-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-negative-3-control
+              content: The retained control explains the observed signal without meeting recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - webhook-security-negative-3-observation
+        - webhook-security-negative-3-context
+        - webhook-security-negative-3-control
+      forbidden_evidence_ids: []
+  - id: webhook-security-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: webhook-security-ambiguous-observation
+              content: The endpoint accepted a request, but signature result, asynchronous processing, and consumer state are missing.
+            - id: webhook-security-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-ambiguous-missing
+              content: The packet lacks at least one required element of recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - webhook-security-ambiguous-observation
+        - webhook-security-ambiguous-context
+        - webhook-security-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: webhook-security-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: webhook-security-blocked-observation
+              content: No recorded/synthetic event, owner verification key, or disposable consumer record is available.
+            - id: webhook-security-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - webhook-security-blocked-observation
+        - webhook-security-blocked-context
+        - webhook-security-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: webhook-security-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess webhook-security with the webhook-security methodology and retain deterministic proof.
+    expected:
+      primary_skill: webhook-security
+      top_n: 3
+  - id: webhook-security-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: webhook-security
+      top_n: 5
+  - id: webhook-security-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: webhook-security-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: webhook-security-mutation-observation
+              content: Only raw-body whitespace changed; the same signature canonicalization flaw and original-body control remained.
+            - id: webhook-security-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is recorded/synthetic event, raw signature bytes and tenant binding, bounded replay, and disposable consumer state.
+            - id: webhook-security-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - webhook-security-mutation-observation
+        - webhook-security-mutation-context
+        - webhook-security-mutation-control
+      forbidden_evidence_ids: []

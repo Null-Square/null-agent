@@ -1,0 +1,355 @@
+schema_version: 1
+skill: ai-application-security
+cases:
+  - id: ai-application-security-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: ai-application-security-positive-1-observation
+              content: An evaluator document containing an instruction marker caused the test assistant to call a mocked privileged tool that policy excluded; the clean document did not.
+            - id: ai-application-security-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ai-application-security-positive-1-observation
+        - ai-application-security-positive-1-context
+        - ai-application-security-positive-1-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: ai-application-security-positive-2-observation
+              content: A retrieved evaluator record from tenant A appeared in tenant B’s answer with its synthetic canary and retrieval trace.
+            - id: ai-application-security-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ai-application-security-positive-2-observation
+        - ai-application-security-positive-2-context
+        - ai-application-security-positive-2-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: ai-application-security-positive-3-observation
+              content: An untrusted tool-result field overrode the system-selected destination and wrote a harmless marker to the wrong disposable workspace.
+            - id: ai-application-security-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ai-application-security-positive-3-observation
+        - ai-application-security-positive-3-context
+        - ai-application-security-positive-3-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-positive-4
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-4
+          observations:
+            - id: ai-application-security-positive-4-observation
+              content: A memory item supplied by evaluator A changed evaluator B’s test-agent policy choice, and clearing that item removed the behavior.
+            - id: ai-application-security-positive-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-positive-4-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ai-application-security-positive-4-observation
+        - ai-application-security-positive-4-context
+        - ai-application-security-positive-4-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-positive-5
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-5
+          observations:
+            - id: ai-application-security-positive-5-observation
+              content: The model refused a direct restricted action but the application’s deterministic post-processor converted the same response into an approved test action.
+            - id: ai-application-security-positive-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-positive-5-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ai-application-security-positive-5-observation
+        - ai-application-security-positive-5-context
+        - ai-application-security-positive-5-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: ai-application-security-negative-1-observation
+              content: The model repeated an instruction-shaped string but no tool, memory, retrieval, permission, or application state changed.
+            - id: ai-application-security-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-negative-1-control
+              content: The retained control explains the observed signal without meeting one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ai-application-security-negative-1-observation
+        - ai-application-security-negative-1-context
+        - ai-application-security-negative-1-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: ai-application-security-negative-2-observation
+              content: A public knowledge-base passage appeared in both tenant answers and contained no private canary.
+            - id: ai-application-security-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-negative-2-control
+              content: The retained control explains the observed signal without meeting one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ai-application-security-negative-2-observation
+        - ai-application-security-negative-2-context
+        - ai-application-security-negative-2-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: ai-application-security-negative-3-observation
+              content: The mocked tool call was proposed in text but the policy layer denied execution.
+            - id: ai-application-security-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-negative-3-control
+              content: The retained control explains the observed signal without meeting one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ai-application-security-negative-3-observation
+        - ai-application-security-negative-3-context
+        - ai-application-security-negative-3-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-negative-4
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-4
+          observations:
+            - id: ai-application-security-negative-4-observation
+              content: A prompt caused nondeterministic wording changes that did not reproduce under the fixed seed and configuration.
+            - id: ai-application-security-negative-4-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-negative-4-control
+              content: The retained control explains the observed signal without meeting one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ai-application-security-negative-4-observation
+        - ai-application-security-negative-4-context
+        - ai-application-security-negative-4-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-negative-5
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-5
+          observations:
+            - id: ai-application-security-negative-5-observation
+              content: A model/version fingerprint matched a public release note without demonstrating an application boundary failure.
+            - id: ai-application-security-negative-5-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-negative-5-control
+              content: The retained control explains the observed signal without meeting one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - ai-application-security-negative-5-observation
+        - ai-application-security-negative-5-context
+        - ai-application-security-negative-5-control
+      forbidden_evidence_ids: []
+  - id: ai-application-security-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: ai-application-security-ambiguous-observation
+              content: A single evaluation trace suggests an untrusted retrieval item influenced planning, but the trace lacks a clean retrieval control and stable application action.
+            - id: ai-application-security-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-ambiguous-missing
+              content: The packet lacks at least one required element of one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - ai-application-security-ambiguous-observation
+        - ai-application-security-ambiguous-context
+        - ai-application-security-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: ai-application-security-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: ai-application-security-blocked-observation
+              content: The approved instrumented test tenant, mock tools, fixed model configuration, or synthetic retrieval corpus is unavailable.
+            - id: ai-application-security-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - ai-application-security-blocked-observation
+        - ai-application-security-blocked-context
+        - ai-application-security-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: ai-application-security-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess ai-application-security with the ai-application-security methodology and retain deterministic proof.
+    expected:
+      primary_skill: ai-application-security
+      top_n: 3
+  - id: ai-application-security-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: ai-application-security
+      top_n: 5
+  - id: ai-application-security-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: ai-application-security-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: ai-application-security-mutation-observation
+              content: Only the placement of the same inert instruction marker changed from user prompt to retrieved evaluator document; the mocked-policy violation remained identical.
+            - id: ai-application-security-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is one evaluator prompt, an instrumented application decision, and a harmless synthetic boundary outcome.
+            - id: ai-application-security-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - ai-application-security-mutation-observation
+        - ai-application-security-mutation-context
+        - ai-application-security-mutation-control
+      forbidden_evidence_ids: []

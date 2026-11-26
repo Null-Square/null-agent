@@ -1,0 +1,8 @@
+{
+  "maxGuardRetries": 3,
+  "requireReport": true,
+  "turnTimeoutMs": 300000,
+  "checkpointIntervalToolCalls": 10,
+  "reportMinLength": 500,
+  "workspaceBackupEnabled": false
+}

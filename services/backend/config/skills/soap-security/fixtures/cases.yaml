@@ -1,0 +1,251 @@
+schema_version: 1
+skill: soap-security
+cases:
+  - id: soap-security-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: soap-security-positive-1-observation
+              content: An anonymous envelope called an operation marked authenticated and returned the private B1 SOAP canary.
+            - id: soap-security-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - soap-security-positive-1-observation
+        - soap-security-positive-1-context
+        - soap-security-positive-1-control
+      forbidden_evidence_ids: []
+  - id: soap-security-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: soap-security-positive-2-observation
+              content: Evaluator A changed one resource element and received evaluator B’s synthetic record.
+            - id: soap-security-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - soap-security-positive-2-observation
+        - soap-security-positive-2-context
+        - soap-security-positive-2-control
+      forbidden_evidence_ids: []
+  - id: soap-security-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: soap-security-positive-3-observation
+              content: A timestamped evaluator message replayed once outside the documented window and the idempotent test operation was accepted.
+            - id: soap-security-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - soap-security-positive-3-observation
+        - soap-security-positive-3-context
+        - soap-security-positive-3-control
+      forbidden_evidence_ids: []
+  - id: soap-security-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: soap-security-negative-1-observation
+              content: WSDL disclosure listed intended public operations.
+            - id: soap-security-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-negative-1-control
+              content: The retained control explains the observed signal without meeting supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - soap-security-negative-1-observation
+        - soap-security-negative-1-context
+        - soap-security-negative-1-control
+      forbidden_evidence_ids: []
+  - id: soap-security-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: soap-security-negative-2-observation
+              content: A SOAP fault named an operation but returned no data or state.
+            - id: soap-security-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-negative-2-control
+              content: The retained control explains the observed signal without meeting supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - soap-security-negative-2-observation
+        - soap-security-negative-2-context
+        - soap-security-negative-2-control
+      forbidden_evidence_ids: []
+  - id: soap-security-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: soap-security-negative-3-observation
+              content: An unknown namespace produced a normal schema-validation failure.
+            - id: soap-security-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-negative-3-control
+              content: The retained control explains the observed signal without meeting supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - soap-security-negative-3-observation
+        - soap-security-negative-3-context
+        - soap-security-negative-3-control
+      forbidden_evidence_ids: []
+  - id: soap-security-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: soap-security-ambiguous-observation
+              content: An operation accepts the envelope, but authorization intent and a named synthetic response are missing.
+            - id: soap-security-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-ambiguous-missing
+              content: The packet lacks at least one required element of supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - soap-security-ambiguous-observation
+        - soap-security-ambiguous-context
+        - soap-security-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: soap-security-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: soap-security-blocked-observation
+              content: No supplied WSDL/schema, evaluator identity header, or safe idempotent operation exists.
+            - id: soap-security-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - soap-security-blocked-observation
+        - soap-security-blocked-context
+        - soap-security-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: soap-security-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess soap-security with the soap-security methodology and retain deterministic proof.
+    expected:
+      primary_skill: soap-security
+      top_n: 3
+  - id: soap-security-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: soap-security
+      top_n: 5
+  - id: soap-security-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: soap-security-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: soap-security-mutation-observation
+              content: Only namespace/order changed within the supplied schema; the same missing-auth private canary and authenticated control remained.
+            - id: soap-security-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is supplied WSDL/operation, schema-valid evaluator envelope, identity/object controls, and semantic SOAP result.
+            - id: soap-security-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - soap-security-mutation-observation
+        - soap-security-mutation-context
+        - soap-security-mutation-control
+      forbidden_evidence_ids: []

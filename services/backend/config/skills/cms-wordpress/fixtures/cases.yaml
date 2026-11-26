@@ -1,0 +1,251 @@
+schema_version: 1
+skill: cms-wordpress
+cases:
+  - id: cms-wordpress-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: cms-wordpress-positive-1-observation
+              content: A subscriber read an owner-provided draft canary through an active plugin REST route reserved for editors.
+            - id: cms-wordpress-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-wordpress-positive-1-observation
+        - cms-wordpress-positive-1-context
+        - cms-wordpress-positive-1-control
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: cms-wordpress-positive-2-observation
+              content: A custom AJAX action let a subscriber update a disposable field despite the active code’s administrator capability intent.
+            - id: cms-wordpress-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-wordpress-positive-2-observation
+        - cms-wordpress-positive-2-context
+        - cms-wordpress-positive-2-control
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: cms-wordpress-positive-3-observation
+              content: A multisite evaluator from site A read the supplied private site B record through the active plugin endpoint.
+            - id: cms-wordpress-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-wordpress-positive-3-observation
+        - cms-wordpress-positive-3-context
+        - cms-wordpress-positive-3-control
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: cms-wordpress-negative-1-observation
+              content: The login, REST index, and generator metadata only identified WordPress.
+            - id: cms-wordpress-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-negative-1-control
+              content: The retained control explains the observed signal without meeting active WordPress component, capability, evaluator content, and runtime route/action outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-wordpress-negative-1-observation
+        - cms-wordpress-negative-1-context
+        - cms-wordpress-negative-1-control
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: cms-wordpress-negative-2-observation
+              content: A plugin readme advertised an old version while the loaded package was patched.
+            - id: cms-wordpress-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-negative-2-control
+              content: The retained control explains the observed signal without meeting active WordPress component, capability, evaluator content, and runtime route/action outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-wordpress-negative-2-observation
+        - cms-wordpress-negative-2-context
+        - cms-wordpress-negative-2-control
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: cms-wordpress-negative-3-observation
+              content: Public author archives exposed usernames that policy did not treat as secret.
+            - id: cms-wordpress-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-negative-3-control
+              content: The retained control explains the observed signal without meeting active WordPress component, capability, evaluator content, and runtime route/action outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-wordpress-negative-3-observation
+        - cms-wordpress-negative-3-context
+        - cms-wordpress-negative-3-control
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: cms-wordpress-ambiguous-observation
+              content: A plugin asset names a vulnerable version, but active plugin status and route reachability are missing.
+            - id: cms-wordpress-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-ambiguous-missing
+              content: The packet lacks at least one required element of active WordPress component, capability, evaluator content, and runtime route/action outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-wordpress-ambiguous-observation
+        - cms-wordpress-ambiguous-context
+        - cms-wordpress-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: cms-wordpress-blocked-observation
+              content: No active component inventory, evaluator roles, or synthetic content is available.
+            - id: cms-wordpress-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - cms-wordpress-blocked-observation
+        - cms-wordpress-blocked-context
+        - cms-wordpress-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: cms-wordpress-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess cms-wordpress with the cms-wordpress methodology and retain deterministic proof.
+    expected:
+      primary_skill: cms-wordpress
+      top_n: 3
+  - id: cms-wordpress-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: cms-wordpress
+      top_n: 5
+  - id: cms-wordpress-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: cms-wordpress-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: cms-wordpress-mutation-observation
+              content: Only transport changed from the plugin REST route to its registered AJAX action; the same subscriber capability gap reproduced.
+            - id: cms-wordpress-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is active WordPress component, capability, evaluator content, and runtime route/action outcome.
+            - id: cms-wordpress-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - cms-wordpress-mutation-observation
+        - cms-wordpress-mutation-context
+        - cms-wordpress-mutation-control
+      forbidden_evidence_ids: []

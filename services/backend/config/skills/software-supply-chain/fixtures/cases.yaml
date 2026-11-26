@@ -1,0 +1,251 @@
+schema_version: 1
+skill: software-supply-chain
+cases:
+  - id: software-supply-chain-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: software-supply-chain-positive-1-observation
+              content: The production lock resolved a runtime package through an untrusted HTTP registry used by the retained build.
+            - id: software-supply-chain-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - software-supply-chain-positive-1-observation
+        - software-supply-chain-positive-1-context
+        - software-supply-chain-positive-1-control
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: software-supply-chain-positive-2-observation
+              content: An untrusted pull-request workflow executed an unpinned third-party action with documented write permission.
+            - id: software-supply-chain-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - software-supply-chain-positive-2-observation
+        - software-supply-chain-positive-2-context
+        - software-supply-chain-positive-2-control
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: software-supply-chain-positive-3-observation
+              content: The deployed SBOM and import path confirmed a vulnerable package in the active runtime path.
+            - id: software-supply-chain-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - software-supply-chain-positive-3-observation
+        - software-supply-chain-positive-3-context
+        - software-supply-chain-positive-3-control
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: software-supply-chain-negative-1-observation
+              content: The vulnerable package was dev-only and excluded from the production stage.
+            - id: software-supply-chain-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-negative-1-control
+              content: The retained control explains the observed signal without meeting production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - software-supply-chain-negative-1-observation
+        - software-supply-chain-negative-1-context
+        - software-supply-chain-negative-1-control
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: software-supply-chain-negative-2-observation
+              content: Every internal package name was scoped to an authenticated registry.
+            - id: software-supply-chain-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-negative-2-control
+              content: The retained control explains the observed signal without meeting production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - software-supply-chain-negative-2-observation
+        - software-supply-chain-negative-2-context
+        - software-supply-chain-negative-2-control
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: software-supply-chain-negative-3-observation
+              content: A secret-shaped CI value was an invalid fixture and unavailable to the active job.
+            - id: software-supply-chain-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-negative-3-control
+              content: The retained control explains the observed signal without meeting production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - software-supply-chain-negative-3-observation
+        - software-supply-chain-negative-3-context
+        - software-supply-chain-negative-3-control
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: software-supply-chain-ambiguous-observation
+              content: A lockfile or workflow looks risky, but production build/release provenance and actual permissions are absent.
+            - id: software-supply-chain-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-ambiguous-missing
+              content: The packet lacks at least one required element of production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - software-supply-chain-ambiguous-observation
+        - software-supply-chain-ambiguous-context
+        - software-supply-chain-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: software-supply-chain-blocked-observation
+              content: No production lock/SBOM/workflow provenance is available without triggering CI or using credentials.
+            - id: software-supply-chain-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - software-supply-chain-blocked-observation
+        - software-supply-chain-blocked-context
+        - software-supply-chain-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: software-supply-chain-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess software-supply-chain with the software-supply-chain methodology and retain deterministic proof.
+    expected:
+      primary_skill: software-supply-chain
+      top_n: 3
+  - id: software-supply-chain-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: software-supply-chain
+      top_n: 5
+  - id: software-supply-chain-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: software-supply-chain-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: software-supply-chain-mutation-observation
+              content: Only the resolved package source changed from the approved registry to the owner-provided unauthorized evaluator registry; an isolated build fetched its synthetic canary package while production stage, package version, and build provenance stayed fixed.
+            - id: software-supply-chain-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is production manifest/lock/build provenance, active reachability or authority, and exact dependency/workflow control.
+            - id: software-supply-chain-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - software-supply-chain-mutation-observation
+        - software-supply-chain-mutation-context
+        - software-supply-chain-mutation-control
+      forbidden_evidence_ids: []

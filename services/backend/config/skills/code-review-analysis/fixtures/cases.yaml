@@ -1,0 +1,11 @@
+schema_version: 1
+skill: code-review-analysis
+cases:
+  - id: exact-source-candidate
+    kind: positive
+    input: { path: src/auth.ts, start_line: 20, end_line: 28 }
+    expected: { state: candidate }
+  - id: unseen-middleware-control
+    kind: negative
+    input: { source_path: src/handler.ts, relevant_control: out_of_scope_middleware }
+    expected: { state: uncovered_area, candidate: false }

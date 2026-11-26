@@ -1,0 +1,251 @@
+schema_version: 1
+skill: security-reporting
+cases:
+  - id: security-reporting-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: security-reporting-positive-1-observation
+              content: A report linked every claim to hashed evaluator requests, synthetic canary evidence, and the owning authorization methodology.
+            - id: security-reporting-positive-1-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-positive-1-observation
+        - security-reporting-positive-1-floor
+        - security-reporting-positive-1-control
+      forbidden_evidence_ids: []
+  - id: security-reporting-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: security-reporting-positive-2-observation
+              content: An ambiguous scanner lead was explicitly excluded from findings and documented with the missing validation evidence.
+            - id: security-reporting-positive-2-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-positive-2-observation
+        - security-reporting-positive-2-floor
+        - security-reporting-positive-2-control
+      forbidden_evidence_ids: []
+  - id: security-reporting-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: security-reporting-positive-3-observation
+              content: A blocked case recorded the exact prerequisite, safety boundary, and non-replayed reason without inflating severity.
+            - id: security-reporting-positive-3-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-positive-3-observation
+        - security-reporting-positive-3-floor
+        - security-reporting-positive-3-control
+      forbidden_evidence_ids: []
+  - id: security-reporting-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: security-reporting-negative-1-observation
+              content: A draft called a version fingerprint a confirmed vulnerability.
+            - id: security-reporting-negative-1-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-negative-1-observation
+        - security-reporting-negative-1-floor
+        - security-reporting-negative-1-control
+      forbidden_evidence_ids: []
+  - id: security-reporting-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: security-reporting-negative-2-observation
+              content: A screenshot-only claim lacked request identity, controls, and provenance.
+            - id: security-reporting-negative-2-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-negative-2-observation
+        - security-reporting-negative-2-floor
+        - security-reporting-negative-2-control
+      forbidden_evidence_ids: []
+  - id: security-reporting-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: security-reporting-negative-3-observation
+              content: Two reports duplicated one root cause without a clear shared remediation boundary.
+            - id: security-reporting-negative-3-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-negative-3-observation
+        - security-reporting-negative-3-floor
+        - security-reporting-negative-3-control
+      forbidden_evidence_ids: []
+  - id: security-reporting-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: security-reporting-ambiguous-observation
+              content: The narrative sounds plausible but evidence ids, owner skill, affected scope, and validation status are incomplete.
+            - id: security-reporting-ambiguous-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-ambiguous-observation
+        - security-reporting-ambiguous-floor
+        - security-reporting-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: security-reporting-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: security-reporting-blocked-observation
+              content: The retained evidence bundle or engagement reporting policy is unavailable.
+            - id: security-reporting-blocked-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-blocked-observation
+        - security-reporting-blocked-floor
+        - security-reporting-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: security-reporting-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess security-reporting with the security-reporting methodology and retain deterministic proof.
+    expected:
+      primary_skill: security-reporting
+      top_n: 3
+  - id: security-reporting-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: security-reporting
+      top_n: 5
+  - id: security-reporting-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: security-reporting-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: security-reporting-mutation-observation
+              content: Only audience changed from technical to executive summary; evidence ids, validation status, severity rationale, and scope stayed consistent.
+            - id: security-reporting-mutation-floor
+              content: The required decision floor is traceable evidence, bounded impact, owner skill, reproducible controls, remediation, and no unsupported claims.
+            - id: security-reporting-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - security-reporting-mutation-observation
+        - security-reporting-mutation-floor
+        - security-reporting-mutation-control
+      forbidden_evidence_ids: []

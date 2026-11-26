@@ -1,0 +1,251 @@
+schema_version: 1
+skill: compliance-governance-review
+cases:
+  - id: compliance-governance-review-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: compliance-governance-review-positive-1-observation
+              content: The governance record identified accountable owner, approver, review cadence, and current approval for the named control.
+            - id: compliance-governance-review-positive-1-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-positive-1-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-positive-1-observation
+        - compliance-governance-review-positive-1-floor
+        - compliance-governance-review-positive-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: compliance-governance-review-positive-2-observation
+              content: An exception had scope, rationale, compensating control, expiry, and renewal decision.
+            - id: compliance-governance-review-positive-2-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-positive-2-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-positive-2-observation
+        - compliance-governance-review-positive-2-floor
+        - compliance-governance-review-positive-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: compliance-governance-review-positive-3-observation
+              content: Committee minutes tied a risk decision to tracked action owners and due dates.
+            - id: compliance-governance-review-positive-3-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-positive-3-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-positive-3-observation
+        - compliance-governance-review-positive-3-floor
+        - compliance-governance-review-positive-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: compliance-governance-review-negative-1-observation
+              content: A draft policy had no approval or effective date.
+            - id: compliance-governance-review-negative-1-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-negative-1-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-negative-1-observation
+        - compliance-governance-review-negative-1-floor
+        - compliance-governance-review-negative-1-control
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: compliance-governance-review-negative-2-observation
+              content: An exception had no expiry or accountable owner.
+            - id: compliance-governance-review-negative-2-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-negative-2-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-negative-2-observation
+        - compliance-governance-review-negative-2-floor
+        - compliance-governance-review-negative-2-control
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: compliance-governance-review-negative-3-observation
+              content: Meeting notes listed discussion without a recorded decision.
+            - id: compliance-governance-review-negative-3-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-negative-3-control
+              content: The matched evidence explains or contains the signal without a prohibited or unauthorized synthetic outcome.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-negative-3-observation
+        - compliance-governance-review-negative-3-floor
+        - compliance-governance-review-negative-3-control
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: compliance-governance-review-ambiguous-observation
+              content: Governance artifacts exist, but authority, effective period, or decision/action traceability is incomplete.
+            - id: compliance-governance-review-ambiguous-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-ambiguous-missing
+              content: At least one proof-floor element is missing, so the artifact may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-ambiguous-observation
+        - compliance-governance-review-ambiguous-floor
+        - compliance-governance-review-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: compliance-governance-review-blocked-observation
+              content: The accountable owner or authoritative governance record is unavailable.
+            - id: compliance-governance-review-blocked-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-blocked-blocker
+              content: The prerequisite is unavailable inside the authorized boundary, and no broader access or substitute action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-blocked-observation
+        - compliance-governance-review-blocked-floor
+        - compliance-governance-review-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: compliance-governance-review-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess compliance-governance-review with the compliance-governance-review methodology and retain deterministic proof.
+    expected:
+      primary_skill: compliance-governance-review
+      top_n: 3
+  - id: compliance-governance-review-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: compliance-governance-review
+      top_n: 5
+  - id: compliance-governance-review-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: compliance-governance-review-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: compliance-governance-review-mutation-observation
+              content: Only governance period changed; owner, approval authority, exception lifecycle, and action traceability stayed fixed.
+            - id: compliance-governance-review-mutation-floor
+              content: The required decision floor is approved policy/control ownership, decision rights, review cadence, exception lifecycle, and retained evidence.
+            - id: compliance-governance-review-mutation-control
+              content: A matched negative/baseline control did not produce the candidate outcome while scope and evaluator data stayed fixed.
+    expected:
+      disposition: proof
+      finding_allowed: false
+      required_evidence_ids:
+        - compliance-governance-review-mutation-observation
+        - compliance-governance-review-mutation-floor
+        - compliance-governance-review-mutation-control
+      forbidden_evidence_ids: []

@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a problem with the local NullSquare application
+description: Report a problem with Null AI
 labels: [bug]
 body:
   - type: textarea
@@ -12,6 +12,6 @@ body:
   - type: input
     id: env
     attributes:
-      label: Operating system, Node.js version and revision
+      label: Operating system, Docker and Node.js versions, and the commit
     validations:
       required: true

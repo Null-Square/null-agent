@@ -1,0 +1,251 @@
+schema_version: 1
+skill: jwt-attacks
+cases:
+  - id: jwt-attacks-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: jwt-attacks-positive-1-observation
+              content: The evaluator service accepted a token after its signature bytes changed and the authenticated response identified the same evaluator.
+            - id: jwt-attacks-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - jwt-attacks-positive-1-observation
+        - jwt-attacks-positive-1-context
+        - jwt-attacks-positive-1-control
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: jwt-attacks-positive-2-observation
+              content: A token issued for evaluator client A was accepted by client B despite distinct audience policy.
+            - id: jwt-attacks-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - jwt-attacks-positive-2-observation
+        - jwt-attacks-positive-2-context
+        - jwt-attacks-positive-2-control
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: jwt-attacks-positive-3-observation
+              content: An expired evaluator token remained accepted beyond the documented skew and a fresh-token control established time.
+            - id: jwt-attacks-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - jwt-attacks-positive-3-observation
+        - jwt-attacks-positive-3-context
+        - jwt-attacks-positive-3-control
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: jwt-attacks-negative-1-observation
+              content: A JWT decoded successfully offline but signature verification was never bypassed.
+            - id: jwt-attacks-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-negative-1-control
+              content: The retained control explains the observed signal without meeting verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - jwt-attacks-negative-1-observation
+        - jwt-attacks-negative-1-context
+        - jwt-attacks-negative-1-control
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: jwt-attacks-negative-2-observation
+              content: A public JWKS key and token claims revealed no secret.
+            - id: jwt-attacks-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-negative-2-control
+              content: The retained control explains the observed signal without meeting verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - jwt-attacks-negative-2-observation
+        - jwt-attacks-negative-2-context
+        - jwt-attacks-negative-2-control
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: jwt-attacks-negative-3-observation
+              content: A token with an unexpected algorithm was rejected before application authentication.
+            - id: jwt-attacks-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-negative-3-control
+              content: The retained control explains the observed signal without meeting verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - jwt-attacks-negative-3-observation
+        - jwt-attacks-negative-3-context
+        - jwt-attacks-negative-3-control
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: jwt-attacks-ambiguous-observation
+              content: A token receives a different error, but issuer/audience/key selection and authenticated application identity are not captured.
+            - id: jwt-attacks-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-ambiguous-missing
+              content: The packet lacks at least one required element of verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - jwt-attacks-ambiguous-observation
+        - jwt-attacks-ambiguous-context
+        - jwt-attacks-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: jwt-attacks-blocked-observation
+              content: No disposable evaluator token/client, verification provenance, or harmless authenticated read is available.
+            - id: jwt-attacks-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - jwt-attacks-blocked-observation
+        - jwt-attacks-blocked-context
+        - jwt-attacks-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: jwt-attacks-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess jwt-attacks with the jwt-attacks methodology and retain deterministic proof.
+    expected:
+      primary_skill: jwt-attacks
+      top_n: 3
+  - id: jwt-attacks-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: jwt-attacks
+      top_n: 5
+  - id: jwt-attacks-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: jwt-attacks-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: jwt-attacks-mutation-observation
+              content: Only the evaluator audience claim changed; the same valid signature context and wrong-client application acceptance reproduced.
+            - id: jwt-attacks-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is verified evaluator token, issuer/audience/key provenance, one claim/signature mutation, and application-consumption control.
+            - id: jwt-attacks-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - jwt-attacks-mutation-observation
+        - jwt-attacks-mutation-context
+        - jwt-attacks-mutation-control
+      forbidden_evidence_ids: []

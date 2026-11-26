@@ -14,9 +14,8 @@ import signatureOnLight from '../assets/signature-on-light.svg';
  *
  * ── THE ARABIC SIGNATURE ────────────────────────────────────────────────
  * `script` selects the mark and exactly one is ever rendered. This component
- * has no opinion about locale — that belongs to whichever app knows it, and
- * the website supplies it once by wrapping this in `shared/ui/SiteLogo`, so
- * adminpanel and frontend keep the Latin mark without being asked.
+ * has no opinion about locale — that belongs to whichever app knows it, so an
+ * app that passes nothing keeps the Latin mark.
  *
  * Rendering BOTH and hiding one in CSS was built first and reverted: it puts
  * an <svg> into every page on every surface, and `ErrorView.test` — which

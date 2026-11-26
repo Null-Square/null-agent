@@ -1,0 +1,251 @@
+schema_version: 1
+skill: web-security-misconfiguration
+cases:
+  - id: web-security-misconfiguration-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: web-security-misconfiguration-positive-1-observation
+              content: Directory indexing exposed the owner-provided private canary outside intended public assets.
+            - id: web-security-misconfiguration-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-security-misconfiguration-positive-1-observation
+        - web-security-misconfiguration-positive-1-context
+        - web-security-misconfiguration-positive-1-control
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: web-security-misconfiguration-positive-2-observation
+              content: A production error route returned the synthetic configuration secret and a valid request did not.
+            - id: web-security-misconfiguration-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-security-misconfiguration-positive-2-observation
+        - web-security-misconfiguration-positive-2-context
+        - web-security-misconfiguration-positive-2-control
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: web-security-misconfiguration-positive-3-observation
+              content: An anonymous administrative read exposed non-public evaluator configuration while its protected sibling enforced login.
+            - id: web-security-misconfiguration-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-security-misconfiguration-positive-3-observation
+        - web-security-misconfiguration-positive-3-context
+        - web-security-misconfiguration-positive-3-control
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: web-security-misconfiguration-negative-1-observation
+              content: A version banner and default favicon were inventory only.
+            - id: web-security-misconfiguration-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-negative-1-control
+              content: The retained control explains the observed signal without meeting effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - web-security-misconfiguration-negative-1-observation
+        - web-security-misconfiguration-negative-1-context
+        - web-security-misconfiguration-negative-1-control
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: web-security-misconfiguration-negative-2-observation
+              content: The robots file named only intentionally public routes and disclosed no private resource or administrative action.
+            - id: web-security-misconfiguration-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-negative-2-control
+              content: The retained control explains the observed signal without meeting effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - web-security-misconfiguration-negative-2-observation
+        - web-security-misconfiguration-negative-2-context
+        - web-security-misconfiguration-negative-2-control
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: web-security-misconfiguration-negative-3-observation
+              content: An enabled HTTP method produced no unauthorized read or state change.
+            - id: web-security-misconfiguration-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-negative-3-control
+              content: The retained control explains the observed signal without meeting effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - web-security-misconfiguration-negative-3-observation
+        - web-security-misconfiguration-negative-3-context
+        - web-security-misconfiguration-negative-3-control
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: web-security-misconfiguration-ambiguous-observation
+              content: A configuration appears weak, but effective environment, reachability, and named impact are absent.
+            - id: web-security-misconfiguration-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-ambiguous-missing
+              content: The packet lacks at least one required element of effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - web-security-misconfiguration-ambiguous-observation
+        - web-security-misconfiguration-ambiguous-context
+        - web-security-misconfiguration-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: web-security-misconfiguration-blocked-observation
+              content: No production config provenance, safe route, or synthetic private canary exists.
+            - id: web-security-misconfiguration-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - web-security-misconfiguration-blocked-observation
+        - web-security-misconfiguration-blocked-context
+        - web-security-misconfiguration-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: web-security-misconfiguration-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess web-security-misconfiguration with the web-security-misconfiguration methodology and retain deterministic proof.
+    expected:
+      primary_skill: web-security-misconfiguration
+      top_n: 3
+  - id: web-security-misconfiguration-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: web-security-misconfiguration
+      top_n: 5
+  - id: web-security-misconfiguration-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-security-misconfiguration-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: web-security-misconfiguration-mutation-observation
+              content: Only the malformed input field changed; the same production error canary and valid-request control remained.
+            - id: web-security-misconfiguration-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is effective production configuration, reachable route, named synthetic impact, and intended-policy/protected control.
+            - id: web-security-misconfiguration-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-security-misconfiguration-mutation-observation
+        - web-security-misconfiguration-mutation-context
+        - web-security-misconfiguration-mutation-control
+      forbidden_evidence_ids: []

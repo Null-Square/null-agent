@@ -1,0 +1,251 @@
+schema_version: 1
+skill: broken-auth
+cases:
+  - id: broken-auth-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: broken-auth-positive-1-observation
+              content: The evaluator login accepted a supplied invalidated password after the password-change control confirmed the new password was active.
+            - id: broken-auth-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - broken-auth-positive-1-observation
+        - broken-auth-positive-1-context
+        - broken-auth-positive-1-control
+      forbidden_evidence_ids: []
+  - id: broken-auth-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: broken-auth-positive-2-observation
+              content: A recovery link generated for evaluator A completed a password reset for evaluator B and the resulting session identified B.
+            - id: broken-auth-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - broken-auth-positive-2-observation
+        - broken-auth-positive-2-context
+        - broken-auth-positive-2-control
+      forbidden_evidence_ids: []
+  - id: broken-auth-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: broken-auth-positive-3-observation
+              content: The documented lockout threshold was crossed on a disposable evaluator account, yet authentication continued without the configured delay while the control account enforced it.
+            - id: broken-auth-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - broken-auth-positive-3-observation
+        - broken-auth-positive-3-context
+        - broken-auth-positive-3-control
+      forbidden_evidence_ids: []
+  - id: broken-auth-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: broken-auth-negative-1-observation
+              content: A login error differed by username but no account existence was secret under the supplied policy.
+            - id: broken-auth-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-negative-1-control
+              content: The retained control explains the observed signal without meeting evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - broken-auth-negative-1-observation
+        - broken-auth-negative-1-context
+        - broken-auth-negative-1-control
+      forbidden_evidence_ids: []
+  - id: broken-auth-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: broken-auth-negative-2-observation
+              content: A recovery response was identical for existing and nonexistent evaluator addresses and no mail was sent for the nonexistent control.
+            - id: broken-auth-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-negative-2-control
+              content: The retained control explains the observed signal without meeting evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - broken-auth-negative-2-observation
+        - broken-auth-negative-2-context
+        - broken-auth-negative-2-control
+      forbidden_evidence_ids: []
+  - id: broken-auth-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: broken-auth-negative-3-observation
+              content: A remembered-device cookie bypassed MFA only on the evaluator device explicitly enrolled for that behavior.
+            - id: broken-auth-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-negative-3-control
+              content: The retained control explains the observed signal without meeting evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - broken-auth-negative-3-observation
+        - broken-auth-negative-3-context
+        - broken-auth-negative-3-control
+      forbidden_evidence_ids: []
+  - id: broken-auth-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: broken-auth-ambiguous-observation
+              content: One recovery email arrived late and out of order, but token-to-account binding and expiry were not captured.
+            - id: broken-auth-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-ambiguous-missing
+              content: The packet lacks at least one required element of evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - broken-auth-ambiguous-observation
+        - broken-auth-ambiguous-context
+        - broken-auth-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: broken-auth-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: broken-auth-blocked-observation
+              content: Disposable evaluator accounts, mailbox capture, or permission for bounded lifecycle transitions is unavailable.
+            - id: broken-auth-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - broken-auth-blocked-observation
+        - broken-auth-blocked-context
+        - broken-auth-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: broken-auth-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess broken-auth with the broken-auth methodology and retain deterministic proof.
+    expected:
+      primary_skill: broken-auth
+      top_n: 3
+  - id: broken-auth-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: broken-auth
+      top_n: 5
+  - id: broken-auth-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: broken-auth-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: broken-auth-mutation-observation
+              content: Only the case of the evaluator email identifier changed; the recovery flow still bound the link to the wrong supplied evaluator account.
+            - id: broken-auth-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is evaluator identity lifecycle, intended authentication policy, and deterministic unauthorized session/account outcome.
+            - id: broken-auth-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - broken-auth-mutation-observation
+        - broken-auth-mutation-context
+        - broken-auth-mutation-control
+      forbidden_evidence_ids: []

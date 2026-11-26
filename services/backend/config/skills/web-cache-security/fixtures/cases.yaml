@@ -1,0 +1,251 @@
+schema_version: 1
+skill: web-cache-security
+cases:
+  - id: web-cache-security-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: web-cache-security-positive-1-observation
+              content: An owner-controlled unkeyed header primed a synthetic marker that a later canonical request received from cache.
+            - id: web-cache-security-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-cache-security-positive-1-observation
+        - web-cache-security-positive-1-context
+        - web-cache-security-positive-1-control
+      forbidden_evidence_ids: []
+  - id: web-cache-security-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: web-cache-security-positive-2-observation
+              content: An evaluator private canary response was served to an anonymous control under the same cache key.
+            - id: web-cache-security-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-cache-security-positive-2-observation
+        - web-cache-security-positive-2-context
+        - web-cache-security-positive-2-control
+      forbidden_evidence_ids: []
+  - id: web-cache-security-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: web-cache-security-positive-3-observation
+              content: A path-normalization variant stored dynamic evaluator data under a static-looking public cache key.
+            - id: web-cache-security-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-cache-security-positive-3-observation
+        - web-cache-security-positive-3-context
+        - web-cache-security-positive-3-control
+      forbidden_evidence_ids: []
+  - id: web-cache-security-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: web-cache-security-negative-1-observation
+              content: The candidate response was always cache bypass and had no age/cache-hit evidence.
+            - id: web-cache-security-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-negative-1-control
+              content: The retained control explains the observed signal without meeting fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - web-cache-security-negative-1-observation
+        - web-cache-security-negative-1-context
+        - web-cache-security-negative-1-control
+      forbidden_evidence_ids: []
+  - id: web-cache-security-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: web-cache-security-negative-2-observation
+              content: The variation existed only in the evaluator browser cache.
+            - id: web-cache-security-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-negative-2-control
+              content: The retained control explains the observed signal without meeting fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - web-cache-security-negative-2-observation
+        - web-cache-security-negative-2-context
+        - web-cache-security-negative-2-control
+      forbidden_evidence_ids: []
+  - id: web-cache-security-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: web-cache-security-negative-3-observation
+              content: Origin randomness explained the response difference on fresh controls.
+            - id: web-cache-security-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-negative-3-control
+              content: The retained control explains the observed signal without meeting fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - web-cache-security-negative-3-observation
+        - web-cache-security-negative-3-context
+        - web-cache-security-negative-3-control
+      forbidden_evidence_ids: []
+  - id: web-cache-security-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: web-cache-security-ambiguous-observation
+              content: A later response contains the marker, but cache tier, freshness, origin response, and canonical control are not captured.
+            - id: web-cache-security-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-ambiguous-missing
+              content: The packet lacks at least one required element of fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - web-cache-security-ambiguous-observation
+        - web-cache-security-ambiguous-context
+        - web-cache-security-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: web-cache-security-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: web-cache-security-blocked-observation
+              content: No unique low-traffic key, synthetic marker, or safe cache-status visibility is available.
+            - id: web-cache-security-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - web-cache-security-blocked-observation
+        - web-cache-security-blocked-context
+        - web-cache-security-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: web-cache-security-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess web-cache-security with the web-cache-security methodology and retain deterministic proof.
+    expected:
+      primary_skill: web-cache-security
+      top_n: 3
+  - id: web-cache-security-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: web-cache-security
+      top_n: 5
+  - id: web-cache-security-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: web-cache-security-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: web-cache-security-mutation-observation
+              content: Only the unkeyed owner header name changed; the same fresh-key prime/canonical-fetch persistence and origin control remained.
+            - id: web-cache-security-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is fresh low-traffic key, synthetic marker, cache-status/age evidence, canonical fetch, and origin/browser controls.
+            - id: web-cache-security-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - web-cache-security-mutation-observation
+        - web-cache-security-mutation-context
+        - web-cache-security-mutation-control
+      forbidden_evidence_ids: []

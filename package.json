@@ -1,30 +1,36 @@
 {
-  "name": "nullsquare-local",
-  "version": "0.1.0",
-  "license": "Apache-2.0",
+  "name": "null-ai",
+  "version": "3.2.0",
   "private": true,
-  "type": "module",
-  "description": "Local NullSquare workspace for compliance evidence and source code review.",
-  "engines": {
-    "node": ">=22.18.0"
-  },
+  "license": "Apache-2.0",
+  "description": "Null AI, the open-source AI pentester: it plans the test, runs real tools in a sealed sandbox, proves what it finds and writes the report.",
   "workspaces": [
     "packages/contracts",
     "packages/design-tokens",
     "services/backend",
-    "services/frontend"
+    "services/frontend",
+    "services/shell-server"
   ],
   "scripts": {
-    "build": "npm run build --workspace services/frontend",
-    "prestart": "npm run build",
-    "start": "node services/backend/server.mjs",
-    "test": "npm test --workspace services/backend",
-    "check": "npm run build && npm test",
-    "verify": "npm run check",
-    "verify:local": "npm run check && npm run test:browser",
-    "test:browser": "node scripts/test-browser.mjs"
+    "build": "turbo run build",
+    "dev": "turbo run dev --filter=backend-service --filter=frontend-service",
+    "dev:backend": "turbo run dev --filter=backend-service",
+    "dev:frontend": "turbo run dev --filter=frontend-service",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "npm run test -w services/backend && npm run test -w services/frontend",
+    "test:backend": "npm run test -w services/backend",
+    "test:frontend": "npm run test -w services/frontend",
+    "db:migrate": "npm run db:migrate -w services/backend",
+    "db:seed": "npm run db:seed -w services/backend"
   },
   "devDependencies": {
-    "playwright": "1.63.0"
+    "playwright": "1.57.0",
+    "turbo": "2.10.2",
+    "vitest": "3.2.6"
+  },
+  "packageManager": "npm@10.0.0",
+  "engines": {
+    "node": ">=22"
   }
 }

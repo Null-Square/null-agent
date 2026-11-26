@@ -1,0 +1,251 @@
+schema_version: 1
+skill: firebase-firestore
+cases:
+  - id: firebase-firestore-positive-1
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-1
+          observations:
+            - id: firebase-firestore-positive-1-observation
+              content: The unauthenticated SDK context read the named private evaluator Firestore document canary.
+            - id: firebase-firestore-positive-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-positive-1-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - firebase-firestore-positive-1-observation
+        - firebase-firestore-positive-1-context
+        - firebase-firestore-positive-1-control
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-positive-2
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-2
+          observations:
+            - id: firebase-firestore-positive-2-observation
+              content: Evaluator A wrote its disposable document through a rule that trusted a mutable uid field and the follow-up read confirmed it.
+            - id: firebase-firestore-positive-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-positive-2-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - firebase-firestore-positive-2-observation
+        - firebase-firestore-positive-2-context
+        - firebase-firestore-positive-2-control
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-positive-3
+    kind: positive
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-positive-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: positive-3
+          observations:
+            - id: firebase-firestore-positive-3-observation
+              content: Storage rules exposed the named private test object to evaluator B while owner and nonexistent controls were retained.
+            - id: firebase-firestore-positive-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-positive-3-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - firebase-firestore-positive-3-observation
+        - firebase-firestore-positive-3-context
+        - firebase-firestore-positive-3-control
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-negative-1
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-1
+          observations:
+            - id: firebase-firestore-negative-1-observation
+              content: Firebase project id, API key, and auth domain were public identifiers only.
+            - id: firebase-firestore-negative-1-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-negative-1-control
+              content: The retained control explains the observed signal without meeting project/environment, active rules, named synthetic document/object, and auth-context controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - firebase-firestore-negative-1-observation
+        - firebase-firestore-negative-1-context
+        - firebase-firestore-negative-1-control
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-negative-2
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-2
+          observations:
+            - id: firebase-firestore-negative-2-observation
+              content: Permissive emulator rules were not deployed to the production project.
+            - id: firebase-firestore-negative-2-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-negative-2-control
+              content: The retained control explains the observed signal without meeting project/environment, active rules, named synthetic document/object, and auth-context controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - firebase-firestore-negative-2-observation
+        - firebase-firestore-negative-2-context
+        - firebase-firestore-negative-2-control
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-negative-3
+    kind: negative
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-negative-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: negative-3
+          observations:
+            - id: firebase-firestore-negative-3-observation
+              content: A collection name was discoverable but document reads remained denied.
+            - id: firebase-firestore-negative-3-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-negative-3-control
+              content: The retained control explains the observed signal without meeting project/environment, active rules, named synthetic document/object, and auth-context controls; no unauthorized synthetic data or state was observed.
+    expected:
+      disposition: reject
+      finding_allowed: false
+      required_evidence_ids:
+        - firebase-firestore-negative-3-observation
+        - firebase-firestore-negative-3-context
+        - firebase-firestore-negative-3-control
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-ambiguous
+    kind: ambiguous
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-ambiguous-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: ambiguous
+          observations:
+            - id: firebase-firestore-ambiguous-observation
+              content: A rules file appears permissive, but deployed ruleset and target environment cannot be matched.
+            - id: firebase-firestore-ambiguous-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-ambiguous-missing
+              content: The packet lacks at least one required element of project/environment, active rules, named synthetic document/object, and auth-context controls, so it may be retained only as a lead.
+    expected:
+      disposition: lead
+      finding_allowed: false
+      required_evidence_ids:
+        - firebase-firestore-ambiguous-observation
+        - firebase-firestore-ambiguous-context
+        - firebase-firestore-ambiguous-missing
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-blocked
+    kind: blocked
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-blocked-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: false
+        artifact:
+          scenario: blocked
+          observations:
+            - id: firebase-firestore-blocked-observation
+              content: Project provenance, deployed rules, evaluator identities, or named synthetic objects are missing.
+            - id: firebase-firestore-blocked-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-blocked-blocker
+              content: The missing prerequisite prevents safe evaluation within the authorized offline/evaluator boundary; no substitute access or broader action is permitted.
+    expected:
+      disposition: blocked
+      finding_allowed: false
+      required_evidence_ids:
+        - firebase-firestore-blocked-observation
+        - firebase-firestore-blocked-context
+        - firebase-firestore-blocked-blocker
+      forbidden_evidence_ids: []
+  - id: firebase-firestore-routing-positive
+    kind: routing_positive
+    input:
+      prompt: Assess firebase-firestore with the firebase-firestore methodology and retain deterministic proof.
+    expected:
+      primary_skill: firebase-firestore
+      top_n: 3
+  - id: firebase-firestore-routing-negative
+    kind: routing_negative
+    input:
+      prompt: Render the public health-check page and summarize its static uptime text.
+    expected:
+      absent_skill: firebase-firestore
+      top_n: 5
+  - id: firebase-firestore-mutation
+    kind: mutation
+    input:
+      execution:
+        task: classify-evidence
+        artifact_type: firebase-firestore-mutation-evidence-packet
+        authorization:
+          policy_allowed: true
+          infrastructure_available: true
+        artifact:
+          scenario: mutation
+          observations:
+            - id: firebase-firestore-mutation-observation
+              content: Only auth context changed from evaluator owner to evaluator peer; the same named private document remained readable.
+            - id: firebase-firestore-mutation-context
+              content: The artifact retained the exact bounded evaluator context for review. The decision floor is project/environment, active rules, named synthetic document/object, and auth-context controls.
+            - id: firebase-firestore-mutation-control
+              content: The matched evaluator baseline and negative control did not produce the candidate outcome; target, identity, synthetic data, and request budget were held constant.
+    expected:
+      disposition: proof
+      finding_allowed: true
+      required_evidence_ids:
+        - firebase-firestore-mutation-observation
+        - firebase-firestore-mutation-context
+        - firebase-firestore-mutation-control
+      forbidden_evidence_ids: []

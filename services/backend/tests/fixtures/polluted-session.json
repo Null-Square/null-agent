@@ -1,0 +1,98 @@
+{
+  "id": "session-polluted-fixture",
+  "version": 5,
+  "userId": "user-test",
+  "messages": [
+    {
+      "id": "msg-1",
+      "role": "user",
+      "content": "Scan the target domain example.com",
+      "timestamp": 1734400000000
+    },
+    {
+      "id": "msg-2",
+      "role": "assistant",
+      "content": "I'll scan the domain for you. Let me start with a DNS lookup.",
+      "tool_calls": [
+        {
+          "id": "tc-1",
+          "type": "function",
+          "function": {
+            "name": "run_command",
+            "arguments": "{\"command\": \"dig example.com\"}"
+          }
+        }
+      ],
+      "timestamp": 1734400001000
+    },
+    {
+      "id": "msg-3",
+      "role": "tool",
+      "content": "{\"ok\": true, \"output\": \"example.com. 3600 IN A 93.184.216.34\"}",
+      "toolCallId": "tc-1",
+      "timestamp": 1734400002000
+    },
+    {
+      "id": "msg-4",
+      "role": "assistant",
+      "content": "Aborted by operator.",
+      "timestamp": 1734400003000
+    },
+    {
+      "id": "msg-5",
+      "role": "assistant",
+      "content": "",
+      "timestamp": 1734400004000
+    },
+    {
+      "id": "msg-6",
+      "role": "assistant",
+      "content": "Continue automated run: 3 pending plan steps remaining. Please complete all steps and generate report.md.",
+      "timestamp": 1734400005000
+    },
+    {
+      "id": "msg-7",
+      "role": "user",
+      "content": "continue",
+      "timestamp": 1734400006000
+    },
+    {
+      "id": "msg-8",
+      "role": "assistant",
+      "content": "I notice I'm performing the same action repeatedly. Could you please guide me in a different direction or clarify the next steps?",
+      "timestamp": 1734400007000
+    },
+    {
+      "id": "msg-9",
+      "role": "assistant",
+      "content": "Continue automated run: 3 pending plan steps remaining.",
+      "timestamp": 1734400008000
+    },
+    {
+      "id": "msg-10",
+      "role": "user",
+      "content": "continue",
+      "timestamp": 1734400009000
+    },
+    {
+      "id": "msg-11",
+      "role": "assistant",
+      "content": "I notice I'm performing the same action repeatedly. Could you please guide me in a different direction or clarify the next steps?",
+      "timestamp": 1734400010000
+    }
+  ],
+  "plan": [
+    {"id": "step-1", "title": "DNS Lookup", "status": "completed"},
+    {"id": "step-2", "title": "Port Scan", "status": "pending"},
+    {"id": "step-3", "title": "Generate Report", "status": "pending"}
+  ],
+  "memory": {},
+  "flags": {},
+  "workspaceDir": "/workspace",
+  "isProcessing": false,
+  "createdAt": 1734400000000,
+  "lastActive": 1734400010000,
+  "turn": 5,
+  "checkpoints": {},
+  "mode": "automated"
+}

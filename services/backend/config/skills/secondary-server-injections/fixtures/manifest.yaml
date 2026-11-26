@@ -1,0 +1,4 @@
+schema_version: 1
+skill: secondary-server-injections
+files:
+  - cases.yaml
